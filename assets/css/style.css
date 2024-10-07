@@ -9,10 +9,19 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
 :root {
   scroll-behavior: smooth;
-  --theme-color: #198754;
+  --theme-color: #20614c;
+  --li-text-color: #010101;
+  --li-text-color-hover: #3c8b2e;
 }
+/* Main color pallete BASED: SEAGREEN*/
+/* #2e8b57
+#20614c
+#2e5a8b
+#3c8b2e
+#2a6120 */
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -48,8 +57,30 @@ h6 {
   transition: all 0.3s;
 }
 
-.login-bg{
-  background-color: var(--theme-color);
+.login-bg {
+  background: url("../../assets/img/bg-login.png");
+}
+
+section .card {
+  background-color: transparent;
+}
+
+.auth-card form div #password:hover {
+  background-color: #d3d4d6;
+}
+
+.auth-card {
+  background: rgba(231, 217, 217, 0.48);
+  filter: blur(0px);
+  border-style: none;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 20.6px;
+}
+
+.main-table {
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 @media (max-width: 1199px) {
@@ -466,7 +497,7 @@ h6 {
   list-style: none;
 }
 
-.header-nav>ul {
+.header-nav > ul {
   margin: 0;
   padding: 0;
 }
@@ -635,7 +666,6 @@ h6 {
 }
 
 @media (min-width: 1200px) {
-
   #main,
   #footer {
     margin-left: 300px;
@@ -649,7 +679,6 @@ h6 {
 }
 
 @media (min-width: 1200px) {
-
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
     margin-left: 0;
@@ -676,8 +705,6 @@ h6 {
   margin-bottom: 5px;
 }
 
-
-
 .sidebar-nav .nav-heading {
   font-size: 11px;
   text-transform: uppercase;
@@ -691,35 +718,41 @@ h6 {
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: var(--theme-color);
+  color: var(--li-text-color);
   transition: 0.3;
   background: #f6f9ff;
   padding: 10px 15px;
   border-radius: 4px;
+  transition: 0.1s ease-in-out;
+}
+
+.sidebar-nav .nav-link:hover,
+.sidebar-nav .nav-item ul a:hover {
+  border-left: 5px solid var(--li-text-color-hover);
 }
 
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  color: var(--theme-color);
+  color: var(--li-text-color);
 }
 
 .sidebar-nav .nav-link.collapsed {
-  color: #012970;
+  color: var(--li-text-color);
   background: #fff;
 }
 
 .sidebar-nav .nav-link.collapsed i {
-  color: #899bbd;
+  color: var(--li-text-color);
 }
 
 .sidebar-nav .nav-link:hover {
-  color: black;
+  color: var(--li-text-color-hover);
   background: #f6f9ff;
 }
 
 .sidebar-nav .nav-link:hover i {
-  color: black;
+  color: var(--li-text-color-hover);
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
@@ -746,7 +779,7 @@ h6 {
   align-items: center;
   font-size: 14px;
   font-weight: 600;
-  color: #012970;
+  color: var(--li-text-color);
   transition: 0.3;
   padding: 10px 0 10px 40px;
   transition: 0.3s;
@@ -761,7 +794,7 @@ h6 {
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-  color: #4154f1;
+  color: var(--li-text-color-hover);
 }
 
 .sidebar-nav .nav-content a.active i {
@@ -894,7 +927,7 @@ h6 {
 }
 
 /* News & Updates */
-.dashboard .news .post-item+.post-item {
+.dashboard .news .post-item + .post-item {
   margin-top: 15px;
 }
 
@@ -1160,7 +1193,7 @@ h6 {
   padding: 12px 15px;
 }
 
-.contact .php-email-form button[type=submit] {
+.contact .php-email-form button[type="submit"] {
   background: #4154f1;
   border: 0;
   padding: 10px 30px;
@@ -1169,7 +1202,7 @@ h6 {
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact .php-email-form button[type="submit"]:hover {
   background: #5969f3;
 }
 
@@ -1246,8 +1279,101 @@ h6 {
 /*--------------------------------------------------------------
 # Addons
 --------------------------------------------------------------*/
-
-.bi-eye:hover, .bi-eye-slash:hover{
+/* Toggle show pass login page */
+.bi-eye:hover,
+.bi-eye-slash:hover {
   cursor: pointer;
   color: #198754;
 }
+
+.no-spin-button::-webkit-inner-spin-button,
+.no-spin-button::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.card form .red-star {
+  color: #b33a3a;
+}
+
+.card .card-body #example_wrapper .table-top,
+.card .card-body #example_wrapper .table-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 624px) {
+  .card .card-body #example_wrapper .table-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Farmer Registration */
+/* .farmer-registration .card-header{
+border-top-left-radius: 30px;
+border-top-right-radius: 30px;
+margin-bottom: 10px;
+} */
+
+.farmer-registration .card-header img {
+  max-height: 88px;
+  max-width: 120px;
+  background: var(--bs-white);
+  border-radius: 8px;
+}
+
+.farmer-registration .card-header h2 {
+  color: var(--bs-body-bg);
+  font-weight: bold;
+  font-family: Roboto, sans-serif;
+}
+
+.farmer-registration .card-header h6 {
+  font-style: italic;
+}
+
+@media screen and (max-width: 545px) {
+  .farmer-registration .card-header img {
+    display: none;
+  }
+}
+
+.farmer-registration .card-body .avatar-bg {
+  background: url(https://www.gravatar.com/avatar/1234566?size=200&d=mm) 50% 50% /
+    cover;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  margin-left: calc(50% - 100px);
+}
+
+/*--------------------------------------------------------------
+# Dashboard
+--------------------------------------------------------------*/
+
+.row .border-left-primary,
+.row .border-left-info,
+.row .border-left-warning,
+.row .border-left-success {
+  border-left: 0.25rem solid;
+}
+
+.row .border-left-success{
+  border-color: #198754;
+}
+
+.row .border-left-info{
+  border-color: #36b9cc;
+}
+
+.row .border-left-warning{
+  border-color: #f6c23e;
+}
+
+.row .border-left-primary{
+  border-color: #4e73df;
+}
+

@@ -1,10 +1,3 @@
-/**
-* Template Name: NiceAdmin
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Updated: Apr 20 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
 (function() {
   "use strict";
@@ -335,16 +328,34 @@
     on('click', '#iconPassword', togglePasswordVisibility);
   }
 
-
-  // Datatables buttons
-
+  // Datatables
   $(document).ready(function() {
-    $('#farmersTable').DataTable({
-        dom: 'Brtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
+//     $('#example').DataTable({
+//         dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+//         responsive: true,
+//         buttons: [
+//             'copy', 'csv', 'print', 'excel', 'pdf'
+//         ],
+//         colReorder: false,
+//         fixedHeader: false,
+//         rowReorder: false,
+// lengthMenu: [
+//     [10, 100, 1000, -1], // Values for entries
+//     [10, 100, 1000, "Show All"] // Labels for entries
+// ],
+// columnDefs: [
+//     {
+//         targets: 0,
+//         render: function(data, type, row) {
+//             if (type === 'display' || type === 'filter') {
+//                 return `<strong>${data}</strong>`;
+//             }
+//             return null;
+//         }
+//     }
+// ]
+//     });
 });
 
 })();
+

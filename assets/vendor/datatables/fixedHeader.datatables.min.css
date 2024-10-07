@@ -1,0 +1,12 @@
+table.fixedHeader-floating,
+table.fixedHeader-locked {
+  position: relative !important;
+  background-color: var(--dt-html-background);
+  background-color: var(--dt-html-background);
+  margin-top: 60px;
+}
+@media print {
+  table.fixedHeader-floating {
+    display: none;
+  }
+}
