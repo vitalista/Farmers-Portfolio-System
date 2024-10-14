@@ -149,8 +149,6 @@
                     </div>
                   </div>
 
-
-
                   <!-- Farm Profile Information -->
                   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="container farm-card">
@@ -158,7 +156,30 @@
                         <h5 class="card-title">Farm List</h5>
                         <a id="addFarmButton" class="btn btn-primary">Add Farm</a>
                       </div>
-
+                      <?php if(is_dir('../map')){?>
+                        <style>
+                          #map { height: 400px; width: 50%; margin: 0px 25%;}
+                          #mapTypeControl { margin: 10px; }
+                          #searchControl { margin: 10px; }
+                          #saveLocation { background-color: white; border: 2px solid #ccc; padding: 5px; cursor: pointer; }
+                          .map-control { background: white; padding: 10px; border-radius: 5px; margin: 10px; }
+                      </style>
+                      <div class="col-md-12">
+                        <div id="searchControl">
+                          <input id="searchBox" type="text" placeholder="Search for a location..." />
+                        </div>
+                        <div id="mapTypeControl">
+                          <label for="mapType">Select Map Type:</label>
+                          <select id="mapType">
+                            <option value="roadmap">Roadmap</option>
+                            <option value="satellite">Satellite</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="terrain">Terrain</option>
+                          </select>
+                        </div>
+                        <div id="map"></div>
+                      </div>
+                      <?php }?>
                       <div id="farmContainer" class="mt-3"></div>
                       <!-- Submit Button -->
                       <!-- Form to submit farms -->
@@ -194,7 +215,6 @@
   <?php include '../includes/footer.php' ?>
 
   <script>
-
     const prevButton = document.getElementById('prevButton');
     const nextButton = document.getElementById('nextButton');
     const tabs = document.querySelectorAll('.nav-link');
@@ -300,6 +320,7 @@
                     </select>
                     <div class="invalid-feedback">Please select.</div>
                 </div>
+
             </div>
 
                 <div class="form-group">
@@ -480,6 +501,115 @@
   // }
   ?>
 
+  </script>
+
+  <!-- Google Map Script -->
+  <script>
+    let map;
+    let marker;
+    let coords = {};
+    let searchBox;
+
+    async function initMap() {
+      // Initialize the map
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+          lat: 14.958642678369692,
+          lng: 120.88960343561189
+        },
+        zoom: 8,
+      });
+
+      // Create a search box
+      searchBox = new google.maps.places.SearchBox(document.getElementById('searchBox'));
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('searchBox'));
+
+      // Bias the SearchBox results towards current map's viewport
+      map.addListener('bounds_changed', () => {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      // Listen for the event when a user selects a prediction from the dropdown
+      searchBox.addListener('places_changed', () => {
+        const places = searchBox.getPlaces();
+
+        if (places.length === 0) {
+          return;
+        }
+
+        // Clear out the old markers
+        if (marker) {
+          marker.setMap(null);
+        }
+
+        // Get the first place
+        const place = places[0];
+        const location = place.geometry.location;
+
+        // Center the map on the selected place
+        map.setCenter(location);
+        map.setZoom(14); // Zoom in
+
+        // Create a new marker
+        marker = new google.maps.Marker({
+          position: location,
+          map: map,
+        });
+
+        // Store coordinates
+        coords = {
+          lat: location.lat(),
+          lng: location.lng()
+        };
+      });
+
+      // Click event on the map to place a marker
+      map.addListener('click', (event) => {
+        if (marker) marker.setMap(null);
+        marker = new google.maps.Marker({
+          position: event.latLng,
+          map: map,
+        });
+        coords = {
+          lat: event.latLng.lat(),
+          lng: event.latLng.lng()
+        };
+      });
+
+      // Create the Save Location button
+      const saveButton = document.createElement('button');
+      saveButton.innerHTML = 'Save Location';
+      saveButton.id = 'saveLocation';
+      saveButton.onclick = async () => {
+        try {
+          const response = await fetch('../backend/save_location.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(coords),
+          });
+
+          const data = await response.json();
+          alert(data.message);
+        } catch (error) {
+          console.error('Error:', error);
+          alert('There was an error saving the location.');
+        }
+      };
+
+      // Add the button to the map
+      map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(saveButton);
+
+      // Layer control
+      const mapTypeSelector = document.getElementById('mapType');
+      mapTypeSelector.addEventListener('change', function() {
+        const selectedType = mapTypeSelector.value;
+        map.setMapTypeId(selectedType);
+      });
+    }
+
+    window.onload = initMap;
   </script>
 
 

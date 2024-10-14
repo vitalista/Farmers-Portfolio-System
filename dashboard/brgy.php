@@ -8,7 +8,14 @@
 
    <main id="main" class="main">
       <div class="card container-fluid pb-5">
+         <div class="d-flex justify-content-between">
+         <div>
          <h3 class="card-header mb-4">Barangay Name</h3>
+         </div>
+         <div class="mt-3">
+         <a href="dashboard.php" class="btn btn-primary">Back</a>
+         </div>
+         </div>
          <div class="row">
             <!-- Gender Ratio Card -->
             <div class="col">
@@ -116,7 +123,7 @@
                            <thead>
                               <tr>
                                  <th>Name</th>
-                                 <th>Gender</th>
+                                 <th>Operation Type</th>
                                  <th>Farm Area</th>
                                  <th>Action</th>
                               </tr>
@@ -124,11 +131,16 @@
                            <tbody>
                               <tr>
                                  <td>Jude Kenjay</td>
-                                 <td>Male</td>
-                                 <td>2</td>
-                                 <td><button class="btn btn-primary bg-success">View Profile</button></td>
+                                 <td>LIVESTOCK</td>
+                                 <td>2ha</td>
+                                 <td><a href="../farmer/farmer-view.php" class="btn btn-primary bg-success">View Profile</a></td>
                               </tr>
-                              <!-- Additional rows can be added here -->
+                              <tr>
+                                 <td>Monkey Luffy</td>
+                                 <td>CROP</td>
+                                 <td>1.5ha</td>
+                                 <td><a href="../farmer/farmer-view.php" class="btn btn-primary bg-success">View Profile</a></td>
+                              </tr>
                            </tbody>
                         </table>
                      </div>
