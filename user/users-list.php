@@ -23,12 +23,25 @@
             <div class="card-body main-table">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Users list</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-                  Filter
-                </button>
+                <a href="user-add.php" class="btn btn-primary">
+                  Create
+                </a>
               </div>
-              <?php include 'filter.php'; ?>
-              <div id="loadingDiv" class="d-flex justify-content-center" style="display: none;">
+
+              <?php
+$tableName = "your_table_name";
+
+$sql = "SELECT * FROM $tableName LIMIT 10";
+$result = $conn->query($sql);
+
+?>
+<script>
+    function getTotalEntries() {
+        return <?= $result->num_rows ?>;
+    }
+</script>
+              
+              <div id="loadingDiv" class="d-flex justify-content-center d-none">
                 <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
@@ -39,66 +52,67 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th>FFRS</th>
+                    <th>Email</th>
                     <th>Last Name</th>
                     <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Gender</th>
-                    <th>Birthday</th>
-                    <th>Barangay</th>
-                    <th>Municipality</th>
-                    <?php for ($header = 1; $header <= 18; $header++): ?>
-                      <th>Header <?php echo $header; ?></th>
-                    <?php endfor; ?>
-                    <!-- <th>Action</th> -->
+                    <th>Role</th>
+                    <th>isLoggedIn</th>
+                    <th>isBanned</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <td>" . $row['id'] . "</td> -->
-                  <!-- <td>Registered</td>
-                <td>Registered</td> -->
                   <?php
-                  if ($result->num_rows > 0) {
-                    // Fetching each row and displaying data
-                    while ($row = $result->fetch_assoc()) {
-                      echo "<tr>
-                                  <td>" . $row['column1'] . "</td>
-                                  <td>" . $row['column3'] . "</td>
-                                  <td>" . $row['column4'] . "</td>
-                                  <td>" . $row['column5'] . "</td>
-                                  <td>" . $row['column7'] . "</td>
-                                  <td>" . $row['column8'] . "</td>
-                                  <td>" . $row['column9'] . "</td>
-                                  <td>" . $row['column10'] . "</td>
-                                  <td>" . $row['column11'] . "</td>
-                                  <td>" . $row['column12'] . "</td>
-                                  <td>" . $row['column13'] . "</td>
-                                  <td>" . $row['column14'] . "</td>
-                                  <td>" . $row['column15'] . "</td>
-                                  <td>" . $row['column16'] . "</td>
-                                  <td>" . $row['column17'] . "</td>
-                                  <td>" . $row['column18'] . "</td>
-                                  <td>" . $row['column19'] . "</td>
-                                  <td>" . $row['column20'] . "</td>
-                                  <td>" . $row['column21'] . "</td>
-                                  <td>" . $row['column22'] . "</td>
-                                  <td>" . $row['column23'] . "</td>
-                                  <td>" . $row['column24'] . "</td>
-                                  <td>" . $row['column25'] . "</td>
-                                  <td>" . $row['column26'] . "</td>
-                                  <td>" . $row['column27'] . "</td>
-                                  <td>" . $row['column28'] . "</td>
-                                </tr>";
-                    }
-                  } else {
-                    echo '<tr rowspan="9"></tr>';
-                  }
+                  // if ($result->num_rows > 0) {
+                  //   while ($row = $result->fetch_assoc()) {
+                  // ?>
+                      <tr>
+                        <td>sample@gmail.com</td>
+                        <td>Vitalista</td>
+                        <td>Aries</td>
+                        <td>Admin</td>
+                        <td><a class="btn btn-success">YES</a></td>
+                        <td><a class="btn btn-danger">NO</a></td>
+                        <td>
+                        <a href="user-add.php" class="btn btn-info">view</a>
+                        <a href="#" class="btn btn-danger">delete</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>sample@gmail.com</td>
+                        <td>Juan</td>
+                        <td>Delacruz</td>
+                        <td>Standard</td>
+                        <td><a class="btn btn-success">YES</a></td>
+                        <td><a class="btn btn-danger">NO</a></td>
+                        <td>
+                        <a href="user-add.php" class="btn btn-info">view</a>
+                        <a href="#" class="btn btn-danger">delete</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>sample@gmail.com</td>
+                        <td>Predo</td>
+                        <td>Calantipay</td>
+                        <td>Standard</td>
+                        <td><a class="btn btn-danger">NO</a></td>
+                        <td><a class="btn btn-warning">BANNED</a></td>
+                        <td>
+                        <a href="user-add.php" class="btn btn-info">view</a>
+                        <a href="#" class="btn btn-danger">delete</a>
+                        </td>
+                      </tr>
+                  <?php
+                  //   }
+                  // } else {
+                  //   echo '<tr rowspan="9"></tr>';
+                  // }
                   ?>
 
                 </tbody>
 
               </table>
-              
+
             </div>
           </div>
 
@@ -131,7 +145,7 @@
       const example = document.getElementById("example");
 
       // Show the loading div
-      loadingDiv.classList.remove("d-none");
+      // loadingDiv.classList.remove("d-none");
 
       // Hide it after 3 seconds
       setTimeout(() => {

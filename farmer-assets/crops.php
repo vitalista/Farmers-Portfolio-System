@@ -29,21 +29,21 @@
               </div>
 
               <?php
-            $tableName = "your_table_name";
+              $tableName = "your_table_name";
 
-            $sql = "SELECT * FROM $tableName LIMIT 200";
-            $result = $conn->query($sql);
+              $sql = "SELECT * FROM $tableName LIMIT 200";
+              $result = $conn->query($sql);
 
-        ?>
-        <script>
-            function getTotalEntries() {
-                return <?= $result->num_rows ?>;
-            }
-        </script>
-              
-              <?php include 'filter.php';?>
-              
-              <div id="loadingDiv" class="d-flex justify-content-center" style="display: none;">
+              ?>
+              <script>
+                function getTotalEntries() {
+                  return <?= $result->num_rows ?>;
+                }
+              </script>
+
+              <?php include 'crops/filter.php'; ?>
+
+              <div id="loadingDiv" class="d-flex justify-content-center d-none">
                 <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
@@ -55,53 +55,30 @@
                 <thead>
                   <tr>
                     <th>FFRS</th>
-                    <th>Last Name</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Gender</th>
-                    <th>Birthday</th>
-                    <th>Barangay</th>
-                    <th>Municipality</th>
-                    <?php for ($header = 1; $header <= 16; $header++): ?>
-                      <th>Header <?php echo $header; ?></th>
-                    <?php endfor; ?>
-                    <!-- <th>Action</th> -->
+                    <th>Crop Name</th>
+                    <th>Crop Area</th>
+                    <th>Farm Type</th>
+                    <th>Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <td>" . $row['id'] . "</td> -->
-                  <!-- <td>Registered</td>
-                <td>Registered</td> -->
+
                   <?php
                   if ($result->num_rows > 0) {
-                    // Fetching each row and displaying data
                     while ($row = $result->fetch_assoc()) {
-                      echo "<tr>
-                                  <td>" . $row['column1'] . "</td>
-                                  <td>" . $row['column3'] . "</td>
-                                  <td>" . $row['column4'] . "</td>
-                                  <td>" . $row['column5'] . "</td>
-                                  <td>" . $row['column7'] . "</td>
-                                  <td>" . $row['column8'] . "</td>
-                                  <td>" . $row['column9'] . "</td>
-                                  <td>" . $row['column10'] . "</td>
-                                  <td>" . $row['column11'] . "</td>
-                                  <td>" . $row['column12'] . "</td>
-                                  <td>" . $row['column13'] . "</td>
-                                  <td>" . $row['column14'] . "</td>
-                                  <td>" . $row['column15'] . "</td>
-                                  <td>" . $row['column16'] . "</td>
-                                  <td>" . $row['column17'] . "</td>
-                                  <td>" . $row['column18'] . "</td>
-                                  <td>" . $row['column19'] . "</td>
-                                  <td>" . $row['column20'] . "</td>
-                                  <td>" . $row['column21'] . "</td>
-                                  <td>" . $row['column22'] . "</td>
-                                  <td>" . $row['column23'] . "</td>
-                                  <td>" . $row['column24'] . "</td>
-                                  <td>" . $row['column25'] . "</td>
-                                  <td>" . $row['column26'] . "</td>
-                                </tr>";
+                  ?>
+                      <tr>
+                        <td><?=$row['column1']?></td>
+                        <td><?=$row['column20']?></td>
+                        <td><strong><?=$row['column23']?> Ha</strong></td>
+                        <td><?=$row['column24']?></td>
+                        <td>
+                        <a href="../farmer/farmer-view.php" class="btn btn-info">view</a>
+                        <a href="#" class="btn btn-danger">delete</a>
+                        </td>
+                      </tr>
+                  <?php
                     }
                   } else {
                     echo '<tr rowspan="9"></tr>';
@@ -143,7 +120,7 @@
       const example = document.getElementById("example");
 
       // Show the loading div
-      loadingDiv.classList.remove("d-none");
+      // loadingDiv.classList.remove("d-none");
 
       // Hide it after 3 seconds
       setTimeout(() => {

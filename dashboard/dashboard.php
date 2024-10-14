@@ -13,17 +13,20 @@
 
    <main id="main" class="main">
 
-   <?php includes('select-dashboard-content.php'); ?>
+      <?php includes('select-dashboard-content.php'); ?>
 
       <section class="section main-table p-3">
 
          <ul class="nav nav-tabs" id="myTab" role="tablist">
+         <?php if(is_dir('../map')){?>
             <li class="nav-item" role="presentation">
                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Main</button>
             </li>
+     
             <li class="nav-item" role="presentation">
                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Weather forecast</button>
             </li>
+         <?php }?>
          </ul>
 
          <div class="tab-content pt-2" id="myTabContent">
@@ -35,7 +38,8 @@
                      <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report</a>
                   </div>
                   <div class="row">
-                     <div class="col-md-6 col-xl-3 mb-4">
+                     <?php if(is_dir('../program')){?>
+                        <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
                            <div class="card-body">
                               <div class="row g-0 align-items-center">
@@ -48,6 +52,7 @@
                            </div>
                         </div>
                      </div>
+                     <?php }?>
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-success py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
                            <div class="card-body">
@@ -78,6 +83,8 @@
                            </div>
                         </div>
                      </div>
+                     <?php if(is_dir('../program')){?>
+
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
                            <div class="card-body">
@@ -90,88 +97,94 @@
                               </div>
                            </div>
                         </div>
+                        
+                        <?php }?>
+
                      </div>
                   </div>
+                  
                   <div class="row">
 
-                     <div class="col-lg-6">
-                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
-                           <div class="card-body">
-                              <h5 class="card-title">Palay prices</h5>
+                     <?php if (is_dir('../prices')) { ?>
+                        <div class="col-lg-6">
+                           <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
+                              <div class="card-body">
+                                 <h5 class="card-title">Palay prices</h5>
 
-                              <!-- Area Chart -->
-                              <div id="areaChart"></div>
+                                 <!-- Area Chart -->
+                                 <div id="areaChart"></div>
 
-                              <script>
-                                 document.addEventListener("DOMContentLoaded", () => {
-                                    const series = {
-                                       "monthDataSeries1": {
-                                          "prices": [
-                                             8107.85, 8128.0, 8122.9, 8165.5, 8340.7,
-                                             8423.7, 8423.5, 8514.3, 8481.85, 8487.7,
-                                             8506.9, 8626.2, 8668.95, 8602.3, 8607.55,
-                                             8512.9, 8496.25, 8600.65, 8881.1, 9340.85
-                                          ],
-                                          "dates": [
-                                             "13 Nov 2017", "14 Nov 2017", "15 Nov 2017", "16 Nov 2017",
-                                             "17 Nov 2017", "20 Nov 2017", "21 Nov 2017", "22 Nov 2017",
-                                             "23 Nov 2017", "24 Nov 2017", "27 Nov 2017", "28 Nov 2017",
-                                             "29 Nov 2017", "30 Nov 2017", "01 Dec 2017", "04 Dec 2017",
-                                             "05 Dec 2017", "06 Dec 2017", "07 Dec 2017", "08 Dec 2017"
-                                          ]
-                                       }
-                                    };
-
-                                    new ApexCharts(document.querySelector("#areaChart"), {
-                                       series: [{
-                                          name: "STOCK ABC",
-                                          data: series.monthDataSeries1.prices
-                                       }],
-                                       chart: {
-                                          type: 'area',
-                                          height: 350,
-                                          zoom: {
-                                             enabled: false
+                                 <script>
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                       const series = {
+                                          "monthDataSeries1": {
+                                             "prices": [
+                                                8107.85, 8128.0, 8122.9, 8165.5, 8340.7,
+                                                8423.7, 8423.5, 8514.3, 8481.85, 8487.7,
+                                                8506.9, 8626.2, 8668.95, 8602.3, 8607.55,
+                                                8512.9, 8496.25, 8600.65, 8881.1, 9340.85
+                                             ],
+                                             "dates": [
+                                                "13 Nov 2017", "14 Nov 2017", "15 Nov 2017", "16 Nov 2017",
+                                                "17 Nov 2017", "20 Nov 2017", "21 Nov 2017", "22 Nov 2017",
+                                                "23 Nov 2017", "24 Nov 2017", "27 Nov 2017", "28 Nov 2017",
+                                                "29 Nov 2017", "30 Nov 2017", "01 Dec 2017", "04 Dec 2017",
+                                                "05 Dec 2017", "06 Dec 2017", "07 Dec 2017", "08 Dec 2017"
+                                             ]
                                           }
-                                       },
-                                       dataLabels: {
-                                          enabled: true
-                                       },
-                                       stroke: {
-                                          curve: 'smooth'
-                                       },
-                                       subtitle: {
-                                          text: 'Price Movements',
-                                          align: 'left'
-                                       },
-                                       labels: series.monthDataSeries1.dates,
-                                       xaxis: {
-                                          type: 'datetime',
-                                          labels: {
-                                             formatter: function(value) {
-                                                return new Date(value).toLocaleDateString('en-GB', {
-                                                   day: '2-digit',
-                                                   month: 'short',
-                                                   year: 'numeric'
-                                                });
+                                       };
+
+                                       new ApexCharts(document.querySelector("#areaChart"), {
+                                          series: [{
+                                             name: "STOCK ABC",
+                                             data: series.monthDataSeries1.prices
+                                          }],
+                                          chart: {
+                                             type: 'area',
+                                             height: 350,
+                                             zoom: {
+                                                enabled: false
                                              }
+                                          },
+                                          dataLabels: {
+                                             enabled: true
+                                          },
+                                          stroke: {
+                                             curve: 'smooth'
+                                          },
+                                          subtitle: {
+                                             text: 'Price Movements',
+                                             align: 'left'
+                                          },
+                                          labels: series.monthDataSeries1.dates,
+                                          xaxis: {
+                                             type: 'datetime',
+                                             labels: {
+                                                formatter: function(value) {
+                                                   return new Date(value).toLocaleDateString('en-GB', {
+                                                      day: '2-digit',
+                                                      month: 'short',
+                                                      year: 'numeric'
+                                                   });
+                                                }
+                                             }
+                                          },
+                                          yaxis: {
+                                             opposite: true
+                                          },
+                                          legend: {
+                                             horizontalAlign: 'left'
                                           }
-                                       },
-                                       yaxis: {
-                                          opposite: true
-                                       },
-                                       legend: {
-                                          horizontalAlign: 'left'
-                                       }
-                                    }).render();
-                                 });
-                              </script>
+                                       }).render();
+                                    });
+                                 </script>
 
-                              <!-- End Area Chart -->
+                                 <!-- End Area Chart -->
 
+                              </div>
                            </div>
                         </div>
-                     </div>
+                     <?php } ?>
 
                      <div class="col-lg-6">
                         <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
@@ -208,13 +221,41 @@
                         </div>
                      </div>
 
+                     <div class="col-lg-6">
+                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
+                           <div class="card-body">
+                              <h5 class="card-title">Livestock and Crop Percentage</h5>
+
+                              <div id="pieChart">
+                              </div>
+
+                              <script>
+                                 document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#pieChart"), {
+                                       series: [44, 55, 13, 43, 22],
+                                       chart: {
+                                          height: 350,
+                                          type: 'pie',
+                                          toolbar: {
+                                             show: true
+                                          }
+                                       },
+                                       labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
+                                    }).render();
+                                 });
+                              </script>
+                              <!-- End Pie Chart -->
+                           </div>
+                        </div>
+                     </div>
+
                   </div>
                </div>
 
             </div>
 
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-               <div id="data-container"></div>
+               <div id="data-container" class="row"></div>
             </div>
 
          </div>
@@ -259,6 +300,8 @@
 
                data.list.forEach(item => {
                   const div = document.createElement('div');
+                  div.className ="col-md-5 mx-4 my-2";
+                  div.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
                   const date = item.dt_txt;
                   const temp = item.main.temp;
                   const description = item.weather[0].description;
@@ -274,19 +317,19 @@
                   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
                   div.innerHTML = `<h2>${date}</h2>
-            <p>Temperature: ${temp}°C
-            </p><p>${description}</p>
-            <img src="${iconUrl}" alt="${description}"/>
-            <h5>Wind</h5>
-            <div style="display: flex; justify-content: space-between;">
-               <div>Speed: ${speed}</div>
-               <div>Direction: ${deg}</div>
-               <div>Gust: ${gust}</div>
-            </div>
-            <p>Number of clouds: ${clouds}</p>
-            `;
-                  container.appendChild(div);
-               });
+               <p>Temperature: ${temp}°C
+               </p><p>${description}</p>
+               <img src="${iconUrl}" alt="${description}"/>
+               <h5>Wind</h5>
+               <div style="display: flex; justify-content: space-between;">
+                  <div>Speed: ${speed}</div>
+                  <div>Direction: ${deg}</div>
+                  <div>Gust: ${gust}</div>
+               </div>
+               <p>Number of clouds: ${clouds}</p>
+               `;
+                     container.appendChild(div);
+                  });
 
 
 
@@ -297,7 +340,9 @@
             }
          }
 
-         fetchData();
+         document.getElementById('profile-tab').addEventListener('click', function() {
+            fetchData();
+        });
       </script>
 
 </body>

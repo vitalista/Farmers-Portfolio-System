@@ -1,15 +1,4 @@
-<?php
-$tableName = "your_table_name";
 
-$sql = "SELECT * FROM $tableName LIMIT 10";
-$result = $conn->query($sql);
-
-?>
-<script>
-    function getTotalEntries() {
-        return <?= $result->num_rows ?>;
-    }
-</script>
 
 <div class="modal fade" id="ExtralargeModal" tabindex="-1">
     <div class="modal-dialog modal-xl">
@@ -92,7 +81,7 @@ $result = $conn->query($sql);
                                 <option value="municipality">Municipality</option>
                                 <option value="province">Province</option>
                             </select>
-                            <input type="text" id="cropArea" class="form-control" placeholder="Enter">
+                            <input type="number" id="cropArea" class="form-control" placeholder="Enter">
                         </div>
                     </div>
 
@@ -165,19 +154,6 @@ $result = $conn->query($sql);
                             <input class="form-check-input" style="width: 20px; height: 20px;" type="checkbox" id="activeYes" value="yes">
                             <label class="form-check-label" for="activeYes">Yes</label>
                         </div>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Deceased?</label>
-                        <div class="form-check">
-                            <input class="form-check-input" style="width: 20px; height: 20px;" type="checkbox" id="activeYes" value="yes">
-                            <label class="form-check-label" for="activeYes">Yes</label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="cropname" class="form-label">No. of <strong>(Entries)</strong></label>
-                        <input type="text" id="cropname" class="form-control" placeholder="By default 10">
                     </div>
 
                 </form>

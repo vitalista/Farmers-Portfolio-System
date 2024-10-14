@@ -3,7 +3,7 @@
 
 <?php include '../includes/head.php' ?>
 <style>
-        #map { height: 500px; }
+        #map { height: 75vh; }
 </style>
 <body class="login-bg">
 

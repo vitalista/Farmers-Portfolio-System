@@ -4,7 +4,7 @@ function includes($file_path){
         return include $file_path;
     }
 
-    return 'This is a file.';
+    return '';
 }
 ?>
 <script>

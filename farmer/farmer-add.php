@@ -38,7 +38,7 @@
 
                         <h6 class="mt-5">Registration Code<span class="red-star">*</span></h6>
 
-                        <div class="col-md-6">
+                        <div class="d-none col-md-6">
                           <div class="form-floating">
                             <input type="text" class="form-control" id="lgu" placeholder="" required>
                             <label for="lgu">LGU REFERENCE CODE</label>

@@ -22,13 +22,25 @@
           <div class="card">
             <div class="card-body main-table">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-header">Resources list</h5>
+                <h5 class="card-header">Distribution list</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                   Filter
                 </button>
               </div>
+              <?php
+$tableName = "your_table_name";
+
+$sql = "SELECT * FROM $tableName LIMIT 10";
+$result = $conn->query($sql);
+
+?>
+<script>
+    function getTotalEntries() {
+        return <?= $result->num_rows ?>;
+    }
+</script>
               <?php include 'filter.php'; ?>
-              <div id="loadingDiv" class="d-flex justify-content-center" style="display: none;">
+              <div id="loadingDiv" class="d-flex justify-content-center d-none" style="display: none;">
                 <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
@@ -131,7 +143,7 @@
       const example = document.getElementById("example");
 
       // Show the loading div
-      loadingDiv.classList.remove("d-none");
+      //loadingDiv.classList.remove("d-none");
 
       // Hide it after 3 seconds
       setTimeout(() => {

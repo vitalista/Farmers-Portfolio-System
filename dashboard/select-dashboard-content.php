@@ -11,7 +11,7 @@
 <div class="col-md-2 mb-3">
     <div class="input-group">
         <select id="brgy-pages" class="form-select">
-            <option selected>Baliwag</option>
+            <option selected>Main</option>
             <option value="Bagong Nayon">Bagong Nayon</option>
             <option value="Barangca">Barangca</option>
             <option value="Calantipay">Calantipay</option>
@@ -55,17 +55,11 @@
         $('#goButton').on('click', function() {
             const selectedValue = $('#brgy-pages').val();
             switch (selectedValue) {
-                case "Pagala":
-                    window.location.href = "brgy.php";
-                    break;
-                case "Calantipay":
-                    window.location.href = "brgy copy.php";
-                    break;
-                case "Baliwag":
+                case "Main":
                     window.location.href = "dashboard.php";
                     break;
                 default:
-                    alert('Invalid request');
+                    window.location.href = "brgy.php";
                     break;
             }
         });
