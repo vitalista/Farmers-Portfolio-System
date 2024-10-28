@@ -74,7 +74,7 @@ $result = $conn->query($sql);
                         <td><a class="btn btn-success">YES</a></td>
                         <td><a class="btn btn-danger">NO</a></td>
                         <td>
-                        <a href="user-add.php" class="btn btn-info">view</a>
+                        <a href="user-edit.php" class="btn btn-info">view</a>
                         <a href="#" class="btn btn-danger">delete</a>
                         </td>
                       </tr>
@@ -86,7 +86,7 @@ $result = $conn->query($sql);
                         <td><a class="btn btn-success">YES</a></td>
                         <td><a class="btn btn-danger">NO</a></td>
                         <td>
-                        <a href="user-add.php" class="btn btn-info">view</a>
+                        <a href="user-edit.php" class="btn btn-info">view</a>
                         <a href="#" class="btn btn-danger">delete</a>
                         </td>
                       </tr>
@@ -98,7 +98,7 @@ $result = $conn->query($sql);
                         <td><a class="btn btn-danger">NO</a></td>
                         <td><a class="btn btn-warning">BANNED</a></td>
                         <td>
-                        <a href="user-add.php" class="btn btn-info">view</a>
+                        <a href="user-edit.php" class="btn btn-info">view</a>
                         <a href="#" class="btn btn-danger">delete</a>
                         </td>
                       </tr>

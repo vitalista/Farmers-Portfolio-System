@@ -5,6 +5,8 @@
 <body class="login-bg">
    <?php include '../includes/header.php'; ?>
    <?php include '../includes/sidebar.php'; ?>
+   <?php require '../backend/database.php' ?>
+   
 
    <main id="main" class="main">
       <div class="card container-fluid pb-5">
@@ -92,12 +94,12 @@
 
                   <div class="row">
 
-                     <div class="col-lg-6">
+                     <!-- <div class="col-lg-6">
                         <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
                            <div class="card-body">
                               <h5 class="card-title">Farmers population</h5>
 
-                              <!-- Polar Area Chart -->
+                    
                               <div id="polarAreaChart"></div>
 
                               <script>
@@ -121,11 +123,11 @@
                                     }).render();
                                  });
                               </script>
-                              <!-- End Polar Area Chart -->
+                   
 
                            </div>
                         </div>
-                     </div>
+                     </div> -->
 
                      <div class="col-lg-6">
                         <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
@@ -146,7 +148,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
+                                       labels: ['Rice/Palay', 'Mango', 'Kangkong', 'Papaya', 'Okra']
                                     }).render();
                                  });
                               </script>
@@ -174,7 +176,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                                       labels: ['Pigs', 'Turkeys', 'Horses', 'Goats', 'Chickens'],
                                     }).render();
                                  });
                               </script>
@@ -208,7 +210,11 @@
                               <div>Total: 0</div>
                            </div>
                         </div>
-                        <div class="card mx-3 my-2">
+
+                     </div>
+
+                     <div class="col-lg-6">
+                     <div class="card mx-3 my-2">
                            <div class="card-header text-center">
                               <h3 class="text-bold" style="color: #026a44;">Crop and Livestock</h3>
                            </div>
@@ -277,7 +283,7 @@
          </div>
 
          <div class="row">
-            <div class="col">
+            <!-- <div class="col">
                <div class="card mx-3 my-2" data-aos="zoom-in-left">
                   <div class="card-header">
                      <h4 style="color: #026a44;">Farmers List</h4>
@@ -311,7 +317,119 @@
                      </div>
                   </div>
                </div>
+            </div> -->
+
+            <?php
+            $tableName = "your_table_name";
+
+            $sql = "SELECT * FROM $tableName LIMIT 10";
+            $result = $conn->query($sql);
+
+            ?>
+            <script>
+               function getTotalEntries() {
+                  return <?= $result->num_rows ?>;
+               }
+            </script>
+
+            <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body main-table pb-4">
+           <h5 class="card-header">Farm list</h5>
+              <!-- <a href="#" class="btn -btn-success">Completed</a> -->
+
+              <table id="example" class="display nowrap d-none">
+                <thead>
+                  <tr>
+                    <th>Registration</th>
+                    <th>FFRS</th>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Barangay</th>
+                    <th>Gender</th>
+                    <th>Action</th>
+                    <th>Birthday</th>
+                    <th>Municipality</th>
+                    <!-- <?php for ($header = 1; $header <= 18; $header++): ?>
+                      <th>Header <?php echo $header; ?></th>
+                    <?php endfor; ?> -->
+
+                  </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                  <td>
+                    BUTTONXYZ
+                  </td>
+                  <td><strong>None</strong></td>
+                  <td>Aries</td>
+                  <td>Vitalista</td>
+                  <td>Gonzales</td>
+                  <td>Pagala</td>
+                  <td>M</td>
+                  <td>
+                  <a href="../farmer/farmer-view.php" class="btn btn-success">View profile</a>
+                        </td>
+
+                  <td>09/23/02</td>
+                  <td>Bulacan</td>
+                </tr>
+
+                  <?php
+                  if ($result->num_rows > 0) {
+                    // Fetching each row and displaying data
+                    while ($row = $result->fetch_assoc()) {
+                  ?>
+                      <tr>
+                        <td></td>
+                        <td><strong><?= $row['column1'] ?></strong></td>
+                        <td><?= $row['column3'] ?></td>
+                        <td><?= $row['column4'] ?></td>
+                        <td><?= $row['column5'] ?></td>
+                        <td><?= $row['column9'] ?></td>
+                        <td><?= $row['column7'] ?></td>
+                        <td>
+                        <a href="../farmer/farmer-view.php" class="btn btn-success">View profile</a>
+                        </td>
+
+                        <td><?= $row['column8'] ?></td>
+                        <td><?= $row['column10'] ?></td>
+                        <!-- <td><?= $row['column11'] ?></td>
+                        <td><?= $row['column12'] ?></td>
+                        <td><?= $row['column13'] ?></td>
+                        <td><?= $row['column14'] ?></td>
+                        <td><?= $row['column15'] ?></td>
+                        <td><?= $row['column16'] ?></td>
+                        <td><?= $row['column17'] ?></td>
+                        <td><?= $row['column18'] ?></td>
+                        <td><?= $row['column19'] ?></td>
+                        <td><?= $row['column20'] ?></td>
+                        <td><?= $row['column21'] ?></td>
+                        <td><?= $row['column22'] ?></td>
+                        <td><?= $row['column23'] ?></td>
+                        <td><?= $row['column24'] ?></td>
+                        <td><?= $row['column25'] ?></td>
+                        <td><?= $row['column26'] ?></td>
+                        <td><?= $row['column27'] ?></td>
+                        <td><?= $row['column28'] ?></td> -->
+                      </tr>
+                  <?php
+                    }
+                  } else {
+                    echo '<tr rowspan="9"></tr>';
+                  }
+                  ?>
+
+                </tbody>
+
+              </table>
+
             </div>
+          </div>
+
+        </div>
          </div>
       </div>
 
@@ -348,5 +466,65 @@
    </main>
 
    <?php include '../includes/footer.php'; ?>
+   <script>
+    let totalEntries = getTotalEntries();
+
+    // Calculate 25%, 50%, and 75% of the total entries
+    let twentyFivePercent = Math.ceil(totalEntries * 0.25);
+    let fiftyPercent = Math.ceil(totalEntries * 0.50);
+    let seventyFivePercent = Math.ceil(totalEntries * 0.75);
+
+    let lengthMenuValues = [10, twentyFivePercent, fiftyPercent, seventyFivePercent, -1];
+    let lengthMenuLabels = [10,
+      `${twentyFivePercent} (25%)`,
+      `${fiftyPercent} (50%)`,
+      `${seventyFivePercent} (75%)`,
+      "Show All"
+    ];
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const example = document.getElementById("example");
+
+      setTimeout(() => {
+        example.classList.remove("d-none");
+        $('#example').DataTable({
+
+          dom: 'ltp',
+          responsive: true,
+          buttons: [
+            // 'copy', 'csv', 'print', 'excel', 'pdf'
+          ],
+          colReorder: true,
+          fixedHeader: true,
+          rowReorder: false,
+          lengthMenu: [
+            lengthMenuValues, // Values for entries
+            lengthMenuLabels // Labels for entries
+          ],
+          columnDefs: [{
+            targets: 0,
+            render: function(data, type, row) {
+              if (type === 'display' || type === 'filter') {
+
+              if(data === "BUTTONXYZ"){
+                              // return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
+                              //             Unregistered
+                              //          </button>`;
+                              return `<b class="text-danger">UNREGISTERED</b>`
+              }
+               //  return `<button class="btn btn-success">Registered</button>`;
+                  return `<b>REGISTERED</b>`
+  //               return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
+  //   Unregistered
+  // </button>`;
+                // return `<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#disablebackdrop">${data}</button>`;
+              }
+              return null;
+            }
+          }]
+        });
+      }, 500);
+    });
+  </script>
 </body>
 </html>

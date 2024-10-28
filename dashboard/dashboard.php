@@ -274,7 +274,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
+                                       labels: ['Rice/Palay', 'Mango', 'Kangkong', 'Papaya', 'Okra']
                                     }).render();
                                  });
                               </script>
@@ -302,7 +302,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                                       labels: ['Pigs', 'Turkeys', 'Horses', 'Goats', 'Chickens'],
                                     }).render();
                                  });
                               </script>

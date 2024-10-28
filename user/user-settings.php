@@ -20,8 +20,12 @@
 
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-            <h5 class="card-header">Add user</h5>
+            <h5 class="card-header">Edits user</h5>
+            <div class="d-flex justify-content-end">
+           
+            <a href="#" class="btn btn-success  me-2">Edit</a>
             <a href="users-list.php" class="btn btn-primary">Back</a>
+            </div>
             </div>
 
             <!-- Default Tabs -->
@@ -72,44 +76,6 @@
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
                     </div>
-
-<<<<<<< Updated upstream
-=======
-                    <div class="row mt-4">
-                      <label class="col-sm-3 col-form-label"><strong>Restriction Options:</strong></label>
-                      <div class="col-sm-4 mt-2">
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                          <label class="form-check-label" for="flexSwitchCheckDefault">Can Create?</label>
-                        </div>
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Can Edit?</label>
-                        </div>
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked1">
-                          <label class="form-check-label" for="flexSwitchCheckChecked1">Can Delete?</label>
-                        </div>
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2">
-                          <label class="form-check-label" for="flexSwitchCheckDefault2">Can Export?</label>
-                        </div>
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1" checked>
-                          <label class="form-check-label" for="flexSwitchCheckDefault1">Banned?</label>
-                        </div>
-                      </div>
-                      <label class="col-sm-2 col-form-label"><strong>Authorization:</strong></label>
-                      <div class="col-sm-3">
-                      <div class="form-check form-switch mt-2">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1">
-                          <label class="form-check-label" for="flexSwitchCheckDefault1">Promote to admin?</label>
-                        </div>
-                      </div>
-                    </div>
-
-
->>>>>>> Stashed changes
     
                     </div>
 

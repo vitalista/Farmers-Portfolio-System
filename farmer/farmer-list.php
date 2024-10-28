@@ -43,9 +43,9 @@
                   <tr>
                     <th>Registration</th>
                     <th>FFRS</th>
-                    <th>Last Name</th>
                     <th>First Name</th>
                     <th>Middle Name</th>
+                    <th>Last Name</th>
                     <th>Barangay</th>
                     <th>Action</th>
                     <th>Gender</th>

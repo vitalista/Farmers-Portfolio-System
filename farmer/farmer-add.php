@@ -36,7 +36,9 @@
                     <div class="card">
                       <div class="card-body row g-3">
 
-                        <h6 class="mt-5">Registration Code<span class="red-star">*</span></h6>
+                        <h6 class="mt-5">Registration Code
+                        <!-- <span class="red-star">*</span> -->
+                        </h6>
 
                         <div class="d-none col-md-6">
                           <div class="form-floating">

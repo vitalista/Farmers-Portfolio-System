@@ -17,7 +17,10 @@
     <div class="container-fluid">
         <div class="d-sm-flex justify-content-between align-items-center mb-4">
             <h3 class="card-header">Farmer Profile</h3>
-            <a class="btn btn-primary" href="farmer-list.php">Back</a>
+            <a class="btn btn-primary" 
+            href="#"
+            onclick="window.history.back()"
+            >Back</a>
         </div>
     </div>
     <div class="container">
