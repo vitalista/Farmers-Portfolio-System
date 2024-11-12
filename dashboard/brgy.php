@@ -25,7 +25,7 @@
             
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-success py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
-                           <div class="card-body">
+                           <div class="card-body pb-0">
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-success fw-bold mb-1"><span>Number of Farmers</span></div>
@@ -33,11 +33,16 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer/farmer-list.php" class=" text-success">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                         </div>
                      </div>
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-info py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150">
-                           <div class="card-body">
+                           <div class="card-body pb-0">
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-info fw-bold mb-1"><span>Total farms</span></div>
@@ -49,6 +54,11 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer-assets/parcels.php" class=" text-info">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                         </div>
                      </div>
 
@@ -56,7 +66,7 @@
 
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150">
-                           <div class="card-body">
+                           <div class="card-body pb-0">
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-warning fw-bold mb-1"><span>Total Farm Size</span></div>
@@ -68,12 +78,17 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer-assets/parcels.php" class=" text-warning">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                         </div>
                      </div>
 
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150" style="border-color: red;">
-                           <div class="card-body">
+                           <div class="card-body pb-0">
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
@@ -85,6 +100,11 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer/farmer-list.php" class=" text-danger">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                         </div>
                      </div>
 
@@ -243,7 +263,7 @@
                               <div>Total: 0</div>
                            </div>
                         </div>
-                     </div>
+                  </div>
 
 
 
@@ -253,7 +273,7 @@
          <div class="row">
             <?php if(is_dir('../program')){?>
             <div class="col">
-               <div class="card mx-3 my-2" data-aos="zoom-in-left">
+               <div class="card mb-4 my-2" data-aos="zoom-in-left">
                   <div class="card-header d-flex justify-content-between">
                      <h4 style="color: #026a44;">Program History</h4>
                      <button class="btn btn-link text-decoration-underline" data-bs-toggle="modal" data-bs-target="#modal-1">View all</button>
@@ -333,7 +353,7 @@
             </script>
 
             <div class="col-lg-12">
-          <div class="card">
+          <div class="card" data-aos="zoom-in-left">
             <div class="card-body main-table pb-4">
            <h5 class="card-header">Farm list</h5>
               <!-- <a href="#" class="btn -btn-success">Completed</a> -->
@@ -513,7 +533,7 @@
                               return `<b class="text-danger">UNREGISTERED</b>`
               }
                //  return `<button class="btn btn-success">Registered</button>`;
-                  return `<b>REGISTERED</b>`
+                  return `<b  class="text-success">REGISTERED</b>`
   //               return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
   //   Unregistered
   // </button>`;

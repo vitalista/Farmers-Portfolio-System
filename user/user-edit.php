@@ -101,11 +101,15 @@
                           <label class="form-check-label" for="flexSwitchCheckDefault1">Banned?</label>
                         </div>
                       </div>
-                      <label class="col-sm-2 col-form-label"><strong>Authorization:</strong></label>
+
+                      <label class="col-sm-2 col-form-label"><strong>Authorization:
+                    </strong></label>
                       <div class="col-sm-3">
                       <div class="form-check form-switch mt-2">
                           <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1">
                           <label class="form-check-label" for="flexSwitchCheckDefault1">Promote to admin?</label>
+                      </div>
+                      </div>  
                         </div>
                       </div>
                     </div>

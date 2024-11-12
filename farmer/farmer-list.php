@@ -30,9 +30,12 @@
             <div class="card-body main-table">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Farmers list</h5>
+                <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-                  Filter
-                </button>
+                Filter
+              </button>
+                <a href="../farmer/farmer-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                </div>
               </div>
               <?php include 'filter.php'; ?>
 
@@ -47,8 +50,8 @@
                     <th>Middle Name</th>
                     <th>Last Name</th>
                     <th>Barangay</th>
-                    <th>Action</th>
                     <th>Gender</th>
+                    <th>Action</th>
                     <th>Birthday</th>
                     <th>Municipality</th>
                     <!-- <?php for ($header = 1; $header <= 18; $header++): ?>
@@ -59,23 +62,21 @@
                 </thead>
                 <tbody>
 
-                <tr>
-                  <td>
-                    BUTTON
-                  </td>
-                  <td>None</td>
-                  <td>Aries</td>
-                  <td>Vitalista</td>
-                  <td>Gonzales</td>
-                  <td>Pagala</td>
-                  <td>
-                        <a href="farmer-view.php" class="btn btn-info">view</a>
-                        <a href="#" class="btn btn-danger">delete</a>
-                        </td>
-                  <td>MALE</td>
-                  <td>09/23/02</td>
-                  <td>Bulacan</td>
-                </tr>
+                  <tr>
+                    <td>BUTTON</td>
+                    <td>None</td>
+                    <td>Aries</td>
+                    <td>Vitalista</td>
+                    <td>Gonzales</td>
+                    <td>Pagala</td>
+                    <td>F</td>
+                    <td>
+                      <a href="farmer-view.php" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    </td>
+                    <td>09/23/02</td>
+                    <td>Bulacan</td>
+                  </tr>
 
                   <?php
                   if ($result->num_rows > 0) {
@@ -89,11 +90,11 @@
                         <td><?= $row['column4'] ?></td>
                         <td><?= $row['column5'] ?></td>
                         <td><?= $row['column9'] ?></td>
-                        <td>
-                        <a href="farmer-view.php" class="btn btn-info">view</a>
-                        <a href="#" class="btn btn-danger">delete</a>
-                        </td>
                         <td><?= $row['column7'] ?></td>
+                        <td>
+                          <a href="farmer-view.php" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
+                          <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                        </td>
                         <td><?= $row['column8'] ?></td>
                         <td><?= $row['column10'] ?></td>
                         <!-- <td><?= $row['column11'] ?></td>
@@ -179,15 +180,14 @@
             render: function(data, type, row) {
               if (type === 'display' || type === 'filter') {
 
-              if(data === "BUTTON"){
-                              return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
-    Unregistered
+                if (data === "BUTTON") {
+                  return `<button type="button" class="btn btn-danger ms-4" data-bs-toggle="modal" data-bs-target="#basicModal"><i class="bi bi-exclamation-circle-fill"></i>
   </button>`;
-              }
-                return `<button class="btn btn-success">Registered</button>`;
-  //               return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
-  //   Unregistered
-  // </button>`;
+                }
+                return `<button class="btn btn-success ms-4"><i class="bi bi-check-circle-fill"></i></button>`;
+                //               return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
+                //   Unregistered
+                // </button>`;
                 // return `<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#disablebackdrop">${data}</button>`;
               }
               return null;

@@ -1,6 +1,7 @@
 <aside id="sidebar" class="sidebar">
 
 <ul class="sidebar-nav" id="sidebar-nav">
+
 <?php includes('../dashboard/dashboard-sidebar.php') ?>
 
 <?php includes('../map/map-sidebar.php')?>

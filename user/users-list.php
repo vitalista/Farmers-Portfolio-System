@@ -75,7 +75,7 @@ $result = $conn->query($sql);
                         <td><a class="btn btn-danger">NO</a></td>
                         <td>
                         <a href="user-edit.php" class="btn btn-info">view</a>
-                        <a href="#" class="btn btn-danger">delete</a>
+                        <!-- <a href="#" class="btn btn-danger">delete</a>   -->
                         </td>
                       </tr>
                       <tr>
@@ -87,7 +87,7 @@ $result = $conn->query($sql);
                         <td><a class="btn btn-danger">NO</a></td>
                         <td>
                         <a href="user-edit.php" class="btn btn-info">view</a>
-                        <a href="#" class="btn btn-danger">delete</a>
+                        <!-- <a href="#" class="btn btn-danger">delete</a> -->
                         </td>
                       </tr>
                       <tr>
@@ -99,7 +99,7 @@ $result = $conn->query($sql);
                         <td><a class="btn btn-warning">BANNED</a></td>
                         <td>
                         <a href="user-edit.php" class="btn btn-info">view</a>
-                        <a href="#" class="btn btn-danger">delete</a>
+                        <!-- <a href="#" class="btn btn-danger">delete</a> -->
                         </td>
                       </tr>
                   <?php
@@ -158,7 +158,7 @@ $result = $conn->query($sql);
           dom: 'B<"table-top"lf>t<"table-bottom"ip>',
           responsive: true,
           buttons: [
-            'copy', 'csv', 'print', 'excel', 'pdf'
+           //  'copy', 'csv', 'print', 'excel', 'pdf'
           ],
           colReorder: true,
           fixedHeader: true,

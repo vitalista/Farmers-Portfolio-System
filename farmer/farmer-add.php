@@ -17,7 +17,12 @@
         <div class="col-lg-12 main-table">
           <div class="card farmer-registration">
             <div class="card-body">
-              <h5 class="card-title">Add Farmer</h5>
+            <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title">Add Farmer</h5>
+            <div>
+            <a onclick="window.history.back()" class="btn btn-primary">Back</a>
+            </div>
+            </div>
 
               <!-- Default Tabs -->
               <form class="needs-validation" id="farmForm" novalidate>

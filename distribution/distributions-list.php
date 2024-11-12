@@ -22,13 +22,29 @@
           <div class="card">
             <div class="card-body main-table">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-header">Resources list</h5>
+                <h5 class="card-header">Distribution list</h5>
+                <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-                  Filter
+                Filter
                 </button>
+                <a href="distribution-multiple-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                </div>
+
               </div>
+              <?php
+              $tableName = "your_table_name";
+
+              $sql = "SELECT * FROM $tableName LIMIT 10";
+              $result = $conn->query($sql);
+
+              ?>
+              <script>
+                function getTotalEntries() {
+                  return <?= $result->num_rows ?>;
+                }
+              </script>
               <?php include 'filter.php'; ?>
-              <div id="loadingDiv" class="d-flex justify-content-center d-none">
+              <div id="loadingDiv" class="d-flex justify-content-center d-none" style="display: none;">
                 <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
@@ -39,132 +55,92 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th>Program Name</th>
-                    <th>Resources Type</th>
-                    <th>Total Quantity</th>
-                    <th>Quantity Available</th>
+                    <th>FFRS</th>
+                    <th>Farmer Name</th>
+                    <th>Program</th>
+                    <th>Resources</th>
+                    <th class="text-start">Quantity</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-
-                  <?php
-                  // if ($result->num_rows > 0) {
-                  //   while ($row = $result->fetch_assoc()) {
-                  ?>
-
-
                   <tr>
-                    <td>Sustainable Farming 101</td>
-                    <td>Seeds</td>
-                    <td>500</td>
-                    <td>450</td>
-                    <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
-                  </tr>
-                  <tr>
-                    <td>Organic Crop Development</td>
-                    <td>Fertilizers</td>
-                    <td>300</td>
-                    <td>250</td>
-                    <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
-                  </tr>
-                  <tr>
-                    <td>Water Conservation Project</td>
-                    <td>Drip Irrigation Kits</td>
-                    <td>150</td>
-                    <td>100</td>
-                    <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
-                  </tr>
-                  <tr>
-                    <td>Pest Management Training</td>
-                    <td>Pesticides</td>
-                    <td>200</td>
-                    <td>180</td>
-                    <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
-                  </tr>
-                  <tr>
-                    <td>Cash Assistance Program A</td>
+                    <td>03-14-03-003-ABCDE </td>
+                    <td>Pedro Delacruz</td>
+                    <td> Cash Assistance </td>
                     <td>Cash</td>
-                    <td>50,000 Php</td>
-                    <td>50,000 Php</td>
+                    <td  class="text-start">200</td>
                     <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+                    <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
                   </tr>
                   <tr>
-                    <td>Youth in Agriculture</td>
-                    <td>Mentorship Resources</td>
-                    <td>50</td>
-                    <td>50</td>
-                    <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
-                  </tr>
-                  <tr>
-                    <td>Cash Assistance Program B</td>
+                    <td>03-14-03-003-ABCDE </td>
+                    <td>Pedro Delacruz</td>
+                    <td> Cash Assistance </td>
                     <td>Cash</td>
-                    <td>30,000 Php</td>
-                    <td>30,000 Php</td>
+                    <td  class="text-start">200</td>
                     <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
+                      <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Farmer Cooperative Setup</td>
-                    <td>Cooperative Tools</td>
-                    <td>200</td>
-                    <td>180</td>
+                    <td>03-14-03-003-ABCDE </td>
+                    <td>Pedro Delacruz</td>
+                    <td> Cash Assistance </td>
+                    <td>Cash</td>
+                    <td  class="text-start">200</td>
                     <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
+                      <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Agroforestry Practices</td>
-                    <td>Trees</td>
-                    <td>1,000</td>
-                    <td>900</td>
+                    <td>03-14-03-003-ABCDE </td>
+                    <td>Pedro Delacruz</td>
+                    <td> Cash Assistance </td>
+                    <td>Cash</td>
+                    <td  class="text-start">200</td>
                     <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
+                      <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Climate Resilience Program</td>
-                    <td>Research Materials</td>
-                    <td>500</td>
-                    <td>400</td>
+                    <td>03-14-03-003-ABCDE </td>
+                    <td>Pedro Delacruz</td>
+                    <td> Cash Assistance </td>
+                    <td>Cash</td>
+                    <td  class="text-start">200</td>
                     <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
-           </td>
+                      <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    </td>
                   </tr>
-
-
-
-                  <?php
-
-                  //   }
-                  // } else {
-                  //   echo '<tr rowspan="9"></tr>';
-                  // }
-                  ?>
-
+                  <tr>
+                    <td>03-14-03-003-ABCDE </td>
+                    <td>Pedro Delacruz</td>
+                    <td> Cash Assistance </td>
+                    <td>Cash</td>
+                    <td  class="text-start">200</td>
+                    <td>
+                      <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>03-14-03-003-ABCDE </td>
+                    <td>Pedro Delacruz</td>
+                    <td> Cash Assistance </td>
+                    <td>Cash</td>
+                    <td  class="text-start">200</td>
+                    <td>
+                      <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    </td>
+                  </tr>
                 </tbody>
 
               </table>
@@ -201,7 +177,7 @@
       const example = document.getElementById("example");
 
       // Show the loading div
-      // loadingDiv.classList.remove("d-none");
+      //loadingDiv.classList.remove("d-none");
 
       // Hide it after 3 seconds
       setTimeout(() => {

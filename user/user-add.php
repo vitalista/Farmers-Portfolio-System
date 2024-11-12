@@ -73,8 +73,6 @@
                       </div>
                     </div>
 
-<<<<<<< Updated upstream
-=======
                     <div class="row mt-4">
                       <label class="col-sm-3 col-form-label"><strong>Restriction Options:</strong></label>
                       <div class="col-sm-4 mt-2">
@@ -109,7 +107,6 @@
                     </div>
 
 
->>>>>>> Stashed changes
     
                     </div>
 

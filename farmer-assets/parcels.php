@@ -23,9 +23,12 @@
             <div class="card-body main-table">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Parcels list</h5>
+                <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-                  Filter
-                </button>
+                Filter
+              </button>
+                <a href="../farmer/farmer-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                </div>
               </div>
 
               <?php
@@ -77,8 +80,8 @@
                         <td><?=$row['column16']?></td>
                         <td><strong><?=$row['column19']?> Ha</strong></td>
                         <td>
-                        <a href="../farmer/farmer-view.php" class="btn btn-info">view</a>
-                        <a href="#" class="btn btn-danger">delete</a>
+                        <a href="../farmer/farmer-view.php" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
+                        <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                         </td>
                       </tr>
                   <?php

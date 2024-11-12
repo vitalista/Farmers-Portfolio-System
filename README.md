@@ -3,9 +3,6 @@ Remaining Tasks:
 -Dashboard content (DONE)
 -Filter fields
 
-<<<<<<< Updated upstream
-If ERROR change || check database name
-=======
 If ERROR change || check database name
 [google](www.google.com)
 Notes for Backend:
@@ -13,4 +10,3 @@ Notes for Backend:
 -Edit log fetch id in url OR using js to get value then submit in current page
 -Counter for each parcels added at farmers-add.php
 -Empty array to hide dbuttons
->>>>>>> Stashed changes

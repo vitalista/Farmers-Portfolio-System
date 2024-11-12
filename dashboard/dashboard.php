@@ -40,8 +40,8 @@
                   <div class="row">
                      <?php if (is_dir('../program')) { ?>
                         <div class="col-md-6 col-xl-3 mb-4">
-                           <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
-                              <div class="card-body">
+                           <div class="card shadow border-left-primary py-2 d-flex justify-content-between" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
+                              <div class="card-body pb-0">
                                  <div class="row g-0 align-items-center">
                                     <div class="col me-2">
                                        <div class="text-uppercase text-primary fw-bold mb-1"><span>No. of programs</span></div>
@@ -49,12 +49,17 @@
                                     </div>
                                  </div>
                               </div>
+                              <div class="d-flex align-items-center justify-content-center"><a href="../program/programs-list.php" class=" text-primary">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                            </div>
+                          
                         </div>
                      <?php } ?>
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-success py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
-                           <div class="card-body">
+                           <div class="card-body pb-0">
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-success fw-bold mb-1"><span>Number of Farmers</span></div>
@@ -62,11 +67,16 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer/farmer-list.php" class=" text-success">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                         </div>
                      </div>
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-info py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150">
-                           <div class="card-body">
+                           <div class="card-body pb-0">
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-info fw-bold mb-1"><span>Total farms</span></div>
@@ -78,6 +88,11 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer-assets/parcels.php" class=" text-info">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                         </div>
                      </div>
 
@@ -85,7 +100,7 @@
 
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150">
-                           <div class="card-body">
+                           <div class="card-body pb-0">
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-warning fw-bold mb-1"><span>Total Farm Size</span></div>
@@ -97,44 +112,13 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer-assets/parcels.php" class=" text-warning">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                         </div>
                      </div>
-
-                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150" style="border-color: red;">
-                           <div class="card-body">
-                              <div class="row g-0 align-items-center">
-                                 <div class="col me-2">
-                                    <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
-                                    <div class="row g-0 align-items-center">
-                                       <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
-                     <?php if (is_dir('../program')) { ?>
-
-                        <div class="col-md-6 col-xl-3 mb-4">
-                           <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
-                              <div class="card-body">
-                                 <div class="row g-0 align-items-center">
-                                    <div class="col me-2">
-                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Porgrams</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-
-                        <?php } ?>
-
-                        </div>
-
                   </div>
 
                   <div class="row">
@@ -255,8 +239,50 @@
                         </div>
                      </div>
 
+                     
                      <div class="col-lg-6">
-                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
+                        <div class="card">
+                           <div class="card-body">
+                              <h5 class="card-title">Programs Chart</h5>
+
+                              <!-- Bar Chart -->
+                              <div id="barChart"></div>
+
+                              <script>
+                                 document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#barChart"), {
+                                       series: [{
+                                          name: 'No. of Farmers',
+                                          data: [400, 200, 100]
+                                       }],
+                                       chart: {
+                                          type: 'bar',
+                                          height: 329
+                                       },
+                                       plotOptions: {
+                                          bar: {
+                                             borderRadius: 4,
+                                             horizontal: true,
+                                          }
+                                       },
+                                       dataLabels: {
+                                          enabled: false
+                                       },
+                                       xaxis: {
+                                          categories: ['Cash Assistance', 'Pamigay Fertilizer', 'Seedling Distribution'],
+                                       }
+                                    }).render();
+                                 });
+                              </script>
+                              <!-- End Bar Chart -->
+
+                           </div>
+                        </div>
+                     </div>
+
+
+                     <div class="col-lg-6">
+                        <div class="card">
                            <div class="card-body">
                               <h5 class="card-title">Crop Chart</h5>
 
@@ -311,65 +337,161 @@
                      </div>
                      <!-- End Donut Chart -->
 
-                     <div class="col-lg-6">
-                     <div class="card mx-3 my-2">
-                        <div class="card-header text-center">
-                           <h3 class="text-bold" style="color: #026a44;">Gender Ratio</h3>
-                        </div>
-                        <div class="card-body text-center">
-                           <div class="d-flex justify-content-center align-items-center mb-2">
-                              <div class="d-flex align-items-center mx-3">
-                                 <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
-                                 <div class="ms-2">
-                                    <span class="fw-bold">Male</span>
-                                    <div>0</div>
-                                 </div>
-                              </div>
-                              <div class="d-flex align-items-center mx-3">
-                                 <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
-                                 <div class="ms-2">
-                                    <span class="fw-bold">Female</span>
-                                    <div>0</div>
+                     <div class="row">
+                  <div class="col-md-6 col-xl-3">
+                        <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150" style="border-color: red;">
+                           <div class="card-body pb-0">
+                              <div class="row g-0 align-items-center">
+                                 <div class="col me-2">
+                                    <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
+                                    <div class="row g-0 align-items-center">
+                                       <div class="col-auto">
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                       </div>
+                                    </div>
                                  </div>
                               </div>
                            </div>
-                           <div>Total: 0</div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../farmer/farmer-list.php" class=" text-danger">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
+                        </div>
+                     </div>
+
+                     <?php if (is_dir('../program')) { ?>
+
+                        <div class="col-md-6 col-xl-3">
+                           <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
+                              <div class="card-body pb-0">
+                                 <div class="row g-0 align-items-center">
+                                    <div class="col me-2">
+                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Porgrams</span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="d-flex align-items-center justify-content-center">
+                              <a href="../program/programs-list.php" class=" text-warning">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
+                           </div>
+
+                        <?php } ?>
+
+                        </div>
+
+                        <div class="col-md-6 col-xl-3">
+                        <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150" style="border-color: red;">
+                           <div class="card-body pb-0">
+                              <div class="row g-0 align-items-center">
+                                 <div class="col me-2">
+                                    <div class="text-uppercase text-danger fw-bold mb-1"><span>Expired Porgrams</span></div>
+                                    <div class="row g-0 align-items-center">
+                                       <div class="col-auto">
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="d-flex align-items-center justify-content-center">
+                           <a href="../program/programs-list.php" class=" text-danger">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
+                        </div>
+                     </div>
+
+                     <div class="col-md-6 col-xl-3">
+                           <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
+                              <div class="card-body pb-0">
+                                 <div class="row g-0 align-items-center">
+                                    <div class="col me-2">
+                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Limited Resources</span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="d-flex align-items-center justify-content-center">
+                              <a href="../program/resources-list.php" class=" text-warning">
+                              More info<i class="bi bi-arrow-right-short"></i>
+                              </a>
+                              </div>
                            </div>
                      </div>
-                     <div class="card mx-3 my-2">
-                  <div class="card-header text-center">
-                     <h3 class="text-bold" style="color: #026a44;">Crop and Livestock</h3>
+
                   </div>
-                  <div class="card-body text-center">
-                     <div class="d-flex justify-content-center align-items-center mb-2">
-                        <div class="d-flex align-items-center mx-3">
-                           <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
-                           <div class="ms-2">
-                          <!-- CROP -->
-                              <span class="fw-bold">Crop</span>
-                              <div>0</div>
+
+
+                     <div class="col-lg-6">
+                        <div class="card mx-3 my-2">
+                           <div class="card-header text-center">
+                              <h3 class="text-bold" style="color: #026a44;">Gender Ratio</h3>
+                           </div>
+                           <div class="card-body text-center">
+                              <div class="d-flex justify-content-center align-items-center mb-2">
+                                 <div class="d-flex align-items-center mx-3">
+                                    <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
+                                    <div class="ms-2">
+                                       <span class="fw-bold">Male</span>
+                                       <div>0</div>
+                                    </div>
+                                 </div>
+                                 <div class="d-flex align-items-center mx-3">
+                                    <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
+                                    <div class="ms-2">
+                                       <span class="fw-bold">Female</span>
+                                       <div>0</div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div>Total: 0</div>
                            </div>
                         </div>
-                        <div class="d-flex align-items-center mx-3">
-                          <!-- PIG -->
-                           <!-- <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="rgb(193,54,137)">
+
+                     </div>
+
+                     <div class="col-lg-6">
+                     <div class="card mx-3 my-2">
+                           <div class="card-header text-center">
+                              <h3 class="text-bold" style="color: #026a44;">Crop and Livestock</h3>
+                           </div>
+                           <div class="card-body text-center">
+                              <div class="d-flex justify-content-center align-items-center mb-2">
+                                 <div class="d-flex align-items-center mx-3">
+                                    <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
+                                    <div class="ms-2">
+                                       <!-- CROP -->
+                                       <span class="fw-bold">Crop</span>
+                                       <div>0</div>
+                                    </div>
+                                 </div>
+                                 <div class="d-flex align-items-center mx-3">
+                                    <!-- PIG -->
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="rgb(193,54,137)">
                               <path d="M15 11v.01"></path>
                               <path d="M16 3l0 3.803a6.019 6.019 0 0 1 2.658 3.197h1.341a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-1.342a6.008 6.008 0 0 1 -1.658 2.473v2.027a1.5 1.5 0 0 1 -3 0v-.583a6.04 6.04 0 0 1 -1 .083h-4a6.04 6.04 0 0 1 -1 -.083v.583a1.5 1.5 0 0 1 -3 0v-2l0 -.027a6 6 0 0 1 4 -10.473h2.5l4.5 -3z"></path>
                            </svg> -->
-                           <div class="ms-2">
-                              <span class="fw-bold">Livestock</span>
-                              <div>0</div>
+                                    <div class="ms-2">
+                                       <span class="fw-bold">Livestock</span>
+                                       <div>0</div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div>Total: 0</div>
                            </div>
                         </div>
-                     </div>
-                     <div>Total: 0</div>
                   </div>
-               </div>
-                     </div>
+
 
 
 
                   </div>
+
+
                </div>
 
             </div>

@@ -23,9 +23,12 @@
             <div class="card-body main-table">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Programs list</h5>
+                <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-                  Filter
-                </button>
+              Filter
+              </button>
+                <a href="program-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                </div>
               </div>
               <?php include 'filter.php'; ?>
               <div id="loadingDiv" class="d-flex justify-content-center d-none">
@@ -61,8 +64,8 @@
             <td>150</td>
             <td>AgriTech Institute</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -73,8 +76,8 @@
             <td>200</td>
             <td>Green Earth Fund</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -85,8 +88,8 @@
             <td>100</td>
             <td>Eco Water Solutions</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -97,8 +100,8 @@
             <td>120</td>
             <td>Crop Care Agency</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -109,8 +112,8 @@
             <td>300</td>
             <td>Relief Ag Network</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -121,8 +124,8 @@
             <td>50</td>
             <td>Future Farmers Org.</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -133,8 +136,8 @@
             <td>250</td>
             <td>Community Support Fund</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -145,8 +148,8 @@
             <td>300</td>
             <td>Community Ag Group</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -157,8 +160,8 @@
             <td>180</td>
             <td>Forest & Farm Initiative</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
         <tr>
@@ -169,8 +172,8 @@
             <td>90</td>
             <td>Climate Ag Agency</td>
             <td>
-            <a href="#" class="btn btn-info">view</a>
-          <a href="#" class="btn btn-danger">delete</a>
+            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
            </td>
         </tr>
 
