@@ -39,18 +39,10 @@
 
                     <div class="card-body row g-3">
 
-                      <div class="col-md-6 mt-5">
+                      <div class="col-md-12 mt-5">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="floatingFname" placeholder="" required>
-                          <label for="floatingFname">First Name</label>
-                          <div class="invalid-feedback">Please enter.</div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6 mt-5">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingMname" placeholder="" required>
-                          <label for="floatingMname">Last Name</label>
+                          <label for="floatingFname"><strong>Full Name </strong>(e.g., Juan Pedro Delacruz)</label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>

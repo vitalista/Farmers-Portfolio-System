@@ -53,8 +53,7 @@ $result = $conn->query($sql);
                 <thead>
                   <tr>
                     <th>Email</th>
-                    <th>Last Name</th>
-                    <th>First Name</th>
+                    <th>Full Name</th>
                     <th>Role</th>
                     <th>isLoggedIn</th>
                     <th>isBanned</th>
@@ -68,8 +67,7 @@ $result = $conn->query($sql);
                   // ?>
                       <tr>
                         <td>sample@gmail.com</td>
-                        <td>Vitalista</td>
-                        <td>Aries</td>
+                        <td>Aries Gonzales Vitalista</td>
                         <td>Admin</td>
                         <td><a class="btn btn-success">YES</a></td>
                         <td><a class="btn btn-danger">NO</a></td>
@@ -80,8 +78,7 @@ $result = $conn->query($sql);
                       </tr>
                       <tr>
                         <td>sample@gmail.com</td>
-                        <td>Juan</td>
-                        <td>Delacruz</td>
+                        <td>Juan Pedro Delacruz</td>
                         <td>Standard</td>
                         <td><a class="btn btn-success">YES</a></td>
                         <td><a class="btn btn-danger">NO</a></td>
@@ -92,8 +89,7 @@ $result = $conn->query($sql);
                       </tr>
                       <tr>
                         <td>sample@gmail.com</td>
-                        <td>Predo</td>
-                        <td>Calantipay</td>
+                        <td>Predo Santos Calintipay</td>
                         <td>Standard</td>
                         <td><a class="btn btn-danger">NO</a></td>
                         <td><a class="btn btn-warning">BANNED</a></td>

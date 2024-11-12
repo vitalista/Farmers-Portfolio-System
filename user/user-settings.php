@@ -43,18 +43,10 @@
 
                     <div class="card-body row g-3">
 
-                      <div class="col-md-6 mt-5">
+                      <div class="col-md-12 mt-5">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingFname" placeholder="" required>
-                          <label for="floatingFname">First Name</label>
-                          <div class="invalid-feedback">Please enter.</div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6 mt-5">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingMname" placeholder="" required>
-                          <label for="floatingMname">Last Name</label>
+                          <input type="text" class="form-control" id="floatingFname" placeholder="" value="Juan Pedro Delacruz" required>
+                          <label for="floatingFname"><strong>Full Name </strong>(e.g., Juan Pedro Delacruz)</label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
@@ -63,7 +55,7 @@
                       <label for="yourUsername" class="form-label text-center">Email</label>
                       <div class="input-group has-validation d-flex justify-content-center">
                         <span class="input-group-text" id="username">@</span>
-                        <input type="text" name="username" class="form-control p-3" id="yourUsername" required>
+                        <input type="text" name="username" class="form-control p-3" id="yourUsername" value="juan@gmail.com" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
@@ -72,7 +64,7 @@
                       <label for="yourPassword" class="form-label text-center">Password</label>
                       <div class="input-group has-validation d-flex justify-content-center">
                         <span class="input-group-text" id="password"><i class="bi bi-eye" id="iconPassword"></i></span>
-                        <input type="password" name="password" class="form-control p-3" id="yourPassword" required>
+                        <input type="password" name="password" class="form-control p-3" id="yourPassword" value="12345678" required>
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
                     </div>
