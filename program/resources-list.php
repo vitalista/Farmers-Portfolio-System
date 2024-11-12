@@ -24,10 +24,10 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Resources list</h5>
                 <div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-Filter
-              </button>
-                <a href="program-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
+                    Filter
+                  </button>
+                  <a href="program-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
                 </div>
               </div>
               <?php include 'filter.php'; ?>
@@ -63,9 +63,11 @@ Filter
                     <td>500</td>
                     <td>450</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Organic Crop Development</td>
@@ -73,9 +75,11 @@ Filter
                     <td>300</td>
                     <td>250</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Water Conservation Project</td>
@@ -83,9 +87,11 @@ Filter
                     <td>150</td>
                     <td>100</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-             <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Pest Management Training</td>
@@ -93,9 +99,11 @@ Filter
                     <td>200</td>
                     <td>180</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Cash Assistance Program A</td>
@@ -103,9 +111,11 @@ Filter
                     <td>50,000 Php</td>
                     <td>50,000 Php</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Youth in Agriculture</td>
@@ -113,9 +123,11 @@ Filter
                     <td>50</td>
                     <td>50</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Cash Assistance Program B</td>
@@ -123,9 +135,11 @@ Filter
                     <td>30,000 Php</td>
                     <td>30,000 Php</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Farmer Cooperative Setup</td>
@@ -133,9 +147,11 @@ Filter
                     <td>200</td>
                     <td>180</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Agroforestry Practices</td>
@@ -143,9 +159,11 @@ Filter
                     <td>1,000</td>
                     <td>900</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
                   <tr>
                     <td>Climate Resilience Program</td>
@@ -153,9 +171,11 @@ Filter
                     <td>500</td>
                     <td>400</td>
                     <td>
-                    <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
                   </tr>
 
 

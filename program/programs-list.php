@@ -24,10 +24,10 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Programs list</h5>
                 <div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-              Filter
-              </button>
-                <a href="program-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
+                    Filter
+                  </button>
+                  <a href="program-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
                 </div>
               </div>
               <?php include 'filter.php'; ?>
@@ -56,126 +56,146 @@
                   // if ($result->num_rows > 0) {
                   //   while ($row = $result->fetch_assoc()) {
                   ?>
-        <tr>
-            <td>Sustainable Farming 101</td>
-            <td>Training</td>
-            <td>2024-01-15</td>
-            <td>2024-03-15</td>
-            <td>150</td>
-            <td>AgriTech Institute</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Organic Crop Development</td>
-            <td>Grant</td>
-            <td>2024-02-01</td>
-            <td>2024-05-01</td>
-            <td>200</td>
-            <td>Green Earth Fund</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Water Conservation Project</td>
-            <td>Workshop</td>
-            <td>2024-03-10</td>
-            <td>2024-04-20</td>
-            <td>100</td>
-            <td>Eco Water Solutions</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Pest Management Training</td>
-            <td>Training</td>
-            <td>2024-01-20</td>
-            <td>2024-02-20</td>
-            <td>120</td>
-            <td>Crop Care Agency</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Cash Assistance Program A</td>
-            <td>Cash Assistance</td>
-            <td>2024-04-15</td>
-            <td>2024-06-15</td>
-            <td>300</td>
-            <td>Relief Ag Network</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Youth in Agriculture</td>
-            <td>Mentorship</td>
-            <td>2024-02-15</td>
-            <td>2024-06-15</td>
-            <td>50</td>
-            <td>Future Farmers Org.</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Cash Assistance Program B</td>
-            <td>Cash Assistance</td>
-            <td>2024-05-01</td>
-            <td>2024-08-01</td>
-            <td>250</td>
-            <td>Community Support Fund</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Farmer Cooperative Setup</td>
-            <td>Workshop</td>
-            <td>2024-06-01</td>
-            <td>2024-08-01</td>
-            <td>300</td>
-            <td>Community Ag Group</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Agroforestry Practices</td>
-            <td>Training</td>
-            <td>2024-05-15</td>
-            <td>2024-09-15</td>
-            <td>180</td>
-            <td>Forest & Farm Initiative</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
-        <tr>
-            <td>Climate Resilience Program</td>
-            <td>Research</td>
-            <td>2024-07-01</td>
-            <td>2024-10-01</td>
-            <td>90</td>
-            <td>Climate Ag Agency</td>
-            <td>
-            <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
-            <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-           </td>
-        </tr>
+                  <tr>
+                    <td>Sustainable Farming 101</td>
+                    <td>Training</td>
+                    <td>2024-01-15</td>
+                    <td>2024-03-15</td>
+                    <td>150</td>
+                    <td>AgriTech Institute</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Organic Crop Development</td>
+                    <td>Grant</td>
+                    <td>2024-02-01</td>
+                    <td>2024-05-01</td>
+                    <td>200</td>
+                    <td>Green Earth Fund</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Water Conservation Project</td>
+                    <td>Workshop</td>
+                    <td>2024-03-10</td>
+                    <td>2024-04-20</td>
+                    <td>100</td>
+                    <td>Eco Water Solutions</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Pest Management Training</td>
+                    <td>Training</td>
+                    <td>2024-01-20</td>
+                    <td>2024-02-20</td>
+                    <td>120</td>
+                    <td>Crop Care Agency</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Cash Assistance Program A</td>
+                    <td>Cash Assistance</td>
+                    <td>2024-04-15</td>
+                    <td>2024-06-15</td>
+                    <td>300</td>
+                    <td>Relief Ag Network</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Youth in Agriculture</td>
+                    <td>Mentorship</td>
+                    <td>2024-02-15</td>
+                    <td>2024-06-15</td>
+                    <td>50</td>
+                    <td>Future Farmers Org.</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Cash Assistance Program B</td>
+                    <td>Cash Assistance</td>
+                    <td>2024-05-01</td>
+                    <td>2024-08-01</td>
+                    <td>250</td>
+                    <td>Community Support Fund</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Farmer Cooperative Setup</td>
+                    <td>Workshop</td>
+                    <td>2024-06-01</td>
+                    <td>2024-08-01</td>
+                    <td>300</td>
+                    <td>Community Ag Group</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Agroforestry Practices</td>
+                    <td>Training</td>
+                    <td>2024-05-15</td>
+                    <td>2024-09-15</td>
+                    <td>180</td>
+                    <td>Forest & Farm Initiative</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Climate Resilience Program</td>
+                    <td>Research</td>
+                    <td>2024-07-01</td>
+                    <td>2024-10-01</td>
+                    <td>90</td>
+                    <td>Climate Ag Agency</td>
+                    <td>
+                      <a href="program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+
+                    </td>
+                  </tr>
 
                   <?php
                   //   }

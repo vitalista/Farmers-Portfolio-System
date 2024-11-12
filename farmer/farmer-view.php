@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="card table-responsive mb-3">
-                <h5 class="card-header ms-2">Received Resources</h5>
+                <h5 class="card-header ms-2">Resources</h5>
                 <div class="card-body">
                 <table class="table table-bordered table-striped">
                         <thead class="thead">

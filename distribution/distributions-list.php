@@ -73,6 +73,7 @@
                     <td>
                     <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                     <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
            </td>
                   </tr>
                   <tr>
@@ -84,6 +85,7 @@
                     <td>
                       <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -95,6 +97,7 @@
                     <td>
                       <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -106,6 +109,7 @@
                     <td>
                       <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -117,6 +121,7 @@
                     <td>
                       <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -128,6 +133,7 @@
                     <td>
                       <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -139,6 +145,7 @@
                     <td>
                       <a href="../program/program-view.php" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
                     </td>
                   </tr>
                 </tbody>

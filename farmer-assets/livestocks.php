@@ -76,6 +76,7 @@
                       <td>
                       <a href="../farmer/farmer-view.php" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                       <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                      <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
                       </tr>
                   <?php
