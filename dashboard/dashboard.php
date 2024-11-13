@@ -50,11 +50,11 @@
                                  </div>
                               </div>
                               <div class="d-flex align-items-center justify-content-center"><a href="../program/programs-list.php" class=" text-primary">
-                              More info<i class="bi bi-arrow-right-short"></i>
-                              </a>
+                                    More info<i class="bi bi-arrow-right-short"></i>
+                                 </a>
                               </div>
                            </div>
-                          
+
                         </div>
                      <?php } ?>
                      <div class="col-md-6 col-xl-3 mb-4">
@@ -68,10 +68,10 @@
                               </div>
                            </div>
                            <div class="d-flex align-items-center justify-content-center">
-                           <a href="../farmer/farmer-list.php" class=" text-success">
-                              More info<i class="bi bi-arrow-right-short"></i>
+                              <a href="../farmer/farmer-list.php" class=" text-success">
+                                 More info<i class="bi bi-arrow-right-short"></i>
                               </a>
-                              </div>
+                           </div>
                         </div>
                      </div>
                      <div class="col-md-6 col-xl-3 mb-4">
@@ -89,10 +89,10 @@
                               </div>
                            </div>
                            <div class="d-flex align-items-center justify-content-center">
-                           <a href="../farmer-assets/parcels.php" class=" text-info">
-                              More info<i class="bi bi-arrow-right-short"></i>
+                              <a href="../farmer-assets/parcels.php" class=" text-info">
+                                 More info<i class="bi bi-arrow-right-short"></i>
                               </a>
-                              </div>
+                           </div>
                         </div>
                      </div>
 
@@ -113,10 +113,10 @@
                               </div>
                            </div>
                            <div class="d-flex align-items-center justify-content-center">
-                           <a href="../farmer-assets/parcels.php" class=" text-warning">
-                              More info<i class="bi bi-arrow-right-short"></i>
+                              <a href="../farmer-assets/parcels.php" class=" text-warning">
+                                 More info<i class="bi bi-arrow-right-short"></i>
                               </a>
-                              </div>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -223,6 +223,9 @@
                                              show: true
                                           }
                                        },
+                                       dataLabels: {
+                                          enabled: true
+                                       },
                                        stroke: {
                                           colors: ['#fff']
                                        },
@@ -239,7 +242,7 @@
                         </div>
                      </div>
 
-                     
+
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
@@ -266,7 +269,7 @@
                                           }
                                        },
                                        dataLabels: {
-                                          enabled: false
+                                          enabled: true
                                        },
                                        xaxis: {
                                           categories: ['Cash Assistance', 'Pamigay Fertilizer', 'Seedling Distribution'],
@@ -276,6 +279,95 @@
                               </script>
                               <!-- End Bar Chart -->
 
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="col-lg-6">
+                        <div class="card">
+                           <div class="card-body">
+                              <h5 class="card-title">Parcel Size</h5>
+
+                              <!-- Bar Chart -->
+                              <div id="barChart2"></div>
+
+                              <script>
+                                 document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#barChart2"), {
+                                       series: [{
+                                          name: 'No. of Farmers',
+                                          data: [1, 3, 5]
+                                       }],
+                                       chart: {
+                                          type: 'bar',
+                                          height: 338
+                                       },
+                                       plotOptions: {
+                                          bar: {
+                                             borderRadius: 4,
+                                             horizontal: false,
+                                          }
+                                       },
+                                       dataLabels: {
+                                          enabled: true
+                                       },
+                                       xaxis: {
+                                          categories: ['Small', 'Medium', 'Large'],
+                                       },
+                                       colors: ["#00e296"],
+                                    }).render();
+                                 });
+                              </script>
+                              <!-- End Bar Chart -->
+
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="col-lg-6">
+                        <div class="card">
+                           <div class="card-body">
+                              <h5 class="card-title">Program Resources Chart</h5>
+
+                              <div id="pieChart1"></div>
+
+                              <script>
+                                 document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#pieChart1"), {
+                                       series: [44, 55, 13, 43],
+                                       chart: {
+                                          height: 350,
+                                          type: 'pie',
+                                          toolbar: {
+                                             show: true
+                                          }
+                                       },
+                                       labels: ['Cash', 'Seedling', 'Fertilizer', 'Pesticides'],
+                                       dataLabels: {
+                                          enabled: true,
+                                          style: {
+                                             fontSize: '14px',
+                                             fontWeight: 'bold',
+                                             colors: ['#fff']
+                                          }
+                                       },
+                                       tooltip: {
+                                          enabled: true,
+                                          y: {
+                                             formatter: function(val, opts) {
+                                                programs = ['Cash Assistance', 'Seedling Pamigay', 'Fertilizer Program A', 'Pest Control Program'];
+                                                const seriesName = opts.seriesIndex;
+                                                console.log(seriesName)
+                                                return `${programs[seriesName]}: ${val}%`;
+                                             }
+                                          }
+                                       }
+                                    }).render();
+
+                                    document.querySelector("#pieChart1 svg").style.filter = "brightness(1.15)";
+                                 });
+                              </script>
+                              <!-- End Pie Chart -->
                            </div>
                         </div>
                      </div>
@@ -338,92 +430,88 @@
                      <!-- End Donut Chart -->
 
                      <div class="row">
-                  <div class="col-md-6 col-xl-3">
-                        <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150" style="border-color: red;">
-                           <div class="card-body pb-0">
-                              <div class="row g-0 align-items-center">
-                                 <div class="col me-2">
-                                    <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
-                                    <div class="row g-0 align-items-center">
-                                       <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                        <div class="col-md-6 col-xl-3">
+                           <div class="card shadow border-left-primary py-2" style="border-color: red;">
+                              <div class="card-body pb-0">
+                                 <div class="row g-0 align-items-center">
+                                    <div class="col me-2">
+                                       <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
+                                       <div class="row g-0 align-items-center">
+                                          <div class="col-auto">
+                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                          </div>
                                        </div>
                                     </div>
                                  </div>
                               </div>
-                           </div>
-                           <div class="d-flex align-items-center justify-content-center">
-                           <a href="../farmer/farmer-list.php" class=" text-danger">
-                              More info<i class="bi bi-arrow-right-short"></i>
-                              </a>
-                              </div>
-                        </div>
-                     </div>
-
-                     <?php if (is_dir('../program')) { ?>
-
-                        <div class="col-md-6 col-xl-3">
-                           <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
-                              <div class="card-body pb-0">
-                                 <div class="row g-0 align-items-center">
-                                    <div class="col me-2">
-                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Porgrams</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
-                                    </div>
-                                 </div>
-                              </div>
                               <div class="d-flex align-items-center justify-content-center">
-                              <a href="../program/programs-list.php" class=" text-warning">
-                              More info<i class="bi bi-arrow-right-short"></i>
-                              </a>
+                                 <a href="../farmer/farmer-list.php" class=" text-danger">
+                                    More info<i class="bi bi-arrow-right-short"></i>
+                                 </a>
                               </div>
                            </div>
-
-                        <?php } ?>
-
                         </div>
 
-                        <div class="col-md-6 col-xl-3">
-                        <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150" style="border-color: red;">
-                           <div class="card-body pb-0">
-                              <div class="row g-0 align-items-center">
-                                 <div class="col me-2">
-                                    <div class="text-uppercase text-danger fw-bold mb-1"><span>Expired Porgrams</span></div>
+                           <div class="col-md-6 col-xl-3">
+                              <div class="card shadow border-left-warning py-2">
+                                 <div class="card-body pb-0">
                                     <div class="row g-0 align-items-center">
-                                       <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                       <div class="col me-2">
+                                          <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Porgrams</span></div>
+                                          <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                        </div>
                                     </div>
                                  </div>
-                              </div>
-                           </div>
-                           <div class="d-flex align-items-center justify-content-center">
-                           <a href="../program/programs-list.php" class=" text-danger">
-                              More info<i class="bi bi-arrow-right-short"></i>
-                              </a>
-                              </div>
-                        </div>
-                     </div>
-
-                     <div class="col-md-6 col-xl-3">
-                           <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
-                              <div class="card-body pb-0">
-                                 <div class="row g-0 align-items-center">
-                                    <div class="col me-2">
-                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Limited Resources</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
-                                    </div>
+                                 <div class="d-flex align-items-center justify-content-center">
+                                    <a href="../program/programs-list.php" class=" text-warning">
+                                       More info<i class="bi bi-arrow-right-short"></i>
+                                    </a>
                                  </div>
                               </div>
-                              <div class="d-flex align-items-center justify-content-center">
-                              <a href="../program/resources-list.php" class=" text-warning">
-                              More info<i class="bi bi-arrow-right-short"></i>
-                              </a>
+
+                           </div>
+
+                           <div class="col-md-6 col-xl-3">
+                              <div class="card shadow border-left-primary py-2" style="border-color: red;">
+                                 <div class="card-body pb-0">
+                                    <div class="row g-0 align-items-center">
+                                       <div class="col me-2">
+                                          <div class="text-uppercase text-danger fw-bold mb-1"><span>Expired Porgrams</span></div>
+                                          <div class="row g-0 align-items-center">
+                                             <div class="col-auto">
+                                                <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="d-flex align-items-center justify-content-center">
+                                    <a href="../program/programs-list.php" class=" text-danger">
+                                       More info<i class="bi bi-arrow-right-short"></i>
+                                    </a>
+                                 </div>
                               </div>
                            </div>
-                     </div>
 
-                  </div>
+                           <div class="col-md-6 col-xl-3">
+                              <div class="card shadow border-left-warning py-2">
+                                 <div class="card-body pb-0">
+                                    <div class="row g-0 align-items-center">
+                                       <div class="col me-2">
+                                          <div class="text-uppercase text-warning fw-bold mb-1"><span>Limited Resources</span></div>
+                                          <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="d-flex align-items-center justify-content-center">
+                                    <a href="../program/resources-list.php" class=" text-warning">
+                                       More info<i class="bi bi-arrow-right-short"></i>
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+
+                     </div>
 
 
                      <div class="col-lg-6">
@@ -455,7 +543,7 @@
                      </div>
 
                      <div class="col-lg-6">
-                     <div class="card mx-3 my-2">
+                        <div class="card mx-3 my-2">
                            <div class="card-header text-center">
                               <h3 class="text-bold" style="color: #026a44;">Crop and Livestock</h3>
                            </div>
@@ -484,7 +572,7 @@
                               <div>Total: 0</div>
                            </div>
                         </div>
-                  </div>
+                     </div>
 
 
 
