@@ -18,7 +18,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="" class="logo d-flex align-items-center">
+            <a href="../" class="logo d-flex align-items-center">
                 <img src="../assets/img/agri-logo.png" alt="">
                 <span class="d-none d-lg-block">BaliwagAgriOffice</span>
             </a>
@@ -31,8 +31,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 col-15 d-flex flex-column align-items-center justify-content-center">
-                    <div class="card text-center">
-                        <div class="card-body p-5 auth-card" data-aos="zoom-in" data-aos-duration="500">
+                <style>
+                    @media (min-width: 400px){.card { width: 368px;height: 359.125px;}}
+                </style>    
+                <div class="card text-center">
+                        <div class="card-body p-4 auth-card" data-aos="zoom-in" data-aos-duration="500">
                             <h5 class="card-title">Account Verification</h5>
                             <p class="card-text">Enter the 6-digit verification code that was sent to your email account. 3 attempts for 1 minute</p>
                             <form id="otp-form" method="POST" class="" action="../backend/route.php">

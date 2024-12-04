@@ -10,3 +10,5 @@ Notes for Backend:
 -Edit log fetch id in url OR using js to get value then submit in current page
 -Counter for each parcels added at farmers-add.php
 -Empty array to hide dbuttons
+
+TODO: review 2 barcharts in dashboard.php

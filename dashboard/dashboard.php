@@ -246,7 +246,7 @@
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
-                              <h5 class="card-title">Programs Chart</h5>
+                              <h5 class="card-title">Distributions Chart</h5>
 
                               <!-- Bar Chart -->
                               <div id="barChart"></div>
@@ -286,7 +286,7 @@
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
-                              <h5 class="card-title">Parcel Size</h5>
+                              <h5 class="card-title">Remaining Resources Chart</h5>
 
                               <!-- Bar Chart -->
                               <div id="barChart2"></div>
@@ -295,8 +295,8 @@
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#barChart2"), {
                                        series: [{
-                                          name: 'No. of Farmers',
-                                          data: [1, 3, 5]
+                                          name: 'No. of Parcels',
+                                          data: [12, 33, 50]
                                        }],
                                        chart: {
                                           type: 'bar',
@@ -312,7 +312,7 @@
                                           enabled: true
                                        },
                                        xaxis: {
-                                          categories: ['Small', 'Medium', 'Large'],
+                                          categories: ['Cash', 'Fertilizer', 'Pesticides'],
                                        },
                                        colors: ["#00e296"],
                                     }).render();
@@ -327,7 +327,7 @@
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
-                              <h5 class="card-title">Program Resources Chart</h5>
+                              <h5 class="card-title">Distributed Resources Chart</h5>
 
                               <div id="pieChart1"></div>
 
@@ -452,64 +452,64 @@
                            </div>
                         </div>
 
-                           <div class="col-md-6 col-xl-3">
-                              <div class="card shadow border-left-warning py-2">
-                                 <div class="card-body pb-0">
-                                    <div class="row g-0 align-items-center">
-                                       <div class="col me-2">
-                                          <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Porgrams</span></div>
-                                          <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
-                                       </div>
+                        <div class="col-md-6 col-xl-3">
+                           <div class="card shadow border-left-warning py-2">
+                              <div class="card-body pb-0">
+                                 <div class="row g-0 align-items-center">
+                                    <div class="col me-2">
+                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Programs</span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                     </div>
                                  </div>
-                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="../program/programs-list.php" class=" text-warning">
-                                       More info<i class="bi bi-arrow-right-short"></i>
-                                    </a>
-                                 </div>
                               </div>
-
+                              <div class="d-flex align-items-center justify-content-center">
+                                 <a href="../program/programs-list.php" class=" text-warning">
+                                    More info<i class="bi bi-arrow-right-short"></i>
+                                 </a>
+                              </div>
                            </div>
 
-                           <div class="col-md-6 col-xl-3">
-                              <div class="card shadow border-left-primary py-2" style="border-color: red;">
-                                 <div class="card-body pb-0">
-                                    <div class="row g-0 align-items-center">
-                                       <div class="col me-2">
-                                          <div class="text-uppercase text-danger fw-bold mb-1"><span>Expired Porgrams</span></div>
-                                          <div class="row g-0 align-items-center">
-                                             <div class="col-auto">
-                                                <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
-                                             </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-3">
+                           <div class="card shadow border-left-primary py-2" style="border-color: red;">
+                              <div class="card-body pb-0">
+                                 <div class="row g-0 align-items-center">
+                                    <div class="col me-2">
+                                       <div class="text-uppercase text-danger fw-bold mb-1"><span>Expired Programs</span></div>
+                                       <div class="row g-0 align-items-center">
+                                          <div class="col-auto">
+                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
-                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="../program/programs-list.php" class=" text-danger">
-                                       More info<i class="bi bi-arrow-right-short"></i>
-                                    </a>
-                                 </div>
+                              </div>
+                              <div class="d-flex align-items-center justify-content-center">
+                                 <a href="../program/programs-list.php" class=" text-danger">
+                                    More info<i class="bi bi-arrow-right-short"></i>
+                                 </a>
                               </div>
                            </div>
+                        </div>
 
-                           <div class="col-md-6 col-xl-3">
-                              <div class="card shadow border-left-warning py-2">
-                                 <div class="card-body pb-0">
-                                    <div class="row g-0 align-items-center">
-                                       <div class="col me-2">
-                                          <div class="text-uppercase text-warning fw-bold mb-1"><span>Limited Resources</span></div>
-                                          <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
-                                       </div>
+                        <div class="col-md-6 col-xl-3">
+                           <div class="card shadow border-left-warning py-2">
+                              <div class="card-body pb-0">
+                                 <div class="row g-0 align-items-center">
+                                    <div class="col me-2">
+                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Limited Resources</span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                     </div>
                                  </div>
-                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="../program/resources-list.php" class=" text-warning">
-                                       More info<i class="bi bi-arrow-right-short"></i>
-                                    </a>
-                                 </div>
+                              </div>
+                              <div class="d-flex align-items-center justify-content-center">
+                                 <a href="../program/resources-list.php" class=" text-warning">
+                                    More info<i class="bi bi-arrow-right-short"></i>
+                                 </a>
                               </div>
                            </div>
+                        </div>
 
                      </div>
 
@@ -590,63 +590,64 @@
 
          </div>
       </section>
+   </main>
 
-      <!-- ======= Footer ======= -->
-      </script>
-      <?php include '../includes/footer.php' ?>
-      <script>
-         async function fetchData() {
-            try {
-               const apiKey = '';
-               const lat = 14.9333;
-               const lon = 120.8833;
+   <!-- ======= Footer ======= -->
+   </script>
+   <?php include '../includes/footer.php' ?>
+   <script>
+      async function fetchData() {
+         try {
+            const apiKey = '';
+            const lat = 14.9333;
+            const lon = 120.8833;
 
-               const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
 
-               // Check if the response is not ok
-               if (!response.ok) {
-                  if (response.status === 401) {
-                     throw new Error('Unauthorized: Check your API key.');
-                  } else if (response.status === 404) {
-                     throw new Error('Data not found: Check your latitude and longitude.');
-                  } else {
-                     throw new Error(`HTTP error! Status: ${response.status}`);
-                  }
+            // Check if the response is not ok
+            if (!response.ok) {
+               if (response.status === 401) {
+                  throw new Error('Unauthorized: Check your API key.');
+               } else if (response.status === 404) {
+                  throw new Error('Data not found: Check your latitude and longitude.');
+               } else {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
                }
+            }
 
-               const data = await response.json();
+            const data = await response.json();
 
-               // Check if the data structure is as expected
-               if (!data.list || !Array.isArray(data.list)) {
-                  throw new Error('Invalid data format received.');
-               }
+            // Check if the data structure is as expected
+            if (!data.list || !Array.isArray(data.list)) {
+               throw new Error('Invalid data format received.');
+            }
 
-               const container = document.getElementById('data-container');
-               container.innerHTML = ''; // Clear previous data
-               const city = data.city.name;
-               const population = data.city.population;
-               population.toLocaleString();
-               document.getElementById('data-container').innerHTML = `<h1>${city}</h1><h3>Population: ${population}</h3>`
+            const container = document.getElementById('data-container');
+            container.innerHTML = ''; // Clear previous data
+            const city = data.city.name;
+            const population = data.city.population;
+            population.toLocaleString();
+            document.getElementById('data-container').innerHTML = `<h1>${city}</h1><h3>Population: ${population}</h3>`
 
-               data.list.forEach(item => {
-                  const div = document.createElement('div');
-                  div.className = "col-md-5 mx-4 my-2";
-                  div.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
-                  const date = item.dt_txt;
-                  const temp = item.main.temp;
-                  const description = item.weather[0].description;
-                  const iconCode = item.weather[0].icon;
+            data.list.forEach(item => {
+               const div = document.createElement('div');
+               div.className = "col-md-5 mx-4 my-2";
+               div.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
+               const date = item.dt_txt;
+               const temp = item.main.temp;
+               const description = item.weather[0].description;
+               const iconCode = item.weather[0].icon;
 
-                  const speed = item.wind.speed;
-                  const deg = item.wind.deg;
-                  const gust = item.wind.gust;
-                  const clouds = item.clouds.all;
+               const speed = item.wind.speed;
+               const deg = item.wind.deg;
+               const gust = item.wind.gust;
+               const clouds = item.clouds.all;
 
 
 
-                  const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+               const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-                  div.innerHTML = `<h2>${date}</h2>
+               div.innerHTML = `<h2>${date}</h2>
                <p>Temperature: ${temp}°C
                </p><p>${description}</p>
                <img src="${iconUrl}" alt="${description}"/>
@@ -658,22 +659,22 @@
                </div>
                <p>Number of clouds: ${clouds}</p>
                `;
-                  container.appendChild(div);
-               });
+               container.appendChild(div);
+            });
 
 
 
-            } catch (error) {
-               console.error('Error fetching data:', error);
-               const container = document.getElementById('data-container');
-               container.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
-            }
+         } catch (error) {
+            console.error('Error fetching data:', error);
+            const container = document.getElementById('data-container');
+            container.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
          }
+      }
 
-         document.getElementById('profile-tab').addEventListener('click', function() {
-            fetchData();
-         });
-      </script>
+      document.getElementById('profile-tab').addEventListener('click', function() {
+         fetchData();
+      });
+   </script>
 
 </body>
 

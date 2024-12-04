@@ -25,7 +25,7 @@
             </div>
 
               <!-- Default Tabs -->
-              <form class="needs-validation" id="farmForm" novalidate>
+              <!-- <form class="needs-validation" id="farmForm" novalidate> -->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Personal Information</button>
@@ -163,7 +163,7 @@
                         <h5 class="card-title">Farm List</h5>
                         <a id="addFarmButton" class="btn btn-primary">Add Farm</a>
                       </div>
-                      <?php if(is_dir('../map')){?>
+                      <!-- <?php if(is_dir('../map')){?>
                         <style>
                           #map { height: 400px; width: 50%; margin: 0px 25%;}
                           #mapTypeControl { margin: 10px; }
@@ -186,7 +186,7 @@
                         </div>
                         <div id="map"></div>
                       </div>
-                      <?php }?>
+                      <?php }?> -->
                       <div id="farmContainer" class="mt-3"></div>
                       <!-- Submit Button -->
                       <!-- Form to submit farms -->
@@ -195,20 +195,23 @@
                   </div>
                   <!-- Farm Profile Information -->
                 </div>
-            </div>
+            <!-- </div> -->
 
 
             <div class="d-flex justify-content-end">
               <button type="reset" class="btn btn-secondary me-2">Reset</button>
               <button type="submit" id="submitFarmsButton" class="btn btn-success me-2">Save</button>
             </div>
-            <input type="hidden" name="farms_data" id="farmsData" style="width: 100%;">
-
+            
+            <form class="needs-validation" id="farmForm" novalidate>
+            <input type="text" name="farms_data" id="farmsData" style="width: 100%;">
+            </form>
+            
             <div class="d-flex justify-content-center mb-2">
               <button type="button" class="btn btn-primary  me-1" id="prevButton"><i class="bi bi-arrow-left"></i></button>
               <button type="button" class="btn btn-primary" id="nextButton"><i class="bi bi-arrow-right"></i></button>
             </div>
-            </form>
+            <!-- </form> -->
 
           </div>
         </div>
@@ -448,70 +451,72 @@
       });
     });
 
-    // document.getElementById('submitFarmsButton').addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     const farms = [];
-    //     const farmCards = document.querySelectorAll('#farmContainer .card');
+    ////////////////////////////////////////////////////////////////////////////////
 
-    //     farmCards.forEach(card => {
-    //         const farmName = card.querySelector('.farmName').value;
-    //         const farmLocation = card.querySelector('.farmLocation').value;
+    document.getElementById('submitFarmsButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        const farms = [];
+        const farmCards = document.querySelectorAll('#farmContainer .card');
 
-    //         // Collect crops
-    //         const cropsInputs = card.querySelectorAll('.cropInput');
-    //         const crops = Array.from(cropsInputs).map(input => input.value.trim()).filter(value => value);
+        farmCards.forEach(card => {
+            const farmName = card.querySelector('.farmName').value;
+            const farmLocation = card.querySelector('.farmLocation').value;
 
-    //         // Collect livestock
-    //         const livestockInputs = card.querySelectorAll('.livestockInput');
-    //         const livestock = Array.from(livestockInputs).map(input => input.value.trim()).filter(value => value);
+            // Collect crops
+            const cropsInputs = card.querySelectorAll('.cropInput');
+            const crops = Array.from(cropsInputs).map(input => input.value.trim()).filter(value => value);
 
-    //         farms.push({ 
-    //             name: farmName, 
-    //             location: farmLocation,
-    //             crops: crops,
-    //             livestock: livestock
-    //         });
-    //     });
+            // Collect livestock
+            const livestockInputs = card.querySelectorAll('.livestockInput');
+            const livestock = Array.from(livestockInputs).map(input => input.value.trim()).filter(value => value);
 
-    //     document.getElementById('farmsData').value = JSON.stringify(farms);
-    //     document.getElementById('farmForm').submit();
-    // });
+            farms.push({ 
+                name: farmName, 
+                location: farmLocation,
+                crops: crops,
+                livestock: livestock
+            });
+        });
+
+        let jsonInput = document.getElementById('farmsData').value = JSON.stringify(farms);
+        document.getElementById('farmForm').submit();
+    });
   </script>
 
   <?php
   // PHP part to handle form submission
-  // if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  //     // Database connection
-  //     $conn = new mysqli('localhost', 'root', '', 'your_database');
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      // Database connection
+      $conn = new mysqli('localhost', 'root', '', 'your_database');
 
-  //     // Check connection
-  //     if ($conn->connect_error) {
-  //         die("Connection failed: " . $conn->connect_error);
-  //     }
+      // Check connection
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+      }
 
-  //     $farms = json_decode($_POST['farms_data'], true);
+      $farms = json_decode($_POST['farms_data'], true);
 
-  //     foreach ($farms as $farm) {
-  //         $name = $conn->real_escape_string($farm['name']);
-  //         $location = $conn->real_escape_string($farm['location']);
-  //         $crops = $conn->real_escape_string(implode(',', $farm['crops']));
-  //         $livestock = $conn->real_escape_string(implode(',', $farm['livestock']));
+      foreach ($farms as $farm) {
+          $name = $conn->real_escape_string($farm['name']);
+          $location = $conn->real_escape_string($farm['location']);
+          $crops = $conn->real_escape_string(implode(',', $farm['crops']));
+          $livestock = $conn->real_escape_string(implode(',', $farm['livestock']));
 
-  //         // Insert farm into the database
-  //         $sql = "INSERT INTO farms (name, location, crops, livestock) VALUES ('$name', '$location', '$crops', '$livestock')";
-  //         if (!$conn->query($sql)) {
-  //             echo "Error: " . $conn->error;
-  //         }
-  //     }
+          // Insert farm into the database
+          $sql = "INSERT INTO farms (name, location, crops, livestock) VALUES ('$name', '$location', '$crops', '$livestock')";
+          if (!$conn->query($sql)) {
+              echo "Error: " . $conn->error;
+          }
+      }
 
-  //     $conn->close();
-  // }
+      $conn->close();
+  }
   ?>
 
   </script>
 
   <!-- Google Map Script -->
-  <script>
+  <!-- <script>
     let map;
     let marker;
     let coords = {};
@@ -617,7 +622,7 @@
     }
 
     window.onload = initMap;
-  </script>
+  </script> -->
 
 
 </body>

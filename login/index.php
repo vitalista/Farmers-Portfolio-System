@@ -9,7 +9,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="" class="logo d-flex align-items-center">
+      <a href="../" class="logo d-flex align-items-center">
         <img src="../assets/img/agri-logo.png" alt="">
         <span class="d-none d-lg-block">BaliwagAgriOffice</span>
       </a>
@@ -24,7 +24,9 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
+            <style>
+                    @media (min-width: 400px){.card { width: 368px;height: 359.125px;}}
+                </style> 
               <div class="card mb-3" style="background-color: transparent;">
 
                 <div class="card-body auth-card" data-aos="zoom-in" data-aos-duration="500">

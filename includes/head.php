@@ -2,7 +2,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>BaliwagAgriOffice</title>
+  <title>BaliwagAgriOffice - Backend</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -56,6 +56,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script> -->
 </head>
 <?php include '../backend/functions.php'?>
