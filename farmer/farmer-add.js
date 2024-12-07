@@ -16,19 +16,19 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
             <div class="col-md-4 mt-1">
                 <div class="form-floating">
                     <input type="text" class="form-control ofName" id="" placeholder="" required>
-                    <label for="floatingOFname">Owner First Name</label>
+                    <label>Owner First Name</label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4 mt-1">
                 <div class="form-floating">
                     <input type="text" class="form-control olName" id="" placeholder="" required>
-                    <label for="floatingOLname">Owner Last Name</label>
+                    <label>Owner Last Name</label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4 mt-1" style="margin-top: -11px;">
-                <label for="validationCustom11" class="form-label">Ownership Type<span class="red-star">*</span></label>
+                <label class="form-label">Ownership Type<span class="red-star">*</span></label>
                 <select class="form-select ownership" id="" required>
                     <option selected disabled value="">Choose...</option>
                     <option value="Tenant">Tenant</option>
@@ -42,21 +42,21 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom06 farmLocationBrgy" id="" placeholder="" required>
-                    <label for="validationCustom06">Barangay</label>
+                    <label>Barangay</label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" required>
-                    <label for="validationCustom07">Municipality</label>
+                    <label>Municipality</label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" required>
-                    <label for="validationCustom08">Province</label>
+                    <label>Province</label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
@@ -65,7 +65,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
                 <input type="number" placeholder="In hectares" class="form-control farmSize no-spin-button" required>
             </div>
             <div class="col-md-4 mt-3">
-                <label for="farmType" class="form-label">Farm Type<span class="red-star">*</span></label>
+                <label class="form-label">Farm Type<span class="red-star">*</span></label>
                 <select class="form-select farmType" id="" required>
                     <option selected disabled value="">Choose...</option>
                     <option value="IRRIGATED">Irrigated</option>
@@ -116,7 +116,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
     cropInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
     cropInputDiv.innerHTML = `
         <div class="col-md-3 mb-3 mt-3 d-flex align-items-center">
-            <label class="form-check-label" for="hvc">High value crop?</label>
+            <label class="form-check-label">High value crop?</label>
             <div class="form-check ms-2">
               <input class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
             <input type="hidden" class="parcelNum" value="${farmNumber}" style="width: 100%;">

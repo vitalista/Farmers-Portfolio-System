@@ -42,46 +42,91 @@ if (isset($_POST['farms_data'])) {
     console.log(<?php echo json_encode($data);?>);
 </script>
 <?php
-
-    // Insert farmer data (if present)
+    $user_id = 0;
     $farmerId = 0;
+    $modifiedAt =  date('Y-m-d H:i:s');
+
     if (isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
-        $sql = "INSERT INTO farmers (ffrs_system_gen, farmer_brgy_address, farmer_municipality_address, farmer_province_address, first_name, last_name, ext_name, gender, birthday, is_deceased, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssssi", $farmer['ffrs'], $farmer['brgy'], $farmer['municipality'], $farmer['province'], $farmer['firstName'], $farmer['lastName'], $farmer['extName'], $farmer['gender'], $farmer['bday'], $farmer['deceased'], $farmer['active']);
-        $stmt->execute();
-        $farmerId = $stmt->insert_id;
-    }
+        $sql = "INSERT INTO farmers (
+        ffrs_system_gen, 
+        farmer_brgy_address, 
+        farmer_municipality_address, 
+        farmer_province_address, 
+        first_name, 
+        last_name, 
+        ext_name, gender, 
+        birthday, 
+        is_deceased, 
+        is_active,
 
+        modified_by,
+        modified_at
+        ) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+                ?, ?)";
+        $stmt = $conn->prepare($sql);
+        
+        if ($stmt === false) {
+            echo "Error preparing farmer insert query: " . $conn->error;
+            exit;
+        }
+        
+        $stmt->bind_param("ssssssssssiis", 
+        $farmer['ffrs'], 
+        $farmer['brgy'], 
+        $farmer['municipality'], 
+        $farmer['province'], 
+        $farmer['firstName'], 
+        $farmer['lastName'], 
+        $farmer['extName'], 
+        $farmer['gender'], 
+        $farmer['bday'], 
+        $farmer['deceased'],
+        $farmer['active'],
+        $user_id,
+        $modifiedAt
+    );
+        
+        if ($stmt->execute()) {
+            $farmerId = $stmt->insert_id;
+        } else {
+            echo "Error executing farmer insert query: " . $stmt->error;
+            exit;
+        }
+    }
+    
     // Insert parcel data
     $parcelIds = []; // Initialize an empty array to store parcelNum and corresponding insert_id.
     foreach ($data as $item) {
         if (isset($item['parcel'])) {
             $parcel = $item['parcel'];
-
-            // SQL query to insert parcel information.
             $sql = "INSERT INTO parcels (
-                  farmer_id, 
-                  parcel_no, 
-                  owner_first_name, 
-                  owner_last_name, 
-                  ownership_type, 
-                  parcel_brgy_address, 
-                  parcel_municipality_address, 
-                  parcel_province_address, 
-                  parcel_area, 
-                  farm_type
-              ) VALUES (
-                  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-              )";
+                      farmer_id, 
+                      parcel_no, 
+                      owner_first_name, 
+                      owner_last_name, 
+                      ownership_type, 
+                      parcel_brgy_address, 
+                      parcel_municipality_address, 
+                      parcel_province_address, 
+                      parcel_area, 
+                      farm_type,
 
-            // Prepare the SQL statement.
+                      modified_by,
+                      modified_at
+                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                  ?, ?)";
+    
             $stmt = $conn->prepare($sql);
-
-            // Bind the parameters to the SQL query.
+            
+            if ($stmt === false) {
+                echo "Error preparing parcel insert query: " . $conn->error;
+                exit;
+            }
+    
             $stmt->bind_param(
-                "iissssssss",
+                "iissssssssis",
                 $farmerId,
                 $parcel['parcelNum'],
                 $parcel['ofName'],
@@ -91,55 +136,110 @@ if (isset($_POST['farms_data'])) {
                 $parcel['farmLocationMunicipality'],
                 $parcel['farmLocationProvince'],
                 $parcel['farmSize'],
-                $parcel['farmType']
+                $parcel['farmType'],
+                $user_id,
+                $modifiedAt
             );
-            // Execute the statement.
-            $stmt->execute();
-            // After the insert, save the parcelNum and corresponding insert_id in the $parcelIds array.
-            $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
+            
+            if ($stmt->execute()) {
+                // Save the parcelNum and corresponding insert_id in the $parcelIds array.
+                $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
+            } else {
+                echo "Error executing parcel insert query: " . $stmt->error;
+                exit;
+            }
         }
     }
-
+    
     // Insert crop data
     foreach ($data as $item) {
         if (isset($item['crop'])) {
             $crop = $item['crop'];
             $parcelId = $parcelIds[$crop['parcelNum']] ?? null;
             if ($parcelId) {
-                $sql = "INSERT INTO crops (farmer_id, parcel_id, hvc, crop_area, classification) VALUES (?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO crops (
+                farmer_id, 
+                parcel_id, 
+                hvc, 
+                crop_area, 
+                classification,
+
+                modified_by,
+                modified_at
+                ) VALUES (?, ?, ?, ?, ?,
+                ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("iiiss", $farmerId, $parcelId, $crop['hvc'], $crop['cropArea'], $crop['classification']);
-                $stmt->execute();
+                
+                if ($stmt === false) {
+                    echo "Error preparing crop insert query: " . $conn->error;
+                    exit;
+                }
+    
+                $stmt->bind_param("iiissis", 
+                $farmerId, 
+                $parcelId, 
+                $crop['hvc'], 
+                $crop['cropArea'], 
+                $crop['classification'],
+                $user_id,
+                $modifiedAt
+                );
+                
+                if (!$stmt->execute()) {
+                    echo "Error executing crop insert query: " . $stmt->error;
+                    exit;
+                }
             }
         }
     }
-
+    
     // Insert livestock data
     foreach ($data as $item) {
         if (isset($item['livestock'])) {
             $livestock = $item['livestock'];
             $parcelId = $parcelIds[$livestock['parcelNum']] ?? null;
+            
             if ($parcelId) {
-                $sql = "INSERT INTO livestocks (farmer_id, parcel_id, no_of_heads, animal_name) VALUES (?, ?, ?, ?)";
+                $sql = "INSERT INTO livestocks (
+                farmer_id, 
+                parcel_id, 
+                no_of_heads, 
+                animal_name,
+                
+                modified_by,
+                modified_at
+                ) VALUES (?, ?, ?, ?,
+                ?, ?
+                )";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("iiis", $farmerId, $parcelId, $livestock['numberOfHeads'], $livestock['livestockType']);
-                $stmt->execute();
+                
+                if ($stmt === false) {
+                    echo "Error preparing livestock insert query: " . $conn->error;
+                    exit;
+                }
+    
+                $stmt->bind_param("iiisis",
+                 $farmerId, 
+                 $parcelId, 
+                 $livestock['numberOfHeads'], 
+                 $livestock['livestockType'],
+                 $user_id,
+                 $modifiedAt
+                );
+                
+                if (!$stmt->execute()) {
+                    echo 'Error executing livestock insert query: ' . $stmt->error;
+                    exit;
+                }
             }
         }
     }
-
+    
     echo '<div style="position: fixed; top: 20px; right: 20px; padding: 10px 20px; background-color: green; color: white; font-size: 16px; border-radius: 5px;">Data inserted successfully!</div>';
+    
 
-
-    // Debug: Print decoded data to ensure structure is correct
-    // echo '<pre>';
-    // print_r($data);
-    // echo '</pre>';
-
-    // Check if decoding was successful
     if ($data) {
     foreach ($data as $item) {
-        // Check if 'farmer' key exists in the current item
         if (isset($item['farmer'])) {
             echo '<div class="farmer"><h3>Farmer Information:</h3>';
             echo '<pre style="color: green; font-weight: bold;">';
@@ -147,7 +247,6 @@ if (isset($_POST['farms_data'])) {
             echo '</pre></div>';
         }
 
-        // Check if 'parcel' key exists in the current item
         if (isset($item['parcel'])) {
             echo '<div class="parcel"><h3>Parcel Information:</h3>';
             echo '<pre style="color: red; font-weight: bold;">';
@@ -180,6 +279,8 @@ if (isset($_POST['farms_data'])) {
 </div>
 </body>
 </html>
+
+<!-- ======================================== Format JSON ======================================== -->
 <script>
     // Get the container with the unsorted divs
 let container = document.querySelector('.unsorted'); // Replace with your container selector
@@ -190,27 +291,21 @@ let parcel = document.querySelector('.parcel');
 let crop = document.querySelector('.crop');
 let livestock = document.querySelector('.livestock');
 
-// Loop through all div elements inside the container
-let divs = container.querySelectorAll('div'); // Select all divs in the container
+let divs = container.querySelectorAll('div');
 divs.forEach(function(div) {
-  // Check if the className of the div is '1'
   if (div.className === 'farmer') {
-    // Append the div to the new parent div
     farmer.appendChild(div);
   }
 
   if (div.className === 'parcel') {
-    // Append the div to the new parent div
     parcel.appendChild(div);
   }
 
   if (div.className === 'crop') {
-    // Append the div to the new parent div
     crop.appendChild(div);
   }
 
   if (div.className === 'livestock') {
-    // Append the div to the new parent div
     livestock.appendChild(div);
   }
 });
