@@ -1,5 +1,5 @@
 <?php
-$tableName = "your_table_name";
+$tableName = "farmers";
 
 $sql = "SELECT * FROM $tableName LIMIT 10";
 $result = $conn->query($sql);
@@ -188,4 +188,26 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-</div><!-- End Large Modal-->
+</div><!-- End Filter Modal-->
+<div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Provide FFRS code</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12 mb-3">
+
+            <label for="cropname" class="form-label">Enter <strong>FFRS</strong> code</label>
+            <input type="text" id="cropname" class="form-control" placeholder="Type here...">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- End Unregistered Modal-->
