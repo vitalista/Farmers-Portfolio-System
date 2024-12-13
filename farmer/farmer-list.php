@@ -51,7 +51,7 @@
                   ?>
                       <tr>
                         <input type="hidden" value="<?= $row['id'] ?>">
-                        <td><?= $row['ffrs_system_gen'] === "" ? "UNREGISTERED" : "REGISTERED"; ?></td>
+                        <td data-id="<?= $row['id'] ?>"><?= $row['ffrs_system_gen'] === "" ? "UNREGISTERED" : "REGISTERED"; ?></td>
                         <td><?= $row['ffrs_system_gen'] ?></td>
                         <td><?= $row['first_name'] ?></td>
                         <td><?= $row['middle_name'] ?></td>
@@ -64,7 +64,6 @@
                           <a href="farmer-view.php" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                           <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                           <a class="btn btn-secondary" href="activity-log.php?user_id=<?= $row['id']; ?>"><i class="bi bi-info-circle-fill"></i></a>
-
                         </td>
                       </tr>
                   <?php
@@ -74,13 +73,53 @@
 
                 </tbody>
               </table>
-             
             </div>
 
           </div>
         </div>
       </div>
     </section>
+
+    <script>
+  const tds = document.querySelectorAll('td');
+
+  let dataId = null;
+
+  tds.forEach(td => {
+    td.addEventListener('click', function() {
+      dataId = this.getAttribute('data-id');
+      console.log('Clicked TD with data-id: ' + dataId);
+    });
+  });
+
+  function updateData(button) {
+    const input = document.getElementById('ffrsCode');
+    const inputValue = input.value;
+
+    console.log('Input value:', inputValue);
+
+    if (dataId) { // Ensure dataId is set before making the AJAX request
+      $.ajax({
+        url: 'update.php',
+        type: 'POST',
+        data: {
+          id: dataId,
+          ffrs: inputValue
+        },
+        success: function(response) {
+          alert('Data updated successfully!');
+          console.log(response);
+          window.location.reload();
+        },
+        error: function(xhr, status, error) {
+          alert('Error: ' + error);
+        }
+      });
+    } else {
+      alert('Please select a valid table row first!');
+    }
+  }
+</script>
 
   </main><!-- End #main -->
 

@@ -25,7 +25,31 @@ document.addEventListener("DOMContentLoaded", function() {
       dom: 'B<"table-top"lf>t<"table-bottom"ip>',
       responsive: true,
       buttons: [
-        'copy', 'csv', 'print', 'excel', 'pdf'
+        'copy', 'csv', {
+          extend: 'print',
+          action: function(e, dt, node, config) {
+            
+            // Add customization for the printed content
+            config.customize = function (win) {
+              // Modify the title and apply styles within the print window
+              $(win.document.body)
+                .css('font-size', '12pt')  // Change font size of the body content
+                .find('h1')  // Find the <h1> element
+                .replaceWith('<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>');  // Replace <h1> with <h6> and set custom title
+            };
+
+            config.exportOptions = {
+              columns: [1, 2, 3, 4, 5, 6, 7, 8],  // Print only the selected columns
+              modifier: {
+                page: 'current'  // Only print the rows visible on the current page
+              }
+            };
+        
+            // Trigger the print functionality
+            $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
+          }
+        }
+        , 'excel', 'pdf'
       ],
       colReorder: true,
       fixedHeader: true,

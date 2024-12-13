@@ -33,7 +33,6 @@ try {
             top: 0;
             width: 100%;
             height: 100%;
-            /* background-color: rgba(0, 0, 0, 0.4); */
         }
 
         .modal-content {
@@ -85,7 +84,7 @@ try {
                 if ($logs) {
                     foreach ($logs as $log) {
                         // Format the modified_at if needed (assuming it's a timestamp)
-                        $modifiedAtFormatted = date("Y-m-d H:i:s", strtotime($log['modified_at']));
+                        $modifiedAtFormatted = date("l, F-d-Y h:i:s A", strtotime($log['modified_at']));
                         
                         echo "  
                             <p><strong>Modified By:</strong> {$log['modified_by']}</p>
@@ -118,7 +117,8 @@ try {
             // Close modal when clicking outside of the modal
             window.addEventListener('click', function(event) {
                 if (event.target === modal) {
-                    modal.style.display = 'none';
+                    // modal.style.display = 'none';
+                    window.history.back();
                 }
             });
         });

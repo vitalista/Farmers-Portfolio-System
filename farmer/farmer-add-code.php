@@ -44,7 +44,8 @@ if (isset($_POST['farms_data'])) {
 <?php
     $user_id = 0;
     $farmerId = 0;
-    $modifiedAt =  date('Y-m-d H:i:s');
+    date_default_timezone_set('Asia/Taipei');
+    $modifiedAt =  date('Y-m-d h:i:s A');
 
     if (isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];

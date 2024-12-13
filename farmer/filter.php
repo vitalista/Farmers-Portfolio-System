@@ -1,7 +1,7 @@
 <?php
 $tableName = "farmers";
 
-$sql = "SELECT * FROM $tableName LIMIT 10";
+$sql = "SELECT * FROM $tableName LIMIT 100";
 $result = $conn->query($sql);
 
 ?>
@@ -199,14 +199,14 @@ $result = $conn->query($sql);
         <div class="modal-body">
           <div class="col-md-12 mb-3">
 
-            <label for="cropname" class="form-label">Enter <strong>FFRS</strong> code</label>
-            <input type="text" id="cropname" class="form-control" placeholder="Type here...">
+            <label for="ffrsCode" class="form-label">Enter <strong>FFRS</strong> code</label>
+            <input type="text" id="ffrsCode" class="form-control" placeholder="Type here...">
 
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save</button>
+          <button onclick="updateData(this)" type="button" id="save" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
