@@ -16,6 +16,37 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body main-table">
+
+              <div
+                data-aos="fade-up" data-aos-delay="100"
+                class="alert alert-success alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">
+                Successfully Archived
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+              <div
+                data-aos="fade-up" data-aos-delay="100"
+                class="alert alert-danger alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">
+                Unsuccessfully Archived
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+              <div
+                data-aos="fade-up" data-aos-delay="100"
+                class="alert alert-warning alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">
+                Something Went Wrong
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+              <script>
+                setTimeout(function() {
+                  var alertBoxes = document.querySelectorAll('.alert-dismissible');
+                  alertBoxes.forEach(function(alertBox) {
+                    alertBox.remove();
+                  });
+                }, 5000);
+              </script>
+
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Farmers list</h5>
                 <div>
@@ -62,7 +93,8 @@
                         <td><?= $row['farmer_municipality_address'] ?></td>
                         <td>
                           <a href="farmer-view.php" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
-                          <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                          <a onclick="return confirm('Are you sure you want to archive it?')"
+                            href="farmer-archive.php?id=<?= $row['id'] ?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                           <a class="btn btn-secondary" href="activity-log.php?user_id=<?= $row['id']; ?>"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
                       </tr>
@@ -70,7 +102,6 @@
                     }
                   }
                   ?>
-
                 </tbody>
               </table>
             </div>
@@ -81,45 +112,45 @@
     </section>
 
     <script>
-  const tds = document.querySelectorAll('td');
+      const tds = document.querySelectorAll('td');
 
-  let dataId = null;
+      let dataId = null;
 
-  tds.forEach(td => {
-    td.addEventListener('click', function() {
-      dataId = this.getAttribute('data-id');
-      console.log('Clicked TD with data-id: ' + dataId);
-    });
-  });
-
-  function updateData(button) {
-    const input = document.getElementById('ffrsCode');
-    const inputValue = input.value;
-
-    console.log('Input value:', inputValue);
-
-    if (dataId) { // Ensure dataId is set before making the AJAX request
-      $.ajax({
-        url: 'update.php',
-        type: 'POST',
-        data: {
-          id: dataId,
-          ffrs: inputValue
-        },
-        success: function(response) {
-          alert('Data updated successfully!');
-          console.log(response);
-          window.location.reload();
-        },
-        error: function(xhr, status, error) {
-          alert('Error: ' + error);
-        }
+      tds.forEach(td => {
+        td.addEventListener('click', function() {
+          dataId = this.getAttribute('data-id');
+          console.log('Clicked TD with data-id: ' + dataId);
+        });
       });
-    } else {
-      alert('Please select a valid table row first!');
-    }
-  }
-</script>
+
+      function updateData(button) {
+        const input = document.getElementById('ffrsCode');
+        const inputValue = input.value;
+
+        console.log('Input value:', inputValue);
+
+        if (dataId) { // Ensure dataId is set before making the AJAX request
+          $.ajax({
+            url: 'update.php',
+            type: 'POST',
+            data: {
+              id: dataId,
+              ffrs: inputValue
+            },
+            success: function(response) {
+              alert('Data updated successfully!');
+              console.log(response);
+              window.location.reload();
+            },
+            error: function(xhr, status, error) {
+              alert('Error: ' + error);
+            }
+          });
+        } else {
+          alert('Please select a valid table row first!');
+        }
+      }
+    </script>
 
   </main><!-- End #main -->
 

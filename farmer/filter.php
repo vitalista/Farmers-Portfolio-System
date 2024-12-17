@@ -1,7 +1,7 @@
 <?php
 $tableName = "farmers";
 
-$sql = "SELECT * FROM $tableName LIMIT 100";
+$sql = "SELECT * FROM $tableName WHERE is_archived = 0 LIMIT 100";
 $result = $conn->query($sql);
 
 ?>

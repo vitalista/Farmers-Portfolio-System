@@ -5,7 +5,7 @@
 <body class="login-bg">
    <?php include '../includes/header.php'; ?>
    <?php include '../includes/sidebar.php'; ?>
-   <?php require '../backend/database.php' ?>
+   <!-- Database -->
    
 
    <main id="main" class="main">
