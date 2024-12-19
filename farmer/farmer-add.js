@@ -197,6 +197,15 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const cropCards = document.querySelectorAll('#cropsContainer .row');
   const card = document.querySelector('#farmerCard .card-body');
 
+  let farmer_id = '';
+
+  if (card.querySelector('.farmer_id')) {
+    farmer_id = card.querySelector('.farmer_id').value;
+    console.log(`Farmer exists! ${farmer_id}`);
+  }else{
+    console.log('Class not exists!');
+  }
+
   const ffrs = card.querySelector('.ffrs').value;
   const brgy = card.querySelector('.brgy').value;
   const municipality = card.querySelector('.municipality').value;
@@ -209,22 +218,43 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const deceased = card.querySelector('.deceased').checked;
   const active = card.querySelector('.active').checked;
 
-  if (farmCards.length <= 0 || farmCards.length > 0) {
-    farms.push({
-      farmer: {
-        ffrs,
-        brgy,
-        municipality,
-        province,
-        firstName,
-        lastName,
-        extName,
-        gender,
-        bday,
-        deceased,
-        active
-      }
-    });
+  if (card.querySelector('.farmer_id')) {
+    if (farmCards.length <= 0 || farmCards.length > 0) {
+      farms.push({
+        farmer: {
+          farmer_id,
+          ffrs,
+          brgy,
+          municipality,
+          province,
+          firstName,
+          lastName,
+          extName,
+          gender,
+          bday,
+          deceased,
+          active
+        }
+      });
+    }
+  }else{
+    if (farmCards.length <= 0 || farmCards.length > 0) {
+      farms.push({
+        farmer: {
+          ffrs,
+          brgy,
+          municipality,
+          province,
+          firstName,
+          lastName,
+          extName,
+          gender,
+          bday,
+          deceased,
+          active
+        }
+      });
+    }
   }
 
   if (farmCards.length > 0) {
@@ -240,7 +270,32 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
 
       const parcelNum = card.querySelector('.parcelNum').value;
 
+      let parcel_id = '';
 
+      if (card.querySelector('.parcel_id')) {
+        parcel_id = card.querySelector('.parcel_id').value;
+          console.log(`Farm exists! ${parcel_id}`);
+      }else{
+        console.log('Class not exists!');
+      }
+
+      if (card.querySelector('.parcel_id')) {    
+      farms.push({
+        parcel: {
+          parcel_id,
+          parcelNum,
+          ofName,
+          olName,
+          ownership,
+          farmLocationBrgy,
+          farmLocationMunicipality,
+          farmLocationProvince,
+          farmSize,
+          farmType
+        },
+      });
+
+    }else{
       farms.push({
         parcel: {
           parcelNum,
@@ -254,6 +309,7 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
           farmType
         },
       });
+    }
 
     });
   }
@@ -265,14 +321,35 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
       const cropArea = card.querySelector('.cropArea').value;
       const classification = card.querySelector('.classification').value;
 
-      farms.push({
-        crop: {
-          parcelNum,
-          hvc,
-          cropArea,
-          classification
-        }
-      });
+
+  let crop_id = '';
+  if (card.querySelector('.crop_id')) {
+    crop_id = card.querySelector('.crop_id').value;
+    console.log(`Crop exists! ${crop_id}`);
+  }else{
+    console.log('Class not exists!');
+  }
+
+  if (card.querySelector('.crop_id')) {
+    farms.push({
+      crop: {
+        crop_id,
+        parcelNum,
+        hvc,
+        cropArea,
+        classification
+      }
+    });
+  }else{
+    farms.push({
+      crop: {
+        parcelNum,
+        hvc,
+        cropArea,
+        classification
+      }
+    });
+  }
 
     });
   }
@@ -283,13 +360,33 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
       const numberOfHeads = card.querySelector('.numberOfHeads').value;
       const livestockType = card.querySelector('.livestockType').value;
 
-      farms.push({
-        livestock: {
-          parcelNum,
-          numberOfHeads,
-          livestockType
-        }
-      });
+  let livestock_id = '';
+
+  if (card.querySelector('.livestock_id')) {
+    livestock_id = card.querySelector('.livestock_id').value;
+    console.log(`LS exists! ${livestock_id}`);
+  }else{
+    console.log('Class not exists!');
+  }
+
+  if (card.querySelector('.livestock_id')) {
+    farms.push({
+      livestock: {
+        livestock_id,
+        parcelNum,
+        numberOfHeads,
+        livestockType
+      }
+    });
+  }else{
+    farms.push({
+      livestock: {
+        parcelNum,
+        numberOfHeads,
+        livestockType
+      }
+    });
+  }
 
     });
   }

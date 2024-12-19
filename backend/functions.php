@@ -190,41 +190,72 @@ function jsonResponse($status, $status_type,  $message)
     return;
 }
 
-// Get by Data ID specifically for edit button if it exist status=200
-function getById($tableName, $id){
+function getById($tableName, $id, $isFarmer = true) {
     global $conn;
 
+    // Validate and sanitize inputs
     $table = validate($tableName);
     $id = validate($id);
 
-    $query = "SELECT * FROM $table WHERE id='$id' LIMIT 1";
-    $result = mysqli_query($conn, $query);
+    // Prepare the query based on whether it's a farmer or not
+    if ($isFarmer) {
+        $query = "SELECT * FROM $table WHERE id = ? LIMIT 1";
+    } else {
+        $query = "SELECT * FROM $table WHERE farmer_id = ?";
+    }
 
-    if ($result) {
-        if (mysqli_num_rows($result) == 1) {
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    // Prepare the statement
+    if ($stmt = mysqli_prepare($conn, $query)) {
 
-            $response = [
-                'status' => 200,
-                'data' => $row,          //get data database
-                'message' => 'Record Found'
-            ];
-            return $response;
-            
+        // Bind the parameters (assuming id is an integer or string)
+        mysqli_stmt_bind_param($stmt, 's', $id); // 's' for string, use 'i' for integer if applicable
+
+        // Execute the query
+        mysqli_stmt_execute($stmt);
+
+        // Get the result
+        $result = mysqli_stmt_get_result($stmt);
+
+        // Check if any rows were returned
+        if (mysqli_num_rows($result) > 0) {
+            // If only one row, return the single record
+            if ($isFarmer && mysqli_num_rows($result) == 1) {
+                $data = mysqli_fetch_assoc($result);
+                $response = [
+                    'status' => 200,
+                    'data' => $data,
+                    'message' => 'Record Found'
+                ];
+            } else {
+                // Otherwise, return all rows
+                $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                $response = [
+                    'status' => 200,
+                    'data' => $rows,
+                    'message' => 'Records Found'
+                ];
+            }
         } else {
+            // No data found
             $response = [
                 'status' => 404,
                 'message' => 'No Data Found'
             ];
-            return $response;
         }
+
+        // Close the prepared statement
+        mysqli_stmt_close($stmt);
+
     } else {
+        // Query preparation failed
         $response = [
             'status' => 500,
-            'message' => 'Something Went Wrong'
+            'message' => 'Database Query Preparation Failed'
         ];
-        return $response;
     }
+
+    return $response;
 }
+
 
 ?>

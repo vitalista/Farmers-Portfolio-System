@@ -11,4 +11,6 @@ Notes for Backend:
 -Counter for each parcels added at farmers-add.php
 -Empty array to hide dbuttons
 
-TODO: review 2 barcharts in dashboard.php
+BUGS:
+middleName does not show file: farmer-add.js line: 200-210
+parcel number not resetting when removing parcel
