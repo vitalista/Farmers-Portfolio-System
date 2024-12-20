@@ -13,9 +13,6 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-    </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -31,28 +28,7 @@
                 </div>
               </div>
 
-              <?php
-              $tableName = "your_table_name";
-
-              $sql = "SELECT * FROM $tableName LIMIT 200";
-              $result = $conn->query($sql);
-
-              ?>
-              <script>
-                function getTotalEntries() {
-                  return <?= $result->num_rows ?>;
-                }
-              </script>
-
-              <?php include 'filter.php'; ?>
-
-              <div id="loadingDiv" class="d-flex justify-content-center d-none" style="display: none;">
-                <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              </div>
-
-              <!-- <a href="#" class="btn -btn-success">Completed</a> -->
+              <?php include 'parcels/filter.php'; ?>
 
               <table id="example" class="display nowrap d-none">
                 <thead>
@@ -62,9 +38,6 @@
                     <th>Brgy</th>
                     <th>Parcel Area</th>
                     <th>Action</th>
-                    <!-- <?php for ($header = 1; $header <= 16; $header++): ?>
-                      <th>Header <?php echo $header; ?></th>
-                    <?php endfor; ?> -->
 
                   </tr>
                 </thead>
@@ -73,18 +46,26 @@
                   <?php
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        $farmerData = getById('farmers', $row['farmer_id']);
+                        if($farmerData['status'] == 200){
                   ?>
                       <tr>
-                        <td><?=$row['column1']?></td>
-                        <td><?=$row['column24']?></td>
-                        <td><?=$row['column16']?></td>
-                        <td><strong><?=$row['column19']?> Ha</strong></td>
+                        <td> 
+                          <?= $farmerData['data']['ffrs_system_gen'];?>
+                       </td>
+                        <td><?=$row['farm_type']?></td>
+                        <td><?=$row['parcel_brgy_address']?></td>
+                        <td><strong><?=$row['parcel_area']?> Ha</strong></td>
                         <td>
-                        <a href="../farmer/farmer-view.php" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
-                        <a href="#" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-                        <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="bi bi-info-circle-fill"></i></a>
+                        <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
+                        <a href="../backend/archive.php?parcel_id=<?= $row['id']?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                        <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&parcels=Parcel"
+                        class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
                       </tr>
+                    <?php
+                    }
+                    ?>
                   <?php
                     }
                   } else {
@@ -106,65 +87,125 @@
 
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
-  <script>
-    let totalEntries = getTotalEntries();
+<script>
+  let totalEntries = getTotalEntries();
 
-    // Calculate 25%, 50%, and 75% of the total entries
-    let twentyFivePercent = Math.ceil(totalEntries * 0.25);
-    let fiftyPercent = Math.ceil(totalEntries * 0.50);
-    let seventyFivePercent = Math.ceil(totalEntries * 0.75);
+// Calculate 25%, 50%, and 75% of the total entries
+let twentyFivePercent = Math.ceil(totalEntries * 0.25);
+let fiftyPercent = Math.ceil(totalEntries * 0.5);
+let seventyFivePercent = Math.ceil(totalEntries * 0.75);
 
-    let lengthMenuValues = [10, twentyFivePercent, fiftyPercent, seventyFivePercent, -1];
-    let lengthMenuLabels = [10,
-      `${twentyFivePercent} (25%)`,
-      `${fiftyPercent} (50%)`,
-      `${seventyFivePercent} (75%)`,
-      "Show All"
-    ];
+let lengthMenuValues = [
+  10,
+  twentyFivePercent,
+  fiftyPercent,
+  seventyFivePercent,
+  -1,
+];
+let lengthMenuLabels = [
+  10,
+  `${twentyFivePercent} (25%)`,
+  `${fiftyPercent} (50%)`,
+  `${seventyFivePercent} (75%)`,
+  "Show All",
+];
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const loadingDiv = document.getElementById("loadingDiv");
-      const example = document.getElementById("example");
+document.addEventListener("DOMContentLoaded", function () {
+  const example = document.getElementById("example");
+  const columns = [0, 1, 2, 3];
+  setTimeout(() => {
+    example.classList.remove("d-none");
+    $("#example").DataTable({
+      language: {
+        emptyTable: `<span class="text-danger"><strong>No Parcels Available</strong></span>`,
+      },
+      dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+      responsive: true,
+      buttons: [
+        {
+          extend: "copy",
+          title: "Baliwag Agriculture Office",
+          exportOptions: {
+            columns: columns, // Specify the columns you want to copy
+            modifier: {
+              page: "current", // Only copy the data on the current page
+            },
+          },
+        },
 
-      // Show the loading div
-      // loadingDiv.classList.remove("d-none");
+        {
+          extend: "csv",
+          title: "Baliwag Agriculture Office",
+          action: function (e, dt, node, config) {
+            config.exportOptions = {
+              columns: columns,
+              modifier: {
+                page: "current",
+              },
+            };
 
-      // Hide it after 3 seconds
-      setTimeout(() => {
-        // loadingDiv.classList.add("d-none");
-        example.classList.remove("d-none");
-        $('#example').DataTable({
+            $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
+          },
+        },
+        {
+          extend: "print",
+          action: function (e, dt, node, config) {
+            config.customize = function (win) {
+              $(win.document.body)
+                .css("font-size", "12pt")
+                .find("h1")
+                .replaceWith(
+                  '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
+                );
+            };
 
+            config.exportOptions = {
+              columns: columns,
+              modifier: {
+                page: "current",
+              },
+            };
 
+            $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
+          },
+        },
+        {
+          extend: "excel",
+          title: "Baliwag Agriculture Office",
+          action: function (e, dt, node, config) {
+            config.exportOptions = {
+              columns: columns,
+              modifier: {
+                page: "current",
+              },
+            };
 
-          dom: 'B<"table-top"lf>t<"table-bottom"ip>',
-          responsive: true,
-          buttons: [
-            'copy', 'csv', 'print', 'excel', 'pdf'
-          ],
-          colReorder: true,
-          fixedHeader: true,
-          rowReorder: false,
-          lengthMenu: [
-            lengthMenuValues, // Values for entries
-            lengthMenuLabels // Labels for entries
-          ],
-          columnDefs: [{
-            targets: 0,
-            render: function(data, type, row) {
-              if (type === 'display' || type === 'filter') {
-                // return `<button class="btn btn-success">Registered</button>`;
-                // return `<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#disablebackdrop">Unregistered</button>`;
-                // return `<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#disablebackdrop">${data}</button>`;
-                return `<b>${data}</b>`;
-              }
-              return null;
-            }
-          }]
-        });
-      }, 500);
+            $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
+          },
+        },
+        {
+          extend: "pdf",
+          title: "Baliwag Agriculture Office",
+          action: function (e, dt, node, config) {
+            config.exportOptions = {
+              columns: columns,
+              modifier: {
+                page: "current",
+              },
+            };
+
+            $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
+          },
+        },
+      ],
+      colReorder: true,
+      fixedHeader: true,
+      rowReorder: false,
+      lengthMenu: [lengthMenuValues, lengthMenuLabels],
     });
-  </script>
+  }, 500);
+});
+</script>
 </body>
 
 </html>

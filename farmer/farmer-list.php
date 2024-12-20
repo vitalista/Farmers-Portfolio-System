@@ -94,8 +94,8 @@
                         <td>
                           <a href="farmer-view.php?id=<?= $row['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                           <a onclick="return confirm('Are you sure you want to archive it?')"
-                            href="farmer-archive.php?id=<?= $row['id'] ?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-                          <a class="btn btn-secondary" href="activity-log.php?user_id=<?= $row['id']; ?>"><i class="bi bi-info-circle-fill"></i></a>
+                            href="../backend/archive.php?id=<?= $row['id'] ?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                          <a class="btn btn-secondary" href="../backend/activity-log.php?id=<?= $row['id']; ?>&farmers=Farmer"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
                       </tr>
                   <?php

@@ -31,23 +31,28 @@ require '../backend/functions.php';
 
 // Archive parcel
 if (checkParamId('parcel')) {
-    archiveEntity('parcel', 'parcels', 'farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+    archiveEntity('parcel', 'parcels', '../farmer/farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+}
+
+// Archive parcel on list
+if (checkParamId('parcel_id')) {
+    archiveEntity('parcel_id', 'parcels', '../farmer-assets/parcels.php', 'Successfully Archived');
 }
 
 // Archive crop
 if (checkParamId('crop')) {
-  archiveEntity('crop', 'crops', 'farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+  archiveEntity('crop', 'crops', '../farmer/farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
 }
 
 // Archive livestock
 if (checkParamId('livestock')) {
-  archiveEntity('livestock', 'livestocks', 'farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+  archiveEntity('livestock', 'livestocks', '../farmer/farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
 }
 
 
 // Archive farmer
 if (checkParamId('id')) {
-    archiveEntity('id', 'farmers', 'farmer-list.php', 'Successfully Archived');
+    archiveEntity('id', 'farmers', '../farmer/farmer-list.php', 'Successfully Archived');
 }
 
 // }else{

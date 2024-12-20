@@ -1,7 +1,7 @@
 <?php
-$tableName = "your_table_name";
+$tableName = "parcels";
 
-$sql = "SELECT * FROM $tableName LIMIT 200";
+$sql = "SELECT * FROM $tableName WHERE is_archived = 0  LIMIT 10";
 $result = $conn->query($sql);
 
 ?>

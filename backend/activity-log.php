@@ -60,7 +60,7 @@ try {
         }
     </style>
 
-    <div id="activityLogModal" class="modal fade" style="display: <?php echo isset($_GET['user_id']) ? 'block' : 'none'; ?>;" data-aos="fade-up" data-aos-delay="100">
+    <div id="activityLogModal" class="modal fade" style="display: <?php echo isset($_GET['id']) ? 'block' : 'none'; ?>;" data-aos="fade-up" data-aos-delay="100">
         <div class="modal-content">
              <div class="d-flex p-2 mb-4"  style="border-bottom: 1px solid #dee2e6;">
              <h5 class="model-title">
@@ -72,13 +72,35 @@ try {
             <div id="activityLogContent">
                 <?php
                
-               if (isset($_GET['user_id']) && is_numeric($_GET['user_id'])) {
-                // Sanitize and assign the user_id
-                $userId = (int)$_GET['user_id'];
+               if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                // Sanitize and assign the id
+                $id = (int)$_GET['id'];
             
                 // Fetch activity log for the user from the database
-                $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM farmers WHERE id = :user_id');
-                $stmt->execute(['user_id' => $userId]);
+
+                $table;
+
+                if(isset($_GET['farmers']) && is_string($_GET['farmers'])){
+                    $table = $_GET['farmers'];
+                    $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM farmers WHERE id = :id');
+                }
+
+                if(isset($_GET['parcels']) && is_string($_GET['parcels'])){
+                    $table = $_GET['parcels'];
+                    $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM parcels WHERE id = :id');
+                }
+
+                if(isset($_GET['crops']) && is_string($_GET['crops'])){
+                    $table = $_GET['crops'];
+                    $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM crops WHERE id = :id');
+                }
+
+                if(isset($_GET['livestocks']) && is_string($_GET['livestocks'])){
+                    $table = $_GET['livestocks'];
+                    $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM livestocks WHERE id = :id');
+                }
+
+                $stmt->execute(['id' => $id]);
                 $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
                 if ($logs) {
@@ -86,7 +108,8 @@ try {
                         // Format the modified_at if needed (assuming it's a timestamp)
                         $modifiedAtFormatted = date("l, F-d-Y h:i:s A", strtotime($log['modified_at']));
                         
-                        echo "  
+                        echo "
+                            <h5 style='text-align: center;'>{$table}</h5>
                             <p><strong>Modified By:</strong> {$log['modified_by']}</p>
                             <p><strong>Modified At:</strong> {$modifiedAtFormatted}</p>
                             <p><strong>Modified Times:</strong> {$log['modified_times']}</p>

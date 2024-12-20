@@ -380,7 +380,7 @@
                                                                         <a class="btn btn-danger"
                                                                             id="crop<?= $parcel['parcel_no']; ?>"
                                                                              onclick="return confirm('Are you sure you want to remove it?')"
-                                                    href="farmer-archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id'];?>"
+                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id'];?>"
                                                                             >Remove</a>
                                                                     </div>
                                                                 </div>
@@ -417,7 +417,7 @@
                                                                             <div class="input-group-append">
                                                                                 <a class="btn btn-danger removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
                                                                                  onclick="return confirm('Are you sure you want to remove it?')"
-                                                    href="farmer-archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id'];?>"
+                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id'];?>"
                                                                                 >Remove</a>
                                                                             </div>
                                                                         </div>
@@ -438,7 +438,7 @@
                                                 <div class="d-flex justify-content-end">
                                                     <a class="btn btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>"
                                                     onclick="return confirm('Are you sure you want to remove it?')"
-                                                    href="farmer-archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>"
+                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>"
                                                     >Remove Farm</a>
                                                 </div>
 
