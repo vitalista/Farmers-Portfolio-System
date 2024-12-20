@@ -43,11 +43,11 @@ if (isset($_POST['farms_data'])) {
 </script>
 <?php
     $user_id = 0;
-    $farmerId = 0;
+    $farmerId = isset($data[0]['farmer']['farmer_id']) ? $data[0]['farmer']['farmer_id'] : null;
     date_default_timezone_set('Asia/Taipei');
     $modifiedAt =  date('Y-m-d h:i:s A');
 
-    if (isset($data[0]['farmer'])) {
+    if (!isset($farmerId) &&isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
         $sql = "INSERT INTO farmers (
         ffrs_system_gen, 
@@ -63,9 +63,8 @@ if (isset($_POST['farms_data'])) {
 
         modified_by,
         modified_at
-        ) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
-                ?, ?)";
+        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        )";
         $stmt = $conn->prepare($sql);
         
         if ($stmt === false) {
@@ -96,12 +95,70 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
     }
+
+    if (isset($farmerId) && isset($data[0]['farmer'])) {
+        $farmer = $data[0]['farmer'];
+        $sql = "UPDATE farmers SET
+            ffrs_system_gen = ?, 
+            farmer_brgy_address = ?, 
+            farmer_municipality_address = ?, 
+            farmer_province_address = ?, 
+            first_name = ?, 
+            last_name = ?, 
+            ext_name = ?, 
+            gender = ?, 
+            birthday = ?, 
+            is_deceased = ?, 
+            is_active = ?, 
+            modified_by = ?, 
+            modified_at = ?
+            WHERE id = ?";
+    
+        $stmt = $conn->prepare($sql);
+    
+        if ($stmt === false) {
+            echo "Error preparing farmer update query: " . $conn->error;
+            exit;
+        }
+    
+        // Bind the parameters
+        $stmt->bind_param("ssssssssssiisi", 
+            $farmer['ffrs'], 
+            $farmer['brgy'], 
+            $farmer['municipality'], 
+            $farmer['province'], 
+            $farmer['firstName'], 
+            $farmer['lastName'], 
+            $farmer['extName'], 
+            $farmer['gender'], 
+            $farmer['bday'], 
+            $farmer['deceased'],
+            $farmer['active'],
+            $user_id,
+            $modifiedAt,
+            $farmerId  // Pass the farmer ID to identify the record to update
+        );
+    
+        // Execute the query
+        if ($stmt->execute()) {
+            echo '<div style="position: fixed; top: 80px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Farmer updated successfully!</div>';
+        } else {
+            echo "Error executing farmer update query: " . $stmt->error;
+            exit;
+        }
+    }
+    
     
     // Insert parcel data
     $parcelIds = []; // Initialize an empty array to store parcelNum and corresponding insert_id.
     foreach ($data as $item) {
-        if (isset($item['parcel'])) {
-            $parcel = $item['parcel'];
+
+    if (isset($item['parcel'])) {
+        $parcel = $item['parcel'];
+
+        if (!isset($parcel['parcel_id'])) {
+
+
             $sql = "INSERT INTO parcels (
                       farmer_id, 
                       parcel_no, 
@@ -143,19 +200,75 @@ if (isset($_POST['farms_data'])) {
             );
             
             if ($stmt->execute()) {
-                // Save the parcelNum and corresponding insert_id in the $parcelIds array.
                 $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
             } else {
                 echo "Error executing parcel insert query: " . $stmt->error;
                 exit;
             }
         }
+
+        if (isset($parcel['parcel_id'])) {
+        
+            $sql = "UPDATE parcels SET
+                        farmer_id = ?, 
+                        parcel_no = ?, 
+                        owner_first_name = ?, 
+                        owner_last_name = ?, 
+                        ownership_type = ?, 
+                        parcel_brgy_address = ?, 
+                        parcel_municipality_address = ?, 
+                        parcel_province_address = ?, 
+                        parcel_area = ?, 
+                        farm_type = ?, 
+                        modified_by = ?, 
+                        modified_at = ?
+                    WHERE id = ?"; 
+        
+            $stmt = $conn->prepare($sql);
+        
+            if ($stmt === false) {
+                echo "Error preparing parcel update query: " . $conn->error;
+                exit;
+            }
+        
+            // Bind parameters for the update query
+            $stmt->bind_param(
+                "iissssssssisi", 
+                $farmerId,
+                $parcel['parcelNum'],
+                $parcel['ofName'],
+                $parcel['olName'],
+                $parcel['ownership'],
+                $parcel['farmLocationBrgy'],
+                $parcel['farmLocationMunicipality'],
+                $parcel['farmLocationProvince'],
+                $parcel['farmSize'],
+                $parcel['farmType'],
+                $user_id,
+                $modifiedAt,
+                $parcel['parcel_id']
+            );
+        
+            // Execute the query
+            if ($stmt->execute()) {
+                // Parcel updated successfully
+                $parcelIds[$parcel['parcelNum']] = $parcel['parcel_id'];
+                echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Parcel updated successfully!</div>';
+                
+            } else {
+                echo "Error executing parcel update query: " . $stmt->error;
+                exit;
+            }
+        }
+    }   
     }
-    
+
+        
     // Insert crop data
     foreach ($data as $item) {
         if (isset($item['crop'])) {
-            $crop = $item['crop'];
+            if (!isset($item['crop']['crop_id'])) {
+                $crop = $item['crop'];
             $parcelId = $parcelIds[$crop['parcelNum']] ?? null;
             if ($parcelId) {
                 $sql = "INSERT INTO crops (
@@ -191,12 +304,57 @@ if (isset($_POST['farms_data'])) {
                     exit;
                 }
             }
+            }
+
+            if (isset($item['crop']['crop_id'])) {
+                $crop = $item['crop'];
+                $cropId = $crop['crop_id']; // Assuming crop_id is provided in the item array
+                $parcelId = $parcelIds[$crop['parcelNum']] ?? null;
+            
+                if ($parcelId) {
+                    // Update query for the existing crop
+                    $sql = "UPDATE crops SET 
+                            farmer_id = ?, 
+                            parcel_id = ?, 
+                            hvc = ?, 
+                            crop_area = ?, 
+                            classification = ?, 
+                            modified_by = ?, 
+                            modified_at = ? 
+                            WHERE id = ?";
+                            
+                    $stmt = $conn->prepare($sql);
+            
+                    if ($stmt === false) {
+                        echo "Error preparing crop update query: " . $conn->error;
+                        exit;
+                    }
+            
+                    // Bind parameters for the update query
+                    $stmt->bind_param("iiissisi", 
+                        $farmerId, 
+                        $parcelId, 
+                        $crop['hvc'], 
+                        $crop['cropArea'], 
+                        $crop['classification'], 
+                        $user_id, 
+                        $modifiedAt, 
+                        $cropId // Crop ID to identify the record to update
+                    );
+            
+                    if (!$stmt->execute()) {
+                        echo "Error executing crop update query: " . $stmt->error;
+                        exit;
+                    }
+                }
+            }
         }
     }
     
     // Insert livestock data
     foreach ($data as $item) {
         if (isset($item['livestock'])) {
+           if (!isset($item['livestock']['livestock_id'])) {
             $livestock = $item['livestock'];
             $parcelId = $parcelIds[$livestock['parcelNum']] ?? null;
             
@@ -233,6 +391,48 @@ if (isset($_POST['farms_data'])) {
                     exit;
                 }
             }
+           }
+           if (isset($item['livestock']['livestock_id'])) {
+            $livestock = $item['livestock'];
+            $livestockId = $livestock['livestock_id']; // Assuming livestock_id is provided
+            $parcelId = $parcelIds[$livestock['parcelNum']] ?? null;
+            
+            if ($parcelId) {
+                // Update query for existing livestock
+                $sql = "UPDATE livestocks SET
+                        farmer_id = ?, 
+                        parcel_id = ?, 
+                        no_of_heads = ?, 
+                        animal_name = ?, 
+                        modified_by = ?, 
+                        modified_at = ? 
+                        WHERE id = ?";
+        
+                $stmt = $conn->prepare($sql);
+        
+                if ($stmt === false) {
+                    echo "Error preparing livestock update query: " . $conn->error;
+                    exit;
+                }
+        
+                // Bind parameters for the update query
+                $stmt->bind_param("iiisisi", 
+                    $farmerId, 
+                    $parcelId, 
+                    $livestock['numberOfHeads'], 
+                    $livestock['livestockType'], 
+                    $user_id, 
+                    $modifiedAt, 
+                    $livestockId // Livestock ID to identify the record to update
+                );
+        
+                if (!$stmt->execute()) {
+                    echo "Error executing livestock update query: " . $stmt->error;
+                    exit;
+                }
+            }
+        }
+        
         }
     }
     
@@ -276,6 +476,11 @@ if (isset($_POST['farms_data'])) {
     $conn->close();
 }
 // Check if decoding was successful
+
+
+    echo '<pre style="color: red; font-weight: bold;">';
+    print_r($parcelIds);
+    echo '</pre></div>';
 ?>
 </div>
 </body>

@@ -238,51 +238,51 @@
                                 $crops = getById('crops', $paramValue, false);
                                 $livestocks = getById('livestocks', $paramValue, false);
 
-                                foreach ($parcels['data'] as $key => $parcel) {
+                                if ($parcels['status'] == 200) {
 
-                                    if ($crops['status'] == 200) {
-                                        $matchingCrops = [];
-                                        // Loop through each crop to find matching ones
+                                    foreach ($parcels['data'] as $key => $parcel) {
 
-                                        foreach ($crops['data'] as $crop) {
-                                            if ($parcel['id'] == $crop['parcel_id']) {
-                                                $matchingCrops[] = $crop;  // Collect matching crops in an array
+                                        if ($crops['status'] == 200) {
+                                            $matchingCrops = [];
+                                            // Loop through each crop to find matching ones
+    
+                                            foreach ($crops['data'] as $crop) {
+                                                if ($parcel['id'] == $crop['parcel_id']) {
+                                                    $matchingCrops[] = $crop;  // Collect matching crops in an array
+                                                }
+                                            }
+    
+                                            // Store all matching crops in the parcel's 'crops' field
+                                            if (!empty($matchingCrops)) {
+                                                $parcels['data'][$key]['crops'] = $matchingCrops;
                                             }
                                         }
-
-                                        // Store all matching crops in the parcel's 'crops' field
-                                        if (!empty($matchingCrops)) {
-                                            $parcels['data'][$key]['crops'] = $matchingCrops;
+    
+                                        if ($livestocks['status'] == 200) {
+                                            $matchingLivestocks = [];
+                                            // Process livestock (similar approach)
+                                            foreach ($livestocks['data'] as $livestock) {
+                                                if ($parcel['id'] == $livestock['parcel_id']) {
+                                                    $matchingLivestocks[] = $livestock;
+                                                }
+                                            }
+    
+                                            if (!empty($matchingLivestocks)) {
+                                                $parcels['data'][$key]['livestocks'] = $matchingLivestocks;
+                                            }
                                         }
                                     }
 
-                                    if ($livestocks['status'] == 200) {
-                                        $matchingLivestocks = [];
-                                        // Process livestock (similar approach)
-                                        foreach ($livestocks['data'] as $livestock) {
-                                            if ($parcel['id'] == $livestock['parcel_id']) {
-                                                $matchingLivestocks[] = $livestock;
-                                            }
-                                        }
-
-                                        if (!empty($matchingLivestocks)) {
-                                            $parcels['data'][$key]['livestocks'] = $matchingLivestocks;
-                                        }
-                                    }
-                                }
-
-                                // echo '<pre style="color: red; font-weight: bold;">';
+                                       // echo '<pre style="color: red; font-weight: bold;">';
                                 // print_r($parcels);
                                 // echo '</pre></div>';
-
-                                if ($parcels['status'] == 200) {
 
                                     foreach ($parcels['data'] as $parcel) {
                                 ?>
                                         <div class="card my-2">
                                             <h5 class="card-title ms-3">Parcel # <?= $parcel['parcel_no']; ?></h5>
                                             <div class="card-body">
-                                                <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
+                                                <input type="text" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
 
                                                 <input type="hidden" class="parcel_id" value="<?= $parcel['id']; ?>">
 
@@ -305,7 +305,7 @@
                                                     <div class="col-md-4 mt-1" style="margin-top: -11px;">
                                                         <label class="form-label">Ownership Type<span class="red-star">*</span></label>
                                                         <select class="form-select ownership" id="" required>
-                                                            <option selected disabled>Choose...</option>
+                                                            <option selected disabled value="">Choose...</option>
                                                             <option value="Tenant" <?= $parcel['ownership_type'] == 'Tenant' ? 'selected' : ''; ?>>Tenant</option>
                                                             <option value="Registered Owner" <?= $parcel['ownership_type'] == 'Registered Owner' ? 'selected' : ''; ?>>Registered Owner</option>
                                                             <option value="Lesse" <?= $parcel['ownership_type'] == 'Lesse' ? 'selected' : ''; ?>>Lesse</option>
@@ -378,16 +378,23 @@
                                                                     </div>
                                                                     <div class="d-flex justify-content-end col-md-2 mb-3 mt-4">
                                                                         <a class="btn btn-danger"
-                                                                            id="crop<?= $parcel['parcel_no']; ?>">Remove</a>
+                                                                            id="crop<?= $parcel['parcel_no']; ?>"
+                                                                             onclick="return confirm('Are you sure you want to remove it?')"
+                                                    href="farmer-archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id'];?>"
+                                                                            >Remove</a>
                                                                     </div>
                                                                 </div>
                                                         <?php endforeach;
                                                         } ?>
                                                     </div>
                                                     <div class="d-flex justify-content-end mb-2">
-                                                        <a type="button" class="btn btn-primary text-end
-                                                        " id="cropBtns<?= $parcel['parcel_no']; ?>">Add Crop</a>
+                                                        <a type="button" class="btn btn-primary text-end" 
+                                                        id="cropBtns<?= $parcel['parcel_no']; ?>" 
+                                                        data-parcel-no="<?= $parcel['parcel_no']; ?>">
+                                                        Add Crop
+                                                        </a>
                                                     </div>
+
                                                 </div>
                                                 <div class="form-group" id="livestockContainer">
                                                     <label>Livestock</label>
@@ -408,7 +415,10 @@
                                                                         <div class="input-group mb-2">
                                                                             <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
                                                                             <div class="input-group-append">
-                                                                                <a class="btn btn-danger removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>">Remove</a>
+                                                                                <a class="btn btn-danger removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
+                                                                                 onclick="return confirm('Are you sure you want to remove it?')"
+                                                    href="farmer-archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id'];?>"
+                                                                                >Remove</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -420,12 +430,16 @@
                                                     <div class="d-flex justify-content-end mb-2">
                                                         <a type="button" class="btn btn-primary addLivestockButton"
                                                          id="livestockBtns<?= $parcel['parcel_no']; ?>"
+                                                          data-parcel-no="<?= $parcel['parcel_no']; ?>"
                                                         >Add Livestock</a>
                                                     </div>
                                                 </div>
 
                                                 <div class="d-flex justify-content-end">
-                                                    <a class="btn btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>">Remove Farm</a>
+                                                    <a class="btn btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>"
+                                                    onclick="return confirm('Are you sure you want to remove it?')"
+                                                    href="farmer-archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>"
+                                                    >Remove Farm</a>
                                                 </div>
 
                                             </div>

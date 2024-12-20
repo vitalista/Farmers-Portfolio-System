@@ -1,36 +1,55 @@
 <?php
 require '../backend/functions.php';
 // if($_SESSION['LoggedInUser']['can_delete'] == 1){
-$paramResult = checkParamId('id');
+  function archiveEntity($paramName, $tableName, $redirectUrl, $successMessage) {
+    $id = checkParamId($paramName);
 
-if (is_numeric($paramResult)) {
+    if ($id && is_numeric($id)) {
+        $id = validate($id);
+        $category = getById($tableName, $id);
 
-  $id = validate($paramResult);
-  $category = getById('farmers', $id);
+        if ($category['status'] == 200) {
+            $data = ['is_archived' => 1];
+            $archived = update($tableName, $id, $data);
 
-  if ($category['status'] == 200) {
-
-    $data = [
-      'is_archived' => 1
-    ];
-
-    $archived = update('farmers', $id, $data);
-    if ($archived) {
-
-      redirect('farmer-list.php', 'Successfully Archived');
+            if ($archived) {
+                redirect($redirectUrl, $successMessage);
+                exit; // Ensure we exit after redirect
+            } else {
+                redirect('', 'Something Went Wrong');
+                exit; // Ensure we exit after redirect
+            }
+        } else {
+            redirect('', $category['message']);
+            exit; // Ensure we exit after redirect
+        }
     } else {
-      redirect('', 'Something Went Wrong');
+        redirect('', 'Something Went Wrong');
+        exit; // Ensure we exit after redirect
     }
-  } else {
-    redirect('', $category['message']);
-  }
-
-  //echo $id;
-
-} else {
-
-  redirect('', 'Something Went Wrong');
 }
+
+// Archive parcel
+if (checkParamId('parcel')) {
+    archiveEntity('parcel', 'parcels', 'farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+}
+
+// Archive crop
+if (checkParamId('crop')) {
+  archiveEntity('crop', 'crops', 'farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+}
+
+// Archive livestock
+if (checkParamId('livestock')) {
+  archiveEntity('livestock', 'livestocks', 'farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+}
+
+
+// Archive farmer
+if (checkParamId('id')) {
+    archiveEntity('id', 'farmers', 'farmer-list.php', 'Successfully Archived');
+}
+
 // }else{
 //   echo '<script>window.location.href = "index.html";</script>';
 //   }

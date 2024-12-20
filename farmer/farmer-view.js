@@ -1,6 +1,8 @@
 const cropBtns = document.querySelectorAll('[id^="cropBtns"]');
+
 cropBtns.forEach(function(button) {
     button.addEventListener('click', function() {
+        const parcelNo = button.getAttribute('data-parcel-no');
         const cropInputDiv = document.createElement('div');
         cropInputDiv.className = 'row dynamic-input my-2 p-2';
         cropInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
@@ -9,7 +11,7 @@ cropBtns.forEach(function(button) {
             <label class="form-check-label">High value crop?</label>
             <div class="form-check ms-2">
             <input class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
-            <input type="hidden" class="parcelNum" value="" style="width: 100%;">
+            <input type="hidden" class="parcelNum" value="${parcelNo}" style="width: 100%;"> 
             </div>
         </div>
         <div class="col-md-5 mb-3">
@@ -28,16 +30,18 @@ cropBtns.forEach(function(button) {
     });
 });
 
+
 const livestockBtns = document.querySelectorAll('[id^="livestockBtns"]');
 livestockBtns.forEach(function(button) {
     button.addEventListener('click', function() {
+        const parcelNo = button.getAttribute('data-parcel-no');
         const livestockInputDiv = document.createElement('div');
         livestockInputDiv.className = 'row dynamic-input mt-2 px-2 pt-3 mb-2';
         livestockInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
         livestockInputDiv.innerHTML = `
             <div class="col-md-6 mb-3">
                 <input type="number" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
-                <input type="hidden" class="parcelNum" value="" style="width: 100%;">
+                <input type="hidden" class="parcelNum" value="${parcelNo}" style="width: 100%;">
                 <div class="invalid-feedback">Please enter.</div>
             </div>
             <div class="col-md-6 mb-3">

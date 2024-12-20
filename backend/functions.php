@@ -159,7 +159,7 @@ function delete($tableName, $id)
 }
 
 //checks param or in the url 
-function checkParamId($type)
+function checkParamIdDump($type)
 {
     if (isset($_GET[$type])) {
 
@@ -171,6 +171,21 @@ function checkParamId($type)
         }
     } else {
         return '<h4>No ID Given </h4>';
+    }
+}
+
+function checkParamId($type)
+{
+    if (isset($_GET[$type])) {
+
+        if ($_GET[$type] != '') {
+
+            return $_GET[$type];
+        } else {
+            return false;
+        }
+    } else {
+        return false;
     }
 }
 
@@ -201,7 +216,7 @@ function getById($tableName, $id, $isFarmer = true) {
     if ($isFarmer) {
         $query = "SELECT * FROM $table WHERE id = ? LIMIT 1";
     } else {
-        $query = "SELECT * FROM $table WHERE farmer_id = ?";
+        $query = "SELECT * FROM $table WHERE farmer_id = ? AND is_archived = 0";
     }
 
     // Prepare the statement
