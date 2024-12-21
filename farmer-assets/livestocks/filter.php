@@ -1,4 +1,15 @@
+<?php
+$tableName = "livestocks";
 
+$sql = "SELECT * FROM $tableName WHERE is_archived = 0 LIMIT 10";
+$result = $conn->query($sql);
+
+?>
+<script>
+    function getTotalEntries() {
+        return <?= $result->num_rows ?>;
+    }
+</script>
 
 <div class="modal fade" id="ExtralargeModal" tabindex="-1">
     <div class="modal-dialog modal-xl">

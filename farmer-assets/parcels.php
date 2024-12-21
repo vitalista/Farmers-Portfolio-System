@@ -58,7 +58,8 @@
                         <td><strong><?=$row['parcel_area']?> Ha</strong></td>
                         <td>
                         <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
-                        <a href="../backend/archive.php?parcel_id=<?= $row['id']?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                        <a onclick="return confirm('Are you sure you want to archive it?')" 
+                         href="../backend/archive.php?parcel_id=<?= $row['id']?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&parcels=Parcel"
                         class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
@@ -68,8 +69,6 @@
                     ?>
                   <?php
                     }
-                  } else {
-                    echo '<tr rowspan="9"></tr>';
                   }
                   ?>
 

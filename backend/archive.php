@@ -44,9 +44,19 @@ if (checkParamId('crop')) {
   archiveEntity('crop', 'crops', '../farmer/farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
 }
 
+// Archive crop on list
+if (checkParamId('crop_id')) {
+    archiveEntity('crop_id', 'crops', '../farmer-assets/crops.php', 'Successfully Archived');
+}
+
 // Archive livestock
 if (checkParamId('livestock')) {
   archiveEntity('livestock', 'livestocks', '../farmer/farmer-view.php?id=' . checkParamId('farmer'), 'Successfully Archived');
+}
+
+// Archive livestock on list
+if (checkParamId('livestock_id')) {
+    archiveEntity('livestock_id', 'livestocks', '../farmer-assets/livestocks.php', 'Successfully Archived');
 }
 
 
