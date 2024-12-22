@@ -55,6 +55,7 @@ if (isset($_POST['farms_data'])) {
         farmer_municipality_address, 
         farmer_province_address, 
         first_name, 
+        middle_name,
         last_name, 
         ext_name, gender, 
         birthday, 
@@ -63,7 +64,7 @@ if (isset($_POST['farms_data'])) {
 
         modified_by,
         modified_at
-        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
         $stmt = $conn->prepare($sql);
         
@@ -72,12 +73,13 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
         
-        $stmt->bind_param("ssssssssssiis", 
+        $stmt->bind_param("sssssssssssiis", 
         $farmer['ffrs'], 
         $farmer['brgy'], 
         $farmer['municipality'], 
         $farmer['province'], 
         $farmer['firstName'], 
+        $farmer['middleName'], 
         $farmer['lastName'], 
         $farmer['extName'], 
         $farmer['gender'], 
@@ -104,6 +106,7 @@ if (isset($_POST['farms_data'])) {
             farmer_municipality_address = ?, 
             farmer_province_address = ?, 
             first_name = ?, 
+            middle_name = ?,
             last_name = ?, 
             ext_name = ?, 
             gender = ?, 
@@ -122,12 +125,13 @@ if (isset($_POST['farms_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("ssssssssssiisi", 
+        $stmt->bind_param("sssssssssssiisi", 
             $farmer['ffrs'], 
             $farmer['brgy'], 
             $farmer['municipality'], 
             $farmer['province'], 
             $farmer['firstName'], 
+            $farmer['middleName'], 
             $farmer['lastName'], 
             $farmer['extName'], 
             $farmer['gender'], 

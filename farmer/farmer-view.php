@@ -94,12 +94,12 @@
 
                                                         <label class="form-label">Lastname<input type="text" value="<?= $farmer['data']['last_name']; ?>" class="form-control lastName"></label>
                                                         <label class="form-label">First name<input type="text" value="<?= $farmer['data']['first_name']; ?>" class="form-control firstName"></label>
-                                                        <label class="form-label">Middle name<input type="text" value="<?= $farmer['data']['middle_name']; ?>" class="form-control"></label>
+                                                        <label class="form-label">Middle name<input type="text" value="<?= $farmer['data']['middle_name']; ?>" class="form-control middleName"></label>
                                                     </fieldset>
                                                 </div>
                                                 <div class="col">
                                                     <fieldset>
-                                                        <label class="form-label">Birthday<input type="text" value="<?= $farmer['data']['birthday']; ?>" class="form-control bday"></label>
+                                                        <label class="form-label">Birthday<input type="date" value="<?= $farmer['data']['birthday'] == '0000-00-00' ? '': $farmer['data']['birthday']; ?>" class="form-control bday"></label>
                                                         <label class="form-label">Gender<input type="text" value="<?= $farmer['data']['gender']; ?>" class="form-control gender"></label>
                                                         <label class="form-label">Extension name<input type="text" value="<?= $farmer['data']['ext_name']; ?>" class="form-control extName"></label>
                                                     </fieldset>

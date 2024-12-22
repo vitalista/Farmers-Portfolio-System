@@ -211,6 +211,7 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const municipality = card.querySelector('.municipality').value;
   const province = card.querySelector('.province').value;
   const firstName = card.querySelector('.firstName').value;
+  const middleName = card.querySelector('.middleName').value;
   const lastName = card.querySelector('.lastName').value;
   const extName = card.querySelector('.extName').value;
   const gender = card.querySelector('.gender').value;
@@ -228,6 +229,7 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
           municipality,
           province,
           firstName,
+          middleName,
           lastName,
           extName,
           gender,
@@ -246,6 +248,7 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
           municipality,
           province,
           firstName,
+          middleName,
           lastName,
           extName,
           gender,
