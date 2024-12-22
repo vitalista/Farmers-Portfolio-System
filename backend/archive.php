@@ -65,6 +65,18 @@ if (checkParamId('id')) {
     archiveEntity('id', 'farmers', '../farmer/farmer-list.php', 'Successfully Archived');
 }
 
+
+
+// Archive program on list
+if (checkParamId('program_id')) {
+    archiveEntity('program_id', 'programs', '../program/programs-list.php', 'Successfully Archived');
+}
+
+// Archive recources on list
+if (checkParamId('resources_id')) {
+    archiveEntity('resources_id', 'resources', '../program/resources-list.php', 'Successfully Archived');
+}
+
 // }else{
 //   echo '<script>window.location.href = "index.html";</script>';
 //   }

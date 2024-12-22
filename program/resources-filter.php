@@ -1,5 +1,5 @@
 <?php
-$tableName = "programs";
+$tableName = "resources";
 
 $sql = "SELECT * FROM $tableName WHERE is_archived = 0 LIMIT 10";
 $result = $conn->query($sql);

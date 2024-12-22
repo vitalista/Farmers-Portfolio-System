@@ -100,6 +100,16 @@ try {
                     $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM livestocks WHERE id = :id');
                 }
 
+                if(isset($_GET['programs']) && is_string($_GET['programs'])){
+                    $table = $_GET['programs'];
+                    $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM programs WHERE id = :id');
+                }
+
+                if(isset($_GET['resources']) && is_string($_GET['resources'])){
+                    $table = $_GET['resources'];
+                    $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM resources WHERE id = :id');
+                }
+
                 $stmt->execute(['id' => $id]);
                 $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
