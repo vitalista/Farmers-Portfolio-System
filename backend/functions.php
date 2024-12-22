@@ -205,7 +205,7 @@ function jsonResponse($status, $status_type,  $message)
     return;
 }
 
-function getById($tableName, $id, $isFarmer = true) {
+function getById($tableName, $id, $isFarmer = true, $isProgram = false) {
     global $conn;
 
     // Validate and sanitize inputs
@@ -217,6 +217,10 @@ function getById($tableName, $id, $isFarmer = true) {
         $query = "SELECT * FROM $table WHERE id = ? LIMIT 1";
     } else {
         $query = "SELECT * FROM $table WHERE farmer_id = ? AND is_archived = 0";
+    }
+
+    if($isProgram){
+        $query = "SELECT * FROM $table WHERE program_id = ? AND is_archived = 0";
     }
 
     // Prepare the statement

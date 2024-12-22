@@ -179,7 +179,9 @@ if (isset($_POST['program_data'])) {
            $stmt->execute();
         }
 
-        if (isset($parcel['resources_id'])) {
+        echo $resources['resources_id'];
+
+        if (isset($resources['resources_id'])) {
         
             $sql = "UPDATE resources SET
 
@@ -202,7 +204,7 @@ if (isset($_POST['program_data'])) {
         
             // Bind parameters for the update query
             $stmt->bind_param(
-                "issisis", 
+                "issisisi", 
                 $programId,
                 $resources['resourcesName'],
                 $resources['resourcesType'],
@@ -210,7 +212,8 @@ if (isset($_POST['program_data'])) {
                 $resources['unitOfMeasure'],
 
                 $user_id,
-                $modifiedAt
+                $modifiedAt,
+                $resources['resources_id']
             );
         
             // Execute the query

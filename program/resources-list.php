@@ -53,7 +53,7 @@
                     <td><?= $row['total_quantity'];?></td>
                     <td><?= $row['quantity_available'];?></td>
                     <td>
-                      <a href="program-view.php?id<?= $row['id'];?>" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="program-view.php?id=<?= $row['id'];?>" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?resources_id=<?= $row['id'];?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&resources=Resources"

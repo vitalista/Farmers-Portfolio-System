@@ -16,3 +16,4 @@ middleName does not show file: farmer-add.js line: 200-210
 parcel number not resetting when removing parcel
 Total and quantity available of resources && program
 Resources list program name instead of resources name
+archiving in viewing
