@@ -112,7 +112,7 @@
           </div>
 
           <form class="needs-validation" method="POST" action="program-add-code.php" id="programForm" novalidate>
-          <input type="text" name="program_data" id="programData" style="width: 100%;">
+          <input type="hidden" name="program_data" id="programData" style="width: 100%;">
           </form>
 
         </div>

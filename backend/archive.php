@@ -77,6 +77,11 @@ if (checkParamId('resources_id')) {
     archiveEntity('resources_id', 'resources', '../program/resources-list.php', 'Successfully Archived');
 }
 
+// Archive livestock
+if (checkParamId('resources')) {
+    archiveEntity('resources', 'resources', '../program/program-view.php?id=' . checkParamId('program'), 'Successfully Archived');
+  }
+
 // }else{
 //   echo '<script>window.location.href = "index.html";</script>';
 //   }

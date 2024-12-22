@@ -55,12 +55,13 @@ if (isset($_POST['program_data'])) {
         description, 
         start_date, 
         end_date, 
-        total_beneficiaries, 
+        total_beneficiaries,
+        beneficiaries_available, 
         sourcing_agency, 
 
         modified_by,
         modified_at
-        )VALUES (?, ?, ?, ?, ?, ?, ?,
+        )VALUES (?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?
         )";
         $stmt = $conn->prepare($sql);
@@ -70,12 +71,13 @@ if (isset($_POST['program_data'])) {
             exit;
         }
         
-        $stmt->bind_param("sssssisss", 
+        $stmt->bind_param("sssssiisss", 
         $program['nameOfProgram'], 
         $program['programType'], 
         $program['description'], 
         $program['startDate'], 
         $program['endDate'], 
+        $program['totalBeneficiaries'], 
         $program['totalBeneficiaries'], 
         $program['sourcingAgency'], 
         $user_id,
@@ -99,6 +101,7 @@ if (isset($_POST['program_data'])) {
             start_date = ?, 
             end_date = ?, 
             total_beneficiaries = ?, 
+            beneficiaries_available = ?, 
             sourcing_agency = ?, 
 
             modified_by = ?, 
@@ -113,13 +116,14 @@ if (isset($_POST['program_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssisssi", 
+        $stmt->bind_param("sssssiisisi", 
             $program['nameOfProgram'], 
             $program['programType'], 
             $program['description'], 
             $program['startDate'], 
             $program['endDate'], 
             $program['totalBeneficiaries'], 
+            $program['beneficiaries'], 
             $program['sourcingAgency'], 
             
             $user_id,
@@ -151,11 +155,12 @@ if (isset($_POST['program_data'])) {
                       resources_name,
                       resource_type, 
                       total_quantity, 
+                      quantity_available,
                       unit_of_measure,
 
                       modified_by,
                       modified_at
-                  ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     
             $stmt = $conn->prepare($sql);
             
@@ -165,10 +170,11 @@ if (isset($_POST['program_data'])) {
             }
     
             $stmt->bind_param(
-                "issisis",
+                "issiisis",
                 $programId,
                 $resources['resourcesName'],
                 $resources['resourcesType'],
+                $resources['resourcesNumber'],
                 $resources['resourcesNumber'],
                 $resources['unitOfMeasure'],
 
@@ -179,7 +185,7 @@ if (isset($_POST['program_data'])) {
            $stmt->execute();
         }
 
-        echo $resources['resources_id'];
+        // echo $resources['resources_id'];
 
         if (isset($resources['resources_id'])) {
         
@@ -189,6 +195,7 @@ if (isset($_POST['program_data'])) {
                         resources_name = ?, 
                         resource_type = ?, 
                         total_quantity = ?, 
+                        quantity_available = ?, 
                         unit_of_measure = ?,
 
                         modified_by = ?, 
@@ -204,11 +211,12 @@ if (isset($_POST['program_data'])) {
         
             // Bind parameters for the update query
             $stmt->bind_param(
-                "issisisi", 
+                "issiisisi", 
                 $programId,
                 $resources['resourcesName'],
                 $resources['resourcesType'],
                 $resources['resourcesNumber'],
+                $resources['resourcesAvailable'],
                 $resources['unitOfMeasure'],
 
                 $user_id,

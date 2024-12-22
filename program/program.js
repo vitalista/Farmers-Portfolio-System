@@ -25,7 +25,7 @@ let newFarmInput = `
 
         </div>
             <div class="d-flex justify-content-end">
-            <a class="btn btn-danger remove-resources">Remove Resource</a>
+            <a class="btn btn-danger remove-resources">Remove</a>
             </div>
         </div>
 `;
@@ -59,8 +59,9 @@ document.getElementById('submitButton').addEventListener('click', function(e) {
   const resourcesCard = document.querySelectorAll('#resourcesContainer .card-body');
 
   let program_id = '';
-
+  let beneficiaries = '';
   if (card.querySelector('.program_id')) {
+    beneficiaries = card.querySelector('.beneficiaries').value;
     program_id = card.querySelector('.program_id').value;
     console.log(`Program exists! ${program_id}`);
   } else {
@@ -82,6 +83,7 @@ document.getElementById('submitButton').addEventListener('click', function(e) {
           program_id,
           description,
           totalBeneficiaries,
+          beneficiaries,
           endDate,
           startDate,
           programType,
@@ -116,10 +118,12 @@ console.log(resourcesCard.length);
       const unitOfMeasure = card.querySelector('.unitOfMeasure').value;
 
       let resources_id = '';
+      let resourcesAvailable = '';
 
       if (card.querySelector('.resources_id')) {
         resources_id = card.querySelector('.resources_id').value;
-        console.log(`resources_id exists! ${resources_id}`);
+        resourcesAvailable = card.querySelector('.resourcesAvailable').value;
+        console.log(`resources_id exists! ${resources_id} ${resourcesAvailable}`);
       } else {
         console.log('resources_id class not exists!');
       }
@@ -127,6 +131,7 @@ console.log(resourcesCard.length);
       if (card.querySelector('.resources_id')) {
         program.push({
           resources: {
+            resourcesAvailable,
             resources_id,
             resourcesName,
             resourcesType,

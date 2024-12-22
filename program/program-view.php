@@ -44,9 +44,9 @@
                   return false;
                 }
                 $program = getById('programs', $paramValue);
-                echo '<pre style="color: red; font-weight: bold;">';
-                print_r($program);
-                echo '</pre></div>';
+                // echo '<pre style="color: red; font-weight: bold;">';
+                // print_r($program);
+                // echo '</pre></div>';
 
                 if ($program['status'] == 200) {
                   $data = $program['data']
@@ -97,9 +97,15 @@
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-2">
                         <label for="validationCustom05" class="form-label">Total beneficiaries<span class="red-star">*</span></label>
                         <input type="number" value="<?= $data['total_beneficiaries']; ?>" placeholder="" class="form-control totalBeneficiaries no-spin-button" id="validationCustom05" required max="9999999999" min="9000000000" step="1">
+                        <div class="invalid-feedback">Please enter.</div>
+                      </div>
+
+                      <div class="col-md-2">
+                        <label for="validationCustom05" class="form-label">Beneficiaries Available<span class="red-star">*</span></label>
+                        <input type="number" value="<?= $data['beneficiaries_available']; ?>" placeholder="" class="form-control beneficiaries no-spin-button" id="validationCustom05" required max="9999999999" min="9000000000" step="1">
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
@@ -122,9 +128,9 @@
 
                         if ($resources['status'] == 200) {
 
-                          echo '<pre style="color: red; font-weight: bold;">';
-                          print_r($resources);
-                          echo '</pre>';
+                          // echo '<pre style="color: red; font-weight: bold;">';
+                          // print_r($resources);
+                          // echo '</pre>';
 
                           foreach ($resources['data'] as $item) {
                         ?>
@@ -134,7 +140,7 @@
                               <div class="card-body">
                                 <div class="row">
 
-                                  <input type="text" class="resources_id" value="<?= $item['id']; ?>">
+                                  <input type="hidden" class="resources_id" value="<?= $item['id']; ?>">
 
                                   <div class="col-md-3 mt-1">
                                     <label>Name</label>
@@ -147,8 +153,13 @@
                                   </div>
 
                                   <div class="col-md-3 mt-1">
-                                    <label>Quantity/Amount</label>
+                                    <label>Total Quantity/Amount</label>
                                     <input type="number" value="<?= $item['total_quantity']; ?>" class="form-control resourcesNumber no-spin-button" required>
+                                  </div>
+
+                                  <div class="col-md-3 mt-1">
+                                    <label>Available Quantity/Amount</label>
+                                    <input type="number" value="<?= $item['quantity_available']; ?>" class="form-control resourcesAvailable no-spin-button" required> 
                                   </div>
 
                                   <div class="col-md-3 mb-2 mt-1">
@@ -158,7 +169,10 @@
 
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                  <a class="btn btn-danger remove-resources">Remove Resource</a>
+                                  <a class="btn btn-danger remove-resources"
+                                  onclick="return confirm('Are you sure you want to remove it?')"
+                                  href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id'];?>"
+                                  >Remove</a>
                                 </div>
                               </div>
                             </div>
@@ -239,7 +253,7 @@
             </div>
 
             <form class="needs-validation" method="POST" action="program-add-code.php" id="programForm" novalidate>
-              <input type="text" name="program_data" id="programData" style="width: 100%;">
+              <input type="hidden" name="program_data" id="programData" style="width: 100%;">
             </form>
 
           </div>
