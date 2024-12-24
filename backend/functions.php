@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require 'database.php';
 
 function includes($file_path)
@@ -203,6 +203,16 @@ function jsonResponse($status, $status_type,  $message)
 
     echo json_encode($response);
     return;
+}
+
+function getAll($tableName){
+    global $conn;
+
+    $table = validate($tableName);
+ 
+        $query = "SELECT * FROM $table";
+    
+    return mysqli_query($conn, $query);
 }
 
 function getById($tableName, $id, $isFarmer = true, $isProgram = false) {

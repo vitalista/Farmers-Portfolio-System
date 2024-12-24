@@ -7,7 +7,7 @@
 ?>
 <script>
     // function getTotalEntries() {
-    //     return <?= $result->num_rows ?>;
+    //     return , //$result->num_rows;
     // }
 </script>
 

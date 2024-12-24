@@ -56,7 +56,7 @@ if (isset($_POST['program_data'])) {
         start_date, 
         end_date, 
         total_beneficiaries,
-        beneficiaries_available, 
+        beneficiaries_available,
         sourcing_agency, 
 
         modified_by,
@@ -71,7 +71,7 @@ if (isset($_POST['program_data'])) {
             exit;
         }
         
-        $stmt->bind_param("sssssiisss", 
+        $stmt->bind_param("sssssiisis", 
         $program['nameOfProgram'], 
         $program['programType'], 
         $program['description'], 
@@ -92,7 +92,7 @@ if (isset($_POST['program_data'])) {
         }
     }
 
-    if (isset($programId) && isset($data[0]['program'])) {
+    if (isset($programId) && isset($data[0]['program']) && isset($data[0]['program']['program_id'])) {
         $program = $data[0]['program'];
         $sql = "UPDATE programs SET
             program_name = ?, 
