@@ -110,6 +110,11 @@ try {
                     $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM resources WHERE id = :id');
                 }
 
+                if(isset($_GET['distributions']) && is_string($_GET['distributions'])){
+                    $table = $_GET['distributions'];
+                    $stmt = $pdo->prepare('SELECT modified_by, modified_at, modified_times FROM distributions WHERE id = :id');
+                }
+
                 $stmt->execute(['id' => $id]);
                 $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             

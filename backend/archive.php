@@ -59,13 +59,20 @@ if (checkParamId('livestock_id')) {
     archiveEntity('livestock_id', 'livestocks', '../farmer-assets/livestocks.php', 'Successfully Archived');
 }
 
+// Archive distributions on list
+if (checkParamId('distributions_id')) {
+    archiveEntity('distributions_id', 'distributions', '../distribution/distributions-list.php', 'Successfully Archived');
+}
+
+// Archive distributions
+if (checkParamId('distributions')) {
+    archiveEntity('distributions', 'distributions', '../program/program-view.php?id=' . checkParamId('program'), 'Successfully Archived');
+}
 
 // Archive farmer
 if (checkParamId('id')) {
     archiveEntity('id', 'farmers', '../farmer/farmer-list.php', 'Successfully Archived');
 }
-
-
 
 // Archive program on list
 if (checkParamId('program_id')) {

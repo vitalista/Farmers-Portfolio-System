@@ -181,10 +181,23 @@
                     </div>
                 </div> -->
 
+                    <?php
+                      $tableName = "distributions";
+
+                      $sql = "SELECT * FROM $tableName WHERE is_archived = 0 AND farmer_id = $paramValue";
+                      $result = $conn->query($sql);
+
+                      ?>
+                      <script>
+                        function getTotalEntries() {
+                          return <?= $result->num_rows; ?>
+                        }
+                      </script>
+
                         <div class="card table-responsive mb-3">
                             <h5 class="card-header ms-2">Resources</h5>
                             <div class="card-body">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered table-striped" id="example">
                                     <thead class="thead">
                                         <tr>
 
@@ -195,28 +208,27 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbod">
-                                        <tr>
-                                            <td>MM-DD-YYYY</td>
-                                            <td>Cash Assistance</td>
-                                            <td>Cash</td>
-                                            <td>
-                                                <div class="input-group qtyBox">
-                                                    <input disabled type="text" value="200" class="qty quantityInput" style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;">
-                                                    <p class="ms-1 mb-0">Php</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>MM-DD-YYYY</td>
-                                            <td>Cash Assistance</td>
-                                            <td>Cash</td>
-                                            <td>
-                                                <div class="input-group qtyBox">
-                                                    <input disabled type="text" value="200" class="qty quantityInput" style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;">
-                                                    <p class="ms-1 mb-0">Php</p>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <?php
+                            if ($result->num_rows > 0) {
+                              while ($row = $result->fetch_assoc()) {
+                                $program = getById('programs', $row['program_id']);
+                                $resources = getById('resources', $row['resource_id']);
+                                if ($program['status'] == 200 || $resources['status'] == 200) {
+                            ?>
+                                  <tr>
+                                    <td>00-00-0000</td>
+                                    <td><?= $program['data']['program_name']; ?></td>
+
+                                    <td><strong><?= $resources['data']['resources_name']; ?></strong> - <?= $resources['data']['resource_type']; ?></td>
+
+                                    <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
+                                  </tr>
+
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -485,6 +497,125 @@
     <!-- ======= Footer ======= -->
     <?php include '../includes/footer.php' ?>
     <script src="./farmer-add.js"></script>
+
+    <script>
+    let totalEntries = getTotalEntries();
+
+    // Calculate 25%, 50%, and 75% of the total entries
+    let twentyFivePercent = Math.ceil(totalEntries * 0.25);
+    let fiftyPercent = Math.ceil(totalEntries * 0.5);
+    let seventyFivePercent = Math.ceil(totalEntries * 0.75);
+
+    let lengthMenuValues = [
+      10,
+      twentyFivePercent,
+      fiftyPercent,
+      seventyFivePercent,
+      -1,
+    ];
+    let lengthMenuLabels = [
+      10,
+      `${twentyFivePercent} (25%)`,
+      `${fiftyPercent} (50%)`,
+      `${seventyFivePercent} (75%)`,
+      "Show All",
+    ];
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const example = document.getElementById("example");
+      const columns = [0, 1, 2, 3];
+      setTimeout(() => {
+        example.classList.remove("d-none");
+        $("#example").DataTable({
+          language: {
+            emptyTable: `<span class="text-danger"><strong>No Resources</strong></span>`,
+          },
+          dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+          responsive: true,
+          buttons: [{
+              extend: "copy",
+              title: "Baliwag Agriculture Office",
+              exportOptions: {
+                columns: columns, // Specify the columns you want to copy
+                modifier: {
+                  page: "current", // Only copy the data on the current page
+                },
+              },
+            },
+
+            {
+              extend: "csv",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "print",
+              action: function(e, dt, node, config) {
+                config.customize = function(win) {
+                  $(win.document.body)
+                    .css("font-size", "12pt")
+                    .find("h1")
+                    .replaceWith(
+                      '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
+                    );
+                };
+
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "excel",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "pdf",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
+              },
+            },
+          ],
+          colReorder: true,
+          fixedHeader: true,
+          rowReorder: false,
+          lengthMenu: [lengthMenuValues, lengthMenuLabels],
+        });
+      }, 500);
+    });
+  </script>
 
 </body>
 

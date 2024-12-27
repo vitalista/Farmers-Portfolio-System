@@ -1,14 +1,14 @@
 <?php
-// $tableName = "your_table_name";
+$tableName = "distributions";
 
-// $sql = "SELECT * FROM $tableName LIMIT 10";
-// $result = $conn->query($sql);
+$sql = "SELECT * FROM $tableName WHERE is_archived = 0";
+$result = $conn->query($sql);
 
 ?>
 <script>
-    // function getTotalEntries() {
-    //     return , //$result->num_rows;
-    // }
+    function getTotalEntries() {
+        return <?= $result->num_rows; ?>
+    }
 </script>
 
 <div class="modal fade" id="ExtralargeModal" tabindex="-1">

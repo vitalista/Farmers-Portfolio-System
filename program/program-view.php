@@ -58,7 +58,7 @@
 
                     <div class="card-body row g-3">
 
-                    <input type="hidden" class="program_id" value="<?= $data['id']; ?>">
+                      <input type="hidden" class="program_id" value="<?= $data['id']; ?>">
 
                       <div class="col-md-4 mt-5">
                         <div class="form-floating">
@@ -86,14 +86,14 @@
 
                       <div class="col-md-2">
                         <label for="validationCustom05" class="form-label">Start date</label>
-                        <input type="date" value="<?= $data['start_date'] == '0000-00-00' ? '': $data['start_date'];?>" class="form-control startDate" id="validationCustom05" required>
+                        <input type="date" value="<?= $data['start_date'] == '0000-00-00' ? '' : $data['start_date']; ?>" class="form-control startDate" id="validationCustom05" required>
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
 
                       <div class="col-md-2">
                         <label for="validationCustom05" class="form-label">End date<span class="red-star">*</span></label>
-                        <input type="date" value="<?= $data['end_date']  == '0000-00-00' ? '': $data['end_date']; ?>" class="form-control endDate" id="validationCustom05" required>
+                        <input type="date" value="<?= $data['end_date']  == '0000-00-00' ? '' : $data['end_date']; ?>" class="form-control endDate" id="validationCustom05" required>
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
@@ -159,7 +159,7 @@
 
                                   <div class="col-md-3 mt-1">
                                     <label>Available Quantity/Amount</label>
-                                    <input type="number" value="<?= $item['quantity_available']; ?>" class="form-control resourcesAvailable no-spin-button" required> 
+                                    <input type="number" value="<?= $item['quantity_available']; ?>" class="form-control resourcesAvailable no-spin-button" required>
                                   </div>
 
                                   <div class="col-md-3 mb-2 mt-1">
@@ -170,9 +170,8 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                   <a class="btn btn-danger remove-resources"
-                                  onclick="return confirm('Are you sure you want to remove it?')"
-                                  href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id'];?>"
-                                  >Remove</a>
+                                    onclick="return confirm('Are you sure you want to remove it?')"
+                                    href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id']; ?>">Remove</a>
                                 </div>
                               </div>
                             </div>
@@ -183,9 +182,22 @@
 
                       </div>
 
+                      <?php
+                      $tableName = "distributions";
+
+                      $sql = "SELECT * FROM $tableName WHERE is_archived = 0 AND program_id = $paramValue";
+                      $result = $conn->query($sql);
+
+                      ?>
+                      <script>
+                        function getTotalEntries() {
+                          return <?= $result->num_rows; ?>
+                        }
+                      </script>
+
                       <!-- Distributions -->
-                      <!-- <div class="table-responsive mb-3">
-                        <table class="table table-bordered table-striped">
+                      <div class="table-responsive mb-3">
+                        <table class="table table-bordered table-striped" id="example">
                           <thead class="thead">
                             <tr>
                               <th>FFRS System Gen.</th>
@@ -197,44 +209,46 @@
                             </tr>
                           </thead>
                           <tbody class="tbod">
-                            <tr>
-                              <td><strong>03-14-03-003-ABCDE</strong></td>
-                              <td>Pedro Delacruz</td>
-                              <td>Cash Assistance</td>
-                              <td>Cash</td>
-                              <td>
-                                <div class="input-group qtyBox">
-                                  <input disabled type="text" value="200" class="qty quantityInput" style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;">
-                                  <p class="ms-1 mb-0">Php</p>
-                                </div>
-                              </td>
-                              <td>
-                                <a href="#" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><strong>03-14-03-003-ABCDE</strong></td>
-                              <td>Pedro Delacruz</td>
-                              <td>Cash Assistance</td>
-                              <td>Cash</td>
-                              <td>
-                                <div class="input-group qtyBox">
-                                  <input disabled type="text" value="200" class="qty quantityInput" style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;">
-                                  <p class="ms-1 mb-0">Php</p>
-                                </div>
-                              </td>
-                              <td>
-                                <a href="#" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td colspan="3"></td>
-                              <td><b>Total</b></td>
-                              <td><b>201</b></td>
-                            </tr>
+                            <?php
+                            if ($result->num_rows > 0) {
+                              while ($row = $result->fetch_assoc()) {
+                                $farmerData = getById('farmers', $row['farmer_id']);
+                                $program = getById('programs', $row['program_id']);
+                                $resources = getById('resources', $row['resource_id']);
+                                if ($farmerData['status'] == 200 || $program['status'] == 200 || $resources['status'] == 200) {
+                            ?>
+                                  <tr>
+                                    <td>
+                                      <?= $farmerData['data']['ffrs_system_gen']; ?>
+                                    </td>
+
+                                    <td><?= $farmerData['data']['first_name']; ?> <?= $farmerData['data']['last_name']; ?></td>
+
+                                    <td><?= $program['data']['program_name']; ?></td>
+
+                                    <td><strong><?= $resources['data']['resources_name']; ?></strong></td>
+
+                                    <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
+
+                                    <td>
+                                    <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-success"><i class="bi bi-person-square"></i></a>
+                                      <a onclick="return confirm('Are you sure you want to archive it?')"
+                                        class="btn btn-danger"
+                                        href="../backend/archive.php?program=<?= $paramValue; ?>&distributions=<?= $row['id']; ?>"><i class="bi bi-archive-fill"></i></a>
+                                      <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
+                                        class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                                    </td>
+                                  </tr>
+
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
+
                           </tbody>
                         </table>
-                      </div> -->
+                      </div>
 
                     </div>
 
@@ -268,6 +282,125 @@
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
   <script src="./program.js"></script>
+
+  <script>
+    let totalEntries = getTotalEntries();
+
+    // Calculate 25%, 50%, and 75% of the total entries
+    let twentyFivePercent = Math.ceil(totalEntries * 0.25);
+    let fiftyPercent = Math.ceil(totalEntries * 0.5);
+    let seventyFivePercent = Math.ceil(totalEntries * 0.75);
+
+    let lengthMenuValues = [
+      10,
+      twentyFivePercent,
+      fiftyPercent,
+      seventyFivePercent,
+      -1,
+    ];
+    let lengthMenuLabels = [
+      10,
+      `${twentyFivePercent} (25%)`,
+      `${fiftyPercent} (50%)`,
+      `${seventyFivePercent} (75%)`,
+      "Show All",
+    ];
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const example = document.getElementById("example");
+      const columns = [0, 1, 2, 3, 4];
+      setTimeout(() => {
+        example.classList.remove("d-none");
+        $("#example").DataTable({
+          language: {
+            emptyTable: `<span class="text-danger"><strong>No Distributions</strong></span>`,
+          },
+          dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+          responsive: true,
+          buttons: [{
+              extend: "copy",
+              title: "Baliwag Agriculture Office",
+              exportOptions: {
+                columns: columns, // Specify the columns you want to copy
+                modifier: {
+                  page: "current", // Only copy the data on the current page
+                },
+              },
+            },
+
+            {
+              extend: "csv",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "print",
+              action: function(e, dt, node, config) {
+                config.customize = function(win) {
+                  $(win.document.body)
+                    .css("font-size", "12pt")
+                    .find("h1")
+                    .replaceWith(
+                      '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
+                    );
+                };
+
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "excel",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "pdf",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "current",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
+              },
+            },
+          ],
+          colReorder: true,
+          fixedHeader: true,
+          rowReorder: false,
+          lengthMenu: [lengthMenuValues, lengthMenuLabels],
+        });
+      }, 500);
+    });
+  </script>
 
 </body>
 
