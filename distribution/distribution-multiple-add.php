@@ -3,7 +3,13 @@
 
 <?php
 session_start();
-include '../includes/head.php' ?>
+include '../includes/head.php';
+
+if(!isset($_SESSION['resourceItems'])) {
+    $_SESSION['resourceItems'] = [];
+}
+
+?>
 
 <body class="login-bg">
 
@@ -56,9 +62,6 @@ include '../includes/head.php' ?>
                                             if (isset($_SESSION['resourceItems'])) {
                                                 echo '<pre>';
                                                 print_r($_SESSION['resourceItems']);
-                                                echo '</pre>';
-                                                echo '<pre>';
-                                                print_r($_SESSION['status']);
                                                 echo '</pre>';
                                             }
                                             // session_unset();
@@ -134,7 +137,8 @@ include '../includes/head.php' ?>
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive mb-3">
-                                                <table class="table table-bordered table-striped">
+                                                <table class="table table-bordered table-striped" id="example">
+                                                    <?= $_SESSION['status']; ?>
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>FFRS System Gen.</th>
@@ -145,53 +149,55 @@ include '../includes/head.php' ?>
                                                             <th>Remove</th>
                                                         </tr>
                                                     </thead>
+
+                                                   
+
+                                                    
                                                     <tbody class="tbod">
+                                                    <?php
+                                                          if (isset($_SESSION['resourceItems']) && $_SESSION['resourceItems'] != null) {
+                                                            $sessionProducts = $_SESSION['resourceItems'];
+                                                            if (empty($sessionProducts)) {
+                                                              unset($sessionProducts['resourceItems']);
+                                                            }
+                                                           foreach ($sessionProducts as $key => $item) :
+                                                    ?>
                                                         <tr>
-                                                            <td><strong>03-14-03-003-ABCDE</strong></td>
-                                                            <td>Pedro Delacruz</td>
-                                                            <td>Cash Assistance</td>
-                                                            <td>Cash</td>
+                                                            <td><strong><?= $item['ffrs_code'];?></strong></td>
+                                                            <td><?= $item['farmer_name'];?></td>
+                                                            <td><?= $item['program'];?></td>
+                                                            <td><?= $item['resource_name'];?> - <?= $item['resource_type'];?></td>
                                                             <td>
                                                                 <div class="input-group qtyBox">
-                                                                    <input disabled type="text" value="200" class="qty quantityInput" style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;">
-                                                                    <p class="ms-1 mb-0">Php</p>
+                                                                     <p style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;"><?= $item['quantity'];?></p>
+                                                                  
+                                                                    <p class="ms-1 mb-0"><?= $item['unit_of_measure'];?></p>
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a href="#" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                                                <a href="distribution-code.php?index=<?= $item['farmer_id'];?>" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td><strong>03-14-03-003-ABCDE</strong></td>
-                                                            <td>Juan Luna</td>
-                                                            <td>Pamigay binhi</td>
-                                                            <td>SEEDLING-0001</td>
-                                                            <td>
-                                                                <div class="input-group qtyBox">
-                                                                    <input disabled type="text" value="1" class="qty quantityInput" style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;">
-                                                                    <p class="ms-1 mb-0">Bags</p>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="3"></td>
-                                                            <td><b>Total</b></td>
-                                                            <td><b>201</b></td>
-                                                        </tr>
+
+                                                        <?php
+                                                    endforeach;
+                                                    }
+                                                    ?>
+                                                        
                                                     </tbody>
+                                                
+                                                    
                                                 </table>
                                             </div>
 
                                             <hr>
                                             <div class="mt-2">
                                                 <div class="row d-flex justify-content-end">
-
+                                                    <form action="distribution-code.php" method="post">
                                                     <div class="col-md-1">
-                                                        <button type="submit" class="btn btn-success" name="saveOrder">Save</button>
+                                                        <button type="submit" class="btn btn-success" name="saveItem">Save</button>
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -341,13 +347,131 @@ include '../includes/head.php' ?>
         // Initialize Select2
         $(document).ready(function() {
             $('.mySelect').select2({
-                width: '100%' // Ensures Select2 takes up full width
+                width: '100%'
             });
            
         });
 
-        
-    </script>
+    let totalEntries = <?= count($_SESSION['resourceItems']); ?>;
+
+    // Calculate 25%, 50%, and 75% of the total entries
+    let twentyFivePercent = Math.ceil(totalEntries * 0.25);
+    let fiftyPercent = Math.ceil(totalEntries * 0.5);
+    let seventyFivePercent = Math.ceil(totalEntries * 0.75);
+
+    let lengthMenuValues = [
+      10,
+      twentyFivePercent,
+      fiftyPercent,
+      seventyFivePercent,
+      -1,
+    ];
+    let lengthMenuLabels = [
+      10,
+      `${twentyFivePercent} (25%)`,
+      `${fiftyPercent} (50%)`,
+      `${seventyFivePercent} (75%)`,
+      "Show All",
+    ];
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const example = document.getElementById("example");
+      const columns = [0, 1, 2, 3, 4];
+
+      setTimeout(() => {
+        example.classList.remove("d-none");
+        $("#example").DataTable({
+          language: {
+            emptyTable: `<span class="text-danger"><strong>No Item Available</strong></span>`,
+          },
+          dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+          responsive: true,
+          buttons: [{
+              extend: "copy",
+              title: "Baliwag Agriculture Office",
+              exportOptions: {
+                columns: columns, // Specify the columns you want to copy
+                modifier: {
+                  page: "all", // Only copy the data on the all page
+                },
+              },
+            },
+
+            {
+              extend: "csv",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "all",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "print",
+              action: function(e, dt, node, config) {
+                
+                config.customize = function(win) {
+                  $(win.document.body)
+                    .css("font-size", "12pt")
+                    .find("h1")
+                    .replaceWith(
+                      '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
+                    );
+                };
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "all",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "excel",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "all",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
+              },
+            },
+            {
+              extend: "pdf",
+              title: "Baliwag Agriculture Office",
+              action: function(e, dt, node, config) {
+                config.exportOptions = {
+                  columns: columns,
+                  modifier: {
+                    page: "all",
+                  },
+                };
+
+                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
+              },
+            },
+          ],
+          colReorder: true,
+          fixedHeader: true,
+          rowReorder: false,
+          lengthMenu: [lengthMenuValues, lengthMenuLabels],
+        });
+      }, 500);
+
+    });
+    
+  </script>
 
 
 </body>
