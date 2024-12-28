@@ -24,6 +24,9 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Distribution list</h5>
                 <div>
+                <a href="distributions-list.php" class="btn btn-danger">
+                    Clear
+                </a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     Filter
                   </button>
@@ -51,26 +54,27 @@
                 <?php
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        $farmerData = getById('farmers', $row['farmer_id']);
-                        $program = getById('programs', $row['program_id']);
-                        $resources = getById('resources', $row['resource_id']);
-                        if($farmerData['status'] == 200 || $program['status'] == 200 || $resources['status'] == 200){
+                        // $farmerData = getById('farmers', $row['farmer_id']);
+                        // $program = getById('programs', $row['program_id']);
+                        // $resources = getById('resources', $row['resource_id']);
+                        // if($farmerData['status'] == 200 || $program['status'] == 200 || $resources['status'] == 200){
                   ?>
                       <tr>
                         <td> 
-                          <?= $farmerData['data']['ffrs_system_gen'];?>
+                          <?= $row['ffrs_system_gen'];?>
                        </td>
 
-                        <td><?=$farmerData['data']['first_name'];?> <?=$farmerData['data']['last_name'];?></td>
+                        <td><?=$row['first_name'];?> - <?=$row['last_name'];?></td>
 
-                        <td><?=$program['data']['program_name'];?></td>
+                        <td><?=$row['program_name'];?><?=$row['program_type'] == '' ? '' : ' - '.$row['program_type'];?></td>
 
-                        <td><strong><?=$resources['data']['resources_name'];?></strong></td>
+                        <td><strong><?=$row['resources_name'];?></strong><?=$row['resource_type'] == '' ? '' : ' - '.$row['resource_type'];?></td>
 
-                        <td class="text-start"><strong><?=$row['quantity_distributed'];?></strong> <?=$resources['data']['unit_of_measure'];?></td>
+                        <td class="text-start"><strong><?=$row['quantity_distributed'];?></strong> <?=$row['unit_of_measure'];?></td>
 
                         <td>
-                        <a href="../program/program-view.php?id=<?= $program['data']['id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
+                        <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-success"><i class="bi bi-person-square"></i></a>
+                        <a href="../program/program-view.php?id=<?= $row['program_id'];?>" class="btn btn-primary"><i class="bi bi-box2-fill"></i></a>
                         <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?distributions_id=<?= $row['id'];?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
@@ -80,12 +84,11 @@
                   <?php
                     }
                     }
-                  }
+                  // }
                   ?>
                 </tbody>
 
               </table>
-
             </div>
           </div>
 
@@ -127,7 +130,7 @@
         example.classList.remove("d-none");
         $("#example").DataTable({
           language: {
-            emptyTable: `<span class="text-danger"><strong>No Distributions Available</strong></span>`,
+            emptyTable: `<span class="text-danger"><strong>Empty Table</strong></span>`,
           },
           dom: 'B<"table-top"lf>t<"table-bottom"ip>',
           responsive: true,
