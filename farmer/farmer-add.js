@@ -1,4 +1,4 @@
-let farmCounter = 0;
+
 
 document.getElementById('addFarmButton').addEventListener('click', function() {
   farmCounter++;
@@ -181,10 +181,35 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
 
   // Add event listener to the remove farm button
   newFarmCard.querySelector('.remove-farm').addEventListener('click', function() {
-    removalFade(newFarmCard);
-    setTimeout(() => {
-      farmContainer.removeChild(newFarmCard);
-    }, 250);
+
+    const cardTitles = document.querySelectorAll('.card-title.ms-3');
+    let maxFarmCounter = -1;
+    let targetFarmCard = null;
+  
+    cardTitles.forEach(cardTitle => {
+      const match = cardTitle.innerText.match(/Parcel #(\d+)/);
+      if (match) {
+        const farmCounter = parseInt(match[1], 10);
+        if (farmCounter > maxFarmCounter) {
+          maxFarmCounter = farmCounter;
+          targetFarmCard = cardTitle.closest('.card');
+        }
+      }
+    });
+  
+    // If the highest Parcel card is found, remove it
+    if (targetFarmCard) {
+      removalFade(targetFarmCard); // Apply the fade effect to the target card
+      setTimeout(() => {
+        farmCounter = farmCounter - 1;
+        farmContainer.removeChild(targetFarmCard); // Remove the parent div of the highest farmCounter
+      }, 250);
+    }
+
+    // removalFade(newFarmCard);
+    // setTimeout(() => {
+    //   farmContainer.removeChild(newFarmCard);
+    // }, 250);
 
   });
 });
@@ -219,10 +244,32 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const deceased = card.querySelector('.deceased').checked;
   const active = card.querySelector('.active').checked;
 
+  // Select all input elements with the class 'parcelNum' and type 'hidden'
+const hiddenInputs = document.querySelectorAll('input[type="hidden"].parcelNum');
+
+// Initialize a variable to store the largest number
+let num_of_parcels = 0;
+
+// Loop through each input element
+hiddenInputs.forEach(input => {
+  // Parse the value as an integer and compare with the current num_of_parcels
+  const farmNumber = parseInt(input.value, 10);
+  
+  // Update num_of_parcels if the current farmNumber is larger
+  if (farmNumber > num_of_parcels) {
+    num_of_parcels = farmNumber;
+  }
+});
+
+// Log the largest number found
+console.log("Largest farm number:", num_of_parcels);
+
+
   if (card.querySelector('.farmer_id')) {
     if (farmCards.length <= 0 || farmCards.length > 0) {
       farms.push({
         farmer: {
+          num_of_parcels,
           farmer_id,
           ffrs,
           brgy,
@@ -243,6 +290,7 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
     if (farmCards.length <= 0 || farmCards.length > 0) {
       farms.push({
         farmer: {
+          num_of_parcels,
           ffrs,
           brgy,
           municipality,

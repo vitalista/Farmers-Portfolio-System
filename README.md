@@ -12,13 +12,7 @@ Notes for Backend:
 -Empty array to hide dbuttons
 
 BUGS:
-parcel number not resetting when removing parcel
-Total and quantity available of resources && program
-Resources list program name instead of resources name
-archiving in viewing
 
 KEY
 insert
 update
-
-update will also insert if condition not met

@@ -61,10 +61,11 @@ if (isset($_POST['farms_data'])) {
         birthday, 
         is_deceased, 
         is_active,
+        no_of_parcels,
 
         modified_by,
         modified_at
-        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
         $stmt = $conn->prepare($sql);
         
@@ -73,10 +74,10 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
         
-        $stmt->bind_param("sssssssssssiis", 
+        $stmt->bind_param("sssssssssssiiis", 
         $farmer['ffrs'], 
         $farmer['brgy'], 
-        $farmer['municipality'], 
+        $farmer['municipality'],
         $farmer['province'], 
         $farmer['firstName'], 
         $farmer['middleName'], 
@@ -86,6 +87,7 @@ if (isset($_POST['farms_data'])) {
         $farmer['bday'], 
         $farmer['deceased'],
         $farmer['active'],
+        $farmer['num_of_parcels'],
         $user_id,
         $modifiedAt
     );
@@ -97,6 +99,8 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
     }
+
+    echo $farmer['num_of_parcels'];
 
     if (isset($farmerId) && isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
@@ -113,6 +117,7 @@ if (isset($_POST['farms_data'])) {
             birthday = ?, 
             is_deceased = ?, 
             is_active = ?, 
+            no_of_parcels = ?, 
             modified_by = ?, 
             modified_at = ?
             WHERE id = ?";
@@ -125,7 +130,7 @@ if (isset($_POST['farms_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssssssssiisi", 
+        $stmt->bind_param("sssssssssssiiisi", 
             $farmer['ffrs'], 
             $farmer['brgy'], 
             $farmer['municipality'], 
@@ -138,6 +143,7 @@ if (isset($_POST['farms_data'])) {
             $farmer['bday'], 
             $farmer['deceased'],
             $farmer['active'],
+            $farmer['num_of_parcels'],
             $user_id,
             $modifiedAt,
             $farmerId  // Pass the farmer ID to identify the record to update

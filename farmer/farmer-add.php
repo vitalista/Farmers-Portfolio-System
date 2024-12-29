@@ -223,7 +223,7 @@
 
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
-
+  <script>let farmCounter = 0;</script>
   <script src="./farmer-add.js"></script>
   <!-- Google Map Script -->
   <!-- <script>
