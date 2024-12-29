@@ -50,6 +50,9 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Farmers list</h5>
                 <div>
+                <a href="farmer-list.php" class="btn btn-danger">
+                    Clear
+                </a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     Filter
                   </button>
@@ -89,12 +92,20 @@
                         <td><?= $row['farmer_brgy_address'] ?></td>
                         <td><?= $row['gender'] ?></td>
                         <td><?= $row['farmer_municipality_address'] ?></td>
+                        <?php if(!isset($_GET['archived'])):?>
                         <td>
                           <a href="farmer-view.php?id=<?= $row['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                           <a onclick="return confirm('Are you sure you want to archive it?')"
                             href="../backend/archive.php?id=<?= $row['id'] ?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                           <a class="btn btn-secondary" href="../backend/activity-log.php?id=<?= $row['id']; ?>&farmers=Farmer"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
+                        <?php else:?>
+                          <td>
+                          <a onclick="return confirm('Are you sure you want to archive it?')" 
+                          href="../backend/archive.php?id=<?= $row['id'];?>" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i></a>
+                          <a class="btn btn-secondary" href="../backend/activity-log.php?id=<?= $row['id']; ?>&farmers=Farmer"><i class="bi bi-info-circle-fill"></i></a>
+                          </td>
+                        <?php endif;?>
                       </tr>
                   <?php
                     }
