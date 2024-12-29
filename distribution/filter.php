@@ -1,4 +1,5 @@
 <?php
+$archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
 $query = "
      SELECT   
 		d.id,
@@ -27,8 +28,10 @@ $query = "
     JOIN 
         resources AS r ON r.id = d.resource_id
     WHERE 
-        d.is_archived = 0
+        d.is_archived = ".$archived."
 ";
+
+// echo $query;
 
 $whereConditions = [];
 $params = [];
@@ -202,6 +205,14 @@ $result = $stmt->get_result();
                     <div class="col-md-3 mb-3">
                         <label for="numOfEntries" class="form-label">No. of <strong>(Entries)</strong></label>
                         <input type="number" id="numOfEntries" name="numOfEntries" class="form-control" min="0" placeholder="By default 10">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Archived?</label>
+                        <div class="form-check">
+                            <label class="form-check-label" for="archived">Yes</label>
+                            <input class="form-check-input" style="width: 20px; height: 20px;" type="checkbox" id="archived" name="archived" value="1">
+                        </div>
                     </div>
 
                     </div>

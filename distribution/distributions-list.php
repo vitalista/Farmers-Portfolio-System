@@ -71,7 +71,7 @@
                         <td><strong><?=$row['resources_name'];?></strong><?=$row['resource_type'] == '' ? '' : ' - '.$row['resource_type'];?></td>
 
                         <td class="text-start"><strong><?=$row['quantity_distributed'];?></strong> <?=$row['unit_of_measure'];?></td>
-
+                        <?php if(!isset($_GET['archived'])):?>
                         <td>
                         <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-success"><i class="bi bi-person-square"></i></a>
                         <a href="../program/program-view.php?id=<?= $row['program_id'];?>" class="btn btn-primary"><i class="bi bi-box2-fill"></i></a>
@@ -80,6 +80,15 @@
                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
                         class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
+                        <?php else:?>
+                          <td>
+                          <a onclick="return confirm('Are you sure you want to archive it?')" 
+                          href="../backend/archive.php?distributions_id=<?= $row['id'];?>" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i></a>
+                          <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
+                          class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                          </td>
+                        <?php endif;?>
+
                       </tr>
                   <?php
                     }

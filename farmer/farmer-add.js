@@ -446,3 +446,41 @@ console.log("Largest farm number:", num_of_parcels);
   console.log(farms);
   document.getElementById('farmForm').submit();
 });
+
+
+const prevButton = document.getElementById('prevButton');
+const nextButton = document.getElementById('nextButton');
+const tabs = document.querySelectorAll('.nav-link');
+
+prevButton.addEventListener('click', () => {
+  const activeTab = document.querySelector('.nav-link.active');
+  if (activeTab) {
+    const prevTab = activeTab.parentElement.previousElementSibling;
+    if (prevTab) {
+      prevTab.querySelector('.nav-link').click();
+    }
+  }
+
+  // Change class for buttons
+});
+
+nextButton.addEventListener('click', () => {
+  const activeTab = document.querySelector('.nav-link.active');
+  if (activeTab) {
+    const nextTab = activeTab.parentElement.nextElementSibling;
+    if (nextTab) {
+      nextTab.querySelector('.nav-link').click();
+    }
+  }
+
+});
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const activeTab = document.querySelector('.nav-link.active');
+    if (activeTab) {
+      activeTab.classList.remove('active');
+    }
+    tab.classList.add('active');
+  });
+});

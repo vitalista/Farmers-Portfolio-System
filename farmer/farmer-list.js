@@ -5,6 +5,8 @@ let twentyFivePercent = Math.ceil(totalEntries * 0.25);
 let fiftyPercent = Math.ceil(totalEntries * 0.5);
 let seventyFivePercent = Math.ceil(totalEntries * 0.75);
 
+let columnArr = [1, 2, 3, 4, 5, 6, 7]
+
 let lengthMenuValues = [
   10,
   twentyFivePercent,
@@ -36,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
           extend: "copy",
           title: "Baliwag Agriculture Office",
           exportOptions: {
-            columns: [1, 2, 3, 4, 5, 6, 7, 8], // Specify the columns you want to copy
+            columns: columnArr, // Specify the columns you want to copy
             modifier: {
               page: "current", // Only copy the data on the current page
             },
@@ -48,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
           title: "Baliwag Agriculture Office",
           action: function (e, dt, node, config) {
             config.exportOptions = {
-              columns: [1, 2, 3, 4, 5, 6, 7, 8],
+              columns: columnArr,
               modifier: {
                 page: "current",
               },
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             config.exportOptions = {
-              columns: [1, 2, 3, 4, 5, 6, 7, 8],
+              columns: columnArr,
               modifier: {
                 page: "current",
               },
@@ -84,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
           title: "Baliwag Agriculture Office",
           action: function (e, dt, node, config) {
             config.exportOptions = {
-              columns: [1, 2, 3, 4, 5, 6, 7, 8],
+              columns: columnArr,
               modifier: {
                 page: "current",
               },
@@ -98,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
           title: "Baliwag Agriculture Office",
           action: function (e, dt, node, config) {
             config.exportOptions = {
-              columns: [1, 2, 3, 4, 5, 6, 7, 8],
+              columns: columnArr,
               modifier: {
                 page: "current",
               },
@@ -115,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       columnDefs: [
         {
-          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8],
           render: function (data, type, row, meta) {
             if (type === "display" || type === "filter") {
               if (meta.col === 0) {

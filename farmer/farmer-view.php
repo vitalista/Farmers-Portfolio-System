@@ -526,7 +526,7 @@
             array_push($missingNumbers, $largest_number);
         }
 
-        print_r($missingNumbers);
+        // print_r($missingNumbers);
         $missingNumbersJson = json_encode($missingNumbers);
 
         $conn->close();

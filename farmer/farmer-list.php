@@ -69,7 +69,6 @@
                     <th>Last Name</th>
                     <th>Barangay</th>
                     <th>Gender</th>
-                    <th>Birthday</th>
                     <th>Municipality</th>
                     <th>Action</th>
                   </tr>
@@ -83,13 +82,12 @@
                       <tr>
                         <input type="hidden" value="<?= $row['id'] ?>">
                         <td data-id="<?= $row['id'] ?>"><?= $row['ffrs_system_gen'] === "" ? "UNREGISTERED" : "REGISTERED"; ?></td>
-                        <td><?= $row['ffrs_system_gen'] ?></td>
+                        <td><strong><?= $row['ffrs_system_gen'] ?></strong></td>
                         <td><?= $row['first_name'] ?></td>
                         <td><?= $row['middle_name'] ?></td>
                         <td><?= $row['last_name'] ?></td>
                         <td><?= $row['farmer_brgy_address'] ?></td>
                         <td><?= $row['gender'] ?></td>
-                        <td><?= $row['birthday'] ?></td>
                         <td><?= $row['farmer_municipality_address'] ?></td>
                         <td>
                           <a href="farmer-view.php?id=<?= $row['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
