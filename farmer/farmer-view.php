@@ -356,8 +356,8 @@
                                                         <select class="form-select farmType" id="" required>
                                                             <option selected disabled value="">Choose...</option>
                                                             <option value="IRRIGATED" <?= $parcel['farm_type'] == 'IRRIGATED' ? 'selected' : ''; ?>>Irrigated</option>
-                                                            <option value="UPLAND" <?= $parcel['farm_type'] == 'UPLAND' ? 'selected' : ''; ?>>Rainfed Upland</option>
-                                                            <option value="LOWLAND" <?= $parcel['farm_type'] == 'LOWLAND' ? 'selected' : ''; ?>>Rainfed Lowland</option>
+                                                            <option value="RAINFED UPLAND" <?= $parcel['farm_type'] == 'UPLAND' ? 'selected' : ''; ?>>Rainfed Upland</option>
+                                                            <option value="RAINFED LOWLAND" <?= $parcel['farm_type'] == 'LOWLAND' ? 'selected' : ''; ?>>Rainfed Lowland</option>
                                                         </select>
                                                         <div class="invalid-feedback">Please select.</div>
                                                     </div>

@@ -123,7 +123,7 @@ $result = $stmt->get_result();
                                 <option value="last_name">Last Name</option>
                                 <option value="first_name">First Name</option>
                                 <option value="middle_name">Middle Name</option>
-                                <option value="extension_name">Extension Name</option>
+                                <option value="ext_name">Extension Name</option>
                             </select>
                             <input type="text" id="farmer" name="farmer" class="form-control" placeholder="Enter">
                         </div>

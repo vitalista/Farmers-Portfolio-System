@@ -21,6 +21,9 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Parcels list</h5>
                 <div>
+                <a href="parcels.php" class="btn btn-danger">
+                    Clear
+                </a>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                 Filter
               </button>
@@ -33,8 +36,8 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th>FFRS</th>
-                    <th>Farm Type</th>
+                    <th class="text-start">FFRS</th>
+                    <th>Parcel No. - Farm Type</th>
                     <th>Brgy</th>
                     <th>Parcel Area</th>
                     <th>Action</th>
@@ -46,27 +49,22 @@
                   <?php
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        $farmerData = getById('farmers', $row['farmer_id']);
-                        if($farmerData['status'] == 200){
                   ?>
                       <tr>
-                        <td> 
-                          <?= $farmerData['data']['ffrs_system_gen'];?>
+                        <td class="text-start"> 
+                          <strong><?= $row['ffrs_system_gen'];?></strong>
                        </td>
-                        <td><?=$row['farm_type']?></td>
+                        <td><?=$row['parcel_no']?> - <?=$row['farm_type']?></td>
                         <td><?=$row['parcel_brgy_address']?></td>
                         <td><strong><?=$row['parcel_area']?> Ha</strong></td>
                         <td>
-                        <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
+                        <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                         <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?parcel_id=<?= $row['id']?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&parcels=Parcel"
                         class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         </td>
                       </tr>
-                    <?php
-                    }
-                    ?>
                   <?php
                     }
                   }

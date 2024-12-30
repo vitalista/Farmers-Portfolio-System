@@ -69,8 +69,8 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
                 <select class="form-select farmType" id="" required>
                     <option selected disabled value="">Choose...</option>
                     <option value="IRRIGATED">Irrigated</option>
-                    <option value="UPLAND">Rainfed Upland</option>
-                    <option value="LOWLAND">Rainfed Lowland</option>
+                    <option value="RAINFED UPLAND">Rainfed Upland</option>
+                    <option value="RAINFED LOWLAND">Rainfed Lowland</option>
                 </select>
                 <div class="invalid-feedback">Please select.</div>
             </div>
