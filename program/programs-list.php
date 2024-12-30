@@ -21,6 +21,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Programs list</h5>
                 <div>
+                  <a href="programs-list.php" class="btn btn-danger">Clear</a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     Filter
                   </button>
