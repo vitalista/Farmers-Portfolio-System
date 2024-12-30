@@ -373,13 +373,11 @@
 
                                                                 <input type="hidden" class="crop_id" value="<?= $crop['id']; ?>">
 
-                                                                    <div class="col-md-3 mb-3 mt-3 d-flex align-items-center">
-                                                                        <label class="form-check-label">High value crop?</label>
-                                                                        <div class="form-check ms-2">
-                                                                            <input <?= $crop['hvc'] == 1 ? 'checked' : ''; ?> class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
-                                                                            <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
-                                                                        </div>
-                                                                    </div>
+                                                                <div class="col-md-3 mb-3">
+                                                                    <label class="ms-1">Crop Name</label>
+                                                                    <input id="" type="text" value="<?= $crop['crop_name']; ?>" placeholder="Type here..." class="form-control crop cropName" required>
+                                                                </div>
+
                                                                     <div class="col-md-5 mb-3">
                                                                         <label class="ms-1">Crop Area</label>
                                                                         <input id="" type="number" value="<?= $crop['crop_area']; ?>" placeholder="In hectares" class="form-control crop cropArea no-spin-button" required>
@@ -388,6 +386,15 @@
                                                                         <label>Classification</label>
                                                                         <input type="number" value="<?= $crop['classification']; ?>" class="form-control crop no-spin-button classification" required>
                                                                     </div>
+
+                                                                    <div class="col-md-3 mb-3 mt-3 d-flex align-items-center">
+                                                                        <label class="form-check-label">High value crop?</label>
+                                                                        <div class="form-check ms-2">
+                                                                            <input <?= $crop['hvc'] == 1 ? 'checked' : ''; ?> class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
+                                                                            <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
+                                                                        </div>
+                                                                    </div>
+
                                                                     <div class="d-flex justify-content-end col-md-2 mb-3 mt-4">
                                                                         <a class="btn btn-danger"
                                                                             id="crop<?= $parcel['parcel_no']; ?>"

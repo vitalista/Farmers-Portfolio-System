@@ -285,12 +285,13 @@ if (isset($_POST['farms_data'])) {
                 farmer_id, 
                 parcel_id, 
                 hvc, 
-                crop_area, 
+                crop_area,
+                crop_name, 
                 classification,
 
                 modified_by,
                 modified_at
-                ) VALUES (?, ?, ?, ?, ?,
+                ) VALUES (?, ?, ?, ?, ?, ?,
                 ?, ?)";
                 $stmt = $conn->prepare($sql);
                 
@@ -299,11 +300,12 @@ if (isset($_POST['farms_data'])) {
                     exit;
                 }
     
-                $stmt->bind_param("iiissis", 
+                $stmt->bind_param("iiidsiis", 
                 $farmerId, 
                 $parcelId, 
                 $crop['hvc'], 
                 $crop['cropArea'], 
+                $crop['cropName'], 
                 $crop['classification'],
                 $user_id,
                 $modifiedAt
@@ -328,6 +330,7 @@ if (isset($_POST['farms_data'])) {
                             parcel_id = ?, 
                             hvc = ?, 
                             crop_area = ?, 
+                            crop_name = ?,
                             classification = ?, 
                             modified_by = ?, 
                             modified_at = ? 
@@ -340,12 +343,13 @@ if (isset($_POST['farms_data'])) {
                         exit;
                     }
             
-                    // Bind parameters for the update query
-                    $stmt->bind_param("iiissisi", 
+                    // Bind parameters
+                    $stmt->bind_param("iiidsiisi", 
                         $farmerId, 
                         $parcelId, 
                         $crop['hvc'], 
                         $crop['cropArea'], 
+                        $crop['cropName'], 
                         $crop['classification'], 
                         $user_id, 
                         $modifiedAt, 

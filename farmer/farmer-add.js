@@ -115,14 +115,13 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
     cropInputDiv.className = 'row dynamic-input my-2 p-2';
     cropInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
     cropInputDiv.innerHTML = `
-        <div class="col-md-3 mb-3 mt-3 d-flex align-items-center">
-            <label class="form-check-label">High value crop?</label>
-            <div class="form-check ms-2">
-              <input class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
-            <input type="hidden" class="parcelNum" value="${farmNumber}" style="width: 100%;">
-            </div>
+
+        <div class="col-md-3 mb-3">
+            <label class="ms-1">Crop Name</label>
+            <input id="" type="text" placeholder="Type here..." class="form-control crop cropName" required>
         </div>
-        <div class="col-md-5 mb-3">
+
+        <div class="col-md-2 mb-3">
             <label class="ms-1">Crop Area</label>
             <input id="" type="number" placeholder="In hectares" class="form-control crop cropArea no-spin-button" required>
         </div>
@@ -130,6 +129,15 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
             <label>Classification</label>
             <input type="number" class="form-control crop no-spin-button classification" required>
         </div>
+
+        <div class="col-md-3 mb-3 mt-3 d-flex align-items-center">
+            <label class="form-check-label">High value crop?</label>
+            <div class="form-check ms-2">
+              <input class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
+            <input type="hidden" class="parcelNum" value="${farmNumber}" style="width: 100%;">
+            </div>
+        </div>
+
         <div class="d-flex justify-content-end col-md-2 mb-3 mt-4">
             <a class="btn btn-danger removeCropButton">Remove</a>
         </div>
@@ -370,6 +378,7 @@ console.log("Largest farm number:", num_of_parcels);
       const parcelNum = card.querySelector('.parcelNum').value;
       const hvc = card.querySelector('.hvc').checked;
       const cropArea = card.querySelector('.cropArea').value;
+      const cropName = card.querySelector('.cropName').value;
       const classification = card.querySelector('.classification').value;
 
 
@@ -388,6 +397,7 @@ console.log("Largest farm number:", num_of_parcels);
         parcelNum,
         hvc,
         cropArea,
+        cropName,
         classification
       }
     });
@@ -397,6 +407,7 @@ console.log("Largest farm number:", num_of_parcels);
         parcelNum,
         hvc,
         cropArea,
+        cropName,
         classification
       }
     });

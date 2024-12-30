@@ -24,6 +24,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Livestocks list</h5>
                 <div>
+                  <a href="livestocks.php" class="btn btn-danger">Clear</a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     Filter
                   </button>
@@ -55,7 +56,7 @@
                         <tr>
                           <td><?= $farmerData['data']['ffrs_system_gen']; ?></td>
                           <td><?= $row['animal_name'] ?></td>
-                          <td><strong><?= $row['no_of_heads'] ?></strong></td>
+                          <td class="text-start"><strong><?= $row['no_of_heads'] ?></strong></td>
                           <td>
                             <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id']; ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                             <a onclick="return confirm('Are you sure you want to archive it?')"
