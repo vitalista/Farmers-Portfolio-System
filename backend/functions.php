@@ -106,6 +106,134 @@ function alertMessage()
     }
 }
 
+function countRows($table, $condition = "") {
+
+    $tableName = validate($table);
+    $conditions = validate($condition); 
+
+    global $conn;
+
+    $query = "SELECT COUNT(*) AS totalRows FROM $tableName";
+
+    if (!empty($conditions)) {
+        $query .= " WHERE " . $conditions;
+    }
+
+    // echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
+    
+    // Execute the query
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        
+        return $row['totalRows'];
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return 0;
+    }
+}
+
+
+function returnNullRows($table, $columns) {
+    global $conn;
+
+    // Validate and sanitize inputs
+    $validTables = ['parcels'];  // List of allowed tables
+    if (!in_array($table, $validTables)) {
+        return 0;  // Invalid table name
+    }
+
+    if (empty($columns) || !is_array($columns)) {
+        return 0;
+    }
+
+    // Sanitize columns
+    $validColumns = ['owner_first_name', 'owner_last_name', 'ownership_type'];  // List of allowed columns
+    foreach ($columns as $column) {
+        if (!in_array($column, $validColumns)) {
+            return 0;  // Invalid column name
+        }
+    }
+
+    $query = "SELECT SUM(";
+    $columnsCount = count($columns);
+    
+    // Generate query for nulls and non-nulls
+    foreach ($columns as $index => $column) {
+        $query .= "$column = ''"; 
+
+        if ($index < $columnsCount - 1) {
+            $query .= " AND ";
+        }
+    }
+
+    $query .= ") AS all_null_rows, ";
+
+    foreach ($columns as $index => $column) {
+        $query .= "SUM($column = '') AS nulls_$column";
+
+        if ($index < $columnsCount - 1) {
+            $query .= ", ";
+        }
+    }
+
+    $query .= ", ";
+
+    foreach ($columns as $index => $column) {
+        $query .= "SUM($column != '') AS non_nulls_$column";
+
+        if ($index < $columnsCount - 1) {
+            $query .= ", ";
+        }
+    }
+
+    $query .= " FROM $table WHERE is_archived = 0";
+
+    // Sanitize the query before execution
+    $query = mysqli_real_escape_string($conn, $query);
+
+    // Execute the query
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        
+        return $row['all_null_rows'];
+    } else {
+        // Log the error instead of outputting it directly
+        error_log("Error: " . mysqli_error($conn));
+        return 0;
+    }
+}
+
+
+
+function sumColumn($table, $column, $condition = "") {
+
+    $tableName = validate($table);
+    $columnName = validate($column);
+    $conditions = validate($condition);
+
+    global $conn;
+    $query = "SELECT SUM($columnName) AS totalSum FROM $tableName";
+    
+    if (!empty($conditions)) {
+        $query .= " WHERE " . $conditions;
+    }
+
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        
+        return $row['totalSum'];
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return 0;
+    }
+}
+
 
 // Create/Delete function
 function insert($tableName, $data)

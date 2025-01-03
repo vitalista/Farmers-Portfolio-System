@@ -45,7 +45,7 @@
                                  <div class="row g-0 align-items-center">
                                     <div class="col me-2">
                                        <div class="text-uppercase text-primary fw-bold mb-1"><span>No. of programs</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'is_archived = 0'); ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -63,7 +63,7 @@
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-success fw-bold mb-1"><span>Number of Farmers</span></div>
-                                    <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                    <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('farmers', 'is_archived = 0'); ?></span></div>
                                  </div>
                               </div>
                            </div>
@@ -82,7 +82,7 @@
                                     <div class="text-uppercase text-info fw-bold mb-1"><span>Total farms</span></div>
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('parcels', 'is_archived = 0');?></span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -106,7 +106,12 @@
                                     <div class="text-uppercase text-warning fw-bold mb-1"><span>Total Farm Size</span></div>
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0 Ha</span></div>
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?php
+                                          $number = sumColumn('parcels', 'parcel_area', 'is_archived = 0');
+                                          $decimalPlaces = 2;
+                                          $roundedValue = ceil($number * pow(10, $decimalPlaces)) / pow(10, $decimalPlaces);
+                                          echo $roundedValue;
+                                           ?> Ha</span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -438,7 +443,9 @@
                                        <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
                                        <div class="row g-0 align-items-center">
                                           <div class="col-auto">
-                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span>
+                                                <?=returnNullRows('parcels', ['owner_first_name', 'owner_last_name', 'ownership_type']);?>
+                                             </span></div>
                                           </div>
                                        </div>
                                     </div>
