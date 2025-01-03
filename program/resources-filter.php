@@ -1,13 +1,193 @@
 <?php
-$tableName = "resources";
+$archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
+$query = "
+    SELECT
+    r.id,
+    r.program_id,
+    r.resources_name,
+    r.resource_type,
+    r.total_quantity,
+    r.quantity_available,
+    r.unit_of_measure,
+    p.program_name,
+    p.program_type,
+    p.start_date,
+    p.end_date,
+    p.total_beneficiaries,
+    p.beneficiaries_available,
+    p.sourcing_agency
+    FROM 
+        resources AS r
+    JOIN 
+        programs AS p ON p.id = r.program_id
+    WHERE 
+        r.is_archived = ".$archived."
+";
 
-$sql = "SELECT * FROM $tableName WHERE is_archived = 0 LIMIT 10";
-$result = $conn->query($sql);
+$whereConditions = [];
+$params = [];
+$types = "";
+
+
+if (!empty($_GET['startDate'])) {
+    $whereConditions[] = "p.start_date = ?";
+    $params[] = validate($_GET['startDate']);
+    $types .= "s"; 
+}
+
+if (!empty($_GET['endDate'])) {
+    $whereConditions[] = "p.end_date = ?";
+    $params[] = validate($_GET['endDate']);
+    $types .= "s"; 
+}
+
+if (!empty($_GET['programName'])) {
+    $whereConditions[] = "p.program_name = ?";
+    $params[] = validate($_GET['programName']);
+    $types .= "s";
+}
+
+if (!empty($_GET['programtype'])) {
+    $whereConditions[] = "p.program_type = ?";
+    $params[] = validate($_GET['programtype']);
+    $types .= "s";
+}
+
+if (!empty($_GET['resourcesName'])) {
+    $whereConditions[] = "r.resources_name = ?";
+    $params[] = validate($_GET['resourcesName']);
+    $types .= "s";
+}
+
+if (!empty($_GET['resourcestype'])) {
+    $whereConditions[] = "r.resource_type = ?";
+    $params[] = validate($_GET['resourcestype']);
+    $types .= "s";
+}
+
+if (!empty($_GET['unitOfMeasure'])) {
+    $whereConditions[] = "r.unit_of_measure = ?";
+    $params[] = validate($_GET['unitOfMeasure']);
+    $types .= "s";
+}
+
+
+if (!empty($_GET['sourcingAgency'])) {
+    $whereConditions[] = "p.sourcing_agency = ?";
+    $params[] = validate($_GET['sourcingAgency']);
+    $types .= "s";
+}
+
+if (!empty($_GET['totalBeneficiaries'])) {
+    $totalBeneficiariesComp = validate($_GET['totalBeneficiariesComp']) ?? 'exact';
+    $totalBeneficiaries = validate($_GET['totalBeneficiaries']);
+    
+    switch ($totalBeneficiariesComp) {
+        case 'lessThan':
+            $whereConditions[] = "p.total_beneficiaries < ?";
+            break;
+        case 'greaterThan':
+            $whereConditions[] = "p.total_beneficiaries > ?";
+            break;
+        case 'exact':
+        default:
+            $whereConditions[] = "p.total_beneficiaries = ?";
+            break;
+    }
+    $params[] = $totalBeneficiaries;
+    $types .= "i";
+}
+
+if (!empty($_GET['availableBeneficiaries'])) {
+    $availableBeneficiariesComp = validate($_GET['availableBeneficiariesComp']) ?? 'exact';
+    $availableBeneficiaries = validate($_GET['availableBeneficiaries']);
+    
+    switch ($availableBeneficiariesComp) {
+        case 'lessThan':
+            $whereConditions[] = "p.beneficiaries_available < ?";
+            break;
+        case 'greaterThan':
+            $whereConditions[] = "p.beneficiaries_available > ?";
+            break;
+        case 'exact':
+        default:
+            $whereConditions[] = "p.beneficiaries_available = ?";
+            break;
+    }
+    $params[] = $availableBeneficiaries;
+    $types .= "i";
+}
+
+if (!empty($_GET['totalQuantity'])) {
+    $totalQuantityComp = validate($_GET['totalQuantityComp']) ?? 'exact';
+    $totalQuantity = validate($_GET['totalQuantity']);
+    
+    switch ($totalQuantityComp) {
+        case 'lessThan':
+            $whereConditions[] = "r.total_quantity < ?";
+            break;
+        case 'greaterThan':
+            $whereConditions[] = "r.total_quantity > ?";
+            break;
+        case 'exact':
+        default:
+            $whereConditions[] = "r.total_quantity = ?";
+            break;
+    }
+    $params[] = $totalQuantity;
+    $types .= "i";
+}
+
+if (!empty($_GET['quantityAvailable'])) {
+    $quantityAvailableComp = validate($_GET['quantityAvailableComp']) ?? 'exact';
+    $quantityAvailable = validate($_GET['quantityAvailable']);
+    
+    switch ($quantityAvailableComp) {
+        case 'lessThan':
+            $whereConditions[] = "r.quantity_available < ?";
+            break;
+        case 'greaterThan':
+            $whereConditions[] = "r.quantity_available > ?";
+            break;
+        case 'exact':
+        default:
+            $whereConditions[] = "r.quantity_available = ?";
+            break;
+    }
+    $params[] = $quantityAvailable;
+    $types .= "i";
+}
+
+
+if (!empty($whereConditions)) {
+    $query .= " AND " . implode(" AND ", $whereConditions);
+}
+
+$limit = 10;
+if (!empty($_GET['numOfEntries']) && is_numeric($_GET['numOfEntries'])) {
+    $limit = (int)validate($_GET['numOfEntries']);
+}
+
+$query .= " LIMIT ?";
+
+$params[] = $limit;
+$types .= "i";
+
+$stmt = $conn->prepare($query);
+
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+
+$stmt->execute();
+
+$result = $stmt->get_result();
 
 ?>
+
 <script>
     function getTotalEntries() {
-        return <?= $result->num_rows ?>;
+        return <?= $result->num_rows; ?>
     }
 </script>
 
@@ -19,160 +199,112 @@ $result = $conn->query($sql);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
-                <form id="filterForm" class="row">
-
+            <form id="filterForm" class="row" method="get">
 
                     <div class="col-md-3 mb-3">
-                        <label for="cropAreaComparison" class="form-label">Farmer<strong>(Contains)</strong></label>
+                        <label for="programName" class="form-label">Program Name <strong>(Contains)</strong></label>
+                        <input type="text" id="programName" name="programName" class="form-control" placeholder="Enter program">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="programtype" class="form-label">Program Type <strong>(Contains)</strong></label>
+                        <input type="text" id="programtype" name="programtype" class="form-control" placeholder="Enter program type">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="sourcingAgency" class="form-label">Sourcing Agency<strong>(Contains)</strong></label>
+                        <input type="text" id="sourcingAgency" name="sourcingAgency" class="form-control" placeholder="Enter program type">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="startDate" class="form-label">Start Date</label>
+                        <input type="date" name="startDate" id="startDate" class="form-control">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="endDate" class="form-label">End Date</label>
+                        <input type="date" name="endDate" id="endDate" class="form-control">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="totalBeneficiariesComp" class="form-label">Total Beneficiaries</label>
                         <div class="input-group">
-                            <select id="cropAreaComparison" class="form-select">
-                                <option value="last_name">Last Name</option>
-                                <option value="first_name">First Name</option>
-                                <option value="middle_name">Middle Name</option>
-                                <option value="extension_name">Extension Name</option>
-                            </select>
-                            <input type="text" id="cropArea" class="form-control" placeholder="Enter">
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 mb-3">
-                        <label for="gender" class="form-label">Gender</label>
-                        <select id="gender" class="form-select">
-                            <option selected disabled>-- Select --</option>
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="birthday" class="form-label">Birthday <strong>(Filter by date)</strong></label>
-                        <input type="date" id="birthday" class="form-control">
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="cropAreaComparison" class="form-label">Farmer Address<strong>(Contains)</strong></label>
-                        <div class="input-group">
-                            <select id="cropAreaComparison" class="form-select">
-                                <option value="farmer_barangay">Barangay</option>
-                                <option value="farmer_municipality">Municipality</option>
-                                <option value="farmer_address">Province</option>
-                            </select>
-                            <input type="text" id="cropArea" class="form-control" placeholder="Enter">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="cropAreaComparison" class="form-label">Owner Name<strong>(Contains)</strong></label>
-                        <div class="input-group">
-                            <select id="cropAreaComparison" class="form-select">
-                                <option value="owner_fname">Owner First Name</option>
-                                <option value="owner_lname">Owner Last Name</option>
-                                <option value="farmer_address">Province</option>
-                            </select>
-                            <input type="text" id="cropArea" class="form-control" placeholder="Enter">
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-2 mb-3">
-                        <label for="ownershipType" class="form-label">Ownership Type</label>
-                        <select id="ownershipType" class="form-select">
-                            <option selected disabled>-- Select Type --</option>
-                            <option value="tenant">Tenant</option>
-                            <option value="lessee">Lessee</option>
-                            <option value="registered_owner">Registered Owner</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="cropAreaComparison" class="form-label">Parcel Address</label>
-                        <div class="input-group">
-                            <select id="cropAreaComparison" class="form-select">
-                                <option value="barangay">Barangay</option>
-                                <option value="municipality">Municipality</option>
-                                <option value="province">Province</option>
-                            </select>
-                            <input type="number" id="cropArea" class="form-control" placeholder="Enter">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="cropname" class="form-label">Crop/Livestock Name <strong>(Contains)</strong></label>
-                        <input type="text" id="cropname" class="form-control" placeholder="Enter crop/livestock name">
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="parcelAreaComparison" class="form-label">Parcel Area</label>
-                        <div class="input-group">
-                            <select id="parcelAreaComparison" class="form-select">
+                            <select id="totalBeneficiariesComp" name="totalBeneficiariesComp" class="form-select">
                                 <option value="exact">Is Exact</option>
                                 <option value="lessThan">Less Than</option>
                                 <option value="greaterThan">Greater Than</option>
                             </select>
-                            <input type="number" id="parcelArea" class="form-control" placeholder="Enter">
+                            <input type="number" id="totalBeneficiaries" name="totalBeneficiaries" min="0" class="form-control" placeholder="Enter">
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="cropAreaComparison" class="form-label">Crop Area</label>
+                        <label for="availableBeneficiariesComp" class="form-label">Available Beneficiaries</label>
                         <div class="input-group">
-                            <select id="cropAreaComparison" class="form-select">
+                            <select id="availableBeneficiariesComp" name="availableBeneficiariesComp" class="form-select">
                                 <option value="exact">Is Exact</option>
                                 <option value="lessThan">Less Than</option>
                                 <option value="greaterThan">Greater Than</option>
                             </select>
-                            <input type="number" id="cropArea" class="form-control" placeholder="Enter">
+                            <input type="number" id="availableBeneficiaries" name="availableBeneficiaries" min="0" class="form-control" placeholder="Enter">
                         </div>
                     </div>
+
                     <div class="col-md-3 mb-3">
-                        <label for="classification" class="form-label">Classification <strong>(isExact)</strong></label>
-                        <input type="text" id="classification" class="form-control" placeholder="Enter classification">
+                        <label for="resourcesName" class="form-label">Resources Name <strong>(Contains)</strong></label>
+                        <input type="text" id="resourcesName" name="resourcesName" class="form-control" placeholder="Enter resources">
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="farmType" class="form-label">Farm Type</label>
-                        <select id="farmType" class="form-select">
-                            <option selected disabled>-- Select Farm Type --</option>
-                            <option value="irrigated">Irrigated</option>
-                            <option value="upland">Upland</option>
-                            <option value="lowland">Lowland</option>
-                        </select>
+                        <label for="resourcestype" class="form-label">Resources Type <strong>(Contains)</strong></label>
+                        <input type="text" id="resourcestype" name="resourcestype" class="form-control" placeholder="Enter resources type">
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="noHeadsComparison" class="form-label">Number of Heads</label>
+                        <label for="totalQuantityComp" class="form-label">Resources Total Quantity</label>
                         <div class="input-group">
-                            <select id="noHeadsComparison" class="form-select">
+                            <select id="totalQuantityComp" name="totalQuantityComp" class="form-select">
                                 <option value="exact">Is Exact</option>
                                 <option value="lessThan">Less Than</option>
                                 <option value="greaterThan">Greater Than</option>
                             </select>
-                            <input type="number" id="noHeads" class="form-control" placeholder="Enter">
+                            <input type="number" id="totalQuantity" name="totalQuantity" min="0" class="form-control" placeholder="Enter">
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">Active?</label>
+                        <label for="quantityAvailableComp" class="form-label">Resources Quantity Available</label>
+                        <div class="input-group">
+                            <select id="quantityAvailableComp" name="quantityAvailableComp" class="form-select">
+                                <option value="exact">Is Exact</option>
+                                <option value="lessThan">Less Than</option>
+                                <option value="greaterThan">Greater Than</option>
+                            </select>
+                            <input type="number" id="quantityAvailable" name="quantityAvailable" min="0" class="form-control" placeholder="Enter">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Archived?</label>
                         <div class="form-check">
-                            <input class="form-check-input" style="width: 20px; height: 20px;" type="checkbox" id="activeYes" value="yes">
-                            <label class="form-check-label" for="activeYes">Yes</label>
+                            <label class="form-check-label" for="archived">Yes</label>
+                            <input class="form-check-input" style="width: 20px; height: 20px;" type="checkbox" id="archived" name="archived" value="1">
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">HVC?</label>
-                        <div class="form-check">
-                            <input class="form-check-input" style="width: 20px; height: 20px;" type="checkbox" id="activeYes" value="yes">
-                            <label class="form-check-label" for="activeYes">Yes</label>
-                        </div>
+                        <label for="numOfEntries" class="form-label">No. of <strong>(Entries)</strong></label>
+                        <input type="number" id="numOfEntries" name="numOfEntries" class="form-control" min="0" placeholder="By default 10">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Filter</button>
                     </div>
 
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Filter</button>
-            </div>
+            
         </div>
     </div>
-</div><!-- End Large Modal-->
+</div>

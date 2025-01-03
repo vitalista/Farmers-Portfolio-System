@@ -21,6 +21,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Resources list</h5>
                 <div>
+                  <a href="resources-list.php" class="btn btn-danger">Clear</a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     Filter
                   </button>
@@ -48,7 +49,7 @@
                     while ($row = $result->fetch_assoc()) {
                   ?>
                   <tr>
-                    <td><?= $row['resources_name'];?></td>
+                    <td><?= $row['program_name'];?></td>
                     <td><?= $row['resource_type'];?></td>
                     <td><?= $row['total_quantity'];?></td>
                     <td><?= $row['quantity_available'];?></td>

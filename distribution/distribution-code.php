@@ -115,9 +115,116 @@ if (is_numeric($paramResult)) {
         redirect('distribution-multiple-add.php', 'Not Found');
     }
 }
+
+if(checkParamId('clear')){
+    unset($_SESSION['resourceItems']);
+    redirect('distribution-multiple-add.php', 'Not Found');
+}
 // else {
 //     redirect('distribution-multiple-add.php', 'Invalid Request');
 // }
+
+if (isset($_POST['addItems'])) {
+    if (!empty($_POST)) {
+        foreach ($_POST as $key => $value) {
+            echo "Key: " . $key . " - Value: " . $value . "<br>";
+        }
+    }
+
+    // Validate the input data
+    $farmerAddComparison = validate($_POST['farmerAddComparison']);
+    $farmerAdd = validate($_POST['farmerAdd']);
+
+    $resourceData = [];
+    $resourcesId = validate($_POST['resources_id']);
+    $quantity = validate($_POST['quantity']);
+
+    // Check if the resource exists for the given farmer
+    $checkResource = mysqli_query($conn, "SELECT * FROM resources WHERE id='$resourcesId' LIMIT 1");
+    $checkReFarmers = mysqli_query($conn, "SELECT * FROM farmers WHERE $farmerAddComparison LIKE '$farmerAdd'");
+    $rowCount = mysqli_num_rows($checkReFarmers);
+    echo "Number of rows: " . $rowCount . "<br>";
+
+    // Store farmers in an array
+    $farmers = [];
+    while ($farmer = mysqli_fetch_assoc($checkReFarmers)) {
+        $farmers[] = $farmer; // Add each farmer to the array
+    }
+
+    if ($checkResource && $checkReFarmers) {
+        if (mysqli_num_rows($checkResource) > 0) {
+            $row = mysqli_fetch_assoc($checkResource);
+
+            // Check if the available quantity is sufficient
+            if ($row['quantity_available'] < $quantity) {
+                redirect('', 'Only ' . $row['quantity_available'] . ' quantity available');
+            } else {
+                $program = getById('programs', $row['program_id']);
+
+                // Initialize the resource data
+                if ($program['status'] == 200) {
+
+                    $quotient = floor($row['quantity_available'] / $quantity);
+
+                    if ($quotient > 0) {
+                        for ($i = 0; $i < $quotient; $i++) {
+                            if ($i != $rowCount) {
+                               
+                                foreach ($farmers as $farmer) {
+                                    $resourceData[] = [
+                                        'farmer_id' => $farmer['id'],
+                                        'farmer_name' => $farmer['first_name'] . ' ' . $farmer['last_name'],
+                                        'ffrs_code' => $farmer['ffrs_system_gen'],
+                                        'program_id' => $row['program_id'],
+                                        'program' => $program['data']['program_name'],
+                                        'program_total_beneficiaries' => $program['data']['total_beneficiaries'],
+                                        'program_available_beneficiaries' => $program['data']['beneficiaries_available'],
+                                        'quantity' => $quantity,
+                                        'resource_name' => $row['resources_name'],
+                                        'resource_type' => $row['resource_type'],
+                                        'unit_of_measure' => $row['unit_of_measure'],
+                                        'resources_available' => $row['quantity_available'],
+                                        'total' => $row['total_quantity'],
+                                        'resource_id' => $row['id']
+                                    ];
+                                }
+                                
+                            }
+                            
+                            break;
+                        }
+                    }
+
+                }
+
+                // Debugging output
+                echo '<pre>';
+                print_r($farmers); 
+                echo '</pre>';
+
+                echo '<pre>';
+                print_r($resourceData); 
+                echo '</pre>';
+                echo $quotient;
+
+                foreach ($resourceData as $data) {
+                    $_SESSION['resourceItems'][] = $data;
+                }                
+
+                echo '<script>';
+                echo 'console.log("Session Resource Data:", ' . json_encode($_SESSION['resourceItems']) . ');';
+                echo '</script>';
+
+                redirect('', 'Resource added: ' . $row['resources_name']);
+            }
+        } else {
+            redirect('', 'No Resource Found');
+        }
+    } else {
+        redirect('', 'Something Went Wrong');
+    }
+}
+
 
 if (isset($_POST['saveItem'])) {
 
