@@ -59,7 +59,7 @@
                     window.location.href = "dashboard.php";
                     break;
                 default:
-                    window.location.href = "brgy.php";
+                    window.location.href = `brgy.php?brgy=${selectedValue}`;
                     break;
             }
         });

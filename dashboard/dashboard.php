@@ -45,7 +45,7 @@
                                  <div class="row g-0 align-items-center">
                                     <div class="col me-2">
                                        <div class="text-uppercase text-primary fw-bold mb-1"><span>No. of programs</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'is_archived = 0'); ?></span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs'); ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -63,7 +63,7 @@
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-success fw-bold mb-1"><span>Number of Farmers</span></div>
-                                    <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('farmers', 'is_archived = 0'); ?></span></div>
+                                    <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('farmers'); ?></span></div>
                                  </div>
                               </div>
                            </div>
@@ -82,7 +82,7 @@
                                     <div class="text-uppercase text-info fw-bold mb-1"><span>Total farms</span></div>
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('parcels', 'is_archived = 0');?></span></div>
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('parcels');?></span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -96,8 +96,6 @@
                         </div>
                      </div>
 
-
-
                      <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150">
                            <div class="card-body pb-0">
@@ -107,7 +105,7 @@
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
                                           <div class="text-dark fw-bold h5 mb-0 me-3"><span><?php
-                                          $number = sumColumn('parcels', 'parcel_area', 'is_archived = 0');
+                                          $number = sumColumn('parcels', 'parcel_area');
                                           $decimalPlaces = 2;
                                           $roundedValue = ceil($number * pow(10, $decimalPlaces)) / pow(10, $decimalPlaces);
                                           echo $roundedValue;
@@ -220,7 +218,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#polarAreaChart"), {
-                                       series: [14, 23, 21, 17, 15, 10, 12, 17, 21, 10, 11, 12, 13, 15, 16, 17, 19, 20], // data values
+                                       series: <?= json_encode(array_map('intval',getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>,
                                        chart: {
                                           type: 'polarArea',
                                           height: 350,
@@ -237,7 +235,7 @@
                                        fill: {
                                           opacity: 0.8
                                        },
-                                       labels: ['Barangaca', 'Calantipay', 'Catulinan', 'Hinukay', 'Makinabang', 'Matangtubig', 'Pagala', 'Paitan', 'Pinagbarilan', 'Sabang', 'San Roque', 'Sta Barbara', 'Sto Nino', 'Tangos', 'Tilapayong', 'Piel', 'Tarcan', 'Piel'] // custom series names
+                                       labels: <?= json_encode(getCountArray('farmers', 'farmer_brgy_address', 'id')); ?> // custom series names
                                     }).render();
                                  });
                               </script>
@@ -255,14 +253,20 @@
 
                               <!-- Bar Chart -->
                               <div id="barChart"></div>
+                              <?php
+                              // print_r(getCountArray('distributions', 'program_id', 'id'));
+                              // print_r(getCountArray('distributions', 'resource_id', 'count'));
+                              // print_r(getCountArray('distributions', 'resource_id', ''));
+?>
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#barChart"), {
                                        series: [{
                                           name: 'No. of Farmers',
-                                          data: [400, 200, 100]
+                                          data: <?= json_encode(getCountArray('distributions', 'program_id', 'count')); ?>
                                        }],
+
                                        chart: {
                                           type: 'bar',
                                           height: 329
@@ -277,7 +281,15 @@
                                           enabled: true
                                        },
                                        xaxis: {
-                                          categories: ['Cash Assistance', 'Pamigay Fertilizer', 'Seedling Distribution'],
+                                          categories:  <?php
+                                             $programs = getCountArray('distributions', 'program_id', 'id');
+                                             $column = [];
+                                                foreach($programs as $program){
+                                                   $getById = getById('programs', $program);
+                                                   $column[] = $getById['data']['program_name'];
+                                                }
+                                             echo json_encode($column);
+                                             ?>,
                                        }
                                     }).render();
                                  });
@@ -288,6 +300,8 @@
                         </div>
                      </div>
 
+                                             
+
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
@@ -296,12 +310,23 @@
                               <!-- Bar Chart -->
                               <div id="barChart2"></div>
 
+                             
+
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#barChart2"), {
                                        series: [{
-                                          name: 'No. of Parcels',
-                                          data: [12, 33, 50]
+                                          name: 'Remaining Resources',
+                                          data:  <?php
+                                             $remaining = [];
+                                            $resources = getAll('resources');
+                                            if (mysqli_num_rows($resources) > 0) {
+                                                foreach ($resources as $item) {
+                                                   $remaining[] = $item['total_quantity'] - $item['quantity_available'];
+                                                }
+                                             }
+                                             echo json_encode($remaining);
+                                          ?>
                                        }],
                                        chart: {
                                           type: 'bar',
@@ -317,7 +342,16 @@
                                           enabled: true
                                        },
                                        xaxis: {
-                                          categories: ['Cash', 'Fertilizer', 'Pesticides'],
+                                          categories:  <?php
+                                             $remaining = [];
+                                            $resources = getAll('resources');
+                                            if (mysqli_num_rows($resources) > 0) {
+                                                foreach ($resources as $item) {
+                                                   $remaining[] = $item['resources_name'];
+                                                }
+                                             }
+                                             echo json_encode($remaining);
+                                          ?>,
                                        },
                                        colors: ["#00e296"],
                                     }).render();
@@ -335,11 +369,14 @@
                               <h5 class="card-title">Distributed Resources Chart</h5>
 
                               <div id="pieChart1"></div>
+      
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#pieChart1"), {
-                                       series: [44, 55, 13, 43],
+                                       series:<?= json_encode(array_map('intval',getCountArray('distributions', 'resource_id', 'count'))); ?>
+
+                              ,
                                        chart: {
                                           height: 350,
                                           type: 'pie',
@@ -347,7 +384,15 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Cash', 'Seedling', 'Fertilizer', 'Pesticides'],
+                                       labels:   <?php
+                                             $resources = getCountArray('distributions', 'resource_id', 'id');
+                                             $column = [];
+                                                foreach($resources as $item){
+                                                   $getById = getById('resources', $item);
+                                                   $column[] = $getById['data']['resources_name'];
+                                                }
+                                             echo json_encode($column);
+                                             ?>,
                                        dataLabels: {
                                           enabled: true,
                                           style: {
@@ -356,17 +401,17 @@
                                              colors: ['#fff']
                                           }
                                        },
-                                       tooltip: {
-                                          enabled: true,
-                                          y: {
-                                             formatter: function(val, opts) {
-                                                programs = ['Cash Assistance', 'Seedling Pamigay', 'Fertilizer Program A', 'Pest Control Program'];
-                                                const seriesName = opts.seriesIndex;
-                                                console.log(seriesName)
-                                                return `${programs[seriesName]}: ${val}%`;
-                                             }
-                                          }
-                                       }
+                                       // tooltip: {
+                                       //    enabled: true,
+                                       //    y: {
+                                       //       formatter: function(val, opts) {
+                                       //          programs = ['Cash Assistance', 'Seedling Pamigay', 'Fertilizer Program A', 'Pest Control Program'];
+                                       //          const seriesName = opts.seriesIndex;
+                                       //          console.log(seriesName)
+                                       //          return `${programs[seriesName]}: ${val}%`;
+                                       //       }
+                                       //    }
+                                       // }
                                     }).render();
 
                                     document.querySelector("#pieChart1 svg").style.filter = "brightness(1.15)";
@@ -376,7 +421,6 @@
                            </div>
                         </div>
                      </div>
-
 
                      <div class="col-lg-6">
                         <div class="card">
@@ -389,7 +433,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#pieChart"), {
-                                       series: [44, 55, 13, 43, 22],
+                                       series: <?= json_encode(array_map('intval',getCountArray('crops', 'crop_name', 'count'))); ?>,
                                        chart: {
                                           height: 350,
                                           type: 'pie',
@@ -397,7 +441,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Rice/Palay', 'Mango', 'Kangkong', 'Papaya', 'Okra']
+                                       labels: <?= json_encode(getCountArray('crops', 'crop_name', 'id')); ?>
                                     }).render();
                                  });
                               </script>
@@ -417,7 +461,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#donutChart"), {
-                                       series: [44, 55, 13, 43, 22],
+                                       series: <?= json_encode(array_map('intval',getCountArray('livestocks', 'animal_name', 'count'))); ?>,
                                        chart: {
                                           height: 350,
                                           type: 'donut',
@@ -425,7 +469,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Pigs', 'Turkeys', 'Horses', 'Goats', 'Chickens'],
+                                       labels: <?= json_encode(getCountArray('livestocks', 'animal_name', 'id')); ?>,
                                     }).render();
                                  });
                               </script>
@@ -465,7 +509,7 @@
                                  <div class="row g-0 align-items-center">
                                     <div class="col me-2">
                                        <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Programs</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'pending_programs');?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -486,7 +530,7 @@
                                        <div class="text-uppercase text-danger fw-bold mb-1"><span>Expired Programs</span></div>
                                        <div class="row g-0 align-items-center">
                                           <div class="col-auto">
-                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('programs', 'expired_programs');?></span></div>
                                           </div>
                                        </div>
                                     </div>
@@ -505,13 +549,13 @@
                               <div class="card-body pb-0">
                                  <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Limited Resources</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                       <div class="text-uppercase text-warning fw-bold mb-1"><span>Ongoing Programs</span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'ongoing_programs');?></span></div>
                                     </div>
                                  </div>
                               </div>
                               <div class="d-flex align-items-center justify-content-center">
-                                 <a href="../program/resources-list.php" class=" text-warning">
+                                 <a href="../program/programs-list.php" class=" text-warning">
                                     More info<i class="bi bi-arrow-right-short"></i>
                                  </a>
                               </div>
@@ -532,18 +576,18 @@
                                     <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
                                     <div class="ms-2">
                                        <span class="fw-bold">Male</span>
-                                       <div>0</div>
+                                       <div><?= countRows('farmers', 'MALE');?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
                                     <div class="ms-2">
                                        <span class="fw-bold">Female</span>
-                                       <div>0</div>
+                                       <div><?= countRows('farmers', 'FEMALE');?></div>
                                     </div>
                                  </div>
                               </div>
-                              <div>Total: 0</div>
+                              <div>Total: <?= countRows('farmers', 'FEMALE') + countRows('farmers', 'MALE');?></div>
                            </div>
                         </div>
 
@@ -561,22 +605,18 @@
                                     <div class="ms-2">
                                        <!-- CROP -->
                                        <span class="fw-bold">Crop</span>
-                                       <div>0</div>
+                                       <div><?= countRows('crops');?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <!-- PIG -->
-                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="rgb(193,54,137)">
-                              <path d="M15 11v.01"></path>
-                              <path d="M16 3l0 3.803a6.019 6.019 0 0 1 2.658 3.197h1.341a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-1.342a6.008 6.008 0 0 1 -1.658 2.473v2.027a1.5 1.5 0 0 1 -3 0v-.583a6.04 6.04 0 0 1 -1 .083h-4a6.04 6.04 0 0 1 -1 -.083v.583a1.5 1.5 0 0 1 -3 0v-2l0 -.027a6 6 0 0 1 4 -10.473h2.5l4.5 -3z"></path>
-                           </svg> -->
                                     <div class="ms-2">
                                        <span class="fw-bold">Livestock</span>
-                                       <div>0</div>
+                                       <div><?= countRows('livestocks');?></div>
                                     </div>
                                  </div>
                               </div>
-                              <div>Total: 0</div>
+                              <div>Total: <?= countRows('livestocks') +  countRows('crops');?></div>
                            </div>
                         </div>
                      </div>

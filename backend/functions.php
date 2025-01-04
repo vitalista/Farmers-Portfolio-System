@@ -113,10 +113,23 @@ function countRows($table, $condition = "") {
 
     global $conn;
 
-    $query = "SELECT COUNT(*) AS totalRows FROM $tableName";
+    $query = "SELECT COUNT(*) AS totalRows FROM $tableName WHERE is_archived = 0";
 
-    if (!empty($conditions)) {
-        $query .= " WHERE " . $conditions;
+    if (!empty($conditions) && $condition == 'pending_programs') {
+        $query .= " AND start_date > CURDATE() AND start_date != '0000-00-00'";
+    }
+
+    if (!empty($conditions) && $condition == 'expired_programs') {
+        $query .= " AND end_date < CURDATE() AND end_date != '0000-00-00'";
+    }
+
+    if (!empty($conditions) && $condition == 'ongoing_programs') {
+        $query .= " AND start_date <= CURDATE() AND end_date >= CURDATE() AND end_date != '0000-00-00' AND start_date != '0000-00-00'";
+    }
+
+    if (!empty($conditions) && $condition == 'MALE' || $condition == 'FEMALE') {
+        $condition = validate($condition);
+        $query .= " AND UPPER(gender) = '$condition'";
     }
 
     // echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
@@ -136,77 +149,83 @@ function countRows($table, $condition = "") {
 
 
 function returnNullRows($table, $columns) {
+
     global $conn;
 
-    // Validate and sanitize inputs
-    $validTables = ['parcels'];  // List of allowed tables
-    if (!in_array($table, $validTables)) {
-        return 0;  // Invalid table name
-    }
-
-    if (empty($columns) || !is_array($columns)) {
+    if(empty($table) || empty($columns)) {
         return 0;
     }
 
-    // Sanitize columns
-    $validColumns = ['owner_first_name', 'owner_last_name', 'ownership_type'];  // List of allowed columns
-    foreach ($columns as $column) {
-        if (!in_array($column, $validColumns)) {
-            return 0;  // Invalid column name
+        // Validate and sanitize inputs
+        $validTables = ['parcels'];  // List of allowed tables
+        if (!in_array($table, $validTables)) {
+            return 0;  // Invalid table name
         }
-    }
-
-    $query = "SELECT SUM(";
-    $columnsCount = count($columns);
     
-    // Generate query for nulls and non-nulls
-    foreach ($columns as $index => $column) {
-        $query .= "$column = ''"; 
-
-        if ($index < $columnsCount - 1) {
-            $query .= " AND ";
+        if (empty($columns) || !is_array($columns)) {
+            return 0;
         }
+    
+        // Sanitize columns
+        $validColumns = ['owner_first_name', 'owner_last_name', 'ownership_type'];  // List of allowed columns
+        foreach ($columns as $column) {
+            if (!in_array($column, $validColumns)) {
+                return 0;  // Invalid column name
+            }
+        }
+
+    
+    $query = "";
+
+    if (!empty($columns)) {
+        $query = "SELECT SUM(";
+
+        $columnsCount = count($columns);
+        foreach ($columns as $index => $column) {
+            $query .= "$column = ''"; 
+
+            if ($index < $columnsCount - 1) {
+                $query .= " AND ";
+            }
+        }
+
+        $query .= ") AS all_null_rows, ";
+
+        foreach ($columns as $index => $column) {
+            $query .= "SUM($column = '') AS nulls_$column";
+
+            if ($index < $columnsCount - 1) {
+                $query .= ", ";
+            }
+        }
+
+        $query .= ", ";  
+
+        foreach ($columns as $index => $column) {
+            $query .= "SUM($column != '') AS non_nulls_$column";
+
+            if ($index < $columnsCount - 1) {
+                $query .= ", ";
+            }
+        }
+
+        $query .= " FROM $table WHERE is_archived = 0";
     }
 
-    $query .= ") AS all_null_rows, ";
+//    echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
 
-    foreach ($columns as $index => $column) {
-        $query .= "SUM($column = '') AS nulls_$column";
-
-        if ($index < $columnsCount - 1) {
-            $query .= ", ";
-        }
-    }
-
-    $query .= ", ";
-
-    foreach ($columns as $index => $column) {
-        $query .= "SUM($column != '') AS non_nulls_$column";
-
-        if ($index < $columnsCount - 1) {
-            $query .= ", ";
-        }
-    }
-
-    $query .= " FROM $table WHERE is_archived = 0";
-
-    // Sanitize the query before execution
-    $query = mysqli_real_escape_string($conn, $query);
-
-    // Execute the query
-    $result = mysqli_query($conn, $query);
+   $result = mysqli_query($conn, $query);
     
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         
         return $row['all_null_rows'];
     } else {
-        // Log the error instead of outputting it directly
-        error_log("Error: " . mysqli_error($conn));
+        echo "Error: " . mysqli_error($conn);
         return 0;
     }
+    
 }
-
 
 
 function sumColumn($table, $column, $condition = "") {
@@ -216,11 +235,7 @@ function sumColumn($table, $column, $condition = "") {
     $conditions = validate($condition);
 
     global $conn;
-    $query = "SELECT SUM($columnName) AS totalSum FROM $tableName";
-    
-    if (!empty($conditions)) {
-        $query .= " WHERE " . $conditions;
-    }
+    $query = "SELECT SUM($columnName) AS totalSum FROM $tableName WHERE is_archived = 0";
 
     $result = mysqli_query($conn, $query);
     
@@ -414,5 +429,29 @@ function getById($tableName, $id, $isFarmer = true, $isProgram = false) {
     return $response;
 }
 
+function getCountArray($tableName, $columnName, $condition) {
+    global $conn;
+    
+    $tableName = validate($tableName);
+    $columnName = validate($columnName);
+    $condition = validate($condition);
+
+    $query = "SELECT $columnName AS id, COUNT(*) AS count FROM $tableName GROUP BY $columnName";
+    
+    $result = mysqli_query($conn, $query);
+    
+    $countArray = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $countArray[$row['id']] = $row['count'];
+    }
+
+    if ($condition == 'count') {
+        return array_values($countArray);
+    }
+
+    if ($condition == 'id') {
+        return array_keys($countArray);   
+    }
+}
 
 ?>
