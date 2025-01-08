@@ -17,7 +17,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&amp;display=swap">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Bevan:400,400i&amp;subset=latin-ext,vietnamese&amp;display=swap">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
+<?php include 'backend/functions.php' ?>
 
 <body>
     <nav class="navbar navbar-expand-md bg-body pt-3" id="navbar">
@@ -319,37 +324,59 @@
                                 <div class="container mt-5">
                                     <form>
                                         <div class="row mb-3">
-                                            <!-- Select Program Input -->
-                                            <div class="col-md-6">
-                                                <label for="programInput" class="form-label">Select Program</label>
-                                                <input list="programs" id="programInput" name="program"
-                                                    class="form-control" placeholder="Start typing...">
-                                                <datalist id="programs">
-                                                    <option value="Apple">
-                                                    <option value="Banana">
-                                                    <option value="Cherry">
-                                                    <option value="Date">
-                                                    <option value="Elderberry">
-                                                    <option value="Fig">
-                                                    <option value="Grape">
-                                                </datalist>
-                                            </div>
 
-                                            <!-- Select Barangay Input -->
-                                            <div class="col-md-6">
-                                                <label for="numberInput" class="form-label">Select Barangay</label>
-                                                <input list="barangays" id="numberInput" class="form-control"
-                                                    placeholder="Start typing...">
-                                                <datalist id="barangays">
-                                                    <option value="1"></option>
-                                                </datalist>
-                                            </div>
-                                        </div>
+                                            <style>
+                                                .select2-container .select2-selection--single {
+                                                    padding-bottom: 40px;
+                                                }
 
-                                        <!-- Search Button -->
-                                        <div class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary">Search</button>
-                                        </div>
+                                                .select2-container--default .select2-selection--single .select2-selection__rendered {
+                                                    line-height: 40px;
+                                                }
+                                            </style>
+                                            <form method="get">
+                                                <!-- Select Program Input -->
+                                                <div class="col-md-6">
+                                                    <label for="programs">Programs</label>
+                                                    <select id="programs" class="mySelect" name="program">
+                                                        <option selected disabled>-- Select Program --</option>
+                                                        <?php
+                                                        $programs = getAll('programs');
+                                                        if (mysqli_num_rows($programs) > 0) {
+                                                            foreach ($programs as $item) {
+                                                        ?>
+                                                                <option value="<?= $item['id'] ?>"><?= $item['program_name'] ?> -
+                                                                    <?= $item['program_type'] ?>
+                                                                </option>
+                                                        <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Select Barangay Input -->
+                                                <div class="col-md-6">
+                                                    <label for="brgys">Barangays</label>
+                                                    <select id="brgys" class="mySelect" name="brgy">
+                                                        <option selected disabled>-- Select Barangay --</option>
+                                                        <?php
+                                                        $barangays = getAll('barangays');
+                                                        if (mysqli_num_rows($barangays) > 0) {
+                                                            foreach ($barangays as $item) {
+                                                        ?>
+                                                                <option value="<?= $item['brgy'] ?>"><?= $item['brgy'] ?>
+                                                            <?php
+                                                            }
+                                                        }
+                                                            ?>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                            <!-- Search Button -->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary">Search</button>
+                                            </div>
                                     </form>
                                 </div>
                             </section>
@@ -359,8 +386,8 @@
                     <!-- Results Table -->
                     <div class="row">
                         <div class="col">
-                            <h4>Barangay Name</h4>
-                            <div class="table-responsive" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                            <h4 class="card-header mb-2"><?= isset($_GET['brgy']) ? "Barangay: " . $_GET['brgy'] : "Barangay Name"; ?></h4>
+                            <div class="table-responsive card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
@@ -369,14 +396,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Cell 1</td>
-                                            <td>Cell 2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cell 3</td>
-                                            <td>Cell 4</td>
-                                        </tr>
+                                        <?php
+                                        if (isset($_GET['program']) || isset($_GET['brgy'])) {
+
+                                            $distributions = getAll('distributions', $_GET['program'], $_GET['brgy']);
+                                            if (mysqli_num_rows($distributions) > 0) {
+                                                foreach ($distributions as $item) {
+                                        ?>
+                                                    <tr>
+                                                        <td><?= $item['ffrs_system_gen']; ?></td>
+                                                        <td><?= $item['first_name']; ?> <?= $item['middle_name']; ?> <?= $item['last_name']; ?></td>
+                                                    </tr>
+                                        <?php
+                                                }
+                                            }
+                                        } else {
+                                            echo "<tr>
+                                            <td>No Information Available</td>
+                                            </tr>";
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -386,22 +425,70 @@
 
                 <!-- Upcoming Programs Tab Content -->
                 <div id="profile1" class="tab-pane fade px-4 py-5" role="tabpanel" aria-labelledby="profile1-tab">
-                    <p class="lead font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p class="lead font-italic mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim id est laborum.</p>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Program Name</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $programs = getPrograms('pending_programs');
+                                            if (mysqli_num_rows($programs) > 0) {
+                                                foreach ($programs as $item) {
+                                            ?>
+                                           <tr>
+                                           <td><?= $item['program_name'];?></td>
+                                           <td><?= $item['program_type'];?></td>
+                                           </tr>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- History Tab Content -->
                 <div id="contact1" class="tab-pane fade px-4 py-5" role="tabpanel" aria-labelledby="contact1-tab">
-                    <p class="lead font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p class="lead font-italic mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim id est laborum.</p>
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Program Name</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                            $programs = getPrograms('expired_programs');
+                                            if (mysqli_num_rows($programs) > 0) {
+                                                foreach ($programs as $item) {
+                                            ?>
+                                           <tr>
+                                           <td><?= $item['program_name'];?></td>
+                                           <td><?= $item['program_type'];?></td>
+                                           </tr>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -434,26 +521,26 @@
                 </div>
                 <div class="row">
                     <!-- <div class="col d-flex"> -->
-                        <div class="col-md-3">
-                            <span>Additional Contact Information</span>
-                            <div class="d-grid mt-2">
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                        viewBox="0 0 20 20" fill="none">
-                                        <path
-                                            d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z"
-                                            fill="currentColor"></path>
-                                    </svg> 09-123-4567-89</span>
-                            </div>
+                    <div class="col-md-3">
+                        <span>Additional Contact Information</span>
+                        <div class="d-grid mt-2">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                    viewBox="0 0 20 20" fill="none">
+                                    <path
+                                        d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z"
+                                        fill="currentColor"></path>
+                                </svg> 09-123-4567-89</span>
                         </div>
-                        <div class="col-md-3">
-                            <span>Social Media</span>
-                            <ul class="list-inline mt-2">
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <span>Social Media</span>
+                        <ul class="list-inline mt-2">
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
                     <!-- </div> -->
                 </div>
             </div>
@@ -494,6 +581,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="assets/js/script.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.mySelect').select2({
+                width: '100%'
+            });
+
+        });
+    </script>
 </body>
 
 </html>

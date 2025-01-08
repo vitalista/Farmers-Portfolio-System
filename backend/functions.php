@@ -132,6 +132,19 @@ function countRows($table, $condition = "") {
         $query .= " AND UPPER(gender) = '$condition'";
     }
 
+    if($tableName == 'parcels'){
+        $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived";
+    }
+
+    if($tableName == 'livestocks' || $tableName == 'crops'){
+        $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f, $tableName l WHERE 
+        l.farmer_id = f.id AND 
+        l.parcel_id = p.id AND 
+        l.is_archived = 0 AND 
+        f.is_archived = 0 AND 
+        p.is_archived = 0;";
+    }
+
     // echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
     
     // Execute the query
@@ -147,12 +160,54 @@ function countRows($table, $condition = "") {
     }
 }
 
+function brgyCountRows($table, $brgy = "", $gender = "") {
 
-function returnNullRows($table, $columns) {
+    $tableName = validate($table);
+    $brgy = validate($brgy); 
+    $gender = validate($gender); 
 
     global $conn;
 
-    if(empty($table) || empty($columns)) {
+    $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND f.farmer_brgy_address = '$brgy' AND p.is_archived = 0 AND f.is_archived = 0";
+
+    if (!empty($tableName) && $tableName == "farmers") {
+        $query = "SELECT COUNT(*) AS totalRows FROM farmers WHERE farmer_brgy_address = '$brgy' AND is_archived = 0";
+    }
+    
+    if (!empty($gender) && $gender == 'MALE' || $gender == 'FEMALE') {
+        $gender = validate($gender);
+        $query .= " AND UPPER(gender) = '$gender'";
+    }
+    
+    if($tableName == 'livestocks' || $tableName == 'crops'){
+        $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f, $tableName l WHERE 
+        l.farmer_id = f.id AND 
+        l.parcel_id = p.id AND 
+        l.is_archived = 0 AND 
+        f.is_archived = 0 AND 
+        p.is_archived = 0 AND f.farmer_brgy_address = '$brgy'";
+    }
+    
+    // echo "<script>console.log('brgyCountRows Query: " . addslashes($query) . "');</script>";
+    
+    // Execute the query
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        
+        return $row['totalRows'];
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return 0;
+    }
+}
+
+function returnNullRows($table, $brgy = "") {
+
+    global $conn;
+
+    if(empty($table)) {
         return 0;
     }
 
@@ -161,65 +216,24 @@ function returnNullRows($table, $columns) {
         if (!in_array($table, $validTables)) {
             return 0;  // Invalid table name
         }
-    
-        if (empty($columns) || !is_array($columns)) {
-            return 0;
-        }
-    
-        // Sanitize columns
-        $validColumns = ['owner_first_name', 'owner_last_name', 'ownership_type'];  // List of allowed columns
-        foreach ($columns as $column) {
-            if (!in_array($column, $validColumns)) {
-                return 0;  // Invalid column name
-            }
-        }
 
     
-    $query = "";
+    $query = "SELECT SUM(p.owner_first_name = '' AND p.owner_last_name = '' AND p.ownership_type = '') AS all_null_rows FROM $table p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0";
 
-    if (!empty($columns)) {
-        $query = "SELECT SUM(";
-
-        $columnsCount = count($columns);
-        foreach ($columns as $index => $column) {
-            $query .= "$column = ''"; 
-
-            if ($index < $columnsCount - 1) {
-                $query .= " AND ";
-            }
-        }
-
-        $query .= ") AS all_null_rows, ";
-
-        foreach ($columns as $index => $column) {
-            $query .= "SUM($column = '') AS nulls_$column";
-
-            if ($index < $columnsCount - 1) {
-                $query .= ", ";
-            }
-        }
-
-        $query .= ", ";  
-
-        foreach ($columns as $index => $column) {
-            $query .= "SUM($column != '') AS non_nulls_$column";
-
-            if ($index < $columnsCount - 1) {
-                $query .= ", ";
-            }
-        }
-
-        $query .= " FROM $table WHERE is_archived = 0";
+    if (!empty($brgy)) {
+        validate($brgy);
+        $query = "SELECT SUM(p.owner_first_name = '' AND p.owner_last_name = '' AND p.ownership_type = '') AS all_null_rows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0 AND f.farmer_brgy_address = '$brgy'";
     }
+   
 
-//    echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
+//    echo "<script>console.log('returnNullRows Query: " . addslashes($query) . "');</script>";
 
    $result = mysqli_query($conn, $query);
     
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         
-        return $row['all_null_rows'];
+        return $row['all_null_rows'] == null? 0 : $row['all_null_rows'];
     } else {
         echo "Error: " . mysqli_error($conn);
         return 0;
@@ -228,14 +242,20 @@ function returnNullRows($table, $columns) {
 }
 
 
-function sumColumn($table, $column, $condition = "") {
+function sumColumn($table, $column, $brgy = "") {
 
     $tableName = validate($table);
     $columnName = validate($column);
-    $conditions = validate($condition);
+    $brgy = validate($brgy);
 
     global $conn;
-    $query = "SELECT SUM($columnName) AS totalSum FROM $tableName WHERE is_archived = 0";
+    $query = "SELECT SUM(p.$columnName) AS totalSum FROM $tableName p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0";
+
+    if (!empty($brgy)) {
+       $query = " SELECT SUM(p.$columnName) AS totalSum FROM $tableName p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0 AND f.farmer_brgy_address ='$brgy'";
+    }
+
+   echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
 
     $result = mysqli_query($conn, $query);
     
@@ -348,13 +368,46 @@ function jsonResponse($status, $status_type,  $message)
     return;
 }
 
-function getAll($tableName){
+function getAll($tableName, $program = 0, $brgy = ""){
     global $conn;
 
     $table = validate($tableName);
+    $program = validate($program);
+    $brgy = validate($brgy);
  
-        $query = "SELECT * FROM $table";
+    $query = "SELECT * FROM $table WHERE is_archived = 0";
+
+    if($table ==  "barangays"){
+        $query = "SELECT farmer_brgy_address AS brgy
+        FROM farmers WHERE is_archived = 0
+        GROUP BY farmer_brgy_address";
+    }
+
+    if($table ==  "distributions"){
+        $query = "SELECT * FROM $table d, farmers f WHERE d.farmer_id = f.id AND d.is_archived = 0 ";
+    }
+
+    if(!empty($program)){
+        $query .= "AND d.program_id = $program ";
+    }
+
+    if(!empty($brgy)){
+        $query .= "AND f.farmer_brgy_address = '$brgy'";
+    }
     
+    return mysqli_query($conn, $query);
+}
+
+function getPrograms($table){
+    global $conn;
+    $query = "";
+    if (!empty($table) && $table == 'pending_programs') {
+        $query .= "SELECT * FROM programs WHERE is_archived = 0 AND start_date > CURDATE() AND start_date != '0000-00-00'";
+    }
+
+    if (!empty($table) && $table == 'expired_programs') {
+        $query .= "SELECT * FROM programs WHERE is_archived = 0 AND end_date <= CURDATE() AND end_date != '0000-00-00'";
+    }
     return mysqli_query($conn, $query);
 }
 
@@ -437,6 +490,17 @@ function getCountArray($tableName, $columnName, $condition) {
     $condition = validate($condition);
 
     $query = "SELECT $columnName AS id, COUNT(*) AS count FROM $tableName GROUP BY $columnName";
+
+    if ($tableName == "livestocks" || $tableName == "crops") {
+        $query = " SELECT t.$columnName AS id, COUNT(*) AS count FROM $tableName t, farmers f, parcels p WHERE
+        t.farmer_id = f.id AND
+        t.parcel_id = p.id AND
+        t.is_archived = 0 AND
+        p.is_archived = 0 AND
+        f.is_archived = 0
+        GROUP BY t.$columnName";
+    }
+
     
     $result = mysqli_query($conn, $query);
     
@@ -453,5 +517,42 @@ function getCountArray($tableName, $columnName, $condition) {
         return array_keys($countArray);   
     }
 }
+
+function brgyGetCountArray($tableName, $columnName, $condition, $brgy = "") {
+    global $conn;
+    
+    $tableName = validate($tableName);
+    $columnName = validate($columnName);
+    $condition = validate($condition);
+    $brgy = validate($brgy);
+
+    if ($tableName == "livestocks" || $tableName == "crops") {
+        $query = " SELECT t.$columnName AS id, COUNT(*) AS count FROM $tableName t, farmers f, parcels p WHERE
+        t.farmer_id = f.id AND
+        t.parcel_id = p.id AND
+        t.is_archived = 0 AND
+        p.is_archived = 0 AND
+        f.is_archived = 0 AND 
+        f.farmer_brgy_address = '$brgy'
+        GROUP BY t.$columnName";
+    }
+
+    
+    $result = mysqli_query($conn, $query);
+    
+    $countArray = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $countArray[$row['id']] = $row['count'];
+    }
+
+    if ($condition == 'count') {
+        return array_values($countArray);
+    }
+
+    if ($condition == 'id') {
+        return array_keys($countArray);   
+    }
+}
+
 
 ?>

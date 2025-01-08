@@ -488,7 +488,7 @@
                                        <div class="row g-0 align-items-center">
                                           <div class="col-auto">
                                              <div class="text-dark fw-bold h5 mb-0 me-3"><span>
-                                                <?=returnNullRows('parcels', ['owner_first_name', 'owner_last_name', 'ownership_type']);?>
+                                                <?=returnNullRows('parcels');?>
                                              </span></div>
                                           </div>
                                        </div>

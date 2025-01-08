@@ -12,7 +12,7 @@
       <div class="card container-fluid pb-5">
          <div class="d-flex justify-content-between">
          <div>
-         <h3 class="card-header mb-4">Barangay Name</h3>
+         <h3 class="card-header mb-4"><?= $_GET['brgy']; ?></h3>
          </div>
          <div class="mt-3">
          <a href="dashboard.php" class="btn btn-primary">Back</a>
@@ -29,7 +29,7 @@
                               <div class="row g-0 align-items-center">
                                  <div class="col me-2">
                                     <div class="text-uppercase text-success fw-bold mb-1"><span>Number of Farmers</span></div>
-                                    <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                    <div class="text-dark fw-bold h5 mb-0"><span><?= brgyCountRows('farmers', $_GET['brgy']); ?></span></div>
                                  </div>
                               </div>
                            </div>
@@ -48,7 +48,7 @@
                                     <div class="text-uppercase text-info fw-bold mb-1"><span>Total farms</span></div>
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= brgyCountRows('parcels', $_GET['brgy']); ?></span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -58,7 +58,7 @@
                            <a href="../farmer-assets/parcels.php" class=" text-info">
                               More info<i class="bi bi-arrow-right-short"></i>
                               </a>
-                              </div>
+                           </div>
                         </div>
                      </div>
 
@@ -72,7 +72,12 @@
                                     <div class="text-uppercase text-warning fw-bold mb-1"><span>Total Farm Size</span></div>
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0 Ha</span></div>
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?php
+                                          $number = sumColumn('parcels', 'parcel_area', $_GET['brgy']);
+                                          $decimalPlaces = 2;
+                                          $roundedValue = ceil($number * pow(10, $decimalPlaces)) / pow(10, $decimalPlaces);
+                                          echo $roundedValue;
+                                           ?> Ha</span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -94,7 +99,7 @@
                                     <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= returnNullRows('parcels', $_GET['brgy']);?></span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -152,7 +157,7 @@
                      <div class="col-lg-6">
                         <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
                            <div class="card-body">
-                              <h5 class="card-title">Crop Chart</h5>
+                              <h5 class="card-title">Crops Chart</h5>
 
                               <div id="pieChart">
                               </div>
@@ -160,7 +165,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#pieChart"), {
-                                       series: [44, 55, 13, 43, 22],
+                                       series: <?= json_encode(array_map('intval',brgyGetCountArray('livestocks', 'animal_name', 'count', $_GET['brgy'])));?>,
                                        chart: {
                                           height: 350,
                                           type: 'pie',
@@ -168,7 +173,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Rice/Palay', 'Mango', 'Kangkong', 'Papaya', 'Okra']
+                                       labels:  <?= json_encode(brgyGetCountArray('livestocks', 'animal_name', 'id', $_GET['brgy'])); ?>
                                     }).render();
                                  });
                               </script>
@@ -180,7 +185,7 @@
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
-                              <h5 class="card-title">Livestock Chart</h5>
+                              <h5 class="card-title">Livestocks Chart</h5>
 
                               <!-- Donut Chart -->
                               <div id="donutChart"></div>
@@ -188,7 +193,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#donutChart"), {
-                                       series: [44, 55, 13, 43, 22],
+                                       series: <?= json_encode(array_map('intval',brgyGetCountArray('crops', 'crop_name', 'count', $_GET['brgy'])));?>,
                                        chart: {
                                           height: 350,
                                           type: 'donut',
@@ -196,7 +201,7 @@
                                              show: true
                                           }
                                        },
-                                       labels: ['Pigs', 'Turkeys', 'Horses', 'Goats', 'Chickens'],
+                                       labels: <?= json_encode(brgyGetCountArray('crops', 'crop_name', 'id', $_GET['brgy'])); ?>
                                     }).render();
                                  });
                               </script>
@@ -216,18 +221,18 @@
                                     <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
                                     <div class="ms-2">
                                        <span class="fw-bold">Male</span>
-                                       <div>0</div>
+                                       <div><?= brgyCountRows('farmers', $_GET['brgy'], 'MALE');?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
                                     <div class="ms-2">
                                        <span class="fw-bold">Female</span>
-                                       <div>0</div>
+                                       <div><?= brgyCountRows('farmers', $_GET['brgy'], 'FEMALE');?></div>
                                     </div>
                                  </div>
                               </div>
-                              <div>Total: 0</div>
+                              <div>Total: <?= brgyCountRows('farmers', $_GET['brgy'], 'FEMALE') + brgyCountRows('farmers', $_GET['brgy'], 'MALE');?></div>
                            </div>
                         </div>
 
@@ -245,22 +250,17 @@
                                     <div class="ms-2">
                                        <!-- CROP -->
                                        <span class="fw-bold">Crop</span>
-                                       <div>0</div>
+                                       <div><?= brgyCountRows('crops', $_GET['brgy']);?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
-                                    <!-- PIG -->
-                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="rgb(193,54,137)">
-                              <path d="M15 11v.01"></path>
-                              <path d="M16 3l0 3.803a6.019 6.019 0 0 1 2.658 3.197h1.341a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-1.342a6.008 6.008 0 0 1 -1.658 2.473v2.027a1.5 1.5 0 0 1 -3 0v-.583a6.04 6.04 0 0 1 -1 .083h-4a6.04 6.04 0 0 1 -1 -.083v.583a1.5 1.5 0 0 1 -3 0v-2l0 -.027a6 6 0 0 1 4 -10.473h2.5l4.5 -3z"></path>
-                           </svg> -->
                                     <div class="ms-2">
                                        <span class="fw-bold">Livestock</span>
-                                       <div>0</div>
+                                       <div><?= brgyCountRows('livestocks', $_GET['brgy']);?></div>
                                     </div>
                                  </div>
                               </div>
-                              <div>Total: 0</div>
+                              <div>Total: <?= brgyCountRows('crops', $_GET['brgy']) + brgyCountRows('livestocks', $_GET['brgy']);?></div>
                            </div>
                         </div>
                   </div>
@@ -270,8 +270,8 @@
                   </div>
                </div>
 
-         <div class="row">
-            <?php if(is_dir('../program')){?>
+         <!-- <div class="row">
+            <?php //if(is_dir('../program')){?>
             <div class="col">
                <div class="card mb-4 my-2" data-aos="zoom-in-left">
                   <div class="card-header d-flex justify-content-between">
@@ -292,15 +292,14 @@
                                  <td>Palay</td>
                                  <td>09/22/2020</td>
                               </tr>
-                              <!-- Additional rows can be added here -->
                            </tbody>
                         </table>
                      </div>
                   </div>
                </div>
             </div>
-            <?php }?>
-         </div>
+            <?php //}?>
+         </div> -->
 
          <div class="row">
             <!-- <div class="col">
@@ -340,9 +339,8 @@
             </div> -->
 
             <?php
-            $tableName = "your_table_name";
-
-            $sql = "SELECT * FROM $tableName LIMIT 10";
+            $brgy = validate($_GET['brgy']);
+            $sql = "SELECT * FROM farmers WHERE farmer_brgy_address = '$brgy' AND is_archived = 0";
             $result = $conn->query($sql);
 
             ?>
@@ -356,7 +354,6 @@
           <div class="card" data-aos="zoom-in-left">
             <div class="card-body main-table pb-4">
            <h5 class="card-header">Farm list</h5>
-              <!-- <a href="#" class="btn -btn-success">Completed</a> -->
 
               <table id="example" class="display nowrap d-none">
                 <thead>
@@ -368,79 +365,30 @@
                     <th>Last Name</th>
                     <th>Barangay</th>
                     <th>Gender</th>
-                    <th>Action</th>
                     <th>Birthday</th>
-                    <th>Municipality</th>
-                    <!-- <?php for ($header = 1; $header <= 18; $header++): ?>
-                      <th>Header <?php echo $header; ?></th>
-                    <?php endfor; ?> -->
-
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-
+                  <?php
+                    if ($result->num_rows > 0) {
+                     while ($data = $result->fetch_assoc()) {
+                  ?>
                 <tr>
-                  <td>
-                    BUTTONXYZ
-                  </td>
-                  <td><strong>None</strong></td>
-                  <td>Aries</td>
-                  <td>Vitalista</td>
-                  <td>Gonzales</td>
-                  <td>Pagala</td>
-                  <td>M</td>
-                  <td>
-                  <a href="../farmer/farmer-view.php" class="btn btn-success">View profile</a>
-                        </td>
 
-                  <td>09/23/02</td>
-                  <td>Bulacan</td>
+                <td><?= $data['ffrs_system_gen']?></td>
+                <td><?= $data['ffrs_system_gen']?></td>
+                <td><?= $data['first_name']?></td>
+                <td><?= $data['middle_name']?></td>
+                <td><?= $data['last_name']?></td>
+                <td><?= $data['farmer_brgy_address']?></td>
+                <td><?= $data['gender']?></td>
+                <td><?= $data['birthday']?></td>
+                <td><a href="farmer-view.php?id=<?= $data['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a></td>
+
                 </tr>
-
-                  <?php
-                  if ($result->num_rows > 0) {
-                    // Fetching each row and displaying data
-                    while ($row = $result->fetch_assoc()) {
-                  ?>
-                      <tr>
-                        <td></td>
-                        <td><strong><?= $row['column1'] ?></strong></td>
-                        <td><?= $row['column3'] ?></td>
-                        <td><?= $row['column4'] ?></td>
-                        <td><?= $row['column5'] ?></td>
-                        <td><?= $row['column9'] ?></td>
-                        <td><?= $row['column7'] ?></td>
-                        <td>
-                        <a href="../farmer/farmer-view.php" class="btn btn-success">View profile</a>
-                        </td>
-
-                        <td><?= $row['column8'] ?></td>
-                        <td><?= $row['column10'] ?></td>
-                        <!-- <td><?= $row['column11'] ?></td>
-                        <td><?= $row['column12'] ?></td>
-                        <td><?= $row['column13'] ?></td>
-                        <td><?= $row['column14'] ?></td>
-                        <td><?= $row['column15'] ?></td>
-                        <td><?= $row['column16'] ?></td>
-                        <td><?= $row['column17'] ?></td>
-                        <td><?= $row['column18'] ?></td>
-                        <td><?= $row['column19'] ?></td>
-                        <td><?= $row['column20'] ?></td>
-                        <td><?= $row['column21'] ?></td>
-                        <td><?= $row['column22'] ?></td>
-                        <td><?= $row['column23'] ?></td>
-                        <td><?= $row['column24'] ?></td>
-                        <td><?= $row['column25'] ?></td>
-                        <td><?= $row['column26'] ?></td>
-                        <td><?= $row['column27'] ?></td>
-                        <td><?= $row['column28'] ?></td> -->
-                      </tr>
-                  <?php
-                    }
-                  } else {
-                    echo '<tr rowspan="9"></tr>';
-                  }
-                  ?>
+                  <?php } 
+                   }?>
 
                 </tbody>
 
@@ -454,7 +402,7 @@
       </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="modal-1" tabindex="-1">
+      <!-- <div class="modal fade" id="modal-1" tabindex="-1">
          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                <div class="modal-header">
@@ -475,21 +423,19 @@
                               <td>Palay</td>
                               <td>09/22/2020</td>
                            </tr>
-                           <!-- Additional rows can be added here -->
                         </tbody>
                      </table>
                   </div>
                </div>
             </div>
          </div>
-      </div>
+      </div> -->
    </main>
 
    <?php include '../includes/footer.php'; ?>
    <script>
     let totalEntries = getTotalEntries();
 
-    // Calculate 25%, 50%, and 75% of the total entries
     let twentyFivePercent = Math.ceil(totalEntries * 0.25);
     let fiftyPercent = Math.ceil(totalEntries * 0.50);
     let seventyFivePercent = Math.ceil(totalEntries * 0.75);
@@ -509,10 +455,10 @@
         example.classList.remove("d-none");
         $('#example').DataTable({
 
-          dom: 'ltp',
+          dom: 'B<"table-top"lf>t<"table-bottom"ip>',
           responsive: true,
           buttons: [
-            // 'copy', 'csv', 'print', 'excel', 'pdf'
+            'copy', 'csv', 'print', 'excel', 'pdf'
           ],
           colReorder: true,
           fixedHeader: true,
@@ -525,19 +471,10 @@
             targets: 0,
             render: function(data, type, row) {
               if (type === 'display' || type === 'filter') {
-
-              if(data === "BUTTONXYZ"){
-                              // return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              //             Unregistered
-                              //          </button>`;
-                              return `<b class="text-danger">UNREGISTERED</b>`
+              if(data === ""){
+               return `<b class="text-danger">UNREGISTERED</b>`
               }
-               //  return `<button class="btn btn-success">Registered</button>`;
                   return `<b  class="text-success">REGISTERED</b>`
-  //               return `  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">
-  //   Unregistered
-  // </button>`;
-                // return `<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#disablebackdrop">${data}</button>`;
               }
               return null;
             }
