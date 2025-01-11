@@ -13,9 +13,6 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-    </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -29,27 +26,19 @@
               </div>
 
               <?php
-$tableName = "your_table_name";
+              $tableName = "users";
 
-$sql = "SELECT * FROM $tableName LIMIT 10";
-$result = $conn->query($sql);
+              $sql = "SELECT * FROM $tableName LIMIT 10";
+              $result = $conn->query($sql);
 
-?>
-<script>
-    function getTotalEntries() {
-        return <?= $result->num_rows ?>;
-    }
-</script>
-              
-              <div id="loadingDiv" class="d-flex justify-content-center d-none">
-                <div class="spinner-border" style="width: 50px; height: 50px;" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              </div>
+              ?>
+              <script>
+                function getTotalEntries() {
+                  return <?= $result->num_rows ?>;
+                }
+              </script>
 
-              <!-- <a href="#" class="btn -btn-success">Completed</a> -->
-
-              <table id="example" class="display nowrap d-none">
+              <table id="example" class="display nowrap">
                 <thead>
                   <tr>
                     <th>Email</th>
@@ -62,47 +51,24 @@ $result = $conn->query($sql);
                 </thead>
                 <tbody>
                   <?php
-                  // if ($result->num_rows > 0) {
-                  //   while ($row = $result->fetch_assoc()) {
-                  // ?>
-                      <tr>
-                        <td>sample@gmail.com</td>
-                        <td>Aries Gonzales Vitalista</td>
-                        <td>Admin</td>
-                        <td><a class="btn btn-success">YES</a></td>
-                        <td><a class="btn btn-danger">NO</a></td>
-                        <td>
-                        <a href="user-edit.php" class="btn btn-info">view</a>
-                        <!-- <a href="#" class="btn btn-danger">delete</a>   -->
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>sample@gmail.com</td>
-                        <td>Juan Pedro Delacruz</td>
-                        <td>Standard</td>
-                        <td><a class="btn btn-success">YES</a></td>
-                        <td><a class="btn btn-danger">NO</a></td>
-                        <td>
-                        <a href="user-edit.php" class="btn btn-info">view</a>
-                        <!-- <a href="#" class="btn btn-danger">delete</a> -->
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>sample@gmail.com</td>
-                        <td>Predo Santos Calintipay</td>
-                        <td>Standard</td>
-                        <td><a class="btn btn-danger">NO</a></td>
-                        <td><a class="btn btn-warning">BANNED</a></td>
-                        <td>
-                        <a href="user-edit.php" class="btn btn-info">view</a>
-                        <!-- <a href="#" class="btn btn-danger">delete</a> -->
-                        </td>
-                      </tr>
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                  
+                  ?>
+                  <tr>
+                    <td><?= $row['email']; ?></td>
+                    <td><?= $row['full_name']; ?></td>
+                    <td><?= $row['role'] == 1 ? '<a class="btn btn-success">ADMIN</a>' : '<a class="btn btn-primary">STANDARD</a>';?></td>
+                    <td><?= $row['is_logged_in'] == 1 ? '<a class="btn btn-success">Logged in</a>' : '<a class="btn btn-danger">Logged out</a>';?></td>
+                    <td><?= $row['is_banned']  == 1 ? '<a class="btn btn-warning">Banned</a>' : '<a class="btn btn-success">Allowed</a>'; ?></td>
+                    <td>
+                      <a href="user-edit.php?id=<?= $row['id']?>" class="btn btn-info">view</a>
+                      <!-- <a href="#" class="btn btn-danger">  </a> -->
+                    </td>
+                  </tr>
                   <?php
-                  //   }
-                  // } else {
-                  //   echo '<tr rowspan="9"></tr>';
-                  // }
+                    }
+                  }
                   ?>
 
                 </tbody>
@@ -122,8 +88,6 @@ $result = $conn->query($sql);
   <?php include '../includes/footer.php' ?>
   <script>
     let totalEntries = getTotalEntries();
-
-    // Calculate 25%, 50%, and 75% of the total entries
     let twentyFivePercent = Math.ceil(totalEntries * 0.25);
     let fiftyPercent = Math.ceil(totalEntries * 0.50);
     let seventyFivePercent = Math.ceil(totalEntries * 0.75);
@@ -137,25 +101,12 @@ $result = $conn->query($sql);
     ];
 
     document.addEventListener("DOMContentLoaded", function() {
-      const loadingDiv = document.getElementById("loadingDiv");
       const example = document.getElementById("example");
 
-      // Show the loading div
-      // loadingDiv.classList.remove("d-none");
-
-      // Hide it after 3 seconds
       setTimeout(() => {
-        loadingDiv.classList.add("d-none");
-        example.classList.remove("d-none");
         $('#example').DataTable({
-
-
-
-          dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+          dom: 'ftp',
           responsive: true,
-          buttons: [
-           //  'copy', 'csv', 'print', 'excel', 'pdf'
-          ],
           colReorder: true,
           fixedHeader: true,
           rowReorder: false,
@@ -167,10 +118,7 @@ $result = $conn->query($sql);
             targets: 0,
             render: function(data, type, row) {
               if (type === 'display' || type === 'filter') {
-                // return `<button class="btn btn-success">Registered</button>`;
-                // return `<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#disablebackdrop">Unregistered</button>`;
                 return `<strong>${data}</strong>`;
-                // return `<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#disablebackdrop">${data}</button>`;
               }
               return null;
             }

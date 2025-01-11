@@ -92,6 +92,15 @@ function redirect($url, $status)
     exit(0);
 }
 
+function checkPassword($userInputPassword, $storedPasswordHash) {
+
+    if (password_verify($userInputPassword, $storedPasswordHash)) {
+        return true; // Password matches
+    } else {
+        return false; // Password does not match
+    }
+}
+
 // Display messages or status after any process
 function alertMessage()
 {
