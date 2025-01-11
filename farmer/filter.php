@@ -43,6 +43,12 @@ if (!empty($_GET['birthday'])) {
     $types .= "s"; 
 }
 
+if (!empty($_GET['ffrs'])) {
+    $whereConditions[] = "ffrs_system_gen = ?";
+    $params[] = validate($_GET['ffrs']);
+    $types .= "s"; 
+}
+
 if (!empty($_GET['farmerAdd']) && !empty($_GET['farmerAddComparison'])) {
     $column = validate($_GET['farmerAddComparison']);
     $value = '%' . validate($_GET['farmerAdd']) . '%';
@@ -115,6 +121,10 @@ $result = $stmt->get_result();
             <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
             <form id="filterForm" class="row" method="get">
 
+                    <div class="col-md-3 mb-3">
+                        <label for="ffrs" class="form-label">FFRS SYSTEM GEN</label>
+                        <input type="text" name="ffrs" id="ffrs" class="form-control" placeholder="Type here...">
+                    </div>
 
                     <div class="col-md-3 mb-3">
                         <label for="farmerComparison" class="form-label">Farmer<strong>(Contains)</strong></label>

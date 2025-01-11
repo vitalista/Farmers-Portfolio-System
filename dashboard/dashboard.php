@@ -244,7 +244,14 @@
                            </div>
                         </div>
                      </div>
-
+                 
+                     <div class="d-none">
+                     <pre>
+                     <?= print_r(array_map('intval',getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
+                     <?= array_sum(array_map('intval',getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
+                     </pre>
+                     </div>
+                   
 
                      <div class="col-lg-6">
                         <div class="card">

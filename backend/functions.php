@@ -133,7 +133,7 @@ function countRows($table, $condition = "") {
     }
 
     if($tableName == 'parcels'){
-        $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived";
+        $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0";
     }
 
     if($tableName == 'livestocks' || $tableName == 'crops'){
@@ -490,6 +490,14 @@ function getCountArray($tableName, $columnName, $condition) {
     $condition = validate($condition);
 
     $query = "SELECT $columnName AS id, COUNT(*) AS count FROM $tableName GROUP BY $columnName";
+
+    // if($tableName == "farmers"){
+    // $query .= " ORDER BY count DESC LIMIT 15";
+    // }
+
+    if($tableName == "farmers"){
+     $query .= " ORDER BY id ASC";
+     }
 
     if ($tableName == "livestocks" || $tableName == "crops") {
         $query = " SELECT t.$columnName AS id, COUNT(*) AS count FROM $tableName t, farmers f, parcels p WHERE

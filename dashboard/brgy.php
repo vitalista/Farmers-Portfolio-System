@@ -155,37 +155,9 @@
                      </div> -->
 
                      <div class="col-lg-6">
-                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
-                           <div class="card-body">
-                              <h5 class="card-title">Crops Chart</h5>
-
-                              <div id="pieChart">
-                              </div>
-
-                              <script>
-                                 document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#pieChart"), {
-                                       series: <?= json_encode(array_map('intval',brgyGetCountArray('livestocks', 'animal_name', 'count', $_GET['brgy'])));?>,
-                                       chart: {
-                                          height: 350,
-                                          type: 'pie',
-                                          toolbar: {
-                                             show: true
-                                          }
-                                       },
-                                       labels:  <?= json_encode(brgyGetCountArray('livestocks', 'animal_name', 'id', $_GET['brgy'])); ?>
-                                    }).render();
-                                 });
-                              </script>
-                              <!-- End Pie Chart -->
-                           </div>
-                        </div>
-                     </div>
-
-                     <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
-                              <h5 class="card-title">Livestocks Chart</h5>
+                              <h5 class="card-title">Crops Chart</h5>
 
                               <!-- Donut Chart -->
                               <div id="donutChart"></div>
@@ -209,6 +181,34 @@
                         </div>
                      </div>
                      <!-- End Donut Chart -->
+
+                     <div class="col-lg-6">
+                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
+                           <div class="card-body">
+                              <h5 class="card-title">Livestocks Chart</h5>
+
+                              <div id="pieChart">
+                              </div>
+
+                              <script>
+                                 document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#pieChart"), {
+                                       series: <?= json_encode(array_map('intval',brgyGetCountArray('livestocks', 'animal_name', 'count', $_GET['brgy'])));?>,
+                                       chart: {
+                                          height: 350,
+                                          type: 'pie',
+                                          toolbar: {
+                                             show: true
+                                          }
+                                       },
+                                       labels:  <?= json_encode(brgyGetCountArray('livestocks', 'animal_name', 'id', $_GET['brgy'])); ?>
+                                    }).render();
+                                 });
+                              </script>
+                              <!-- End Pie Chart -->
+                           </div>
+                        </div>
+                     </div>
 
                      <div class="col-lg-6">
                         <div class="card mx-3 my-2">
@@ -384,7 +384,7 @@
                 <td><?= $data['farmer_brgy_address']?></td>
                 <td><?= $data['gender']?></td>
                 <td><?= $data['birthday']?></td>
-                <td><a href="farmer-view.php?id=<?= $data['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a></td>
+                <td><a href="../farmer/farmer-view.php?id=<?= $data['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a></td>
 
                 </tr>
                   <?php } 
