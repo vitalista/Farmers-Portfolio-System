@@ -17,13 +17,13 @@
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
         <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-        <span class="d-none d-md-block dropdown-toggle ps-2">J. Delacruz</span>
+        <span class="d-none d-md-block dropdown-toggle ps-2"><?= isset($_SESSION['LoggedInUser']['full_name']) ? $_SESSION['LoggedInUser']['full_name'] : ''; ?></span>
       </a><!-- End Profile Iamge Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
-          <h6>Juan Dela Cruz</h6>
-          <span>Admin</span>
+          <h6><?= isset($_SESSION['LoggedInUser']['full_name']) ? $_SESSION['LoggedInUser']['full_name'] : ''; ?></h6>
+          <span><?= $_SESSION['LoggedInUser']['role'] == 1 ? 'ADMIN' : 'STANDRAD'; ?></span>
         </li>
         <li>
           <hr class="dropdown-divider">
@@ -47,7 +47,7 @@
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="../login/">
+          <a class="dropdown-item d-flex align-items-center" href="../logout.php">
             <i class="bi bi-box-arrow-right"></i>
             <span>Log Out</span>
           </a>

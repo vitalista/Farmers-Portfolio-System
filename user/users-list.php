@@ -27,8 +27,9 @@
 
               <?php
               $tableName = "users";
+              $id = $_SESSION['LoggedInUser']['id'];
 
-              $sql = "SELECT * FROM $tableName LIMIT 10";
+              $sql = "SELECT * FROM $tableName WHERE id != $id";
               $result = $conn->query($sql);
 
               ?>

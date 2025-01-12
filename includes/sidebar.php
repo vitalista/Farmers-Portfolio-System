@@ -16,7 +16,11 @@
 
 <?php includes('../distribution/distribution-sidebar.php') ?>
 
-<?php includes('../user/users-sidebar.php') ?>
+<?php
+if ($_SESSION['LoggedInUser']['role'] == 1) {
+includes('../user/users-sidebar.php');
+} 
+?>
 
 
 </ul>

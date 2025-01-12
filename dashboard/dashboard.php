@@ -82,7 +82,7 @@
                                     <div class="text-uppercase text-info fw-bold mb-1"><span>Total farms</span></div>
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
-                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('parcels');?></span></div>
+                                          <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('parcels'); ?></span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -105,11 +105,11 @@
                                     <div class="row g-0 align-items-center">
                                        <div class="col-auto">
                                           <div class="text-dark fw-bold h5 mb-0 me-3"><span><?php
-                                          $number = sumColumn('parcels', 'parcel_area');
-                                          $decimalPlaces = 2;
-                                          $roundedValue = ceil($number * pow(10, $decimalPlaces)) / pow(10, $decimalPlaces);
-                                          echo $roundedValue;
-                                           ?> Ha</span></div>
+                                                                                             $number = sumColumn('parcels', 'parcel_area');
+                                                                                             $decimalPlaces = 2;
+                                                                                             $roundedValue = ceil($number * pow(10, $decimalPlaces)) / pow(10, $decimalPlaces);
+                                                                                             echo $roundedValue;
+                                                                                             ?> Ha</span></div>
                                        </div>
                                     </div>
                                  </div>
@@ -218,7 +218,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#polarAreaChart"), {
-                                       series: <?= json_encode(array_map('intval',getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>,
+                                       series: <?= json_encode(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>,
                                        chart: {
                                           type: 'polarArea',
                                           height: 350,
@@ -244,14 +244,14 @@
                            </div>
                         </div>
                      </div>
-                 
+
                      <div class="d-none">
-                     <pre>
-                     <?= print_r(array_map('intval',getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
-                     <?= array_sum(array_map('intval',getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
+                        <pre>
+                     <?= print_r(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
+                     <?= array_sum(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
                      </pre>
                      </div>
-                   
+
 
                      <div class="col-lg-6">
                         <div class="card">
@@ -264,7 +264,7 @@
                               // print_r(getCountArray('distributions', 'program_id', 'id'));
                               // print_r(getCountArray('distributions', 'resource_id', 'count'));
                               // print_r(getCountArray('distributions', 'resource_id', ''));
-?>
+                              ?>
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
@@ -288,15 +288,15 @@
                                           enabled: true
                                        },
                                        xaxis: {
-                                          categories:  <?php
-                                             $programs = getCountArray('distributions', 'program_id', 'id');
-                                             $column = [];
-                                                foreach($programs as $program){
-                                                   $getById = getById('programs', $program);
-                                                   $column[] = $getById['data']['program_name'];
-                                                }
-                                             echo json_encode($column);
-                                             ?>,
+                                          categories: <?php
+                                                      $programs = getCountArray('distributions', 'program_id', 'id');
+                                                      $column = [];
+                                                      foreach ($programs as $program) {
+                                                         $getById = getById('programs', $program);
+                                                         $column[] = $getById['data']['program_name'];
+                                                      }
+                                                      echo json_encode($column);
+                                                      ?>,
                                        }
                                     }).render();
                                  });
@@ -307,7 +307,7 @@
                         </div>
                      </div>
 
-                                             
+
 
                      <div class="col-lg-6">
                         <div class="card">
@@ -317,23 +317,23 @@
                               <!-- Bar Chart -->
                               <div id="barChart2"></div>
 
-                             
+
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#barChart2"), {
                                        series: [{
                                           name: 'Remaining Resources',
-                                          data:  <?php
-                                             $remaining = [];
-                                            $resources = getAll('resources');
-                                            if (mysqli_num_rows($resources) > 0) {
-                                                foreach ($resources as $item) {
-                                                   $remaining[] = $item['total_quantity'] - $item['quantity_available'];
+                                          data: <?php
+                                                $remaining = [];
+                                                $resources = getAll('resources');
+                                                if (mysqli_num_rows($resources) > 0) {
+                                                   foreach ($resources as $item) {
+                                                      $remaining[] = $item['total_quantity'] - $item['quantity_available'];
+                                                   }
                                                 }
-                                             }
-                                             echo json_encode($remaining);
-                                          ?>
+                                                echo json_encode($remaining);
+                                                ?>
                                        }],
                                        chart: {
                                           type: 'bar',
@@ -349,16 +349,16 @@
                                           enabled: true
                                        },
                                        xaxis: {
-                                          categories:  <?php
-                                             $remaining = [];
-                                            $resources = getAll('resources');
-                                            if (mysqli_num_rows($resources) > 0) {
-                                                foreach ($resources as $item) {
-                                                   $remaining[] = $item['resources_name'];
-                                                }
-                                             }
-                                             echo json_encode($remaining);
-                                          ?>,
+                                          categories: <?php
+                                                      $remaining = [];
+                                                      $resources = getAll('resources');
+                                                      if (mysqli_num_rows($resources) > 0) {
+                                                         foreach ($resources as $item) {
+                                                            $remaining[] = $item['resources_name'];
+                                                         }
+                                                      }
+                                                      echo json_encode($remaining);
+                                                      ?>,
                                        },
                                        colors: ["#00e296"],
                                     }).render();
@@ -376,14 +376,14 @@
                               <h5 class="card-title">Distributed Resources Chart</h5>
 
                               <div id="pieChart1"></div>
-      
+
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#pieChart1"), {
-                                       series:<?= json_encode(array_map('intval',getCountArray('distributions', 'resource_id', 'count'))); ?>
+                                       series: <?= json_encode(array_map('intval', getCountArray('distributions', 'resource_id', 'count'))); ?>
 
-                              ,
+                                          ,
                                        chart: {
                                           height: 350,
                                           type: 'pie',
@@ -391,15 +391,15 @@
                                              show: true
                                           }
                                        },
-                                       labels:   <?php
-                                             $resources = getCountArray('distributions', 'resource_id', 'id');
-                                             $column = [];
-                                                foreach($resources as $item){
+                                       labels: <?php
+                                                $resources = getCountArray('distributions', 'resource_id', 'id');
+                                                $column = [];
+                                                foreach ($resources as $item) {
                                                    $getById = getById('resources', $item);
                                                    $column[] = $getById['data']['resources_name'];
                                                 }
-                                             echo json_encode($column);
-                                             ?>,
+                                                echo json_encode($column);
+                                                ?>,
                                        dataLabels: {
                                           enabled: true,
                                           style: {
@@ -440,7 +440,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#pieChart"), {
-                                       series: <?= json_encode(array_map('intval',getCountArray('crops', 'crop_name', 'count'))); ?>,
+                                       series: <?= json_encode(array_map('intval', getCountArray('crops', 'crop_name', 'count'))); ?>,
                                        chart: {
                                           height: 350,
                                           type: 'pie',
@@ -468,7 +468,7 @@
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
                                     new ApexCharts(document.querySelector("#donutChart"), {
-                                       series: <?= json_encode(array_map('intval',getCountArray('livestocks', 'animal_name', 'count'))); ?>,
+                                       series: <?= json_encode(array_map('intval', getCountArray('livestocks', 'animal_name', 'count'))); ?>,
                                        chart: {
                                           height: 350,
                                           type: 'donut',
@@ -495,8 +495,8 @@
                                        <div class="row g-0 align-items-center">
                                           <div class="col-auto">
                                              <div class="text-dark fw-bold h5 mb-0 me-3"><span>
-                                                <?=returnNullRows('parcels');?>
-                                             </span></div>
+                                                   <?= returnNullRows('parcels'); ?>
+                                                </span></div>
                                           </div>
                                        </div>
                                     </div>
@@ -516,7 +516,7 @@
                                  <div class="row g-0 align-items-center">
                                     <div class="col me-2">
                                        <div class="text-uppercase text-warning fw-bold mb-1"><span>Pending Programs</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'pending_programs');?></span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'pending_programs'); ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -537,7 +537,7 @@
                                        <div class="text-uppercase text-danger fw-bold mb-1"><span>Expired Programs</span></div>
                                        <div class="row g-0 align-items-center">
                                           <div class="col-auto">
-                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('programs', 'expired_programs');?></span></div>
+                                             <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('programs', 'expired_programs'); ?></span></div>
                                           </div>
                                        </div>
                                     </div>
@@ -557,7 +557,7 @@
                                  <div class="row g-0 align-items-center">
                                     <div class="col me-2">
                                        <div class="text-uppercase text-warning fw-bold mb-1"><span>Ongoing Programs</span></div>
-                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'ongoing_programs');?></span></div>
+                                       <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('programs', 'ongoing_programs'); ?></span></div>
                                     </div>
                                  </div>
                               </div>
@@ -583,18 +583,18 @@
                                     <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
                                     <div class="ms-2">
                                        <span class="fw-bold">Male</span>
-                                       <div><?= countRows('farmers', 'MALE');?></div>
+                                       <div><?= countRows('farmers', 'MALE'); ?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
                                     <div class="ms-2">
                                        <span class="fw-bold">Female</span>
-                                       <div><?= countRows('farmers', 'FEMALE');?></div>
+                                       <div><?= countRows('farmers', 'FEMALE'); ?></div>
                                     </div>
                                  </div>
                               </div>
-                              <div>Total: <?= countRows('farmers', 'FEMALE') + countRows('farmers', 'MALE');?></div>
+                              <div>Total: <?= countRows('farmers', 'FEMALE') + countRows('farmers', 'MALE'); ?></div>
                            </div>
                         </div>
 
@@ -612,18 +612,18 @@
                                     <div class="ms-2">
                                        <!-- CROP -->
                                        <span class="fw-bold">Crop</span>
-                                       <div><?= countRows('crops');?></div>
+                                       <div><?= countRows('crops'); ?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <!-- PIG -->
                                     <div class="ms-2">
                                        <span class="fw-bold">Livestock</span>
-                                       <div><?= countRows('livestocks');?></div>
+                                       <div><?= countRows('livestocks'); ?></div>
                                     </div>
                                  </div>
                               </div>
-                              <div>Total: <?= countRows('livestocks') +  countRows('crops');?></div>
+                              <div>Total: <?= countRows('livestocks') +  countRows('crops'); ?></div>
                            </div>
                         </div>
                      </div>
