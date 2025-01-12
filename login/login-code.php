@@ -1,0 +1,77 @@
+<?php
+require '../backend/functions.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
+
+  // Sanitize user inputs
+  $email = validate($_POST['email']);
+  $password = validate($_POST['password']);
+
+  if (empty($email) || empty($password)) {
+    header('Location: index.php?error=emptyfields');
+    exit();
+  }
+
+  // Prepare query to get the user based on email
+  $query = "SELECT * FROM users WHERE email=? LIMIT 1";
+  $stmt = mysqli_prepare($conn, $query);
+  mysqli_stmt_bind_param($stmt, "s", $email);  // 's' for string type
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  if (mysqli_num_rows($result) != 1) {
+    header('Location: index.php?error=invalidemail');
+    exit();
+  }
+
+  $row = mysqli_fetch_assoc($result);
+  $hashedPassword = $row['password'];
+
+  // Verify the password
+  if (!password_verify($password, $hashedPassword)) {
+    header('Location: index.php?error=invalidcredentials');
+    exit();
+  }
+
+  // Check if the user is banned
+  if ($row['is_banned'] == 1) {
+    header('Location: index.php?error=accountbanned');
+    exit();
+  }
+
+  // Start session and set user data
+  $_SESSION['LoggedIn'] = true;
+  $_SESSION['LoggedInUser'] = [
+    'id' => $row['id'],
+    'full_name' => $row['full_name'],
+    'email' => $row['email'],
+    'role' => $row['role'],
+    'can_create' => $row['can_create'],
+    'can_edit' => $row['can_edit'],
+    'can_delete' => $row['can_delete'],
+  ];
+
+  // Prepare SQL query to update login status
+  $updateQuery = "UPDATE users 
+                  SET is_logged_in = 1, 
+                  login_timestamp = NOW() 
+                  WHERE id = ?";
+  $updateStmt = mysqli_prepare($conn, $updateQuery);
+  mysqli_stmt_bind_param($updateStmt, "i", $row['id']);  // 'i' for integer type
+
+  if (mysqli_stmt_execute($updateStmt)) {
+    // If update was successful, redirect to OTP page
+    header('Location: ../otp/');
+    exit();
+  } else {
+    // If update fails, redirect with error
+    header('Location: index.php?error=updatefailed');
+    exit();
+  }
+
+} else {
+  // If the request method is not POST or login is not set, handle it
+  header('Location: index.php?error=wrongrequest');
+  exit();
+}
+?>
