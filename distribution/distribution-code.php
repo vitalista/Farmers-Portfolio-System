@@ -22,7 +22,7 @@ if (isset($_POST['addItem'])) {
 
             // Check if the available quantity is sufficient
             if ($row['quantity_available'] < $quantity) {
-                redirect('', 'Only ' . $row['quantity_available'] . ' quantity available');
+                redirect('distribution-multiple-add.php', 404, 'Only ' . $row['quantity_available'] . ' quantity available');
             } else {
                 $program = getById('programs', $row['program_id']);
 
@@ -84,13 +84,13 @@ if (isset($_POST['addItem'])) {
                 echo '</script>';
 
                 // Now perform the redirect
-                redirect('', 'Resource added: ' . $row['resources_name']);
+                redirect('distribution-multiple-add.php', 200, 'Farmer added: ' . $row['resources_name']);
             }
         } else {
-            redirect('', 'No Resource Found');
+            redirect('distribution-multiple-add.php', 404, 'No Item Found');
         }
     } else {
-        redirect('', 'Something Went Wrong');
+        redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
     }
 }
 
@@ -109,20 +109,17 @@ if (is_numeric($paramResult)) {
             }
         }
 
-        redirect('distribution-multiple-add.php', 'Item Removed');
+        redirect('distribution-multiple-add.php', 200, 'Item Removed');
     } else {
 
-        redirect('distribution-multiple-add.php', 'Not Found');
+        redirect('distribution-multiple-add.php', 404, 'Not Found');
     }
 }
 
 if(checkParamId('clear')){
     unset($_SESSION['resourceItems']);
-    redirect('distribution-multiple-add.php', 'Not Found');
+    redirect('distribution-multiple-add.php', 200, 'Item Removed');
 }
-// else {
-//     redirect('distribution-multiple-add.php', 'Invalid Request');
-// }
 
 if (isset($_POST['addItems'])) {
     if (!empty($_POST)) {
@@ -157,7 +154,7 @@ if (isset($_POST['addItems'])) {
 
             // Check if the available quantity is sufficient
             if ($row['quantity_available'] < $quantity) {
-                redirect('', 'Only ' . $row['quantity_available'] . ' quantity available');
+                redirect('distribution-multiple-add.php', 404, 'Only ' . $row['quantity_available'] . ' quantity available');
             } else {
                 $program = getById('programs', $row['program_id']);
 
@@ -215,13 +212,13 @@ if (isset($_POST['addItems'])) {
                 echo 'console.log("Session Resource Data:", ' . json_encode($_SESSION['resourceItems']) . ');';
                 echo '</script>';
 
-                redirect('', 'Resource added: ' . $row['resources_name']);
+                redirect('distribution-multiple-add.php', 200, 'Farmer added: ' . $row['resources_name']);
             }
         } else {
-            redirect('', 'No Resource Found');
+            redirect('distribution-multiple-add.php', 404, 'No Resource Found');
         }
     } else {
-        redirect('', 'Something Went Wrong');
+        redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
     }
 }
 
@@ -280,8 +277,10 @@ if (isset($_POST['saveItem'])) {
                 // Execute the update query
                 if (mysqli_stmt_execute($updateStmt)) {
                     echo "Program total quantity successfully updated.<br>";
+                    redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
                 } else {
                     echo "Error updating resource quantity: " . mysqli_error($conn) . "<br>";
+                    redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
                 }
                 // Close the update statement
                 mysqli_stmt_close($updateStmt);
@@ -321,6 +320,7 @@ if (isset($_POST['saveItem'])) {
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {
                     echo "Item successfully inserted into the database.<br>";
+                    redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
 
                     // Now update the resource's quantity by subtracting the distributed quantity
                     $updateQuery = "UPDATE resources SET quantity_available = quantity_available - ? WHERE id = ?";
@@ -335,22 +335,27 @@ if (isset($_POST['saveItem'])) {
                         // Execute the update query
                         if (mysqli_stmt_execute($updateStmt)) {
                             echo "Resource quantity successfully updated.<br>";
+                            redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
                         } else {
                             echo "Error updating resource quantity: " . mysqli_error($conn) . "<br>";
+                            redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
                         }
                         // Close the update statement
                         mysqli_stmt_close($updateStmt);
                     } else {
                         echo "Error preparing the update query: " . mysqli_error($conn) . "<br>";
+                        redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
                     }
                 } else {
                     echo "Error inserting item: " . mysqli_error($conn) . "<br>";
+                    redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
                 }
 
                 // Close the prepared statement
                 mysqli_stmt_close($stmt);
             } else {
                 echo "Error preparing the query: " . mysqli_error($conn) . "<br>";
+                redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
             }
         }
 
@@ -360,6 +365,6 @@ if (isset($_POST['saveItem'])) {
             // redirect('distribution-multiple-add.php', 'Successfully Inserted');
         }
     } else {
-        redirect('distribution-multiple-add.php', 'Nothing Found');
+        redirect('distribution-multiple-add.php', 404, 'Nothing Found');
     }
 }

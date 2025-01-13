@@ -297,7 +297,7 @@
                                         <div class="card my-2">
                                             <h5 class="card-title ms-3">Parcel # <?= $parcel['parcel_no']; ?></h5>
                                             <div class="card-body">
-                                                <input type="text" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
+                                                <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
 
                                                 <input type="hidden" class="parcel_id" value="<?= $parcel['id']; ?>">
 
@@ -394,7 +394,7 @@
                                                                         <label class="form-check-label">High value crop?</label>
                                                                         <div class="form-check ms-2">
                                                                             <input <?= $crop['hvc'] == 1 ? 'checked' : ''; ?> class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
-                                                                            <input type="text" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
+                                                                            <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
                                                                         </div>
                                                                     </div>
 
@@ -429,7 +429,7 @@
 
                                                                     <div class="col-md-6 mb-3">
                                                                         <input type="number" value="<?= $livestock['no_of_heads']; ?>" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
-                                                                        <input type="text" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
+                                                                        <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
                                                                         <div class="invalid-feedback">Please enter.</div>
                                                                     </div>
                                                                     <div class="col-md-6 mb-3">

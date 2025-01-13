@@ -16,7 +16,7 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12 main-table">
-
+        <?php include '../backend/status-messages.php' ?>
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-header">Add user</h5>
@@ -48,7 +48,7 @@
                         <label for="yourUsername" class="form-label">Email</label>
                         <div class="input-group has-validation">
                           <span class="input-group-text" id="email">@</span>
-                          <input type="text" name="email" class="form-control p-3" id="yourUsername" required autocomplete="off">
+                          <input type="email" name="email" class="form-control p-3" id="yourUsername" required autocomplete="off">
                           <div class="invalid-feedback">Please enter your email.</div>
                         </div>
                       </div>

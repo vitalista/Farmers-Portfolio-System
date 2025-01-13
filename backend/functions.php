@@ -1,5 +1,8 @@
 <?php
 session_start();
+$_SESSION['LoggedInUser']['role'] = 1;
+$_SESSION['LoggedInUser']['id'] = 69;
+$_SESSION['LoggedInUser']['full_name'] = "DEV";
 require 'database.php';
 
 function includes($file_path)

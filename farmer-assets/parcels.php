@@ -18,6 +18,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body main-table">
+            <?php include '../backend/status-messages.php';?>
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Parcels list</h5>
                 <div>

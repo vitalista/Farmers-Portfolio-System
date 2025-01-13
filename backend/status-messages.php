@@ -10,7 +10,7 @@
     unset($_SESSION['message']);
 } ?>
 
-<?php if (isset($_SESSION['status']) && $_SESSION['status'] == 404) { ?>
+<?php if (isset($_SESSION['status']) && $_SESSION['status'] == 500) { ?>
     <div
         data-aos="fade-up" data-aos-delay="100"
         class="alert alert-danger alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">
@@ -22,7 +22,7 @@
     unset($_SESSION['message']);
 } ?>
 
-<?php if (isset($_SESSION['status']) && $_SESSION['status'] == 500) { ?>
+<?php if (isset($_SESSION['status']) && $_SESSION['status'] == 404) { ?>
     <div
         data-aos="fade-up" data-aos-delay="100"
         class="alert alert-warning alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">

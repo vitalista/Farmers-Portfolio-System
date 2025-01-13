@@ -1,5 +1,5 @@
 <?php
-require '../backend/database.php';
+require '../backend/functions.php';
 
 // Step 2: Handle the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
@@ -15,6 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
         'banned' => isset($_POST['bannedSwitch']) ? 1 : 0,
         'promote' => isset($_POST['promoteSwitch']) ? 1 : 0,
     ];
+
+    if (strlen($formData['password']) < 8) {
+        redirect('user-add.php', 500, 'Password should be 8 characters or more');
+    }
+    
 
     // Step 3: Hash the password for security
     $hashedPassword = password_hash($formData['password'], PASSWORD_DEFAULT);
@@ -34,8 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
 
     if ($conn->query($sql) === TRUE) {
         echo "New user added successfully.";
+        redirect('users-list.php', 200, 'New user added successfully');
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
+        redirect('user-add.php', 500, 'Something Went Wrong');
     }
 
     // Step 5: Dynamically echo the POST data using a loop
@@ -66,6 +73,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         'promote' => isset($_POST['promoteSwitch']) ? 1 : 0,
     ];
 
+    if (strlen($formData['password']) < 8) {
+        redirect('user-add.php', 500, 'Password should be 8 characters or more');
+    }
+
     // Step 3: Hash the password for security, only if it's updated
     $hashedPassword = !empty($formData['password']) ? password_hash($formData['password'], PASSWORD_DEFAULT) : null;
 
@@ -90,8 +101,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     // Step 5: Execute the update query
     if ($conn->query($sql) === TRUE) {
         echo "User updated successfully.";
+        redirect('users-list.php', 200, 'New user added successfully');
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
+        redirect('user-edit.php', 500, 'Something Went Wrong');
     }
 
     // Step 6: Dynamically echo the POST data using a loop
@@ -115,6 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['settings'])) {
         'password' => $_POST['password'],
     ];
 
+    if (strlen($formData['password']) < 8) {
+        redirect('user-add.php', 500, 'Password should be 8 characters or more');
+    }
+
     // Step 3: Hash the password for security, only if it's updated
     $hashedPassword = !empty($formData['password']) ? password_hash($formData['password'], PASSWORD_DEFAULT) : null;
 
@@ -133,8 +150,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['settings'])) {
     // Step 5: Execute the update query
     if ($conn->query($sql) === TRUE) {
         echo "User updated successfully.";
+        redirect('users-list.php', 200, 'New user added successfully');
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
+        redirect('user-settings.php', 500, 'Something Went Wrong');
     }
 
     // Step 6: Dynamically echo the POST data using a loop

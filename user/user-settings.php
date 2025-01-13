@@ -19,6 +19,7 @@
         <div class="col-lg-12 main-table">
 
           <div class="card-body">
+          <?php include '../backend/status-messages.php' ?>
             <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-header">Edits user</h5>
             <div class="d-flex justify-content-end">
@@ -62,7 +63,7 @@
                       <label for="yourUsername" class="form-label text-center">Email</label>
                       <div class="input-group has-validation d-flex justify-content-center">
                         <span class="input-group-text" id="username">@</span>
-                        <input type="text" class="form-control p-3" name="email" id="yourUsername" value="<?= $data['email']?>" required>
+                        <input type="email" class="form-control p-3" name="email" id="yourUsername" value="<?= $data['email']?>" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>

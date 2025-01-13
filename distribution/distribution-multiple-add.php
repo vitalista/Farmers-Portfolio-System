@@ -24,7 +24,7 @@ if (!isset($_SESSION['resourceItems'])) {
         <section class="section">
             <div class="row">
                 <div class="col-lg-12 main-table">
-
+                    <?php include '../backend/status-messages.php';?>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Distribution</h5>
@@ -59,11 +59,11 @@ if (!isset($_SESSION['resourceItems'])) {
 
                                         <?php
 
-                                        if (isset($_SESSION['resourceItems'])) {
-                                            echo '<pre>';
-                                            print_r($_SESSION['resourceItems']);
-                                            echo '</pre>';
-                                        }
+                                        // if (isset($_SESSION['resourceItems'])) {
+                                        //     echo '<pre>';
+                                        //     print_r($_SESSION['resourceItems']);
+                                        //     echo '</pre>';
+                                        // }
                                         // session_unset();
                                         ?>
 
@@ -138,7 +138,7 @@ if (!isset($_SESSION['resourceItems'])) {
                                     <div class="card-body">
                                         <div class="table-responsive mb-3">
                                             <table class="table table-bordered table-striped" id="example">
-                                                <?= $_SESSION['status']; ?>
+                                                <?php //$_SESSION['status']; ?>
                                                 <thead class="thead">
                                                     <tr>
                                                         <th>FFRS System Gen.</th>
@@ -209,11 +209,11 @@ if (!isset($_SESSION['resourceItems'])) {
                                     <div class="card-body">
 
                                         <?php
-                                        if (isset($_SESSION['resourceItems'])) {
-                                            echo '<pre>';
-                                            print_r($_SESSION['resourceItems']);
-                                            echo '</pre>';
-                                        }
+                                        // if (isset($_SESSION['resourceItems'])) {
+                                        //     echo '<pre>';
+                                        //     print_r($_SESSION['resourceItems']);
+                                        //     echo '</pre>';
+                                        // }
                                         // session_unset();
                                         ?>
 
@@ -395,7 +395,7 @@ if (!isset($_SESSION['resourceItems'])) {
                                     <div class="card-body">
                                         <div class="table-responsive mb-3">
                                             <table class="table table-bordered table-striped" id="example2">
-                                                <?= $_SESSION['status']; ?>
+                                                <?php //$_SESSION['status']; ?>
                                                 <thead class="thead">
                                                     <tr>
                                                         <th>FFRS System Gen.</th>
