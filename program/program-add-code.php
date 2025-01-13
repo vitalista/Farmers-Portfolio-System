@@ -22,18 +22,7 @@
     </div>
 <div class="unsorted">
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root"; // your database username
-$password = ""; // your database password
-$dbname = "baliwag_agriculture_office"; // your database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+include '../backend/functions.php';
 // Decode JSON data
 if (isset($_POST['program_data'])) {
     $data = json_decode($_POST['program_data'], true);
@@ -42,13 +31,35 @@ if (isset($_POST['program_data'])) {
     console.log(<?php echo json_encode($data);?>);
 </script>
 <?php
-    $user_id = 0;
+    $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
     $programId = isset($data[0]['program']['program_id']) ? $data[0]['program']['program_id'] : null;
     date_default_timezone_set('Asia/Taipei');
     $modifiedAt =  date('Y-m-d h:i:s A');
 
     if (!isset($programId) &&isset($data[0]['program'])) {
         $program = $data[0]['program'];
+        
+        $filteredFarmer = array_filter($program, function($value) {
+            return !empty($value);
+        });
+    
+        $requiredFields = [
+            'nameOfProgram', 
+            'programType', 
+            'startDate', 
+            'endDate', 
+            'totalBeneficiaries', 
+            'totalBeneficiaries', 
+            'sourcingAgency'
+            ];
+    
+        foreach ($requiredFields as $field) {
+            if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                redirect('program-add.php', 404, 'Please fill in all required fields.');
+                exit;
+            }
+        }
+
         $sql = "INSERT INTO programs (
         program_name, 
         program_type, 
@@ -68,6 +79,7 @@ if (isset($_POST['program_data'])) {
         
         if ($stmt === false) {
             echo "Error preparing program insert query: " . $conn->error;
+            redirect('programs-list.php', 500, 'Something Went Wrong');
             exit;
         }
         
@@ -88,12 +100,35 @@ if (isset($_POST['program_data'])) {
             $programId = $stmt->insert_id;
         } else {
             echo "Error executing program insert query: " . $stmt->error;
+            redirect('programs-list.php', 500, 'Something Went Wrong');
             exit;
         }
     }
 
     if (isset($programId) && isset($data[0]['program']) && isset($data[0]['program']['program_id'])) {
         $program = $data[0]['program'];
+
+        $filteredFarmer = array_filter($program, function($value) {
+            return !empty($value);
+        });
+        
+        $requiredFields = [
+            'nameOfProgram', 
+            'programType', 
+            'startDate', 
+            'endDate', 
+            'totalBeneficiaries', 
+            'totalBeneficiaries', 
+            'sourcingAgency'
+            ];
+    
+        foreach ($requiredFields as $field) {
+            if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                redirect('program-view.php?id='.$programId, 404, 'Please fill in all required fields.');
+                exit;
+            }
+        }
+
         $sql = "UPDATE programs SET
             program_name = ?, 
             program_type = ?, 
@@ -112,6 +147,7 @@ if (isset($_POST['program_data'])) {
     
         if ($stmt === false) {
             echo "Error preparing program update query: " . $conn->error;
+            redirect('programs-list.php', 500, 'Something Went Wrong');
             exit;
         }
     
@@ -133,9 +169,10 @@ if (isset($_POST['program_data'])) {
     
         // Execute the query
         if ($stmt->execute()) {
-            echo '<div style="position: fixed; top: 80px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Program updated successfully!</div>';
+            // echo '<div style="position: fixed; top: 80px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Program updated successfully!</div>';
         } else {
             echo "Error executing farmer update query: " . $stmt->error;
+            redirect('programs-list.php', 500, 'Something Went Wrong');
             exit;
         }
     }
@@ -146,6 +183,24 @@ if (isset($_POST['program_data'])) {
 
     if (isset($item['resources'])) {
         $resources = $item['resources'];
+
+        $filteredFarmer = array_filter($resources, function($value) {
+            return !empty($value);
+        });
+        
+        $requiredFields = [
+            'resourcesName',
+            'resourcesType',
+            'resourcesNumber',
+            'unitOfMeasure'
+            ];
+    
+        foreach ($requiredFields as $field) {
+            if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                redirect('program-view.php?id='.$programId, 404, 'Please fill in all required fields.');
+                exit;
+            }
+        }
 
         if (!isset($resources['resources_id'])) {
 
@@ -166,6 +221,7 @@ if (isset($_POST['program_data'])) {
             
             if ($stmt === false) {
                 echo "Error preparing resources insert query: " . $conn->error;
+                redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
             }
     
@@ -206,6 +262,7 @@ if (isset($_POST['program_data'])) {
         
             if ($stmt === false) {
                 echo "Error preparing parcel update query: " . $conn->error;
+                redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
             }
         
@@ -227,17 +284,24 @@ if (isset($_POST['program_data'])) {
             // Execute the query
             if ($stmt->execute()) {
                 // Parcel updated successfully
-                echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Resources updated successfully!</div>';
+                // echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Resources updated successfully!</div>';
                 
             } else {
                 echo "Error executing resources update query: " . $stmt->error;
+                redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
             }
         }
     }   
     }
     
-    echo '<div style="position: fixed; top: 20px; right: 20px; padding: 10px 20px; background-color: green; color: white; font-size: 16px; border-radius: 5px;">Data inserted successfully!</div>';
+    if(isset($_POST['add']) && $_POST['add'] == 0){
+        redirect('programs-list.php', 200, 'Program Successfully Inserted');
+    }
+
+    if(isset($_POST['update']) && $_POST['update'] == 1){
+        redirect('programs-list.php', 200, 'Program Successfully Updated');
+    }
     
 
     if ($data) {

@@ -34,6 +34,9 @@
             </ul>
 
             <div class="tab-content pt-2" id="myTabContent">
+
+             <?php include '../backend/status-messages.php';?>
+
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                 <div class="card">
@@ -112,6 +115,7 @@
           </div>
 
           <form class="needs-validation" method="POST" action="program-add-code.php" id="programForm" novalidate>
+          <input type="hidden" name="add" value="0">
           <input type="hidden" name="program_data" id="programData" style="width: 100%;">
           </form>
 

@@ -19,11 +19,11 @@
         <div class="col-lg-12 main-table">
 
           <div class="card-body">
+          <?php include '../backend/status-messages.php';?>
             <div class="d-sm-flex justify-content-between">
               <h5 class="card-title">View Program</h5>
               <div class="d-sm-flex justify-content-end align-items-center mt-2">
                 <a onclick="window.history.back()" class="btn btn-info">Back</a>
-                <a class="btn btn-success ms-2">Edit</a>
               </div>
             </div>
             <!-- Default Tabs -->
@@ -267,6 +267,7 @@
             </div>
 
             <form class="needs-validation" method="POST" action="program-add-code.php" id="programForm" novalidate>
+              <input type="hidden" name="update" value="1">
               <input type="hidden" name="program_data" id="programData" style="width: 100%;">
             </form>
 

@@ -41,6 +41,27 @@ if (isset($_POST['farms_data'])) {
     if (!isset($farmerId) &&isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
 
+        $filteredFarmer = array_filter($farmer, function($value) {
+            return !empty($value);
+        });
+    
+        $requiredFields = [
+            'brgy', 
+            'municipality', 
+            'province', 
+            'firstName', 
+            'middleName', 
+            'lastName', 'gender', 
+            'bday', 
+        ];
+    
+        foreach ($requiredFields as $field) {
+            if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                redirect('farmer-add.php', 404, 'Please fill in all required fields.');
+                exit;
+            }
+        }
+
         $sql = "INSERT INTO farmers (
         ffrs_system_gen, 
         farmer_brgy_address, 
@@ -98,6 +119,28 @@ if (isset($_POST['farms_data'])) {
 
     if (isset($farmerId) && isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
+
+        $filteredFarmer = array_filter($farmer, function($value) {
+            return !empty($value);
+        });
+    
+        $requiredFields = [
+            'brgy', 
+            'municipality', 
+            'province', 
+            'firstName', 
+            'middleName', 
+            'lastName', 'gender', 
+            'bday', 
+        ];
+    
+        foreach ($requiredFields as $field) {
+            if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                redirect('farmer-view.php?id='.$farmerId, 404, 'Please fill in all required fields.');
+                exit;
+            }
+        }
+
         $sql = "UPDATE farmers SET
             ffrs_system_gen = ?, 
             farmer_brgy_address = ?, 
@@ -161,6 +204,29 @@ if (isset($_POST['farms_data'])) {
 
     if (isset($item['parcel'])) {
         $parcel = $item['parcel'];
+
+        $filteredFarmer = array_filter($parcel, function($value) {
+            return !empty($value);
+        });
+    
+        $requiredFields = [
+            'parcelNum',
+            'ofName',
+            'olName',
+            'ownership',
+            'farmLocationBrgy',
+            'farmLocationMunicipality',
+            'farmLocationProvince',
+            'farmSize',
+            'farmType'
+        ];
+    
+        foreach ($requiredFields as $field) {
+            if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                redirect('farmer-view.php?id='.$farmerId, 404, 'Please fill in all required fields.');
+                exit;
+            }
+        }
 
         if (!isset($parcel['parcel_id'])) {
 
@@ -278,6 +344,25 @@ if (isset($_POST['farms_data'])) {
         if (isset($item['crop'])) {
             if (!isset($item['crop']['crop_id'])) {
                 $crop = $item['crop'];
+
+                $filteredFarmer = array_filter($crop, function($value) {
+                    return !empty($value);
+                });
+            
+                $requiredFields = [
+                    'hvc', 
+                    'cropArea', 
+                    'cropName', 
+                    'classification'
+                ];
+            
+                foreach ($requiredFields as $field) {
+                    if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                        redirect('farmer-view.php?id='.$farmerId, 404, 'Please fill in all required fields.');
+                        exit;
+                    }
+                }
+
             $parcelId = $parcelIds[$crop['parcelNum']] ?? null;
             if ($parcelId) {
                 $sql = "INSERT INTO crops (
@@ -372,6 +457,23 @@ if (isset($_POST['farms_data'])) {
         if (isset($item['livestock'])) {
            if (!isset($item['livestock']['livestock_id'])) {
             $livestock = $item['livestock'];
+
+                $filteredFarmer = array_filter($livestock, function($value) {
+                    return !empty($value);
+                });
+            
+                $requiredFields = [
+                    'numberOfHeads', 
+                    'livestockType' 
+                ];
+            
+                foreach ($requiredFields as $field) {
+                    if (!isset($filteredFarmer[$field]) || empty($filteredFarmer[$field])) {
+                        redirect('farmer-view.php?id='.$farmerId, 404, 'Please fill in all required fields.');
+                        exit;
+                    }
+                }
+
             $parcelId = $parcelIds[$livestock['parcelNum']] ?? null;
             
             if ($parcelId) {

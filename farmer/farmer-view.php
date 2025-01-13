@@ -36,6 +36,9 @@
                 </ul>
 
                 <div class="tab-content pt-2" id="myTabContent">
+
+                <?php include '../backend/status-messages.php';?>
+
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                         <?php
