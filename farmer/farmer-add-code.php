@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JSON</title>
 </head>
 <body>
     <div class="container" style="display: flex;">
@@ -22,17 +22,8 @@
     </div>
 <div class="unsorted">
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root"; // your database username
-$password = ""; // your database password
-$dbname = "baliwag_agriculture_office"; // your database name
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../backend/functions.php';
 
 // Decode JSON data
 if (isset($_POST['farms_data'])) {
@@ -42,13 +33,14 @@ if (isset($_POST['farms_data'])) {
     console.log(<?php echo json_encode($data);?>);
 </script>
 <?php
-    $user_id = 0;
+    $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
     $farmerId = isset($data[0]['farmer']['farmer_id']) ? $data[0]['farmer']['farmer_id'] : null;
     date_default_timezone_set('Asia/Taipei');
     $modifiedAt =  date('Y-m-d h:i:s A');
 
     if (!isset($farmerId) &&isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
+
         $sql = "INSERT INTO farmers (
         ffrs_system_gen, 
         farmer_brgy_address, 
@@ -71,6 +63,7 @@ if (isset($_POST['farms_data'])) {
         
         if ($stmt === false) {
             echo "Error preparing farmer insert query: " . $conn->error;
+            redirect('farmer-list.php', 500, 'Something Went Wrong');
             exit;
         }
         
@@ -96,6 +89,7 @@ if (isset($_POST['farms_data'])) {
             $farmerId = $stmt->insert_id;
         } else {
             echo "Error executing farmer insert query: " . $stmt->error;
+            redirect('farmer-list.php', 500, 'Something Went Wrong');
             exit;
         }
     }
@@ -126,6 +120,7 @@ if (isset($_POST['farms_data'])) {
     
         if ($stmt === false) {
             echo "Error preparing farmer update query: " . $conn->error;
+            redirect('farmer-list.php', 500, 'Something Went Wrong');
             exit;
         }
     
@@ -151,9 +146,10 @@ if (isset($_POST['farms_data'])) {
     
         // Execute the query
         if ($stmt->execute()) {
-            echo '<div style="position: fixed; top: 80px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Farmer updated successfully!</div>';
+            // echo '<div style="position: fixed; top: 80px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Farmer updated successfully!</div>';
         } else {
             echo "Error executing farmer update query: " . $stmt->error;
+            redirect('farmer-list.php', 500, 'Something Went Wrong');
             exit;
         }
     }
@@ -190,6 +186,7 @@ if (isset($_POST['farms_data'])) {
             
             if ($stmt === false) {
                 echo "Error preparing parcel insert query: " . $conn->error;
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
                 exit;
             }
     
@@ -213,6 +210,7 @@ if (isset($_POST['farms_data'])) {
                 $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
             } else {
                 echo "Error executing parcel insert query: " . $stmt->error;
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
                 exit;
             }
         }
@@ -238,6 +236,7 @@ if (isset($_POST['farms_data'])) {
         
             if ($stmt === false) {
                 echo "Error preparing parcel update query: " . $conn->error;
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
                 exit;
             }
         
@@ -263,10 +262,10 @@ if (isset($_POST['farms_data'])) {
             if ($stmt->execute()) {
                 // Parcel updated successfully
                 $parcelIds[$parcel['parcelNum']] = $parcel['parcel_id'];
-                echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Parcel updated successfully!</div>';
-                
+                // echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Parcel updated successfully!</div>';
             } else {
                 echo "Error executing parcel update query: " . $stmt->error;
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
                 exit;
             }
         }
@@ -313,6 +312,7 @@ if (isset($_POST['farms_data'])) {
                 
                 if (!$stmt->execute()) {
                     echo "Error executing crop insert query: " . $stmt->error;
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;
                 }
             }
@@ -340,6 +340,7 @@ if (isset($_POST['farms_data'])) {
             
                     if ($stmt === false) {
                         echo "Error preparing crop update query: " . $conn->error;
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
                     }
             
@@ -358,6 +359,7 @@ if (isset($_POST['farms_data'])) {
             
                     if (!$stmt->execute()) {
                         echo "Error executing crop update query: " . $stmt->error;
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
                     }
                 }
@@ -388,6 +390,7 @@ if (isset($_POST['farms_data'])) {
                 
                 if ($stmt === false) {
                     echo "Error preparing livestock insert query: " . $conn->error;
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;
                 }
     
@@ -402,6 +405,7 @@ if (isset($_POST['farms_data'])) {
                 
                 if (!$stmt->execute()) {
                     echo 'Error executing livestock insert query: ' . $stmt->error;
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;
                 }
             }
@@ -426,6 +430,7 @@ if (isset($_POST['farms_data'])) {
         
                 if ($stmt === false) {
                     echo "Error preparing livestock update query: " . $conn->error;
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;
                 }
         
@@ -442,6 +447,7 @@ if (isset($_POST['farms_data'])) {
         
                 if (!$stmt->execute()) {
                     echo "Error executing livestock update query: " . $stmt->error;
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;
                 }
             }
@@ -449,9 +455,16 @@ if (isset($_POST['farms_data'])) {
         
         }
     }
+
     
-    echo '<div style="position: fixed; top: 20px; right: 20px; padding: 10px 20px; background-color: green; color: white; font-size: 16px; border-radius: 5px;">Data inserted successfully!</div>';
     
+    if(isset($_POST['add']) && $_POST['add'] == 0){
+        redirect('farmer-list.php', 200, 'Information Successfully Inserted');
+    }
+
+    if(isset($_POST['update']) && $_POST['update'] == 1){
+        redirect('farmer-list.php', 200, 'Information Successfully Updated');
+    }
 
     if ($data) {
     foreach ($data as $item) {
@@ -488,7 +501,10 @@ if (isset($_POST['farms_data'])) {
 }
 
     $conn->close();
+}else{
+    redirect('farmer-list.php', 404, 'Invalid Request');
 }
+
 // Check if decoding was successful
 
 

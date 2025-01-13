@@ -13,18 +13,18 @@ require '../backend/functions.php';
             $archived = update($tableName, $id, $data);
 
             if ($archived) {
-                redirect($redirectUrl, $successMessage);
+                redirect($redirectUrl, 200,$successMessage);
                 exit; // Ensure we exit after redirect
             } else {
-                redirect('', 'Something Went Wrong');
+                redirect($redirectUrl, 500, 'Something Went Wrong');
                 exit; // Ensure we exit after redirect
             }
         } else {
-            redirect('', $category['message']);
+            redirect($redirectUrl, 500, $category['message']);
             exit; // Ensure we exit after redirect
         }
     } else {
-        redirect('', 'Something Went Wrong');
+        redirect($redirectUrl, 500, 'Something Went Wrong');
         exit; // Ensure we exit after redirect
     }
 }

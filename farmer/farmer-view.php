@@ -99,7 +99,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <fieldset>
-                                                        <label class="form-label">Birthday<input type="date" value="<?= $farmer['data']['birthday'] == '0000-00-00' ? '': $farmer['data']['birthday']; ?>" class="form-control bday"></label>
+                                                        <label class="form-label">Birthday<input type="date" value="<?= $farmer['data']['birthday'] == '0000-00-00' ? '' : $farmer['data']['birthday']; ?>" class="form-control bday"></label>
                                                         <label class="form-label">Gender<input type="text" value="<?= $farmer['data']['gender']; ?>" class="form-control gender"></label>
                                                         <label class="form-label">Extension name<input type="text" value="<?= $farmer['data']['ext_name']; ?>" class="form-control extName"></label>
                                                     </fieldset>
@@ -181,18 +181,18 @@
                     </div>
                 </div> -->
 
-                    <?php
-                      $tableName = "distributions";
+                        <?php
+                        $tableName = "distributions";
 
-                      $sql = "SELECT * FROM $tableName WHERE is_archived = 0 AND farmer_id = $paramValue";
-                      $result = $conn->query($sql);
+                        $sql = "SELECT * FROM $tableName WHERE is_archived = 0 AND farmer_id = $paramValue";
+                        $result = $conn->query($sql);
 
-                      ?>
-                      <script>
-                        function getTotalEntries() {
-                          return <?= $result->num_rows; ?>
-                        }
-                      </script>
+                        ?>
+                        <script>
+                            function getTotalEntries() {
+                                return <?= $result->num_rows; ?>
+                            }
+                        </script>
 
                         <div class="card table-responsive mb-3">
                             <h5 class="card-header ms-2">Resources</h5>
@@ -208,27 +208,27 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbod">
-                                    <?php
-                            if ($result->num_rows > 0) {
-                              while ($row = $result->fetch_assoc()) {
-                                $program = getById('programs', $row['program_id']);
-                                $resources = getById('resources', $row['resource_id']);
-                                if ($program['status'] == 200 || $resources['status'] == 200) {
-                            ?>
-                                  <tr>
-                                    <td>00-00-0000</td>
-                                    <td><?= $program['data']['program_name']; ?></td>
+                                        <?php
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $program = getById('programs', $row['program_id']);
+                                                $resources = getById('resources', $row['resource_id']);
+                                                if ($program['status'] == 200 || $resources['status'] == 200) {
+                                        ?>
+                                                    <tr>
+                                                        <td>00-00-0000</td>
+                                                        <td><?= $program['data']['program_name']; ?></td>
 
-                                    <td><strong><?= $resources['data']['resources_name']; ?></strong> - <?= $resources['data']['resource_type']; ?></td>
+                                                        <td><strong><?= $resources['data']['resources_name']; ?></strong> - <?= $resources['data']['resource_type']; ?></td>
 
-                                    <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
-                                  </tr>
+                                                        <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
+                                                    </tr>
 
-                            <?php
-                                }
-                              }
-                            }
-                            ?>
+                                        <?php
+                                                }
+                                            }
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -257,19 +257,19 @@
                                         if ($crops['status'] == 200) {
                                             $matchingCrops = [];
                                             // Loop through each crop to find matching ones
-    
+
                                             foreach ($crops['data'] as $crop) {
                                                 if ($parcel['id'] == $crop['parcel_id']) {
                                                     $matchingCrops[] = $crop;  // Collect matching crops in an array
                                                 }
                                             }
-    
+
                                             // Store all matching crops in the parcel's 'crops' field
                                             if (!empty($matchingCrops)) {
                                                 $parcels['data'][$key]['crops'] = $matchingCrops;
                                             }
                                         }
-    
+
                                         if ($livestocks['status'] == 200) {
                                             $matchingLivestocks = [];
                                             // Process livestock (similar approach)
@@ -278,16 +278,16 @@
                                                     $matchingLivestocks[] = $livestock;
                                                 }
                                             }
-    
+
                                             if (!empty($matchingLivestocks)) {
                                                 $parcels['data'][$key]['livestocks'] = $matchingLivestocks;
                                             }
                                         }
                                     }
 
-                                       // echo '<pre style="color: red; font-weight: bold;">';
-                                // print_r($parcels);
-                                // echo '</pre></div>';
+                                    // echo '<pre style="color: red; font-weight: bold;">';
+                                    // print_r($parcels);
+                                    // echo '</pre></div>';
 
                                     foreach ($parcels['data'] as $parcel) {
                                 ?>
@@ -371,12 +371,12 @@
                                                             foreach ($parcel['crops'] as $crop): ?>
                                                                 <div class="row dynamic-input my-2 p-2" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
 
-                                                                <input type="hidden" class="crop_id" value="<?= $crop['id']; ?>">
+                                                                    <input type="hidden" class="crop_id" value="<?= $crop['id']; ?>">
 
-                                                                <div class="col-md-3 mb-3">
-                                                                    <label class="ms-1">Crop Name</label>
-                                                                    <input id="" type="text" value="<?= $crop['crop_name']; ?>" placeholder="Type here..." class="form-control crop cropName" required>
-                                                                </div>
+                                                                    <div class="col-md-3 mb-3">
+                                                                        <label class="ms-1">Crop Name</label>
+                                                                        <input id="" type="text" value="<?= $crop['crop_name']; ?>" placeholder="Type here..." class="form-control crop cropName" required>
+                                                                    </div>
 
                                                                     <div class="col-md-5 mb-3">
                                                                         <label class="ms-1">Crop Area</label>
@@ -398,19 +398,18 @@
                                                                     <div class="d-flex justify-content-end col-md-2 mb-3 mt-4">
                                                                         <a class="btn btn-danger"
                                                                             id="crop<?= $parcel['parcel_no']; ?>"
-                                                                             onclick="return confirm('Are you sure you want to remove it?')"
-                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id'];?>"
-                                                                            >Remove</a>
+                                                                            onclick="return confirm('Are you sure you want to remove it?')"
+                                                                            href="../backend/archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id']; ?>">Remove</a>
                                                                     </div>
                                                                 </div>
                                                         <?php endforeach;
                                                         } ?>
                                                     </div>
                                                     <div class="d-flex justify-content-end mb-2">
-                                                        <a type="button" class="btn btn-primary text-end" 
-                                                        id="cropBtns<?= $parcel['parcel_no']; ?>" 
-                                                        data-parcel-no="<?= $parcel['parcel_no']; ?>">
-                                                        Add Crop
+                                                        <a type="button" class="btn btn-primary text-end"
+                                                            id="cropBtns<?= $parcel['parcel_no']; ?>"
+                                                            data-parcel-no="<?= $parcel['parcel_no']; ?>">
+                                                            Add Crop
                                                         </a>
                                                     </div>
 
@@ -423,7 +422,7 @@
                                                             foreach ($parcel['livestocks'] as $livestock): ?>
                                                                 <div class="row dynamic-input mt-2 px-2 pt-3 mb-2" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
 
-                                                                <input type="hidden" class="livestock_id" value="<?= $livestock['id']; ?>">
+                                                                    <input type="hidden" class="livestock_id" value="<?= $livestock['id']; ?>">
 
                                                                     <div class="col-md-6 mb-3">
                                                                         <input type="number" value="<?= $livestock['no_of_heads']; ?>" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
@@ -435,9 +434,8 @@
                                                                             <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
                                                                             <div class="input-group-append">
                                                                                 <a class="btn btn-danger removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
-                                                                                 onclick="return confirm('Are you sure you want to remove it?')"
-                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id'];?>"
-                                                                                >Remove</a>
+                                                                                    onclick="return confirm('Are you sure you want to remove it?')"
+                                                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id']; ?>">Remove</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -448,17 +446,15 @@
                                                     </div>
                                                     <div class="d-flex justify-content-end mb-2">
                                                         <a type="button" class="btn btn-primary addLivestockButton"
-                                                         id="livestockBtns<?= $parcel['parcel_no']; ?>"
-                                                          data-parcel-no="<?= $parcel['parcel_no']; ?>"
-                                                        >Add Livestock</a>
+                                                            id="livestockBtns<?= $parcel['parcel_no']; ?>"
+                                                            data-parcel-no="<?= $parcel['parcel_no']; ?>">Add Livestock</a>
                                                     </div>
                                                 </div>
 
                                                 <div class="d-flex justify-content-end">
                                                     <a class="btn btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>"
-                                                    onclick="return confirm('Are you sure you want to remove it?')"
-                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>"
-                                                    >Remove Farm</a>
+                                                        onclick="return confirm('Are you sure you want to remove it?')"
+                                                        href="../backend/archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>">Remove Farm</a>
                                                 </div>
 
                                             </div>
@@ -486,6 +482,7 @@
                 </div>
 
                 <form class="needs-validation" method="POST" action="farmer-add-code.php" id="farmForm" novalidate>
+                    <input type="hidden" name="update" value="1">
                     <input type="hidden" name="farms_data" id="farmsData" style="width: 100%;">
                 </form>
 
@@ -500,43 +497,43 @@
     </main>
 
     <?php
-        $target_id = $paramValue;
+    $target_id = $paramValue;
 
-        $sql = "SELECT parcel_no FROM parcels WHERE farmer_id = ? ORDER BY parcel_no ASC";
+    $sql = "SELECT parcel_no FROM parcels WHERE farmer_id = ? ORDER BY parcel_no ASC";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $target_id);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $target_id);
 
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        $numbers = [];
-        $missingNumbers = [];
+    $numbers = [];
+    $missingNumbers = [];
 
-        while ($row = $result->fetch_assoc()) {
-            $numbers[] = $row['parcel_no'];
-        }
+    while ($row = $result->fetch_assoc()) {
+        $numbers[] = $row['parcel_no'];
+    }
 
-        $has_gap = false;
-        $largest_number = 0;
-        for ($i = 0; $i < count($numbers); $i++) {
-            if ($i > 0 && $numbers[$i] != $numbers[$i-1] + 1) {
-                $has_gap = true;
-                for ($missing = $numbers[$i-1] + 1; $missing < $numbers[$i]; $missing++) {
-                    array_push($missingNumbers, $missing - 1);
-                }
+    $has_gap = false;
+    $largest_number = 0;
+    for ($i = 0; $i < count($numbers); $i++) {
+        if ($i > 0 && $numbers[$i] != $numbers[$i - 1] + 1) {
+            $has_gap = true;
+            for ($missing = $numbers[$i - 1] + 1; $missing < $numbers[$i]; $missing++) {
+                array_push($missingNumbers, $missing - 1);
             }
-            $largest_number = max($largest_number, $numbers[$i]);
         }
+        $largest_number = max($largest_number, $numbers[$i]);
+    }
 
-        if (empty($missingNumbers)) {
-            array_push($missingNumbers, $largest_number);
-        }
+    if (empty($missingNumbers)) {
+        array_push($missingNumbers, $largest_number);
+    }
 
-        // print_r($missingNumbers);
-        $missingNumbersJson = json_encode($missingNumbers);
+    // print_r($missingNumbers);
+    $missingNumbersJson = json_encode($missingNumbers);
 
-        $conn->close();
+    $conn->close();
     ?>
     <script type="text/javascript">
         let missingNumbers = <?php echo $missingNumbersJson; ?>;
@@ -544,7 +541,7 @@
         missingNumbers.forEach(function(number) {
             console.log("Next number: " + (parseInt(number) + 1));
         });
-        
+
         let farmCounter = 0;
         let currentIndex = 0;
 
@@ -565,123 +562,123 @@
     <script src="./farmer-add.js"></script>
 
     <script>
-    let totalEntries = getTotalEntries();
+        let totalEntries = getTotalEntries();
 
-    // Calculate 25%, 50%, and 75% of the total entries
-    let twentyFivePercent = Math.ceil(totalEntries * 0.25);
-    let fiftyPercent = Math.ceil(totalEntries * 0.5);
-    let seventyFivePercent = Math.ceil(totalEntries * 0.75);
+        // Calculate 25%, 50%, and 75% of the total entries
+        let twentyFivePercent = Math.ceil(totalEntries * 0.25);
+        let fiftyPercent = Math.ceil(totalEntries * 0.5);
+        let seventyFivePercent = Math.ceil(totalEntries * 0.75);
 
-    let lengthMenuValues = [
-      10,
-      twentyFivePercent,
-      fiftyPercent,
-      seventyFivePercent,
-      -1,
-    ];
-    let lengthMenuLabels = [
-      10,
-      `${twentyFivePercent} (25%)`,
-      `${fiftyPercent} (50%)`,
-      `${seventyFivePercent} (75%)`,
-      "Show All",
-    ];
+        let lengthMenuValues = [
+            10,
+            twentyFivePercent,
+            fiftyPercent,
+            seventyFivePercent,
+            -1,
+        ];
+        let lengthMenuLabels = [
+            10,
+            `${twentyFivePercent} (25%)`,
+            `${fiftyPercent} (50%)`,
+            `${seventyFivePercent} (75%)`,
+            "Show All",
+        ];
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const example = document.getElementById("example");
-      const columns = [0, 1, 2, 3];
-      setTimeout(() => {
-        example.classList.remove("d-none");
-        $("#example").DataTable({
-          language: {
-            emptyTable: `<span class="text-danger"><strong>No Resources</strong></span>`,
-          },
-          dom: 'B<"table-top"lf>t<"table-bottom"ip>',
-          responsive: true,
-          buttons: [{
-              extend: "copy",
-              title: "Baliwag Agriculture Office",
-              exportOptions: {
-                columns: columns, // Specify the columns you want to copy
-                modifier: {
-                  page: "current", // Only copy the data on the current page
-                },
-              },
-            },
+        document.addEventListener("DOMContentLoaded", function() {
+            const example = document.getElementById("example");
+            const columns = [0, 1, 2, 3];
+            setTimeout(() => {
+                example.classList.remove("d-none");
+                $("#example").DataTable({
+                    language: {
+                        emptyTable: `<span class="text-danger"><strong>No Resources</strong></span>`,
+                    },
+                    dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+                    responsive: true,
+                    buttons: [{
+                            extend: "copy",
+                            title: "Baliwag Agriculture Office",
+                            exportOptions: {
+                                columns: columns, // Specify the columns you want to copy
+                                modifier: {
+                                    page: "current", // Only copy the data on the current page
+                                },
+                            },
+                        },
 
-            {
-              extend: "csv",
-              title: "Baliwag Agriculture Office",
-              action: function(e, dt, node, config) {
-                config.exportOptions = {
-                  columns: columns,
-                  modifier: {
-                    page: "current",
-                  },
-                };
+                        {
+                            extend: "csv",
+                            title: "Baliwag Agriculture Office",
+                            action: function(e, dt, node, config) {
+                                config.exportOptions = {
+                                    columns: columns,
+                                    modifier: {
+                                        page: "current",
+                                    },
+                                };
 
-                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
-              },
-            },
-            {
-              extend: "print",
-              action: function(e, dt, node, config) {
-                config.customize = function(win) {
-                  $(win.document.body)
-                    .css("font-size", "12pt")
-                    .find("h1")
-                    .replaceWith(
-                      '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
-                    );
-                };
+                                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
+                            },
+                        },
+                        {
+                            extend: "print",
+                            action: function(e, dt, node, config) {
+                                config.customize = function(win) {
+                                    $(win.document.body)
+                                        .css("font-size", "12pt")
+                                        .find("h1")
+                                        .replaceWith(
+                                            '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
+                                        );
+                                };
 
-                config.exportOptions = {
-                  columns: columns,
-                  modifier: {
-                    page: "current",
-                  },
-                };
+                                config.exportOptions = {
+                                    columns: columns,
+                                    modifier: {
+                                        page: "current",
+                                    },
+                                };
 
-                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
-              },
-            },
-            {
-              extend: "excel",
-              title: "Baliwag Agriculture Office",
-              action: function(e, dt, node, config) {
-                config.exportOptions = {
-                  columns: columns,
-                  modifier: {
-                    page: "current",
-                  },
-                };
+                                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
+                            },
+                        },
+                        {
+                            extend: "excel",
+                            title: "Baliwag Agriculture Office",
+                            action: function(e, dt, node, config) {
+                                config.exportOptions = {
+                                    columns: columns,
+                                    modifier: {
+                                        page: "current",
+                                    },
+                                };
 
-                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
-              },
-            },
-            {
-              extend: "pdf",
-              title: "Baliwag Agriculture Office",
-              action: function(e, dt, node, config) {
-                config.exportOptions = {
-                  columns: columns,
-                  modifier: {
-                    page: "current",
-                  },
-                };
+                                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
+                            },
+                        },
+                        {
+                            extend: "pdf",
+                            title: "Baliwag Agriculture Office",
+                            action: function(e, dt, node, config) {
+                                config.exportOptions = {
+                                    columns: columns,
+                                    modifier: {
+                                        page: "current",
+                                    },
+                                };
 
-                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
-              },
-            },
-          ],
-          colReorder: true,
-          fixedHeader: true,
-          rowReorder: false,
-          lengthMenu: [lengthMenuValues, lengthMenuLabels],
+                                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
+                            },
+                        },
+                    ],
+                    colReorder: true,
+                    fixedHeader: true,
+                    rowReorder: false,
+                    lengthMenu: [lengthMenuValues, lengthMenuLabels],
+                });
+            }, 500);
         });
-      }, 500);
-    });
-  </script>
+    </script>
 
 </body>
 

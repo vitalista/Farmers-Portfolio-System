@@ -38,6 +38,8 @@
               <div class="tab-content pt-2" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
+                <?php include '../backend/status-messages.php';?>
+
                   <div class="card" id="farmerCard">
                     <div class="card-body row g-3">
 
@@ -45,17 +47,17 @@
                         <!-- <span class="red-star">*</span> -->
                       </h6>
 
-                      <div class="d-none col-md-6">
+                      <!-- <div class="d-none col-md-6">
                         <div class="form-floating">
                           <input type="text" class="form-control" id="lgu" placeholder="" required>
                           <label for="lgu">LGU REFERENCE CODE</label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="col-md-6">
                         <div class="form-floating">
-                          <input type="text" class="form-control ffrs" id="ffrs" placeholder="" required>
+                          <input type="text" class="form-control ffrs" id="ffrs" placeholder="">
                           <label for="ffrs">FFRS SYSTEM GEN.</label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
@@ -148,7 +150,7 @@
                           Active?
                         </label>
                         <div class="form-check">
-                          <input class="form-check-input me-2 active" style="width: 2rem; height: 2rem;" type="checkbox" required id="active">
+                          <input class="form-check-input me-2 active" style="width: 2rem; height: 2rem;" type="checkbox" id="active">
                         </div>
                       </div>
 
@@ -204,6 +206,7 @@
               </div>
 
               <form class="needs-validation" method="POST" action="farmer-add-code.php" id="farmForm" novalidate>
+                <input type="hidden" name="add" value="0">
                 <input type="hidden" name="farms_data" id="farmsData" style="width: 100%;">
               </form>
 

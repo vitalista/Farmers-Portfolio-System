@@ -17,35 +17,7 @@
           <div class="card">
             <div class="card-body main-table">
 
-              <div
-                data-aos="fade-up" data-aos-delay="100"
-                class="alert alert-success alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">
-                Successfully Archived
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-
-              <div
-                data-aos="fade-up" data-aos-delay="100"
-                class="alert alert-danger alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">
-                Unsuccessfully Archived
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-
-              <div
-                data-aos="fade-up" data-aos-delay="100"
-                class="alert alert-warning alert-dismissible fade show mt-3 d-flex justify-content-center align-items-center" role="alert">
-                Something Went Wrong
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-
-              <script>
-                setTimeout(function() {
-                  var alertBoxes = document.querySelectorAll('.alert-dismissible');
-                  alertBoxes.forEach(function(alertBox) {
-                    alertBox.remove();
-                  });
-                }, 5000);
-              </script>
+             <?php include '../backend/status-messages.php';?>
 
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Farmers list</h5>
