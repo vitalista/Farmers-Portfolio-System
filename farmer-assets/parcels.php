@@ -58,6 +58,7 @@
                         <td><?=$row['parcel_no']?> - <?=$row['farm_type']?></td>
                         <td><?=$row['parcel_brgy_address']?></td>
                         <td><strong><?=$row['parcel_area']?> Ha</strong></td>
+                        <?php if(!isset($_GET['archived'])):?>
                         <td>
                         <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                         <a onclick="return confirm('Are you sure you want to archive it?')" 
@@ -67,6 +68,16 @@
                         class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         <?php }?>
                         </td>
+                        <?php else:?>
+                          <td>
+                          <a onclick="return confirm('Are you sure you want to restore it?')" 
+                          href="../backend/restore.php?parcel_id=<?= $row['id'];?>" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i></a>
+                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
+                          <a class="btn btn-secondary" href="../backend/archived-log.php?id=<?= $row['id']; ?>&parcels=Parcel"><i class="bi bi-info-circle-fill"></i></a>
+                          <?php }?>
+
+                          </td>
+                        <?php endif;?>
                       </tr>
                   <?php
                     }

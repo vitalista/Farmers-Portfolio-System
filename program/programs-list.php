@@ -57,8 +57,9 @@
                     <td><?= $row['end_date'];?></td>
                     <td><?= $row['total_beneficiaries'];?></td>
                     <td><?= $row['sourcing_agency'];?></td>
+                    <?php if(!isset($_GET['archived'])):?>
                     <td>
-                      <a href="program-view.php?id=<?= $row['id'];?>" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
+                      <a href="program-view.php?id=<?= $row['id'];?>" class="btn btn-primary"><i class="bi bi-box2-fill"></i></a>
                       <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?program_id=<?= $row['id'];?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
@@ -66,6 +67,15 @@
                         class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         <?php }?>
                     </td>
+                    <?php else:?>
+                          <td>
+                          <a onclick="return confirm('Are you sure you want to restore it?')" 
+                          href="../backend/restore.php?program_id=<?= $row['id'];?>" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i></a>
+                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
+                          <a class="btn btn-secondary" href="../backend/archived-log.php?id=<?= $row['id']; ?>&programs=Program"><i class="bi bi-info-circle-fill"></i></a>
+                          <?php }?>
+                          </td>
+                    <?php endif;?>
                   </tr>
                   <?php
                     }

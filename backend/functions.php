@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['LoggedInUser']['role'] = 0;
+$_SESSION['LoggedInUser']['role'] = 1;
 $_SESSION['LoggedInUser']['can_edit'] = 1;
 $_SESSION['LoggedInUser']['can_create'] = 1;
 $_SESSION['LoggedInUser']['can_delete'] = 1;

@@ -129,6 +129,13 @@ if (isset($_POST['program_data'])) {
             }
         }
 
+         
+        $modifiedTimes;
+        $checkId = getById('programs', $programId);
+        if($checkId['status']== 200){
+            $modifiedTimes = $checkId['data']['modified_times'] + 1;
+        }
+
         $sql = "UPDATE programs SET
             program_name = ?, 
             program_type = ?, 
@@ -140,7 +147,9 @@ if (isset($_POST['program_data'])) {
             sourcing_agency = ?, 
 
             modified_by = ?, 
-            modified_at = ?
+            modified_at = ?,
+            modified_times = ?
+
             WHERE id = ?";
     
         $stmt = $conn->prepare($sql);
@@ -152,7 +161,7 @@ if (isset($_POST['program_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssiisisi", 
+        $stmt->bind_param("sssssiisisii", 
             $program['nameOfProgram'], 
             $program['programType'], 
             $program['description'], 
@@ -164,6 +173,7 @@ if (isset($_POST['program_data'])) {
             
             $user_id,
             $modifiedAt,
+            $modifiedTimes,
             $programId 
         );
     
@@ -244,6 +254,12 @@ if (isset($_POST['program_data'])) {
         // echo $resources['resources_id'];
 
         if (isset($resources['resources_id'])) {
+
+            $modifiedTimes;
+            $checkId = getById('resources', $resources['resources_id']);
+            if($checkId['status']== 200){
+                $modifiedTimes = $checkId['data']['modified_times'] + 1;
+            }
         
             $sql = "UPDATE resources SET
 
@@ -255,7 +271,8 @@ if (isset($_POST['program_data'])) {
                         unit_of_measure = ?,
 
                         modified_by = ?, 
-                        modified_at = ?
+                        modified_at = ?,
+                        modified_times = ?
                     WHERE id = ?"; 
         
             $stmt = $conn->prepare($sql);
@@ -268,7 +285,7 @@ if (isset($_POST['program_data'])) {
         
             // Bind parameters for the update query
             $stmt->bind_param(
-                "issiisisi", 
+                "issiisisii", 
                 $programId,
                 $resources['resourcesName'],
                 $resources['resourcesType'],
@@ -278,6 +295,7 @@ if (isset($_POST['program_data'])) {
 
                 $user_id,
                 $modifiedAt,
+                $modifiedTimes,
                 $resources['resources_id']
             );
         

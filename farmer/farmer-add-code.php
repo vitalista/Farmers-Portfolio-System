@@ -115,7 +115,7 @@ if (isset($_POST['farms_data'])) {
         }
     }
 
-    echo $farmer['num_of_parcels'];
+    // echo $farmer['num_of_parcels'];
 
     if (isset($farmerId) && isset($data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
@@ -141,6 +141,12 @@ if (isset($_POST['farms_data'])) {
             }
         }
 
+        $modifiedTimes;
+        $checkId = getById('farmers',$farmerId);
+        if($checkId['status']== 200){
+            $modifiedTimes = $checkId['data']['modified_times'] + 1;
+        }
+
         $sql = "UPDATE farmers SET
             ffrs_system_gen = ?, 
             farmer_brgy_address = ?, 
@@ -156,7 +162,8 @@ if (isset($_POST['farms_data'])) {
             is_active = ?, 
             no_of_parcels = ?, 
             modified_by = ?, 
-            modified_at = ?
+            modified_at = ?,
+            modified_times = ?
             WHERE id = ?";
     
         $stmt = $conn->prepare($sql);
@@ -168,7 +175,7 @@ if (isset($_POST['farms_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssssssssiiisi", 
+        $stmt->bind_param("sssssssssssiiisii", 
             $farmer['ffrs'], 
             $farmer['brgy'], 
             $farmer['municipality'], 
@@ -184,6 +191,7 @@ if (isset($_POST['farms_data'])) {
             $farmer['num_of_parcels'],
             $user_id,
             $modifiedAt,
+            $modifiedTimes,
             $farmerId  // Pass the farmer ID to identify the record to update
         );
     
@@ -282,6 +290,12 @@ if (isset($_POST['farms_data'])) {
         }
 
         if (isset($parcel['parcel_id'])) {
+
+            $modifiedTimes;
+            $checkId = getById('parcels', $parcel['parcel_id']);
+            if($checkId['status']== 200){
+                $modifiedTimes = $checkId['data']['modified_times'] + 1;
+            }
         
             $sql = "UPDATE parcels SET
                         farmer_id = ?, 
@@ -295,7 +309,8 @@ if (isset($_POST['farms_data'])) {
                         parcel_area = ?, 
                         farm_type = ?, 
                         modified_by = ?, 
-                        modified_at = ?
+                        modified_at = ?,
+                        modified_times = ?
                     WHERE id = ?"; 
         
             $stmt = $conn->prepare($sql);
@@ -308,7 +323,7 @@ if (isset($_POST['farms_data'])) {
         
             // Bind parameters for the update query
             $stmt->bind_param(
-                "iissssssssisi", 
+                "iissssssssisii", 
                 $farmerId,
                 $parcel['parcelNum'],
                 $parcel['ofName'],
@@ -321,6 +336,7 @@ if (isset($_POST['farms_data'])) {
                 $parcel['farmType'],
                 $user_id,
                 $modifiedAt,
+                $modifiedTimes,
                 $parcel['parcel_id']
             );
         
@@ -407,6 +423,12 @@ if (isset($_POST['farms_data'])) {
                 $crop = $item['crop'];
                 $cropId = $crop['crop_id']; // Assuming crop_id is provided in the item array
                 $parcelId = $parcelIds[$crop['parcelNum']] ?? null;
+
+                $modifiedTimes;
+                $checkId = getById('crops', $cropId);
+                if($checkId['status']== 200){
+                    $modifiedTimes = $checkId['data']['modified_times'] + 1;
+                }
             
                 if ($parcelId) {
                     // Update query for the existing crop
@@ -418,7 +440,8 @@ if (isset($_POST['farms_data'])) {
                             crop_name = ?,
                             classification = ?, 
                             modified_by = ?, 
-                            modified_at = ? 
+                            modified_at = ?, 
+                            modified_times = ?
                             WHERE id = ?";
                             
                     $stmt = $conn->prepare($sql);
@@ -430,7 +453,7 @@ if (isset($_POST['farms_data'])) {
                     }
             
                     // Bind parameters
-                    $stmt->bind_param("iiidsiisi", 
+                    $stmt->bind_param("iiidsiisii", 
                         $farmerId, 
                         $parcelId, 
                         $crop['hvc'], 
@@ -438,7 +461,8 @@ if (isset($_POST['farms_data'])) {
                         $crop['cropName'], 
                         $crop['classification'], 
                         $user_id, 
-                        $modifiedAt, 
+                        $modifiedAt,
+                        $modifiedTimes, 
                         $cropId // Crop ID to identify the record to update
                     );
             
@@ -516,6 +540,12 @@ if (isset($_POST['farms_data'])) {
             $livestock = $item['livestock'];
             $livestockId = $livestock['livestock_id']; // Assuming livestock_id is provided
             $parcelId = $parcelIds[$livestock['parcelNum']] ?? null;
+
+            $modifiedTimes;
+                $checkId = getById('livestocks', $livestockId);
+                if($checkId['status']== 200){
+                    $modifiedTimes = $checkId['data']['modified_times'] + 1;
+                }
             
             if ($parcelId) {
                 // Update query for existing livestock
@@ -525,7 +555,8 @@ if (isset($_POST['farms_data'])) {
                         no_of_heads = ?, 
                         animal_name = ?, 
                         modified_by = ?, 
-                        modified_at = ? 
+                        modified_at = ?,
+                        modified_times = ?
                         WHERE id = ?";
         
                 $stmt = $conn->prepare($sql);
@@ -537,13 +568,14 @@ if (isset($_POST['farms_data'])) {
                 }
         
                 // Bind parameters for the update query
-                $stmt->bind_param("iiisisi", 
+                $stmt->bind_param("iiisisii", 
                     $farmerId, 
                     $parcelId, 
                     $livestock['numberOfHeads'], 
                     $livestock['livestockType'], 
                     $user_id, 
                     $modifiedAt, 
+                    $modifiedTimes,
                     $livestockId // Livestock ID to identify the record to update
                 );
         

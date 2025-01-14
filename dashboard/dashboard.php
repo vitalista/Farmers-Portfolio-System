@@ -649,6 +649,7 @@
    <!-- ======= Footer ======= -->
    </script>
    <?php include '../includes/footer.php' ?>
+
    <script>
       async function fetchData() {
          try {

@@ -12,9 +12,12 @@ BUGS:
 
 TO Do's:
 - [X] FARM TYPE should be in crops db table
-- [] change VIEW and ADD in farmers ownership type and farm type to datalist not select tag
-- [] diff action column for lists like distribution-list.php
-- [] FIlter LIKE contains string only find exact word not per letter exist
+- [x] change VIEW and ADD in farmers ownership type and farm type to datalist not select tag
+- [x] diff action column for lists like distribution-list.php
+- [x] FIlter LIKE contains string only find exact word not per letter exist
+- [x] archive and modified log name
+- [] GENERATE dashboard content adn brgy
+- [x] restored
 
 TO REMIND:
 update will also insert if condition not met

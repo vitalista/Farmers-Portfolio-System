@@ -67,25 +67,25 @@ require 'database.php';
                     // Check which table is being requested
                     if (isset($_GET['farmers']) && is_string($_GET['farmers'])) {
                         $table = $_GET['farmers'];
-                        $query = 'SELECT modified_by, modified_at, modified_times FROM farmers WHERE id = ?';
+                        $query = 'SELECT archived_by, archived_at, modified_times FROM farmers WHERE id = ?';
                     } elseif (isset($_GET['parcels']) && is_string($_GET['parcels'])) {
                         $table = $_GET['parcels'];
-                        $query = 'SELECT modified_by, modified_at, modified_times FROM parcels WHERE id = ?';
+                        $query = 'SELECT archived_by, archived_at, modified_times FROM parcels WHERE id = ?';
                     } elseif (isset($_GET['crops']) && is_string($_GET['crops'])) {
                         $table = $_GET['crops'];
-                        $query = 'SELECT modified_by, modified_at, modified_times FROM crops WHERE id = ?';
+                        $query = 'SELECT archived_by, archived_at, modified_times FROM crops WHERE id = ?';
                     } elseif (isset($_GET['livestocks']) && is_string($_GET['livestocks'])) {
                         $table = $_GET['livestocks'];
-                        $query = 'SELECT modified_by, modified_at, modified_times FROM livestocks WHERE id = ?';
+                        $query = 'SELECT archived_by, archived_at, modified_times FROM livestocks WHERE id = ?';
                     } elseif (isset($_GET['programs']) && is_string($_GET['programs'])) {
                         $table = $_GET['programs'];
-                        $query = 'SELECT modified_by, modified_at, modified_times FROM programs WHERE id = ?';
+                        $query = 'SELECT archived_by, archived_at, modified_times FROM programs WHERE id = ?';
                     } elseif (isset($_GET['resources']) && is_string($_GET['resources'])) {
                         $table = $_GET['resources'];
-                        $query = 'SELECT modified_by, modified_at, modified_times FROM resources WHERE id = ?';
+                        $query = 'SELECT archived_by, archived_at, modified_times FROM resources WHERE id = ?';
                     } elseif (isset($_GET['distributions']) && is_string($_GET['distributions'])) {
                         $table = $_GET['distributions'];
-                        $query = 'SELECT modified_by, modified_at, modified_times FROM distributions WHERE id = ?';
+                        $query = 'SELECT archived_by, archived_at, modified_times FROM distributions WHERE id = ?';
                     }
 
                     if ($table !== "") {
@@ -105,11 +105,11 @@ require 'database.php';
 
                             if ($logs) {
                                 foreach ($logs as $log) {
-                                    // Format the modified_at if needed (assuming it's a timestamp)
-                                    $modifiedAtFormatted = date("l, F-d-Y h:i:s A", strtotime($log['modified_at']));
+                                    // Format the archived_at if needed (assuming it's a timestamp)
+                                    $modifiedAtFormatted = date("l, F-d-Y h:i:s A", strtotime($log['archived_at']));
 
                                     $fullName = '';
-                                    $user = getById('users', $log['modified_by']);
+                                    $user = getById('users', $log['archived_by']);
                                     
                                     if ($user && $user['status'] == 200) {
                                         $fullName = isset($user['data']['full_name']) ? $user['data']['full_name'] : 'Unknown';
@@ -117,11 +117,12 @@ require 'database.php';
                                         $fullName = 'Unknown';
                                     }
                                     $modifiedAtFormatted = isset($modifiedAtFormatted) ? $modifiedAtFormatted : 'N/A';
-
+                                    
+                                    // Echo the HTML
                                     echo "
                                         <h5 style='text-align: center;'>{$table}</h5>
-                                        <p><strong>Modified By:</strong> {$fullName}</p>
-                                        <p><strong>Modified At:</strong> {$modifiedAtFormatted}</p>
+                                        <p><strong>Archived By:</strong> {$fullName}</p>
+                                        <p><strong>Archived At:</strong> {$modifiedAtFormatted}</p>
                                         <p><strong>Modified Times:</strong> {$log['modified_times']}</p>
                                     ";
                                 }
