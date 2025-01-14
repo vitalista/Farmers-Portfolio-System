@@ -200,7 +200,7 @@ if (isset($_POST['farms_data'])) {
     
     // Insert parcel data
     $parcelIds = []; // Initialize an empty array to store parcelNum and corresponding insert_id.
-    foreach ($data as $item) {
+    foreach ($data as $item) { 
 
     if (isset($item['parcel'])) {
         $parcel = $item['parcel'];
@@ -211,14 +211,14 @@ if (isset($_POST['farms_data'])) {
     
         $requiredFields = [
             'parcelNum',
-            'ofName',
-            'olName',
-            'ownership',
+            // 'ofName',
+            // 'olName',
+            // 'ownership',
             'farmLocationBrgy',
             'farmLocationMunicipality',
             'farmLocationProvince',
-            'farmSize',
-            'farmType'
+            // 'farmSize',
+            // 'farmType'
         ];
     
         foreach ($requiredFields as $field) {

@@ -37,7 +37,7 @@
 
                 <div class="tab-content pt-2" id="myTabContent">
 
-                <?php include '../backend/status-messages.php';?>
+                    <?php include '../backend/status-messages.php'; ?>
 
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
@@ -98,14 +98,33 @@
                                                         <label class="form-label">Lastname<input type="text" value="<?= $farmer['data']['last_name']; ?>" class="form-control lastName"></label>
                                                         <label class="form-label">First name<input type="text" value="<?= $farmer['data']['first_name']; ?>" class="form-control firstName"></label>
                                                         <label class="form-label">Middle name<input type="text" value="<?= $farmer['data']['middle_name']; ?>" class="form-control middleName"></label>
+                                                        <label class="form-label">Extension name<input type="text" value="<?= $farmer['data']['ext_name']; ?>" class="form-control extName"></label>
                                                     </fieldset>
                                                 </div>
                                                 <div class="col">
                                                     <fieldset>
                                                         <label class="form-label">Birthday<input type="date" value="<?= $farmer['data']['birthday'] == '0000-00-00' ? '' : $farmer['data']['birthday']; ?>" class="form-control bday"></label>
                                                         <label class="form-label">Gender<input type="text" value="<?= $farmer['data']['gender']; ?>" class="form-control gender"></label>
-                                                        <label class="form-label">Extension name<input type="text" value="<?= $farmer['data']['ext_name']; ?>" class="form-control extName"></label>
+                                                        <label class="form-label">Number of Parcels<input type="text" disabled value="<?= $farmer['data']['no_of_parcels']; ?>" class="form-control"></label>
                                                     </fieldset>
+                                                    <div class="ms-3 d-flex">
+
+
+                                                        <div class="form-check">
+                                                            <label class="form-check-label" for="active">
+                                                                Active?
+                                                            </label>
+                                                            <input class="form-check-input me-2 active" style="width: 2rem; height: 2rem;" type="checkbox" id="active" <?= $farmer['data']['is_active'] == 1 ? "checked" : ""; ?>>
+                                                        </div>
+
+                                                        <div class="ms-5 form-check">
+                                                            <input class="form-check-input me-2 deceased" style="width: 2rem; height: 2rem;" type="checkbox" id="deceased">
+                                                            <label class="form-check-label" for="deceased">
+                                                                Deceased?
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <hr>
@@ -428,20 +447,26 @@
                                                                     <input type="hidden" class="livestock_id" value="<?= $livestock['id']; ?>">
 
                                                                     <div class="col-md-6 mb-3">
+                                                                        <label >Number of heads</label>
                                                                         <input type="number" value="<?= $livestock['no_of_heads']; ?>" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
                                                                         <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
                                                                         <div class="invalid-feedback">Please enter.</div>
                                                                     </div>
+
                                                                     <div class="col-md-6 mb-3">
-                                                                        <div class="input-group mb-2">
+                                                                        <div class="form-group">
+                                                                            <label for="livestockType">Animal type</label>
+                                                                            <div class="input-group">
                                                                             <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
                                                                             <div class="input-group-append">
-                                                                                <a class="btn btn-danger removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
+                                                                            <a class="btn btn-danger removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
                                                                                     onclick="return confirm('Are you sure you want to remove it?')"
                                                                                     href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id']; ?>">Remove</a>
                                                                             </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
+
                                                                 </div>
                                                         <?php endforeach;
                                                         } ?>

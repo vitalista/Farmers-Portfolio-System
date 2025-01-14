@@ -1,15 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "baliwag_agriculture_office";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../backend/functions.php';
 
 if (isset($_POST['id']) && isset($_POST['ffrs'])) {
     $id = $_POST['id'];

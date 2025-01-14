@@ -32,7 +32,7 @@
                 </div>
               </div>
 
-              <?php include 'parcels/filter.php'; ?>
+              <?php include 'filter.php'; ?>
 
               <table id="example" class="display nowrap d-none">
                 <thead>
@@ -41,8 +41,6 @@
                     <th>Parcel No. - Farm Type</th>
                     <th>Brgy</th>
                     <th>Parcel Area</th>
-                    <th>Action</th>
-
                   </tr>
                 </thead>
                 <tbody>
@@ -58,15 +56,6 @@
                         <td><?=$row['parcel_no']?> - <?=$row['farm_type']?></td>
                         <td><?=$row['parcel_brgy_address']?></td>
                         <td><strong><?=$row['parcel_area']?> Ha</strong></td>
-                        <td>
-                        <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
-                        <a onclick="return confirm('Are you sure you want to archive it?')" 
-                         href="../backend/archive.php?parcel_id=<?= $row['id']?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-                         <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
-                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&parcels=Parcel"
-                        class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
-                        <?php }?>
-                        </td>
                       </tr>
                   <?php
                     }

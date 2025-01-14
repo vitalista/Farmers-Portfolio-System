@@ -122,104 +122,112 @@ if(checkParamId('clear')){
 }
 
 if (isset($_POST['addItems'])) {
-    if (!empty($_POST)) {
-        foreach ($_POST as $key => $value) {
-            echo "Key: " . $key . " - Value: " . $value . "<br>";
-        }
+
+    // Ensure the POST data is not empty
+    if (empty($_POST)) {
+        return;  // Exit early if no POST data
     }
 
-    // Validate the input data
+    // Debugging: Print POST data
+    foreach ($_POST as $key => $value) {
+        echo "Key: " . $key . " - Value: " . $value . "<br>";
+    }
+
+    // Validate input fields
     $farmerAddComparison = validate($_POST['farmerAddComparison']);
     $farmerAdd = validate($_POST['farmerAdd']);
-
-    $resourceData = [];
     $resourcesId = validate($_POST['resources_id']);
     $quantity = validate($_POST['quantity']);
 
-    // Check if the resource exists for the given farmer
-    $checkResource = mysqli_query($conn, "SELECT * FROM resources WHERE id='$resourcesId' LIMIT 1");
-    $checkReFarmers = mysqli_query($conn, "SELECT * FROM farmers WHERE $farmerAddComparison LIKE '$farmerAdd'");
-    $rowCount = mysqli_num_rows($checkReFarmers);
-    echo "Number of rows: " . $rowCount . "<br>";
+    // Initialize an empty array for resource data
+    $resourceData = [];
 
-    // Store farmers in an array
+    // Check if the resource exists
+    $checkResource = mysqli_query($conn, "SELECT * FROM resources WHERE id='$resourcesId' LIMIT 1");
+    if (!$checkResource || mysqli_num_rows($checkResource) == 0) {
+        redirect('distribution-multiple-add.php', 404, 'No Resource Found');
+        return;  // Early return if no resource is found
+    }
+    $row = mysqli_fetch_assoc($checkResource);  // Get resource data
+
+    // Check if farmers exist based on the provided comparison
+    $checkReFarmers = mysqli_query($conn, "SELECT * FROM farmers WHERE $farmerAddComparison LIKE '$farmerAdd'");
+    if (!$checkReFarmers || mysqli_num_rows($checkReFarmers) == 0) {
+        redirect('distribution-multiple-add.php', 404, 'No Farmers Found');
+        return;  // Early return if no farmers found
+    }
+
+    // Store the farmers in an array
     $farmers = [];
     while ($farmer = mysqli_fetch_assoc($checkReFarmers)) {
-        $farmers[] = $farmer; // Add each farmer to the array
+        $farmers[] = $farmer;
     }
 
-    if ($checkResource && $checkReFarmers) {
-        if (mysqli_num_rows($checkResource) > 0) {
-            $row = mysqli_fetch_assoc($checkResource);
-
-            // Check if the available quantity is sufficient
-            if ($row['quantity_available'] < $quantity) {
-                redirect('distribution-multiple-add.php', 404, 'Only ' . $row['quantity_available'] . ' quantity available');
-            } else {
-                $program = getById('programs', $row['program_id']);
-
-                // Initialize the resource data
-                if ($program['status'] == 200) {
-
-                    $quotient = floor($row['quantity_available'] / $quantity);
-
-                    if ($quotient > 0) {
-                        for ($i = 0; $i < $quotient; $i++) {
-                            if ($i != $rowCount) {
-                               
-                                foreach ($farmers as $farmer) {
-                                    $resourceData[] = [
-                                        'farmer_id' => $farmer['id'],
-                                        'farmer_name' => $farmer['first_name'] . ' ' . $farmer['last_name'],
-                                        'ffrs_code' => $farmer['ffrs_system_gen'],
-                                        'program_id' => $row['program_id'],
-                                        'program' => $program['data']['program_name'],
-                                        'program_total_beneficiaries' => $program['data']['total_beneficiaries'],
-                                        'program_available_beneficiaries' => $program['data']['beneficiaries_available'],
-                                        'quantity' => $quantity,
-                                        'resource_name' => $row['resources_name'],
-                                        'resource_type' => $row['resource_type'],
-                                        'unit_of_measure' => $row['unit_of_measure'],
-                                        'resources_available' => $row['quantity_available'],
-                                        'total' => $row['total_quantity'],
-                                        'resource_id' => $row['id']
-                                    ];
-                                }
-                                
-                            }
-                            
-                            break;
-                        }
-                    }
-
-                }
-
-                // Debugging output
-                echo '<pre>';
-                print_r($farmers); 
-                echo '</pre>';
-
-                echo '<pre>';
-                print_r($resourceData); 
-                echo '</pre>';
-                echo $quotient;
-
-                foreach ($resourceData as $data) {
-                    $_SESSION['resourceItems'][] = $data;
-                }                
-
-                echo '<script>';
-                echo 'console.log("Session Resource Data:", ' . json_encode($_SESSION['resourceItems']) . ');';
-                echo '</script>';
-
-                redirect('distribution-multiple-add.php', 200, 'Farmer added: ' . $row['resources_name']);
-            }
-        } else {
-            redirect('distribution-multiple-add.php', 404, 'No Resource Found');
-        }
-    } else {
-        redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
+    // Check available quantity
+    if ($row['quantity_available'] < $quantity) {
+        redirect('distribution-multiple-add.php', 404, 'Only ' . $row['quantity_available'] . ' quantity available');
+        return;  // Early return if quantity is insufficient
     }
+
+    // Get the program data
+    $program = getById('programs', $row['program_id']);
+    if ($program['status'] != 200) {
+        redirect('distribution-multiple-add.php', 500, 'Program not found');
+        return;  // Early return if program is invalid
+    }
+
+    // Calculate how many times we can distribute the resource
+    $quotient = floor($row['quantity_available'] / $quantity);
+    if ($quotient <= 0) {
+        redirect('distribution-multiple-add.php', 404, 'Insufficient resource quantity for distribution');
+        return;  // Early return if distribution is not possible
+    }
+
+    // Limit the number of farmers to the quotient value (the number of distributions possible)
+    $farmersToDistribute = array_slice($farmers, 0, $quotient);
+
+    // Process each selected farmer and add resource data
+    foreach ($farmersToDistribute as $farmer) {
+        // Add farmer and resource info to the resource data array
+        $resourceData[] = [
+            'farmer_id' => $farmer['id'],
+            'farmer_name' => $farmer['first_name'] . ' ' . $farmer['last_name'],
+            'ffrs_code' => $farmer['ffrs_system_gen'],
+            'program_id' => $row['program_id'],
+            'program' => $program['data']['program_name'],
+            'program_total_beneficiaries' => $program['data']['total_beneficiaries'],
+            'program_available_beneficiaries' => $program['data']['beneficiaries_available'],
+            'quantity' => $quantity,
+            'resource_name' => $row['resources_name'],
+            'resource_type' => $row['resource_type'],
+            'unit_of_measure' => $row['unit_of_measure'],
+            'resources_available' => $row['quantity_available'],
+            'total' => $row['total_quantity'],
+            'resource_id' => $row['id']
+        ];
+    }
+
+    // Debugging: Output farmers and resource data
+    // echo '<pre>';
+    // print_r($farmersToDistribute);
+    // echo '</pre>';
+
+    // echo '<pre>';
+    // print_r($resourceData);
+    // echo '</pre>';
+
+    // Store resource data in session
+    foreach ($resourceData as $data) {
+        $_SESSION['resourceItems'][] = $data;
+    }
+
+    redirect('distribution-multiple-add.php', 200, 'Farmer added: ' . $row['resources_name']);
+
+    // Debugging: Log session data to the console
+    // echo '<script>';
+    // echo 'console.log("Session Resource Data:", ' . json_encode($_SESSION['resourceItems']) . ');';
+    // echo '</script>';
+    // Redirect to success page
 }
 
 
@@ -229,9 +237,9 @@ if (isset($_POST['saveItem'])) {
     $modifiedAt =  date('Y-m-d h:i:s A');
 
     if (!empty($_SESSION['resourceItems']) && isset($_SESSION['resourceItems'])) {
-        echo '<pre>';
-        echo print_r($_SESSION['resourceItems']);
-        echo '</pre>';
+        // echo '<pre>';
+        // echo print_r($_SESSION['resourceItems']);
+        // echo '</pre>';
         
         
         $farmerCountByProgram = [];
@@ -259,9 +267,9 @@ if (isset($_POST['saveItem'])) {
         }
         
         // Output the result for debugging purposes
-        echo '<pre>';
-        print_r($result);
-        echo '</pre><br>';
+        // echo '<pre>';
+        // print_r($result);
+        // echo '</pre><br>';
         
         // Iterate through the result to update each program
         foreach ($result as $item) {
@@ -277,7 +285,7 @@ if (isset($_POST['saveItem'])) {
                 // Execute the update query
                 if (mysqli_stmt_execute($updateStmt)) {
                     echo "Program total quantity successfully updated.<br>";
-                    redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
+                    // redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
                 } else {
                     echo "Error updating resource quantity: " . mysqli_error($conn) . "<br>";
                     redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
@@ -320,8 +328,7 @@ if (isset($_POST['saveItem'])) {
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {
                     echo "Item successfully inserted into the database.<br>";
-                    redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
-
+                    // redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
                     // Now update the resource's quantity by subtracting the distributed quantity
                     $updateQuery = "UPDATE resources SET quantity_available = quantity_available - ? WHERE id = ?";
                     if ($updateStmt = mysqli_prepare($conn, $updateQuery)) {
@@ -335,7 +342,7 @@ if (isset($_POST['saveItem'])) {
                         // Execute the update query
                         if (mysqli_stmt_execute($updateStmt)) {
                             echo "Resource quantity successfully updated.<br>";
-                            redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
+                            // redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
                         } else {
                             echo "Error updating resource quantity: " . mysqli_error($conn) . "<br>";
                             redirect('distribution-multiple-add.php', 500, 'Something Went Wrong');
@@ -359,10 +366,10 @@ if (isset($_POST['saveItem'])) {
             }
         }
 
-        // sleep(5);
+        sleep(5);
         unset($_SESSION['resourceItems']);
         if (empty($_SESSION['resourceItems'])) {
-            // redirect('distribution-multiple-add.php', 'Successfully Inserted');
+            redirect('distribution-multiple-add.php', 200, 'Successfully Distributed');
         }
     } else {
         redirect('distribution-multiple-add.php', 404, 'Nothing Found');

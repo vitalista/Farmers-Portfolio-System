@@ -47,16 +47,20 @@ livestockBtns.forEach(function(button) {
         livestockInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
         livestockInputDiv.innerHTML = `
             <div class="col-md-6 mb-3">
+                <label>Number of heads</label>
                 <input type="number" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
                 <input type="hidden" class="parcelNum" value="${parcelNo}" style="width: 100%;">
                 <div class="invalid-feedback">Please enter.</div>
             </div>
+            
             <div class="col-md-6 mb-3">
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control livestockType" placeholder="Enter animal type" required>
-                    <div class="input-group-append">
-                        <a class="btn btn-danger removeLivestockButton" onclick="removeClosestDiv(this)">Remove</a>
-                    </div>
+            <div class="form-group">
+                <label for="livestockType">Animal type</label>
+                <div class="input-group">
+                <input type="text" id="livestockType" class="form-control livestockType" placeholder="Enter animal type" required>
+                <div class="input-group-append">
+                    <a class="btn btn-danger removeLivestockButton" onclick="removeClosestDiv(this)">Remove</a>
+                </div>
                 </div>
             </div>
             `;

@@ -411,10 +411,11 @@
                                                 }
                                             }
                                         } else {
+                                            // Assuming the table has 5 columns, set the colspan to 5
                                             echo "<tr>
-                                            <td>No Information Available</td>
-                                            </tr>";
-                                        }
+                                                    <td colspan='2' style='text-align: center;'>No Information Available</td>
+                                                  </tr>";
+                                        }                                        
                                         ?>
                                     </tbody>
                                 </table>
@@ -448,7 +449,12 @@
                                            </tr>
                                             <?php
                                                 }
-                                            }
+                                            }else{
+                                                // Assuming the table has 5 columns, set the colspan to 5
+                                                echo "<tr>
+                                                        <td colspan='2' style='text-align: center;'>No Information Available</td>
+                                                      </tr>";
+                                            }  
                                             ?>
                                     </tbody>
                                 </table>
@@ -482,7 +488,12 @@
                                            </tr>
                                             <?php
                                                 }
-                                            }
+                                            }else {
+                                                // Assuming the table has 5 columns, set the colspan to 5
+                                                echo "<tr>
+                                                        <td colspan='2' style='text-align: center;'>No Information Available</td>
+                                                      </tr>";
+                                            }  
                                             ?>
                                     </tbody>
                                 </table>

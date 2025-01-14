@@ -58,8 +58,10 @@
                       <a href="program-view.php?id=<?= $row['program_id'];?>" class="btn btn-success"><i class="bi bi-three-dots"></i></a>
                       <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?resources_id=<?= $row['id'];?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
-                        <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&resources=Resources"
+                         <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
+                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&resources=Resources"
                         class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                        <?php }?>
                     </td>
                   </tr>
                   <?php

@@ -69,13 +69,18 @@
                           <a href="farmer-view.php?id=<?= $row['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
                           <a onclick="return confirm('Are you sure you want to archive it?')"
                             href="../backend/archive.php?id=<?= $row['id'] ?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
                           <a class="btn btn-secondary" href="../backend/activity-log.php?id=<?= $row['id']; ?>&farmers=Farmer"><i class="bi bi-info-circle-fill"></i></a>
+                          <?php }?>
                         </td>
                         <?php else:?>
                           <td>
                           <a onclick="return confirm('Are you sure you want to archive it?')" 
                           href="../backend/archive.php?id=<?= $row['id'];?>" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i></a>
+                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
                           <a class="btn btn-secondary" href="../backend/activity-log.php?id=<?= $row['id']; ?>&farmers=Farmer"><i class="bi bi-info-circle-fill"></i></a>
+                          <?php }?>
+
                           </td>
                         <?php endif;?>
                       </tr>
