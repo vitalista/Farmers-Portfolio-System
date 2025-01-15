@@ -73,8 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         'promote' => isset($_POST['promoteSwitch']) ? 1 : 0,
     ];
 
-    if (strlen($formData['password']) < 8) {
-        redirect('user-add.php', 500, 'Password should be 8 characters or more');
+    if (!empty($formData['password']) && strlen($formData['password']) < 8) {
+        redirect('user-edit.php?id='.$_POST['id'], 500, 'Password should be 8 characters or more');
     }
 
     // Step 3: Hash the password for security, only if it's updated

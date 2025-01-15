@@ -17,6 +17,8 @@ TO Do's:
 - [x] FIlter LIKE contains string only find exact word not per letter exist
 - [x] archive and modified log name
 - [] GENERATE dashboard content adn brgy
+- [] Important Fields
+- [] restrictions options in every lists
 - [x] restored
 
 TO REMIND:

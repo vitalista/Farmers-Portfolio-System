@@ -22,7 +22,7 @@ try {
         $_SESSION['otpTime'] = time();
     
     // Email content
-    $mail->setFrom('', 'Aries');
+    $mail->setFrom('', 'Baliwag Agriculture Office');
     $mail->addAddress($_POST['email']);
     $mail->isHTML(true);
     $mail->Subject = 'Your OTP for Verification';
