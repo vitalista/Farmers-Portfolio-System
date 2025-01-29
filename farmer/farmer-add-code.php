@@ -366,7 +366,6 @@ if (isset($_POST['farms_data'])) {
                 });
             
                 $requiredFields = [
-                    'hvc', 
                     'cropArea', 
                     'cropName', 
                     'classification'

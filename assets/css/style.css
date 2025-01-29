@@ -1292,10 +1292,6 @@ section .card {
   margin: 0;
 }
 
-.card form .red-star {
-  color: #b33a3a;
-}
-
 .card .card-body #example_wrapper .table-top,
 .card .card-body #example_wrapper .table-bottom {
   display: flex;

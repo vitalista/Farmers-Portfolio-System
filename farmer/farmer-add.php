@@ -44,7 +44,7 @@
                     <div class="card-body row g-3">
 
                       <h6 class="mt-5">Registration Code
-                        <!-- <span class="red-star">*</span> -->
+                        <!-- <span class="text-danger fw-bold">*</span> -->
                       </h6>
 
                       <!-- <div class="d-none col-md-6">
@@ -63,12 +63,12 @@
                         </div>
                       </div>
 
-                      <h6>Address<span class="red-star">*</span></h6>
+                      <h6>Address</h6>
 
                       <div class="col-md-4">
                         <div class="form-floating">
                           <input type="text" class="form-control brgy" id="personalBrgy" placeholder="" required>
-                          <label for="personalBrgy">BARANGAY</label>
+                          <label for="personalBrgy">BARANGAY<span class="text-danger fw-bold">*</span></label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
@@ -76,7 +76,7 @@
                       <div class="col-md-4">
                         <div class="form-floating">
                           <input type="text" class="form-control municipality" id="personalMunicipality" placeholder="" required>
-                          <label for="personalMunicipality">Municipality</label>
+                          <label for="personalMunicipality">Municipality<span class="text-danger fw-bold">*</span></label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
@@ -84,16 +84,16 @@
                       <div class="col-md-4">
                         <div class="form-floating">
                           <input type="text" class="form-control province" id="brgy" placeholder="" required>
-                          <label for="brgy">Province</label>
+                          <label for="brgy">Province<span class="text-danger fw-bold">*</span></label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
 
-                      <h6>Full Name<span class="red-star">*</span></h6>
+                      <h6>Full Name</h6>
                       <div class="col-md-4">
                         <div class="form-floating">
                           <input type="text" class="form-control firstName" id="floatingFname" placeholder="" required>
-                          <label for="floatingFname">First Name</label>
+                          <label for="floatingFname">First Name<span class="text-danger fw-bold">*</span></label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
@@ -101,7 +101,7 @@
                       <div class="col-md-4">
                         <div class="form-floating">
                           <input type="text" class="form-control middleName" id="floatingMname" placeholder="" required>
-                          <label for="floatingMname">Middle Name</label>
+                          <label for="floatingMname">Middle Name<span class="text-danger fw-bold">*</span></label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
@@ -109,7 +109,7 @@
                       <div class="col-md-4">
                         <div class="form-floating">
                           <input type="text" class="form-control lastName" id="floatingLname" placeholder="" required>
-                          <label for="floatingLname">Last Name</label>
+                          <label for="floatingLname">Last Name<span class="text-danger fw-bold">*</span></label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
@@ -121,7 +121,7 @@
                       </div>
 
                       <div class="col-md-2">
-                        <label for="validationCustom01" class="form-label">Gender<span class="red-star">*</span></label>
+                        <label for="validationCustom01" class="form-label">Gender<span class="text-danger fw-bold">*</span></label>
                         <select class="form-select gender" id="validationCustom01" required>
                           <option selected disabled value="">Choose...</option>
                           <option value="Male">Male</option>
@@ -131,7 +131,7 @@
                       </div>
 
                       <div class="col-md-2">
-                        <label for="validationCustom05" class="form-label">Birthday<span class="red-star">*</span></label>
+                        <label for="validationCustom05" class="form-label">Birthday<span class="text-danger fw-bold">*</span></label>
                         <input type="date" class="form-control bday" id="validationCustom05" required>
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
@@ -145,7 +145,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-2 mt-4">
+                      <div class="col-md-2 mt-4 d-none">
                         <label class="form-check-label" for="active">
                           Active?
                         </label>

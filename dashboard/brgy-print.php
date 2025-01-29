@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center">
                     <h5 class="card-title">Farmers</h5>
-                    <p class="card-text"><?= brgyCountRows('farmers', $_GET['brgy']); ?></p>
+                    <p class="card-text"><?= countRows('farmers', '', $_GET['brgy']); ?></p>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center">
                     <h5 class="card-title">Parcels</h5>
-                    <p class="card-text"><?= brgyCountRows('parcels', $_GET['brgy']); ?></p>
+                    <p class="card-text"><?= countRows('parcels', '', $_GET['brgy']); ?></p>
                 </div>
             </div>
         </div>
@@ -63,18 +63,18 @@
                             <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
                             <div class="ms-2">
                                 <span class="fw-bold">Male</span>
-                                <div><?= brgyCountRows('farmers', $_GET['brgy'], 'MALE'); ?></div>
+                                <div><?= countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mx-3">
                             <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
                             <div class="ms-2">
                                 <span class="fw-bold">Female</span>
-                                <div><?= brgyCountRows('farmers', $_GET['brgy'], 'FEMALE'); ?></div>
+                                <div><?= countRows('farmers', '', $_GET['brgy'], 'FEMALE'); ?></div>
                             </div>
                         </div>
                     </div>
-                    <div>Total: <?= brgyCountRows('farmers', $_GET['brgy'], 'FEMALE') + brgyCountRows('farmers', $_GET['brgy'], 'MALE'); ?></div>
+                    <div>Total: <?= countRows('farmers', '', $_GET['brgy'], 'FEMALE') + countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
                 </div>
             </div>
 
@@ -89,18 +89,18 @@
                             <div class="ms-2">
                                 <!-- CROP -->
                                 <span class="fw-bold">Crops</span>
-                                <div><?= brgyCountRows('crops', $_GET['brgy']); ?></div>
+                                <div><?= countRows('crops','', $_GET['brgy']); ?></div>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mx-3">
                             <!-- PIG -->
                             <div class="ms-2">
                                 <span class="fw-bold">Livestocks</span>
-                                <div><?= brgyCountRows('livestocks', $_GET['brgy']); ?></div>
+                                <div><?= countRows('livestocks','', $_GET['brgy']); ?></div>
                             </div>
                         </div>
                     </div>
-                    <div>Total: <?= brgyCountRows('crops', $_GET['brgy']) +  brgyCountRows('livestocks', $_GET['brgy']); ?></div>
+                    <div>Total: <?= countRows('crops','', $_GET['brgy']) +  countRows('livestocks','', $_GET['brgy']); ?></div>
                 </div>
             </div>
         </div>
@@ -120,8 +120,8 @@
                         </thead>
                         <tbody>
                             <?php
-                            $count = brgyGetCountArray('crops', 'crop_name', 'count', $_GET['brgy']);
-                            $name =  brgyGetCountArray('crops', 'crop_name', 'id', $_GET['brgy']);
+                            $count = getCountArray('crops', 'crop_name', 'count', $_GET['brgy']);
+                            $name =  getCountArray('crops', 'crop_name', 'id', $_GET['brgy']);
 
                             for ($i = 0; $i < count($count); $i++) {
                                 echo "<tr><td class='text-center'>" . $count[$i] . "</td><td class='text-center'>" . $name[$i] . "</td></tr>";
@@ -147,8 +147,8 @@
                         </thead>
                         <tbody>
                             <?php
-                            $count = brgyGetCountArray('livestocks', 'animal_name', 'count', $_GET['brgy']);
-                            $name = brgyGetCountArray('livestocks', 'animal_name', 'id', $_GET['brgy']);
+                            $count = getCountArray('livestocks', 'animal_name', 'count', $_GET['brgy']);
+                            $name = getCountArray('livestocks', 'animal_name', 'id', $_GET['brgy']);
                             for ($i = 0; $i < count($count); $i++) {
                                 echo "<tr><td class='text-center'>" . $count[$i] . "</td><td class='text-center'>" . $name[$i] . "</td></tr>";
                             }

@@ -122,99 +122,72 @@ function alertMessage()
     }
 }
 
-function countRows($table, $condition = "") {
-
+function countRows($table, $condition = "", $brgy = "", $gender = "") {
+    // Validate inputs
     $tableName = validate($table);
-    $conditions = validate($condition); 
+    $conditions = validate($condition);
+    $brgy = validate($brgy);
+    $gender = validate($gender);
 
     global $conn;
 
-    $query = "SELECT COUNT(*) AS totalRows FROM $tableName WHERE is_archived = 0";
+    // Base query for counting rows
+    $query = "";
 
-    if (!empty($conditions) && $condition == 'pending_programs') {
-        $query .= " AND start_date > CURDATE() AND start_date != '0000-00-00'";
-    }
-
-    if (!empty($conditions) && $condition == 'expired_programs') {
-        $query .= " AND end_date < CURDATE() AND end_date != '0000-00-00'";
-    }
-
-    if (!empty($conditions) && $condition == 'ongoing_programs') {
-        $query .= " AND start_date <= CURDATE() AND end_date >= CURDATE() AND end_date != '0000-00-00' AND start_date != '0000-00-00'";
-    }
-
-    if (!empty($conditions) && $condition == 'MALE' || $condition == 'FEMALE') {
-        $condition = validate($condition);
-        $query .= " AND UPPER(gender) = '$condition'";
-    }
-
-    if($tableName == 'parcels'){
+    // Handle special cases for 'parcels', 'livestocks', and 'crops'
+    if ($tableName == 'parcels') {
         $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0";
-    }
-
-    if($tableName == 'livestocks' || $tableName == 'crops'){
+    } elseif ($tableName == 'livestocks' || $tableName == 'crops') {
         $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f, $tableName l WHERE 
-        l.farmer_id = f.id AND 
-        l.parcel_id = p.id AND 
-        l.is_archived = 0 AND 
-        f.is_archived = 0 AND 
-        p.is_archived = 0;";
-    }
-
-    // echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
-    
-    // Execute the query
-    $result = mysqli_query($conn, $query);
-    
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
-        
-        return $row['totalRows'];
+                  l.farmer_id = f.id AND 
+                  l.parcel_id = p.id AND 
+                  l.is_archived = 0 AND 
+                  f.is_archived = 0 AND 
+                  p.is_archived = 0";
     } else {
-        echo "Error: " . mysqli_error($conn);
-        return 0;
+        // Default query for other tables
+        $query = "SELECT COUNT(*) AS totalRows FROM $tableName WHERE is_archived = 0";
     }
-}
 
-function brgyCountRows($table, $brgy = "", $gender = "") {
-
-    $tableName = validate($table);
-    $brgy = validate($brgy); 
-    $gender = validate($gender); 
-
-    global $conn;
-
-    $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND f.farmer_brgy_address = '$brgy' AND p.is_archived = 0 AND f.is_archived = 0";
-
-    if (!empty($tableName) && $tableName == "farmers") {
-        $query = "SELECT COUNT(*) AS totalRows FROM farmers WHERE farmer_brgy_address = '$brgy' AND is_archived = 0";
+    // Add barangay filter if provided
+    if (!empty($brgy)) {
+        if ($tableName == 'farmers') {
+            $query .= " AND farmer_brgy_address = '$brgy'";
+        } else {
+            $query .= " AND f.farmer_brgy_address = '$brgy'";
+        }
     }
-    
-    if (!empty($gender) && $gender == 'MALE' || $gender == 'FEMALE') {
+
+    // Add gender filter if provided
+    if (!empty($gender) && ($gender == 'MALE' || $gender == 'FEMALE')) {
         $gender = validate($gender);
         $query .= " AND UPPER(gender) = '$gender'";
     }
-    
-    if($tableName == 'livestocks' || $tableName == 'crops'){
-        $query = "SELECT COUNT(*) AS totalRows FROM parcels p, farmers f, $tableName l WHERE 
-        l.farmer_id = f.id AND 
-        l.parcel_id = p.id AND 
-        l.is_archived = 0 AND 
-        f.is_archived = 0 AND 
-        p.is_archived = 0 AND f.farmer_brgy_address = '$brgy'";
+
+    // Add conditions for programs if provided
+    if (!empty($conditions)) {
+        switch ($conditions) {
+            case 'pending_programs':
+                $query .= " AND start_date > CURDATE() AND start_date != '0000-00-00'";
+                break;
+            case 'expired_programs':
+                $query .= " AND end_date < CURDATE() AND end_date != '0000-00-00'";
+                break;
+            case 'ongoing_programs':
+                $query .= " AND start_date <= CURDATE() AND end_date >= CURDATE() AND end_date != '0000-00-00' AND start_date != '0000-00-00'";
+                break;
+        }
     }
-    
-    // echo "<script>console.log('brgyCountRows Query: " . addslashes($query) . "');</script>";
-    
+
     // Execute the query
     $result = mysqli_query($conn, $query);
-    
+
     if ($result) {
         $row = mysqli_fetch_assoc($result);
-        
         return $row['totalRows'];
     } else {
-        echo "Error: " . mysqli_error($conn);
+        // Log the error and return 0
+        error_log("Database error: " . mysqli_error($conn));
         return 0;
     }
 }
@@ -234,11 +207,11 @@ function returnNullRows($table, $brgy = "") {
         }
 
     
-    $query = "SELECT SUM(p.owner_first_name = '' AND p.owner_last_name = '' AND p.ownership_type = '') AS all_null_rows FROM $table p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0";
+    $query = "SELECT SUM(p.owner_first_name = '' AND p.owner_last_name = '') AS all_null_rows FROM $table p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0";
 
     if (!empty($brgy)) {
         validate($brgy);
-        $query = "SELECT SUM(p.owner_first_name = '' AND p.owner_last_name = '' AND p.ownership_type = '') AS all_null_rows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0 AND f.farmer_brgy_address = '$brgy'";
+        $query = "SELECT SUM(p.owner_first_name = '' AND p.owner_last_name = '') AS all_null_rows FROM parcels p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0 AND f.farmer_brgy_address = '$brgy'";
     }
    
 
@@ -498,83 +471,79 @@ function getById($tableName, $id, $isFarmer = true, $isProgram = false) {
     return $response;
 }
 
-function getCountArray($tableName, $columnName, $condition) {
+function getCountArray($tableName, $columnName, $condition, $brgy = "") {
     global $conn;
-    
-    $tableName = validate($tableName);
-    $columnName = validate($columnName);
-    $condition = validate($condition);
 
-    $query = "SELECT $columnName AS id, COUNT(*) AS count FROM $tableName GROUP BY $columnName";
-
-    // if($tableName == "farmers"){
-    // $query .= " ORDER BY count DESC LIMIT 15";
-    // }
-
-    if($tableName == "farmers"){
-     $query .= " ORDER BY id ASC";
-     }
-
-    if ($tableName == "livestocks" || $tableName == "crops") {
-        $query = " SELECT t.$columnName AS id, COUNT(*) AS count FROM $tableName t, farmers f, parcels p WHERE
-        t.farmer_id = f.id AND
-        t.parcel_id = p.id AND
-        t.is_archived = 0 AND
-        p.is_archived = 0 AND
-        f.is_archived = 0
-        GROUP BY t.$columnName";
-    }
-
-    
-    $result = mysqli_query($conn, $query);
-    
-    $countArray = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $countArray[$row['id']] = $row['count'];
-    }
-
-    if ($condition == 'count') {
-        return array_values($countArray);
-    }
-
-    if ($condition == 'id') {
-        return array_keys($countArray);   
-    }
-}
-
-function brgyGetCountArray($tableName, $columnName, $condition, $brgy = "") {
-    global $conn;
-    
+    // Validate inputs
     $tableName = validate($tableName);
     $columnName = validate($columnName);
     $condition = validate($condition);
     $brgy = validate($brgy);
 
+    // Base query for counting
+    $query = "";
+
+    // Handle special cases for 'livestocks' and 'crops'
     if ($tableName == "livestocks" || $tableName == "crops") {
-        $query = " SELECT t.$columnName AS id, COUNT(*) AS count FROM $tableName t, farmers f, parcels p WHERE
-        t.farmer_id = f.id AND
-        t.parcel_id = p.id AND
-        t.is_archived = 0 AND
-        p.is_archived = 0 AND
-        f.is_archived = 0 AND 
-        f.farmer_brgy_address = '$brgy'
-        GROUP BY t.$columnName";
+        $query = "SELECT t.$columnName AS id, COUNT(*) AS count 
+                  FROM $tableName t, farmers f, parcels p 
+                  WHERE t.farmer_id = f.id 
+                  AND t.parcel_id = p.id 
+                  AND t.is_archived = 0 
+                  AND p.is_archived = 0 
+                  AND f.is_archived = 0";
+
+        // Add barangay filter if provided
+        if (!empty($brgy)) {
+            $query .= " AND f.farmer_brgy_address = '$brgy'";
+        }
+
+        $query .= " GROUP BY t.$columnName";
+    } else {
+        // Default query for other tables
+        $query = "SELECT $columnName AS id, COUNT(*) AS count 
+                  FROM $tableName 
+                  WHERE is_archived = 0 
+                  GROUP BY $columnName";
+
+        // Add barangay filter for 'farmers' table if provided
+        if ($tableName == "farmers" && !empty($brgy)) {
+            $query = "SELECT $columnName AS id, COUNT(*) AS count 
+                      FROM $tableName 
+                      WHERE is_archived = 0 
+                      AND farmer_brgy_address = '$brgy' 
+                      GROUP BY $columnName";
+        }
+
+        // Add sorting for 'farmers' table
+        if ($tableName == "farmers") {
+            $query .= " ORDER BY id ASC";
+        }
     }
 
-    
+    // Execute the query
     $result = mysqli_query($conn, $query);
-    
+
+    if (!$result) {
+        // Log the error and return an empty array
+        error_log("Database error: " . mysqli_error($conn));
+        return [];
+    }
+
+    // Build the count array
     $countArray = [];
     while ($row = mysqli_fetch_assoc($result)) {
         $countArray[$row['id']] = $row['count'];
     }
 
+    // Return the result based on the condition
     if ($condition == 'count') {
         return array_values($countArray);
-    }
-
-    if ($condition == 'id') {
-        return array_keys($countArray);   
+    } elseif ($condition == 'id') {
+        return array_keys($countArray);
+    } else {
+        // Default: return the full associative array
+        return $countArray;
     }
 }
 

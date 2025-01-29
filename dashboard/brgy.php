@@ -29,12 +29,12 @@
                         <div class="row g-0 align-items-center">
                            <div class="col me-2">
                               <div class="text-uppercase text-success fw-bold mb-1"><span>Number of Farmers</span></div>
-                              <div class="text-dark fw-bold h5 mb-0"><span><?= brgyCountRows('farmers', $_GET['brgy']); ?></span></div>
+                              <div class="text-dark fw-bold h5 mb-0"><span><?= countRows('farmers', '', $_GET['brgy']); ?></span></div>
                            </div>
                         </div>
                      </div>
                      <div class="d-flex align-items-center justify-content-center">
-                        <a href="../farmer/farmer-list.php" class=" text-success">
+                        <a href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=" class=" text-success">
                            More info<i class="bi bi-arrow-right-short"></i>
                         </a>
                      </div>
@@ -48,14 +48,14 @@
                               <div class="text-uppercase text-info fw-bold mb-1"><span>Total farms</span></div>
                               <div class="row g-0 align-items-center">
                                  <div class="col-auto">
-                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= brgyCountRows('parcels', $_GET['brgy']); ?></span></div>
+                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= countRows('parcels', '', $_GET['brgy']); ?></span></div>
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
                      <div class="d-flex align-items-center justify-content-center">
-                        <a href="../farmer-assets/parcels.php" class=" text-info">
+                        <a href="../farmer-assets/parcels.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>&numberOfParcelsComp=exact&numberOfParcels=&parcelNumComp=exact&parcelNum=&parcelAreaComp=exact&parcelArea=&ownerComparison=owner_last_name&owner=&parcelComparison=parcel_brgy_address&parcelAdd=&ownershipType=&farmType=&numOfEntries=" class=" text-info">
                            More info<i class="bi bi-arrow-right-short"></i>
                         </a>
                      </div>
@@ -84,7 +84,7 @@
                         </div>
                      </div>
                      <div class="d-flex align-items-center justify-content-center">
-                        <a href="../farmer-assets/parcels.php" class=" text-warning">
+                        <a href="../farmer-assets/parcels.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>&numberOfParcelsComp=exact&numberOfParcels=&parcelNumComp=exact&parcelNum=&parcelAreaComp=exact&parcelArea=&ownerComparison=owner_last_name&owner=&parcelComparison=parcel_brgy_address&parcelAdd=&ownershipType=&farmType=&numOfEntries=" class=" text-warning">
                            More info<i class="bi bi-arrow-right-short"></i>
                         </a>
                      </div>
@@ -165,7 +165,7 @@
                      <script>
                         document.addEventListener("DOMContentLoaded", () => {
                            new ApexCharts(document.querySelector("#donutChart"), {
-                              series: <?= json_encode(array_map('intval', brgyGetCountArray('crops', 'crop_name', 'count', $_GET['brgy']))); ?>,
+                              series: <?= json_encode(array_map('intval', getCountArray('crops', 'crop_name', 'count', $_GET['brgy']))); ?>,
                               chart: {
                                  height: 350,
                                  type: 'donut',
@@ -173,7 +173,7 @@
                                     show: true
                                  }
                               },
-                              labels: <?= json_encode(brgyGetCountArray('crops', 'crop_name', 'id', $_GET['brgy'])); ?>
+                              labels: <?= json_encode(getCountArray('crops', 'crop_name', 'id', $_GET['brgy'])); ?>
                            }).render();
                         });
                      </script>
@@ -193,7 +193,7 @@
                      <script>
                         document.addEventListener("DOMContentLoaded", () => {
                            new ApexCharts(document.querySelector("#pieChart"), {
-                              series: <?= json_encode(array_map('intval', brgyGetCountArray('livestocks', 'animal_name', 'count', $_GET['brgy']))); ?>,
+                              series: <?= json_encode(array_map('intval', getCountArray('livestocks', 'animal_name', 'count', $_GET['brgy']))); ?>,
                               chart: {
                                  height: 350,
                                  type: 'pie',
@@ -201,7 +201,7 @@
                                     show: true
                                  }
                               },
-                              labels: <?= json_encode(brgyGetCountArray('livestocks', 'animal_name', 'id', $_GET['brgy'])); ?>
+                              labels: <?= json_encode(getCountArray('livestocks', 'animal_name', 'id', $_GET['brgy'])); ?>
                            }).render();
                         });
                      </script>
@@ -213,26 +213,26 @@
             <div class="col-lg-6">
                <div class="card mx-3 my-2">
                   <div class="card-header text-center">
-                     <h3 class="text-bold" style="color: #026a44;">Gender Ratio</h3>
+                     <h3 class="text-bold" style="color: #026a44;">Gender</h3>
                   </div>
                   <div class="card-body text-center">
                      <div class="d-flex justify-content-center align-items-center mb-2">
                         <div class="d-flex align-items-center mx-3">
                            <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
                            <div class="ms-2">
-                              <span class="fw-bold">Male</span>
-                              <div><?= brgyCountRows('farmers', $_GET['brgy'], 'MALE'); ?></div>
+                              <a class="fw-bold text-success">Male</a>
+                              <div><?= countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
                            </div>
                         </div>
                         <div class="d-flex align-items-center mx-3">
                            <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
                            <div class="ms-2">
-                              <span class="fw-bold">Female</span>
-                              <div><?= brgyCountRows('farmers', $_GET['brgy'], 'FEMALE'); ?></div>
+                              <a class="fw-bold text-success">Female</a>
+                              <div><?= countRows('farmers', '', $_GET['brgy'], 'FEMALE'); ?></div>
                            </div>
                         </div>
                      </div>
-                     <div>Total: <?= brgyCountRows('farmers', $_GET['brgy'], 'FEMALE') + brgyCountRows('farmers', $_GET['brgy'], 'MALE'); ?></div>
+                     <div>Total: <?= countRows('farmers', '', $_GET['brgy'], 'FEMALE') + countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
                   </div>
                </div>
 
@@ -241,7 +241,7 @@
             <div class="col-lg-6">
                <div class="card mx-3 my-2">
                   <div class="card-header text-center">
-                     <h3 class="text-bold" style="color: #026a44;">Crop and Livestock</h3>
+                     <h3 class="fw-bolder text-success">Crop-Livestock </h3>
                   </div>
                   <div class="card-body text-center">
                      <div class="d-flex justify-content-center align-items-center mb-2">
@@ -249,18 +249,22 @@
                            <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
                            <div class="ms-2">
                               <!-- CROP -->
-                              <span class="fw-bold">Crop</span>
-                              <div><?= brgyCountRows('crops', $_GET['brgy']); ?></div>
+                              <a class="fw-bold text-success" href="../farmer-assets/crops.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>">Crop<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                                 </svg></a>
+                              <div><?= countRows('crops', '', $_GET['brgy']); ?></div>
                            </div>
                         </div>
                         <div class="d-flex align-items-center mx-3">
                            <div class="ms-2">
-                              <span class="fw-bold">Livestock</span>
-                              <div><?= brgyCountRows('livestocks', $_GET['brgy']); ?></div>
+                              <a class="fw-bold text-success" href="../farmer-assets/livestocks.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>">Livestock <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                                 </svg></a>
+                              <div><?= countRows('livestocks', '', $_GET['brgy']); ?></div>
                            </div>
                         </div>
                      </div>
-                     <div>Total: <?= brgyCountRows('crops', $_GET['brgy']) + brgyCountRows('livestocks', $_GET['brgy']); ?></div>
+                     <div>Total: <?= countRows('crops', '', $_GET['brgy']) + countRows('livestocks', '', $_GET['brgy']); ?></div>
                   </div>
                </div>
             </div>

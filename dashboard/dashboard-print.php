@@ -6,7 +6,7 @@
 <body style="font-family: fangsong;">
 
          <div class="container mt-5" id="overview">
-            <h1 class="text-center mb-4">Dashboard Overview</h1>
+            <h1 class="text-center mb-4" id="print">Dashboard Overview</h1>
 
             <div class="row">
 
@@ -331,6 +331,12 @@
    window.print();
     const boxes = document.querySelectorAll('.box');
     let isCtrlPressed = false;
+
+    const print = document.getElementById('print');
+    print.addEventListener('click',() =>{
+      window.print();
+    })
+
 
     // Handle click event on each box
     boxes.forEach((box) => {

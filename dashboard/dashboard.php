@@ -329,7 +329,7 @@
                                                 $resources = getAll('resources');
                                                 if (mysqli_num_rows($resources) > 0) {
                                                    foreach ($resources as $item) {
-                                                      $remaining[] = $item['total_quantity'] - $item['quantity_available'];
+                                                      $remaining[] = $item['quantity_available'];
                                                    }
                                                 }
                                                 echo json_encode($remaining);
@@ -354,7 +354,7 @@
                                                       $resources = getAll('resources');
                                                       if (mysqli_num_rows($resources) > 0) {
                                                          foreach ($resources as $item) {
-                                                            $remaining[] = $item['resources_name'];
+                                                            $remaining[] = $item['resources_name'] . " Total:" . $item['total_quantity'];
                                                          }
                                                       }
                                                       echo json_encode($remaining);
@@ -575,26 +575,26 @@
                      <div class="col-lg-6">
                         <div class="card mx-3 my-2">
                            <div class="card-header text-center">
-                              <h3 class="text-bold" style="color: #026a44;">Gender Ratio</h3>
+                              <h3 class="fw-bolder text-success" >Gender</h3>
                            </div>
                            <div class="card-body text-center">
                               <div class="d-flex justify-content-center align-items-center mb-2">
                                  <div class="d-flex align-items-center mx-3">
                                     <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
                                     <div class="ms-2">
-                                       <span class="fw-bold">Male</span>
-                                       <div><?= countRows('farmers', 'MALE'); ?></div>
+                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Male&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Male<i class="bi bi-arrow-right-short"></i></a>
+                                       <div><?= countRows('farmers', '', '', 'MALE'); ?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
                                     <div class="ms-2">
-                                       <span class="fw-bold">Female</span>
-                                       <div><?= countRows('farmers', 'FEMALE'); ?></div>
+                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Female&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Female<i class="bi bi-arrow-right-short"></i></a>
+                                       <div><?= countRows('farmers', '', '', 'FEMALE'); ?></div>
                                     </div>
                                  </div>
                               </div>
-                              <div>Total: <?= countRows('farmers', 'FEMALE') + countRows('farmers', 'MALE'); ?></div>
+                              <div>Total: <?= countRows('farmers', '', '', 'FEMALE') + countRows('farmers', '', '', 'MALE'); ?></div>
                            </div>
                         </div>
 
@@ -603,7 +603,7 @@
                      <div class="col-lg-6">
                         <div class="card mx-3 my-2">
                            <div class="card-header text-center">
-                              <h3 class="text-bold" style="color: #026a44;">Crop and Livestock</h3>
+                              <h3 class="fw-bolder text-success">Crop-Livestock</h3>
                            </div>
                            <div class="card-body text-center">
                               <div class="d-flex justify-content-center align-items-center mb-2">
@@ -611,14 +611,14 @@
                                     <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
                                     <div class="ms-2">
                                        <!-- CROP -->
-                                       <span class="fw-bold">Crop</span>
+                                       <a class="fw-bold text-success" href="../farmer-assets/crops.php">Crop<i class="bi bi-arrow-right-short"></i></a>
                                        <div><?= countRows('crops'); ?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <!-- PIG -->
                                     <div class="ms-2">
-                                       <span class="fw-bold">Livestock</span>
+                                       <a class="fw-bold text-success" href="../farmer-assets/livestocks.php">Livestock<i class="bi bi-arrow-right-short"></i></a>
                                        <div><?= countRows('livestocks'); ?></div>
                                     </div>
                                  </div>

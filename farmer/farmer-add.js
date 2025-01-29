@@ -12,7 +12,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
       <div class="card-body">
     <input type="hidden" class="parcelNum" value="${farmCounter}" style="width: 100%;">
         <div class="row">
-         <h6 class="mt-2 me-3">Owner Information <span class="text-danger">*</span></h6>
+         <h6 class="mt-2 me-3">Owner Information</h6>
             <div class="col-md-4 mt-1">
                 <div class="form-floating">
                     <input type="text" class="form-control ofName" id="" placeholder="" required>
@@ -28,7 +28,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
                 </div>
             </div>
             <div class="col-md-4 mt-1" style="margin-top: -11px;">
-                <label class="form-label">Ownership Type<span class="red-star">*</span></label>
+                <label class="form-label">Ownership Type</label>
                 <select class="form-select ownership" id="" required>
                     <option selected disabled value="">Choose...</option>
                     <option value="Tenant">Tenant</option>
@@ -38,25 +38,25 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
                 </select>
                 <div class="invalid-feedback">Please select.</div>
             </div>
-            <h6 class="mt-2">Farm Location<span class="red-star">*</span></h6>
+            <h6 class="mt-2">Farm Location</h6>
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom06 farmLocationBrgy" id="" placeholder="" required>
-                    <label>Barangay</label>
+                    <label>Barangay<span class="text-danger fw-bold">*</span></label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" required>
-                    <label>Municipality</label>
+                    <label>Municipality<span class="text-danger fw-bold">*</span></label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" required>
-                    <label>Province</label>
+                    <label>Province<span class="text-danger fw-bold">*</span></label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
@@ -65,7 +65,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
                 <input type="number" placeholder="In hectares" class="form-control farmSize no-spin-button" required>
             </div>
             <div class="col-md-4 mt-3">
-                <label class="form-label">Farm Type<span class="red-star">*</span></label>
+                <label class="form-label">Farm Type</label>
                 <select class="form-select farmType" id="" required>
                     <option selected disabled value="">Choose...</option>
                     <option value="IRRIGATED">Irrigated</option>
@@ -117,16 +117,16 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
     cropInputDiv.innerHTML = `
 
         <div class="col-md-3 mb-3">
-            <label class="ms-1">Crop Name</label>
+            <label class="ms-1">Crop Name<span class="text-danger fw-bold">*</span></label>
             <input id="" type="text" placeholder="Type here..." class="form-control crop cropName" required>
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="ms-1">Crop Area</label>
+            <label class="ms-1">Crop Area<span class="text-danger fw-bold">*</span></label>
             <input id="" type="number" placeholder="In hectares" class="form-control crop cropArea no-spin-button" required>
         </div>
         <div class="col-md-2 mb-3">
-            <label>Classification</label>
+            <label>Classification<span class="text-danger fw-bold">*</span></label>
             <input type="number" class="form-control crop no-spin-button classification" required>
         </div>
 
@@ -161,14 +161,14 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
     livestockInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
     livestockInputDiv.innerHTML = `
   <div class="col-md-6 mb-3">
-      <label>Number of heads</label>
+      <label>Number of heads<span class="text-danger fw-bold">*</span></label>
       <input type="number" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
       <input type="hidden" class="parcelNum" value="${farmNumber}" style="width: 100%;">
       <div class="invalid-feedback">Please enter.</div>
   </div>
   <div class="col-md-6 mb-3">
   <div class="form-group">
-    <label for="livestockType">Animal type</label>
+    <label for="livestockType">Animal type<span class="text-danger fw-bold">*</span></label>
     <div class="input-group">
       <input type="text" id="livestockType" class="form-control livestockType" placeholder="Enter animal type" required>
       <div class="input-group-append">

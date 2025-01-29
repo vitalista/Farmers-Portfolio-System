@@ -109,7 +109,7 @@ if (is_numeric($paramResult)) {
             }
         }
 
-        redirect('distribution-multiple-add.php', 200, 'Item Removed');
+        redirect('distribution-multiple-add.php', 200, 'Removed');
     } else {
 
         redirect('distribution-multiple-add.php', 404, 'Not Found');
@@ -118,7 +118,7 @@ if (is_numeric($paramResult)) {
 
 if(checkParamId('clear')){
     unset($_SESSION['resourceItems']);
-    redirect('distribution-multiple-add.php', 200, 'Item Removed');
+    redirect('distribution-multiple-add.php', 200, 'Removed');
 }
 
 if (isset($_POST['addItems'])) {
