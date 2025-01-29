@@ -18,6 +18,7 @@ TO Do's:
 - [x] archive and modified log name
 - [] GENERATE dashboard content adn brgy
 - [] Important Fields
+- [] resend OTP
 - [] restrictions options in every lists
 - [x] restored
 

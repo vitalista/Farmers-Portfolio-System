@@ -128,8 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['settings'])) {
         'password' => $_POST['password'],
     ];
 
-    if (strlen($formData['password']) < 8) {
-        redirect('user-add.php', 500, 'Password should be 8 characters or more');
+    if (!empty($formData['password']) && strlen($formData['password']) < 8) {
+        redirect('users-list.php', 500, 'Password should be 8 characters or more');
     }
 
     // Step 3: Hash the password for security, only if it's updated
@@ -149,8 +149,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['settings'])) {
 
     // Step 5: Execute the update query
     if ($conn->query($sql) === TRUE) {
-        echo "User updated successfully.";
-        redirect('users-list.php', 200, 'New user added successfully');
+        echo "User updated successfully";
+        redirect('users-list.php', 200, 'User updated successfully');
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
         redirect('user-settings.php', 500, 'Something Went Wrong');

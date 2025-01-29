@@ -11,7 +11,7 @@
 <div class="col-md-2 mb-3">
     <div class="input-group">
         <select id="brgy-pages" class="form-select">
-            <option selected>Main</option>
+            <option selected>Baliwag</option>
             <?php
             $brgys = getCountArray('farmers', 'farmer_brgy_address', 'id');
             foreach ($brgys as $brgy) {

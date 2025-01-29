@@ -38,9 +38,10 @@
 
                     <input type="hidden" id="email" name="email" value="<?= $_SESSION['LoggedInUser']['email'];?>">
 
-                    <input type="hidden" value="<?= date("Y-m-d H:i:s",$_SESSION['otpTime']);?>">
-                    <input type="hidden" value="<?= $_SESSION['otp'];?>">
-                    <input type="hidden" value="<?= $_SESSION['otp_attempts'];?>">
+                    <input type="hidden" value="<?= isset($_SESSION['otpTime']) ? date("Y-m-d H:i:s", $_SESSION['otpTime']) : ''; ?>">
+                    <input type="hidden" value="<?= isset($_SESSION['otp']) ? $_SESSION['otp'] : ''; ?>">
+                    <input type="hidden" value="<?= isset($_SESSION['otp_attempts']) ? $_SESSION['otp_attempts'] : ''; ?>">
+
                     
                         <div class="card-body p-4 auth-card" data-aos="zoom-in" data-aos-duration="500">
                             <h5 class="card-title">Account Verification</h5>
