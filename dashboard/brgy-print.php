@@ -2,7 +2,7 @@
 <html lang="en">
 
 <?php include '../includes/head.php' ?>
-
+<?php include '../backend/auth-check.php';?>
 <body style="font-family: fangsong;">
 <div class="container mt-5" id="overview">
     <h1 class="text-center mb-4"><?= $_GET['brgy']; ?> Overview</h1>

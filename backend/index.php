@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-// Handle truncate button
+// Handle truncate single table button
 if (isset($_POST['truncate'])) {
     $table = $_POST['truncate_table'];
 
@@ -66,6 +66,23 @@ if (isset($_POST['truncate'])) {
         $stmt->close();
     } else {
         echo "Invalid table name.";
+    }
+}
+
+// Handle truncate all tables button
+if (isset($_POST['truncate_all'])) {
+    // List of tables to truncate
+    $validTables = ['crops', 'parcels', 'livestocks', 'farmers', 'programs', 'resources', 'distributions'];
+
+    foreach ($validTables as $table) {
+        // Truncate each valid table
+        $stmt = $conn->prepare("TRUNCATE TABLE `$table`");
+        if (!$stmt->execute()) {
+            echo "Error truncating table '$table'.<br>";
+        } else {
+            echo "Table '$table' truncated successfully!<br>";
+        }
+        $stmt->close();
     }
 }
 
@@ -116,6 +133,12 @@ $conn->close();
             padding: 10px;
             margin-bottom: 10px;
         }
+        .truncate-all-button {
+            background-color: #f44336;
+        }
+        .truncate-all-button:hover {
+            background-color: #e53935;
+        }
     </style>
 </head>
 <body>
@@ -141,6 +164,13 @@ $conn->close();
         <label for="truncate_table">Enter Table Name to Truncate (e.g. crops, parcels, etc.):</label><br>
         <input type="text" name="truncate_table" required>
         <input type="submit" name="truncate" value="Truncate Table">
+    </form>
+</div>
+
+<div class="container">
+    <h2>Truncate All Tables</h2>
+    <form action="" method="POST">
+        <input type="submit" name="truncate_all" value="Truncate All Tables" class="truncate-all-button">
     </form>
 </div>
 
