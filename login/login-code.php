@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
   $password = validate($_POST['password']);
 
   if (empty($email) || empty($password)) {
-    header('Location: index.php?error=emptyfields');
+    redirect('index.php?error=emptyfields', 404, 'Please fill in all required fields.');
     exit();
   }
 
@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
   $result = mysqli_stmt_get_result($stmt);
 
   if (mysqli_num_rows($result) != 1) {
-    header('Location: index.php?error=invalidemail');
+    redirect('index.php?error=invalidcredentials', 500, 'Please check your username and password.');
+    header('Location: index.php?error=invalidcredentials');
     exit();
   }
 
@@ -29,13 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 
   // Verify the password
   if (!password_verify($password, $hashedPassword)) {
-    header('Location: index.php?error=invalidcredentials');
+    redirect('index.php?error=invalidcredentials', 500, 'Please check your username and password.');
     exit();
   }
 
   // Check if the user is banned
   if ($row['is_banned'] == 1) {
-    header('Location: index.php?error=accountbanned');
+    redirect('index.php?error=banned', 500, 'Your account is banned, please contact your admin.');
     exit();
   }
 
@@ -65,13 +66,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     exit();
   } else {
     // If update fails, redirect with error
-    header('Location: index.php?error=updatefailed');
+    redirect('index.php?error=500', 500, 'Something went wrong.');
     exit();
   }
 
 } else {
   // If the request method is not POST or login is not set, handle it
-  header('Location: index.php?error=wrongrequest');
+  redirect('index.php?error=405', 500, 'Something went wrong.');
   exit();
 }
 ?>

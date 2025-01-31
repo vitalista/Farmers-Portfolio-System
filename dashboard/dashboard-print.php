@@ -59,7 +59,7 @@
                <div class="col-md-3 mb-3 box">
                   <div class="card">
                      <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                        <h5 class="card-title">Programs Count</h5>
+                        <h5 class="card-title">Without Owners</h5>
                         <p class="card-text"><?= returnNullRows('parcels'); ?></p>
                      </div>
                   </div>

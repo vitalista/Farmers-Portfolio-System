@@ -29,6 +29,8 @@
                 </style> 
               <div class="card mb-3" style="background-color: transparent;">
 
+                <?php include '../backend/status-messages.php';?>
+
                 <div class="card-body auth-card" data-aos="zoom-in" data-aos-duration="500">
 
                   <div class="pt-4 pb-2">
@@ -50,7 +52,7 @@
                     <div class="col-10 mx-auto mb-3">
                       <label for="yourPassword" class="form-label text-center">Password</label>
                       <div class="input-group has-validation d-flex justify-content-center">
-                        <span class="input-group-text" id="password"><i class="bi bi-eye" id="iconPassword"></i></span>
+                        <span class="input-group-text" id="password"><i class="bi bi-eye-slash" id="iconPassword"></i></span>
                         <input type="password" name="password" class="form-control" id="yourPassword" required>
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>

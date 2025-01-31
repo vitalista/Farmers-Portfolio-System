@@ -1,69 +1,74 @@
-
 function sendOTP(email) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "sendOTP.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status !== 200) {
-               console.log(xhr.responseText);
-                window.location.href = "../login";
-            }
-        }
-    };
-    xhr.send("email=" + email);
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "sendOTP.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status !== 200) {
+        console.log(xhr.responseText);
+        // Using URL encoding for special characters
+        window.location.href ="../login/index.php?error=" + encodeURIComponent("!OTPsent");
+      }
+    }
+  };
+  xhr.send("email=" + email);
 }
-sendOTP(document.getElementById('email').value);
+sendOTP(document.getElementById("email").value);
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('otp-form');
-    const inputs = [...form.querySelectorAll('input[type=text]')];
-    const submit = form.querySelector('button[type=submit]');
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("otp-form");
+  const inputs = [...form.querySelectorAll("input[type=text]")];
+  const submit = form.querySelector("button[type=submit]");
 
-    const handleKeyDown = (e) => {
-        if (!/^[0-9]{1}$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Tab') {
-            e.preventDefault();
-        }
-
-        if (e.key === 'Delete' || e.key === 'Backspace') {
-            const index = inputs.indexOf(e.target);
-            if (index > 0) {
-                inputs[index - 1].value = '';
-                inputs[index - 1].focus();
-            }
-        }
+  const handleKeyDown = (e) => {
+    if (
+      !/^[0-9]{1}$/.test(e.key) &&
+      e.key !== "Backspace" &&
+      e.key !== "Delete" &&
+      e.key !== "Tab"
+    ) {
+      e.preventDefault();
     }
 
-    const handleInput = (e) => {
-        const index = inputs.indexOf(e.target);
-        if (e.target.value) {
-            if (index < inputs.length - 1) {
-                inputs[index + 1].focus();
-            } else {
-                submit.focus();
-            }
-        }
+    if (e.key === "Delete" || e.key === "Backspace") {
+      const index = inputs.indexOf(e.target);
+      if (index > 0) {
+        inputs[index - 1].value = "";
+        inputs[index - 1].focus();
+      }
     }
+  };
 
-    const handleFocus = (e) => {
-        e.target.select();
-    }
-
-    const handlePaste = (e) => {
-        e.preventDefault();
-        const text = e.clipboardData.getData('text');
-        if (!new RegExp(`^[0-9]{${inputs.length}}$`).test(text)) {
-            return;
-        }
-        const digits = text.split('');
-        inputs.forEach((input, index) => input.value = digits[index]);
+  const handleInput = (e) => {
+    const index = inputs.indexOf(e.target);
+    if (e.target.value) {
+      if (index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      } else {
         submit.focus();
+      }
     }
+  };
 
-    inputs.forEach((input) => {
-        input.addEventListener('input', handleInput);
-        input.addEventListener('keydown', handleKeyDown);
-        input.addEventListener('focus', handleFocus);
-        input.addEventListener('paste', handlePaste);
-    });
+  const handleFocus = (e) => {
+    e.target.select();
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const text = e.clipboardData.getData("text");
+    if (!new RegExp(`^[0-9]{${inputs.length}}$`).test(text)) {
+      return;
+    }
+    const digits = text.split("");
+    inputs.forEach((input, index) => (input.value = digits[index]));
+    submit.focus();
+  };
+
+  inputs.forEach((input) => {
+    input.addEventListener("input", handleInput);
+    input.addEventListener("keydown", handleKeyDown);
+    input.addEventListener("focus", handleFocus);
+    input.addEventListener("paste", handlePaste);
+  });
 });

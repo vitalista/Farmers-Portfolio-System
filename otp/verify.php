@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../system/local-cdn/alertify.min.css">
-    <title>OTP</title>
-</head>
-<body style="
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url('');">
-
 <?php
-
-session_start();
-
-if(!isset($_SESSION['otp'])){
+include '../backend/functions.php';
+function unsetSessions() {
     unset($_SESSION['otp_attempts']);
     unset($_SESSION['otp']);
     unset($_SESSION['otpTime']);
-    echo "<script>window.location.href = '../login';</script>";
+}
+
+if(!isset($_SESSION['otp'])){
+    unsetSessions();
+    redirect('index.php?error=500', 500, 'Something went wrong.');
     exit(); 
 }
 
@@ -42,10 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["verify"])) {
     }
 
     if ($_SESSION['otp_attempts'] > 2) {
-        unset($_SESSION['otp']);
-        unset($_SESSION['otpTime']);
-        unset($_SESSION['otp_attempts']);
-        echo '<script>alert("You have been used 3 attempts you will be redirect back to Login Page"); window.location.href = "../login";</script>';
+        unsetSessions();
+        redirect('index.php?error=wrongOTP', 500, 'You have been used 3 attempts you will be redirect back to Login.');
         exit();
     }
 
@@ -65,17 +52,12 @@ $otpNumber = intval($otpInput);
 if($otpRan === $otpNumber){
     header('Location: ../dashboard/dashboard.php');
 }else{
-echo '<script>alert("WRONG OTP"); window.location.href = "../otp";</script>';
+redirect('index.php?error=wrongOTP', 500, 'Please check if your OTP is correct.');
 }
     
 } else {
-    unset($_SESSION['otp_attempts']);
-    unset($_SESSION['otp']);
-    unset($_SESSION['otpTime']);
-   echo '<script>alert("INVALID REQUEST"); window.location.href = "../login";</script>';
+    unsetSessions();
+    redirect('index.php?error=405', 500, 'omething went wrong.');
+
 }
 ?>
-
-<script src="../system/local-cdn/alertify.min.js"></script>
-</body>
-</html>

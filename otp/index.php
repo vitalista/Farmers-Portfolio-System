@@ -42,6 +42,7 @@
                     <input type="hidden" value="<?= isset($_SESSION['otp']) ? $_SESSION['otp'] : ''; ?>">
                     <input type="hidden" value="<?= isset($_SESSION['otp_attempts']) ? $_SESSION['otp_attempts'] : ''; ?>">
 
+                    <?php include '../backend/status-messages.php';?>
                     
                         <div class="card-body p-4 auth-card" data-aos="zoom-in" data-aos-duration="500">
                             <h5 class="card-title">Account Verification</h5>
