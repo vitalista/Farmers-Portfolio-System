@@ -4,9 +4,7 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-
-  <!-- ======= Header ======= -->
-  <?php include '../includes/header.php' ?>
+<?php include '../includes/header.php' ?>
 
   <!-- ======= Sidebar ======= -->
   <?php include '../includes/sidebar.php' ?>
@@ -75,7 +73,7 @@
                       <div class="col-md-6">
                         <label for="yourPassword" class="form-label">Password</label>
                         <div class="input-group has-validation">
-                          <span class="input-group-text" id="password"><i class="bi bi-eye" id="iconPassword"></i></span>
+                          <span class="input-group-text" id="password"><i class="bi bi-eye-slash" id="iconPassword"></i></span>
                           <input type="password" name="password" class="form-control p-3" id="yourPassword">
                           <div class="invalid-feedback">Please enter your password!</div>
                         </div>

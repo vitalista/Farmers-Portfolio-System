@@ -3,7 +3,7 @@
 <?php include '../includes/head.php'; ?>
 
 <body class="login-bg">
-   <?php include '../includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
    <?php include '../includes/sidebar.php'; ?>
    <!-- Database -->
 
@@ -16,7 +16,7 @@
             </div>
             <div class="mt-3">
                <a href="dashboard.php" class="btn btn-danger btn-sm d-none d-sm-inline-block" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">Back</a>
-               <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="brgy-print.php?brgy=<?= $_GET['brgy']; ?>" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report</a>
+               <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="brgy-print.php?brgy=<?= $_GET['brgy']; ?>" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
          </div>
 
@@ -154,6 +154,68 @@
                         </div>
                      </div> -->
 
+                     
+            <div class="col-lg-6">
+               <div class="card ">
+                  <div class="card-header text-center">
+                     <h3 class="text-bold" style="color: #026a44;">Gender</h3>
+                  </div>
+                  <div class="card-body text-center">
+                     <div class="d-flex justify-content-center align-items-center mb-2">
+                        <div class="d-flex align-items-center mx-3">
+                           <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
+                           <div class="ms-2">
+                              <a class="fw-bold text-success">Male</a>
+                              <div><?= countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
+                           </div>
+                        </div>
+                        <div class="d-flex align-items-center mx-3">
+                           <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
+                           <div class="ms-2">
+                              <a class="fw-bold text-success">Female</a>
+                              <div><?= countRows('farmers', '', $_GET['brgy'], 'FEMALE'); ?></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div>Total: <?= countRows('farmers', '', $_GET['brgy'], 'FEMALE') + countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
+                  </div>
+               </div>
+
+            </div>
+
+            <div class="col-lg-6">
+               <div class="card ">
+                  <div class="card-header text-center">
+                     <h3 class="fw-bolder text-success">Crop-Livestock </h3>
+                  </div>
+                  <div class="card-body text-center">
+                     <div class="d-flex justify-content-center align-items-center mb-2">
+                        <div class="d-flex align-items-center mx-3">
+                           <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
+                           <div class="ms-2">
+                              <!-- CROP -->
+                              <a class="fw-bold text-success" href="../farmer-assets/crops.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>">Crop<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                                 </svg></a>
+                              <div><?= countRows('crops', '', $_GET['brgy']); ?></div>
+                           </div>
+                        </div>
+                        <div class="d-flex align-items-center mx-3">
+                        <i class="fa-solid fa-cow" style="font-size: 60px;color: brown"></i>
+                           <div class="ms-2">
+                              <a class="fw-bold text-success" href="../farmer-assets/livestocks.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>">Livestock <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                                 </svg></a>
+                              <div><?= countRows('livestocks', '', $_GET['brgy']); ?></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div>Total: <?= countRows('crops', '', $_GET['brgy']) + countRows('livestocks', '', $_GET['brgy']); ?></div>
+                  </div>
+               </div>
+            </div>
+
+
             <div class="col-lg-6">
                <div class="card">
                   <div class="card-body">
@@ -210,67 +272,6 @@
                </div>
             </div>
 
-            <div class="col-lg-6">
-               <div class="card mx-3 my-2">
-                  <div class="card-header text-center">
-                     <h3 class="text-bold" style="color: #026a44;">Gender</h3>
-                  </div>
-                  <div class="card-body text-center">
-                     <div class="d-flex justify-content-center align-items-center mb-2">
-                        <div class="d-flex align-items-center mx-3">
-                           <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
-                           <div class="ms-2">
-                              <a class="fw-bold text-success">Male</a>
-                              <div><?= countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
-                           </div>
-                        </div>
-                        <div class="d-flex align-items-center mx-3">
-                           <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
-                           <div class="ms-2">
-                              <a class="fw-bold text-success">Female</a>
-                              <div><?= countRows('farmers', '', $_GET['brgy'], 'FEMALE'); ?></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div>Total: <?= countRows('farmers', '', $_GET['brgy'], 'FEMALE') + countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
-                  </div>
-               </div>
-
-            </div>
-
-            <div class="col-lg-6">
-               <div class="card mx-3 my-2">
-                  <div class="card-header text-center">
-                     <h3 class="fw-bolder text-success">Crop-Livestock </h3>
-                  </div>
-                  <div class="card-body text-center">
-                     <div class="d-flex justify-content-center align-items-center mb-2">
-                        <div class="d-flex align-items-center mx-3">
-                           <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
-                           <div class="ms-2">
-                              <!-- CROP -->
-                              <a class="fw-bold text-success" href="../farmer-assets/crops.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>">Crop<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                                 </svg></a>
-                              <div><?= countRows('crops', '', $_GET['brgy']); ?></div>
-                           </div>
-                        </div>
-                        <div class="d-flex align-items-center mx-3">
-                           <div class="ms-2">
-                              <a class="fw-bold text-success" href="../farmer-assets/livestocks.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>">Livestock <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                                 </svg></a>
-                              <div><?= countRows('livestocks', '', $_GET['brgy']); ?></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div>Total: <?= countRows('crops', '', $_GET['brgy']) + countRows('livestocks', '', $_GET['brgy']); ?></div>
-                  </div>
-               </div>
-            </div>
-
-
-
          </div>
       </div>
 
@@ -309,7 +310,7 @@
 
       <div class="row">
          <!-- <div class="col">
-               <div class="card mx-3 my-2" data-aos="zoom-in-left">
+               <div class="card " data-aos="zoom-in-left">
                   <div class="card-header">
                      <h4 style="color: #026a44;">Farmers List</h4>
                   </div>

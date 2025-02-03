@@ -3,9 +3,7 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-
-  <!-- ======= Header ======= -->
-  <?php include '../includes/header.php' ?>
+<?php include '../includes/header.php' ?>
 
   <!-- ======= Sidebar ======= -->
   <?php include '../includes/sidebar.php' ?>
@@ -128,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
     example.classList.remove("d-none");
     $("#example").DataTable({
       language: {
-        emptyTable: `<span class="text-danger"><strong>No Parcels Available</strong></span>`,
+        emptyTable: `<span class="text-danger"><strong>Empty Table</strong></span>`,
       },
       dom: 'B<"table-top"lf>t<"table-bottom"ip>',
       responsive: true,

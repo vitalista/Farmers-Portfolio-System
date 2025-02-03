@@ -2,18 +2,15 @@
 <html lang="en">
 
 <?php include '../includes/head.php' ?>
-
 <body class="login-bg">
-
-   <!-- ======= Header ======= -->
-   <?php include '../includes/header.php' ?>
+<?php include '../includes/header.php' ?>
 
    <!-- ======= Sidebar ======= -->
    <?php include '../includes/sidebar.php' ?>
+   <?php include '../backend/status-messages.php' ?>
 
    <main id="main" class="main">
 
-      <?php includes('select-dashboard-content.php'); ?>
 
       <section class="section main-table p-3">
 
@@ -32,10 +29,14 @@
          <div class="tab-content pt-2" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                <div class="container-fluid">
-                  <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                  <div class="row">
+                     <?php includes('select-dashboard-content.php'); ?>
+                     <div class="col-md-4 text-center">
                      <h3 class="text-dark mb-0">Dashboard</h3>
-
-                     <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="dashboard-print.php" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report</a>
+                     </div>
+                     <div class="col-md-4 text-end">
+                     <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="dashboard-print.php" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                     </div>
                   </div>
                   <div class="row">
                      <?php if (is_dir('../program')) { ?>
@@ -126,6 +127,8 @@
 
                   <div class="row">
 
+                  
+
                      <?php if (is_dir('../prices')) { ?>
                         <div class="col-lg-6">
                            <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
@@ -208,106 +211,116 @@
                      <?php } ?>
 
                      <div class="col-lg-6">
-                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
-                           <div class="card-body">
-                              <h5 class="card-title">Farmers population</h5>
+                        <div class="card">
+                           <div class="card-header text-center">
+                              <h3 class="fw-bolder text-success" >Gender</h3>
+                           </div>
+                           <div class="card-body text-center">
+                              <div class="d-flex justify-content-center align-items-center mb-2">
+                                 <div class="d-flex align-items-center mx-3">
+                                    <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
+                                    <div class="ms-2">
+                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Male&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Male<i class="bi bi-arrow-right-short"></i></a>
+                                       <div><?= countRows('farmers', '', '', 'MALE'); ?></div>
+                                    </div>
+                                 </div>
+                                 <div class="d-flex align-items-center mx-3">
+                                    <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
+                                    <div class="ms-2">
+                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Female&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Female<i class="bi bi-arrow-right-short"></i></a>
+                                       <div><?= countRows('farmers', '', '', 'FEMALE'); ?></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div>Total: <?= countRows('farmers', '', '', 'FEMALE') + countRows('farmers', '', '', 'MALE'); ?></div>
+                           </div>
+                        </div>
 
-                              <!-- Polar Area Chart -->
-                              <div id="polarAreaChart"></div>
+                     </div>
 
-                              <script>
-                                 document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#polarAreaChart"), {
-                                       series: <?= json_encode(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>,
-                                       chart: {
-                                          type: 'polarArea',
-                                          height: 350,
-                                          toolbar: {
-                                             show: true
-                                          }
-                                       },
-                                       dataLabels: {
-                                          enabled: true
-                                       },
-                                       stroke: {
-                                          colors: ['#fff']
-                                       },
-                                       fill: {
-                                          opacity: 0.8
-                                       },
-                                       labels: <?= json_encode(getCountArray('farmers', 'farmer_brgy_address', 'id')); ?> // custom series names
-                                    }).render();
-                                 });
-                              </script>
-                              <!-- End Polar Area Chart -->
-
+                     <div class="col-lg-6">
+                        <div class="card">
+                           <div class="card-header text-center">
+                              <h3 class="fw-bolder text-success">Crop-Livestock</h3>
+                           </div>
+                           <div class="card-body text-center">
+                              <div class="d-flex justify-content-center align-items-center mb-2">
+                                 <div class="d-flex align-items-center mx-3">
+                                    <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
+                                    <div class="ms-2">
+                                       <!-- CROP -->
+                                       <a class="fw-bold text-success" href="../farmer-assets/crops.php">Crop<i class="bi bi-arrow-right-short"></i></a>
+                                       <div><?= countRows('crops'); ?></div>
+                                    </div>
+                                 </div>
+                                 <div class="d-flex align-items-center mx-3">
+                                 <i class="fa-solid fa-cow" style="font-size: 60px;color: brown"></i>
+                                    <div class="ms-2">
+                                       <a class="fw-bold text-success" href="../farmer-assets/livestocks.php">Livestock<i class="bi bi-arrow-right-short"></i></a>
+                                       <div><?= countRows('livestocks'); ?></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div>Total: <?= countRows('livestocks') +  countRows('crops'); ?></div>
                            </div>
                         </div>
                      </div>
-
-                     <div class="d-none">
-                        <pre>
-                     <?= print_r(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
-                     <?= array_sum(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
-                     </pre>
-                     </div>
-
 
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
-                              <h5 class="card-title">Distributions Chart</h5>
+                              <h5 class="card-title">Crop Chart</h5>
 
-                              <!-- Bar Chart -->
-                              <div id="barChart"></div>
-                              <?php
-                              // print_r(getCountArray('distributions', 'program_id', 'id'));
-                              // print_r(getCountArray('distributions', 'resource_id', 'count'));
-                              // print_r(getCountArray('distributions', 'resource_id', ''));
-                              ?>
+                              <div id="pieChart">
+                              </div>
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#barChart"), {
-                                       series: [{
-                                          name: 'No. of Farmers',
-                                          data: <?= json_encode(getCountArray('distributions', 'program_id', 'count')); ?>
-                                       }],
-
+                                    new ApexCharts(document.querySelector("#pieChart"), {
+                                       series: <?= json_encode(array_map('intval', getCountArray('crops', 'crop_name', 'count'))); ?>,
                                        chart: {
-                                          type: 'bar',
-                                          height: 329
-                                       },
-                                       plotOptions: {
-                                          bar: {
-                                             borderRadius: 4,
-                                             horizontal: true,
+                                          height: 350,
+                                          type: 'pie',
+                                          toolbar: {
+                                             show: true
                                           }
                                        },
-                                       dataLabels: {
-                                          enabled: true
-                                       },
-                                       xaxis: {
-                                          categories: <?php
-                                                      $programs = getCountArray('distributions', 'program_id', 'id');
-                                                      $column = [];
-                                                      foreach ($programs as $program) {
-                                                         $getById = getById('programs', $program);
-                                                         $column[] = $getById['data']['program_name'];
-                                                      }
-                                                      echo json_encode($column);
-                                                      ?>,
-                                       }
+                                       labels: <?= json_encode(getCountArray('crops', 'crop_name', 'id')); ?>
                                     }).render();
                                  });
                               </script>
-                              <!-- End Bar Chart -->
-
+                              <!-- End Pie Chart -->
                            </div>
                         </div>
                      </div>
 
+                     <div class="col-lg-6">
+                        <div class="card">
+                           <div class="card-body">
+                              <h5 class="card-title">Livestock Chart</h5>
 
+                              <!-- Donut Chart -->
+                              <div id="donutChart"></div>
+
+                              <script>
+                                 document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#donutChart"), {
+                                       series: <?= json_encode(array_map('intval', getCountArray('livestocks', 'animal_name', 'count'))); ?>,
+                                       chart: {
+                                          height: 350,
+                                          type: 'donut',
+                                          toolbar: {
+                                             show: true
+                                          }
+                                       },
+                                       labels: <?= json_encode(getCountArray('livestocks', 'animal_name', 'id')); ?>,
+                                    }).render();
+                                 });
+                              </script>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- End Donut Chart -->
 
                      <div class="col-lg-6">
                         <div class="card">
@@ -430,60 +443,104 @@
                      </div>
 
                      <div class="col-lg-6">
-                        <div class="card">
+                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
                            <div class="card-body">
-                              <h5 class="card-title">Crop Chart</h5>
+                              <h5 class="card-title">Farmers population</h5>
 
-                              <div id="pieChart">
-                              </div>
+                              <!-- Polar Area Chart -->
+                              <div id="polarAreaChart"></div>
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#pieChart"), {
-                                       series: <?= json_encode(array_map('intval', getCountArray('crops', 'crop_name', 'count'))); ?>,
+                                    new ApexCharts(document.querySelector("#polarAreaChart"), {
+                                       series: <?= json_encode(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>,
                                        chart: {
+                                          type: 'polarArea',
                                           height: 350,
-                                          type: 'pie',
                                           toolbar: {
                                              show: true
                                           }
                                        },
-                                       labels: <?= json_encode(getCountArray('crops', 'crop_name', 'id')); ?>
+                                       dataLabels: {
+                                          enabled: true
+                                       },
+                                       stroke: {
+                                          colors: ['#fff']
+                                       },
+                                       fill: {
+                                          opacity: 0.8
+                                       },
+                                       labels: <?= json_encode(getCountArray('farmers', 'farmer_brgy_address', 'id')); ?> // custom series names
                                     }).render();
                                  });
                               </script>
-                              <!-- End Pie Chart -->
+                              <!-- End Polar Area Chart -->
+
                            </div>
                         </div>
                      </div>
+
+                     <div class="d-none">
+                        <pre>
+                     <?= print_r(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
+                     <?= array_sum(array_map('intval', getCountArray('farmers', 'farmer_brgy_address', 'count'))); ?>
+                     </pre>
+                     </div>
+
 
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-body">
-                              <h5 class="card-title">Livestock Chart</h5>
+                              <h5 class="card-title">Distributions Chart</h5>
 
-                              <!-- Donut Chart -->
-                              <div id="donutChart"></div>
+                              <!-- Bar Chart -->
+                              <div id="barChart"></div>
+                              <?php
+                              // print_r(getCountArray('distributions', 'program_id', 'id'));
+                              // print_r(getCountArray('distributions', 'resource_id', 'count'));
+                              // print_r(getCountArray('distributions', 'resource_id', ''));
+                              ?>
 
                               <script>
                                  document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#donutChart"), {
-                                       series: <?= json_encode(array_map('intval', getCountArray('livestocks', 'animal_name', 'count'))); ?>,
+                                    new ApexCharts(document.querySelector("#barChart"), {
+                                       series: [{
+                                          name: 'No. of Farmers',
+                                          data: <?= json_encode(getCountArray('distributions', 'program_id', 'count')); ?>
+                                       }],
+
                                        chart: {
-                                          height: 350,
-                                          type: 'donut',
-                                          toolbar: {
-                                             show: true
+                                          type: 'bar',
+                                          height: 329
+                                       },
+                                       plotOptions: {
+                                          bar: {
+                                             borderRadius: 4,
+                                             horizontal: true,
                                           }
                                        },
-                                       labels: <?= json_encode(getCountArray('livestocks', 'animal_name', 'id')); ?>,
+                                       dataLabels: {
+                                          enabled: true
+                                       },
+                                       xaxis: {
+                                          categories: <?php
+                                                      $programs = getCountArray('distributions', 'program_id', 'id');
+                                                      $column = [];
+                                                      foreach ($programs as $program) {
+                                                         $getById = getById('programs', $program);
+                                                         $column[] = $getById['data']['program_name'];
+                                                      }
+                                                      echo json_encode($column);
+                                                      ?>,
+                                       }
                                     }).render();
                                  });
                               </script>
+                              <!-- End Bar Chart -->
+
                            </div>
                         </div>
                      </div>
-                     <!-- End Donut Chart -->
 
                      <div class="row">
                         <div class="col-md-6 col-xl-3">
@@ -570,66 +627,6 @@
                         </div>
 
                      </div>
-
-
-                     <div class="col-lg-6">
-                        <div class="card mx-3 my-2">
-                           <div class="card-header text-center">
-                              <h3 class="fw-bolder text-success" >Gender</h3>
-                           </div>
-                           <div class="card-body text-center">
-                              <div class="d-flex justify-content-center align-items-center mb-2">
-                                 <div class="d-flex align-items-center mx-3">
-                                    <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
-                                    <div class="ms-2">
-                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Male&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Male<i class="bi bi-arrow-right-short"></i></a>
-                                       <div><?= countRows('farmers', '', '', 'MALE'); ?></div>
-                                    </div>
-                                 </div>
-                                 <div class="d-flex align-items-center mx-3">
-                                    <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
-                                    <div class="ms-2">
-                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Female&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Female<i class="bi bi-arrow-right-short"></i></a>
-                                       <div><?= countRows('farmers', '', '', 'FEMALE'); ?></div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div>Total: <?= countRows('farmers', '', '', 'FEMALE') + countRows('farmers', '', '', 'MALE'); ?></div>
-                           </div>
-                        </div>
-
-                     </div>
-
-                     <div class="col-lg-6">
-                        <div class="card mx-3 my-2">
-                           <div class="card-header text-center">
-                              <h3 class="fw-bolder text-success">Crop-Livestock</h3>
-                           </div>
-                           <div class="card-body text-center">
-                              <div class="d-flex justify-content-center align-items-center mb-2">
-                                 <div class="d-flex align-items-center mx-3">
-                                    <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
-                                    <div class="ms-2">
-                                       <!-- CROP -->
-                                       <a class="fw-bold text-success" href="../farmer-assets/crops.php">Crop<i class="bi bi-arrow-right-short"></i></a>
-                                       <div><?= countRows('crops'); ?></div>
-                                    </div>
-                                 </div>
-                                 <div class="d-flex align-items-center mx-3">
-                                    <!-- PIG -->
-                                    <div class="ms-2">
-                                       <a class="fw-bold text-success" href="../farmer-assets/livestocks.php">Livestock<i class="bi bi-arrow-right-short"></i></a>
-                                       <div><?= countRows('livestocks'); ?></div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div>Total: <?= countRows('livestocks') +  countRows('crops'); ?></div>
-                           </div>
-                        </div>
-                     </div>
-
-
-
 
                   </div>
 
@@ -725,9 +722,9 @@
          }
       }
 
-      document.getElementById('profile-tab').addEventListener('click', function() {
-         fetchData();
-      });
+      // document.getElementById('profile-tab').addEventListener('click', function() {
+      //    fetchData();
+      // });
    </script>
 
 </body>

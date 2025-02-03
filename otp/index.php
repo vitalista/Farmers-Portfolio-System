@@ -58,9 +58,9 @@
                             <pre class="d-none">
                                 <?php print_r($_SESSION['LoggedInUser'])?>
                             </pre>
-                            <div class="mt-3">
-                                <small>Didn't receive the code? <a href="#0" class="text-primary">Resend</a></small>
-                            </div>
+                            <!-- <div class="mt-3">
+                                <small>Didn't receive the code? <a href="#0" class="text-primary" id="resend">Resend</a></small>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -68,6 +68,20 @@
         </div>
     </section>
 </main>
+<script>
+     let seconds = 0; // Initialize counter to track seconds
+
+// Set an interval to log each second
+let interval = setInterval(() => {
+    console.log(`Time: ${seconds} second(s)`); // Log the elapsed time
+    seconds++; // Increment the counter
+
+    if (seconds >= 60) {
+        clearInterval(interval); // Stop the interval
+        console.log("Time Out!"); // Log the timeout message
+    }
+}, 1000); // 1000 ms = 1 second
+</script>
     <script src="script.js"></script>
     <?php include '../includes/footer.php'; ?>
 </body>

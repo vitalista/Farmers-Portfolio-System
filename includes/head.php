@@ -22,6 +22,7 @@
   <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <!-- <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
+  <script src="https://kit.fontawesome.com/27a54b8fcc.js" crossorigin="anonymous"></script>
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="../assets/css/style.css">

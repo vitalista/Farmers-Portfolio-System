@@ -13,16 +13,15 @@ if(!isset($_SESSION['otp'])){
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["verify"])) {
+    date_default_timezone_set('Asia/Manila');
+    $current_time = microtime(true);
 
-    // $timestamp = strtotime($_SESSION['otpTime']);
+    $time_diff = $current_time - $_SESSION['otpTime'];
 
-    // $current_time = time();
-
-    // $time_diff = $current_time - $timestamp;
-
-    // if ($time_diff > 600) {
-    //     echo "More than 10 minutes have passed.";
-    // }
+    if ($time_diff > 60) {
+        unsetSessions();
+        redirect('../login/index.php', 404, 'Your OTP has expired. Please relogin.');
+    }
 
     if (!isset($_SESSION['otp_attempts'])) {
         $_SESSION['otp_attempts'] = 1;
@@ -32,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["verify"])) {
 
     if ($_SESSION['otp_attempts'] > 2) {
         unsetSessions();
-        redirect('index.php?error=wrongOTP', 500, 'You have been used 3 attempts you will be redirect back to Login.');
+        redirect('../login/index.php?error=wrongOTP', 500, 'You have been used 3 attempts you will Please relogin.');
         exit();
     }
 
@@ -50,14 +49,14 @@ $otpInput = $num1.$num2.$num3.$num4.$num5.$num6;
 $otpNumber = intval($otpInput);
 
 if($otpRan === $otpNumber){
-    header('Location: ../dashboard/dashboard.php');
+    redirect('../dashboard/dashboard.php?success=validOTP', 200, 'Welcome');
 }else{
 redirect('index.php?error=wrongOTP', 500, 'Please check if your OTP is correct.');
 }
     
 } else {
     unsetSessions();
-    redirect('index.php?error=405', 500, 'omething went wrong.');
+    redirect('index.php?error=405', 500, 'Something went wrong.');
 
 }
 ?>

@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     // Step 5: Execute the update query
     if ($conn->query($sql) === TRUE) {
         echo "User updated successfully.";
-        redirect('users-list.php', 200, 'New user added successfully');
+        redirect('users-list.php', 200, 'User updated successfully');
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
         redirect('user-edit.php', 500, 'Something Went Wrong');

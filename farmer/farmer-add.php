@@ -4,9 +4,7 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-
-  <!-- ======= Header ======= -->
-  <?php include '../includes/header.php' ?>
+<?php include '../includes/header.php' ?>
 
   <!-- ======= Sidebar ======= -->
   <?php include '../includes/sidebar.php' ?>
@@ -20,7 +18,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">Add Farmer</h5>
                 <div>
-                  <a onclick="window.history.back()" class="btn btn-primary">Back</a>
+                  <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
                 </div>
               </div>
 
@@ -156,6 +154,10 @@
 
                     </div>
                   </div>
+                  <div class="d-flex justify-content-center mb-2">
+                <!-- <button type="button" class="btn btn-primary  me-1" id="prevButton"><i class="bi bi-arrow-left"></i></button> -->
+                <button type="button" class="btn btn-sm btn-primary" id="nextButton"><i class="bi bi-arrow-right"></i></button>
+              </div>
                 </div>
 
                 <!-- Farm Profile Information -->
@@ -163,7 +165,7 @@
                   <div class="container farm-card">
                     <div class="d-flex justify-content-between align-items-center" style="margin-bottom: -20px;">
                       <h5 class="card-title">Farm List</h5>
-                      <a id="addFarmButton" class="btn btn-primary">Add Farm</a>
+                      <a id="addFarmButton" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Farm</a>
                     </div>
                     <!-- <?php if (is_dir('../map')) { ?>
                         <style>
@@ -194,6 +196,10 @@
                     <!-- Form to submit farms -->
 
                   </div>
+                  <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-sm btn-primary  me-1" id="prevButton"><i class="bi bi-arrow-left"></i></button>
+                <!-- <button type="button" class="btn btn-primary" id="nextButton"><i class="bi bi-arrow-right"></i></button> -->
+              </div>
                 </div>
                 <!-- Farm Profile Information -->
               </div>
@@ -201,8 +207,7 @@
 
 
               <div class="d-flex justify-content-end">
-                <button type="reset" class="btn btn-secondary me-2">Reset</button>
-                <button type="submit" id="submitFarmsButton" class="btn btn-success me-2">Save</button>
+                <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2">Save</button>
               </div>
 
               <form class="needs-validation" method="POST" action="farmer-add-code.php" id="farmForm" novalidate>
@@ -210,10 +215,10 @@
                 <input type="hidden" name="farms_data" id="farmsData" style="width: 100%;">
               </form>
 
-              <div class="d-flex justify-content-center mb-2">
+              <!-- <div class="d-flex justify-content-center mb-2">
                 <button type="button" class="btn btn-primary  me-1" id="prevButton"><i class="bi bi-arrow-left"></i></button>
                 <button type="button" class="btn btn-primary" id="nextButton"><i class="bi bi-arrow-right"></i></button>
-              </div>
+              </div> -->
               <!-- </form> -->
 
             </div>

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     example.classList.remove("d-none");
     $("#example").DataTable({
       language: {
-        emptyTable: `<span class="text-danger"><strong>No Farmer's Information Available</strong></span>`,
+        emptyTable: `<span class="text-danger"><strong>Empty Table</strong></span>`,
       },
       dom: 'B<"table-top"lf>t<"table-bottom"ip>',
       responsive: true,
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data === "No information Available") {
                   return data;
                 }
-                return `<button class="btn btn-success ms-4"><i class="bi bi-check-circle-fill"></i></button>`;
+                return `<i class="text-success">REGISTERED</i>`;
               }
             }
             return data;

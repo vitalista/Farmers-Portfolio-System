@@ -15,6 +15,11 @@ function sendOTP(email) {
 }
 sendOTP(document.getElementById("email").value);
 
+// document.getElementById("resend").addEventListener("click", function() {
+//   sendOTP(document.getElementById("email").value);
+// });
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("otp-form");
   const inputs = [...form.querySelectorAll("input[type=text]")];

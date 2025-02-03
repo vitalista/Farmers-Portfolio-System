@@ -1,6 +1,9 @@
 <?php
+session_start();
+include 'auth-check.php';
 // MySQL connection settings
 require 'database.php';
+// include 'auth-check.php';
 
 if (isset($_POST['submit'])) {
     $table = $_POST['table'];

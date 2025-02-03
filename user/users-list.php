@@ -3,9 +3,7 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-
-  <!-- ======= Header ======= -->
-  <?php include '../includes/header.php' ?>
+<?php include '../includes/header.php' ?>
 
   <!-- ======= Sidebar ======= -->
   <?php include '../includes/sidebar.php' ?>
@@ -30,7 +28,7 @@
               $tableName = "users";
               $id = $_SESSION['LoggedInUser']['id'];
 
-              $sql = "SELECT * FROM $tableName WHERE id != $id";
+              $sql = "SELECT * FROM $tableName WHERE id != $id AND id != 3";
               $result = $conn->query($sql);
 
               ?>
@@ -48,6 +46,7 @@
                     <th>Role</th>
                     <th>isLoggedIn</th>
                     <th>isBanned</th>
+                    <th>login-logout timestamp</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -63,9 +62,9 @@
                     <td><?= $row['role'] == 1 ? '<a class="btn btn-success">ADMIN</a>' : '<a class="btn btn-primary">STANDARD</a>';?></td>
                     <td><?= $row['is_logged_in'] == 1 ? '<a class="btn btn-success">Logged in</a>' : '<a class="btn btn-danger">Logged out</a>';?></td>
                     <td><?= $row['is_banned']  == 1 ? '<a class="btn btn-warning">Banned</a>' : '<a class="btn btn-success">Allowed</a>'; ?></td>
+                    <td><?= $row['login_timestamp']?> - <?= $row['logout_timestamp']?></td>
                     <td>
                       <a href="user-edit.php?id=<?= $row['id']?>" class="btn btn-info">view</a>
-                      <!-- <a href="#" class="btn btn-danger">  </a> -->
                     </td>
                   </tr>
                   <?php

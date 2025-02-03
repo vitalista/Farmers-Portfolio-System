@@ -4,9 +4,7 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-
-    <!-- ======= Header ======= -->
-    <?php include '../includes/header.php' ?>
+<?php include '../includes/header.php' ?>
 
     <!-- ======= Sidebar ======= -->
     <?php include '../includes/sidebar.php' ?>

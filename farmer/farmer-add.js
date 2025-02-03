@@ -8,7 +8,14 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
   const newFarmCard = document.createElement('div');
   newFarmCard.className = 'card my-2';
   newFarmCard.innerHTML = `
-    <h5 class="card-title ms-3">Parcel #${farmCounter}</h5>
+  <div class="d-flex justify-content-between align-items-center">
+    <!-- Title on the left -->
+    <div><h5 class="card-title ms-3 mb-0">Parcel #${farmCounter}</h5></div>
+
+    <!-- Remove button on the right -->
+    <div class="me-2"><a class="btn btn-sm btn-danger remove-farm"><i class="fa-solid fa-x"></i></a></div>
+  </div>
+    
       <div class="card-body">
     <input type="hidden" class="parcelNum" value="${farmCounter}" style="width: 100%;">
         <div class="row">
@@ -78,22 +85,26 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
         </div>
 
             <div class="form-group">
-                <label>Crops</label>
+                 <div class="d-flex align-items-center">
+                                                <i class="fa fa-pagelines" style="font-size: 30px;color: rgb(29,140,20);"></i>
+                                                <h5 class="card-title ms-3 mb-0">Crops</h5>
+                                                </div>
                 <div class="dynamic-input " id="cropsContainer"></div>
                 <div class="d-flex justify-content-end mb-2">
-                <a type="button" class="btn btn-primary text-end addCropButton">Add Crop</a>
+                <a type="button" class="btn btn-sm btn-primary text-end addCropButton"><i class="fa-solid fa-plus"></i> Crop</a>
                 </div>
             </div>
             <div class="form-group">
-                <label>Livestock</label>
+                <div class="form-group" id="livestockContainer">
+                                                <div class="d-flex align-items-center">
+                                    <i class="fa-solid fa-cow" style="font-size: 30px;color: brown"></i>
+                                    <h5 class="card-title ms-3 mb-0">Livestocks</h5>
+
+                                                </div>    
                 <div class="dynamic-input" id="livestockContainer"></div>
                 <div class="d-flex justify-content-end mb-2">
-                <a type="button" class="btn btn-primary addLivestockButton">Add Livestock</a>
+                <a type="button" class="btn btn-sm btn-primary addLivestockButton"><i class="fa-solid fa-plus"></i> Livestock</a>
                 </div>
-            </div>
-
-            <div class="d-flex justify-content-end">
-            <a class="btn btn-danger remove-farm">Remove Farm</a>
             </div>
 
         </div>
@@ -138,8 +149,10 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
             </div>
         </div>
 
-        <div class="d-flex justify-content-end col-md-2 mb-3 mt-4">
-            <a class="btn btn-danger removeCropButton">Remove</a>
+        <div class="d-flex justify-content-end col-md-2 align-items-center">
+        <div>
+            <a class="btn btn-sm btn-danger removeCropButton"><i class="fa-solid fa-trash-can"></i></a>
+        </div>
         </div>
     `;
     cropsContainer.appendChild(cropInputDiv);
@@ -172,7 +185,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
     <div class="input-group">
       <input type="text" id="livestockType" class="form-control livestockType" placeholder="Enter animal type" required>
       <div class="input-group-append">
-        <a class="btn btn-danger removeLivestockButton">Remove</a>
+        <a class="btn btn-sm btn-danger removeLivestockButton mt-1"><i class="fa-solid fa-trash-can"></i></a>
       </div>
     </div>
   </div>

@@ -42,6 +42,7 @@ $urls = [
     "https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css",
     // "https://unpkg.com/leaflet/dist/leaflet.css",
+    "https://kit.fontawesome.com/27a54b8fcc.js",
     "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css",
     "https://code.jquery.com/jquery-3.7.0.min.js",
     "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"

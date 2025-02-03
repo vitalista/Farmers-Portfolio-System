@@ -1,16 +1,16 @@
 <style>
     .select2-container .select2-selection--single {
-        padding-bottom: 40px;
+        padding-bottom: 30px;
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 40px;
+        line-height: 30px;
     }
 </style>
 
-<div class="col-md-2 mb-3">
-    <div class="input-group">
-        <select id="brgy-pages" class="form-select">
+<div class="col-md-4 mb-3">
+    <div class="input-group w-50">
+        <select id="brgy-pages" class="form-select form-select-sm">
             <option selected>Baliwag</option>
             <?php
             $brgys = getCountArray('farmers', 'farmer_brgy_address', 'id');
@@ -21,7 +21,7 @@
             }
             ?>
         </select>
-        <button class="btn btn-primary" id="goButton">Go</button>
+        <button class="btn btn-primary btn-sm" id="goButton"><i class="bi bi-arrow-right"></i></button>
     </div>
 </div>
 
@@ -36,7 +36,7 @@
         $('#goButton').on('click', function() {
             const selectedValue = $('#brgy-pages').val();
             switch (selectedValue) {
-                case "Main":
+                case "Baliwag":
                     window.location.href = "dashboard.php";
                     break;
                 default:

@@ -4,9 +4,7 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-
-    <!-- ======= Header ======= -->
-    <?php include '../includes/header.php' ?>
+<?php include '../includes/header.php' ?>
 
     <!-- ======= Sidebar ======= -->
     <?php include '../includes/sidebar.php' ?>
@@ -18,7 +16,7 @@
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="card-header">Farmer Profile</h3>
-                    <a class="btn btn-primary"
+                    <a class="btn btn-sm btn-primary"
                         href="#"
                         onclick="window.history.back()">Back</a>
                 </div>
@@ -64,8 +62,7 @@
                                     <div class="card" data-aos="zoom-out" class="my-4">
                                         <div class="card-body text-center">
                                             <div class="d-sm-flex justify-content-end align-items-center mt-2">
-                                                <a class="btn btn-info">Print</a>
-                                                <a class="btn btn-success ms-2">Edit</a>
+                                                <a class="btn btn-sm btn-info">Print</a>
                                             </div>
                                             <hr>
                                             <img class="rounded-circle" style="background-color: seagreen; padding: 10px;" src="../assets/img/farmer.png" height="150" alt="Farmer">
@@ -255,14 +252,17 @@
                                 </table>
                             </div>
                         </div>
-
+                <div class="d-flex justify-content-center">
+                    <!-- <button type="button" class="btn btn-sm btn-primary  me-1" id="prevButton"><i class="bi bi-arrow-left"></i></button> -->
+                    <button type="button" class="btn btn-sm btn-primary" id="nextButton"><i class="bi bi-arrow-right"></i></button>
+                </div>
                     </div>
 
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="container farm-card">
                             <div class="d-flex justify-content-between align-items-center" style="margin-bottom: -20px;">
                                 <h5 class="card-title">Farm List</h5>
-                                <a id="addFarmButton" class="btn btn-primary">Add Farm</a>
+                                <a id="addFarmButton" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Farm</a>
                             </div>
 
                             <div id="farmContainer" class="mt-3">
@@ -314,7 +314,16 @@
                                     foreach ($parcels['data'] as $parcel) {
                                 ?>
                                         <div class="card my-2">
-                                            <h5 class="card-title ms-3">Parcel # <?= $parcel['parcel_no']; ?></h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div><h5 class="card-title ms-3">Parcel # <?= $parcel['parcel_no']; ?></h5></div>
+                                            <div class="me-2">
+                                                    <a class="btn btn-sm btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>"
+                                                        onclick="return confirm('Are you sure you want to remove it?')"
+                                                        href="../backend/archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>"><i class="fa-solid fa-x"></i></a>
+                                                </div>
+                                        </div>
+                                                
+
                                             <div class="card-body">
                                                 <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
 
@@ -387,7 +396,13 @@
                                                 </div>
 
                                                 <div class="form-group" id="cropsContainer">
-                                                    <label>Crops</label>
+
+                                                <div class="d-flex align-items-center">
+                                                <i class="fa fa-pagelines" style="font-size: 30px;color: rgb(29,140,20);"></i>
+                                                <h5 class="card-title ms-3 mb-0">Crops</h5>
+                                                </div>
+
+                                                    <!-- <label> Crops</label> -->
                                                     <div class="dynamic-input">
                                                         <?php if (isset($parcel['crops'])) {
                                                             foreach ($parcel['crops'] as $crop): ?>
@@ -400,11 +415,11 @@
                                                                         <input id="" type="text" value="<?= $crop['crop_name']; ?>" placeholder="Type here..." class="form-control crop cropName" required>
                                                                     </div>
 
-                                                                    <div class="col-md-5 mb-3">
+                                                                    <div class="col-md-3 mb-3">
                                                                         <label class="ms-1">Crop Area<span class="text-danger fw-bold">*</span></label>
                                                                         <input id="" type="number" value="<?= $crop['crop_area']; ?>" placeholder="In hectares" class="form-control crop cropArea no-spin-button" required>
                                                                     </div>
-                                                                    <div class="col-md-2 mb-3">
+                                                                    <div class="col-md-3 mb-3">
                                                                         <label>Classification<span class="text-danger fw-bold">*</span></label>
                                                                         <input type="number" value="<?= $crop['classification']; ?>" class="form-control crop no-spin-button classification" required>
                                                                     </div>
@@ -417,27 +432,32 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="d-flex justify-content-end col-md-2 mb-3 mt-4">
-                                                                        <a class="btn btn-danger"
+                                                                    <div class="d-flex justify-content-end col-md-12 mb-3 mt-4">
+                                                                        <a class="btn btn-sm btn-danger"
                                                                             id="crop<?= $parcel['parcel_no']; ?>"
                                                                             onclick="return confirm('Are you sure you want to remove it?')"
-                                                                            href="../backend/archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id']; ?>">Remove</a>
+                                                                            href="../backend/archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
                                                                     </div>
                                                                 </div>
                                                         <?php endforeach;
                                                         } ?>
                                                     </div>
                                                     <div class="d-flex justify-content-end mb-2">
-                                                        <a type="button" class="btn btn-primary text-end"
+                                                        <a type="button" class="btn btn-sm btn-primary text-end"
                                                             id="cropBtns<?= $parcel['parcel_no']; ?>"
                                                             data-parcel-no="<?= $parcel['parcel_no']; ?>">
-                                                            Add Crop
+                                                            <i class="fa-solid fa-plus"></i> Crop
                                                         </a>
                                                     </div>
 
                                                 </div>
                                                 <div class="form-group" id="livestockContainer">
-                                                    <label>Livestock</label>
+                                                <div class="d-flex align-items-center">
+                                    <i class="fa-solid fa-cow" style="font-size: 30px;color: brown"></i>
+                                    <h5 class="card-title ms-3 mb-0">Livestocks</h5>
+
+                                                </div>    
+                                                <!-- <label>Livestock</label> -->
                                                     <div class="dynamic-input">
 
                                                         <?php if (isset($parcel['livestocks'])) {
@@ -447,7 +467,7 @@
                                                                     <input type="hidden" class="livestock_id" value="<?= $livestock['id']; ?>">
 
                                                                     <div class="col-md-6 mb-3">
-                                                                        <label >Number of heads<span class="text-danger fw-bold">*</span></label>
+                                                                        <label>Number of heads<span class="text-danger fw-bold">*</span></label>
                                                                         <input type="number" value="<?= $livestock['no_of_heads']; ?>" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
                                                                         <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
                                                                         <div class="invalid-feedback">Please enter.</div>
@@ -457,12 +477,12 @@
                                                                         <div class="form-group">
                                                                             <label for="livestockType">Animal type<span class="text-danger fw-bold">*</span></label>
                                                                             <div class="input-group">
-                                                                            <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
-                                                                            <div class="input-group-append">
-                                                                            <a class="btn btn-danger removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
-                                                                                    onclick="return confirm('Are you sure you want to remove it?')"
-                                                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id']; ?>">Remove</a>
-                                                                            </div>
+                                                                                <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
+                                                                                <div class="input-group-append">
+                                                                                    <a class="btn btn-sm btn-danger mt-1 removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
+                                                                                        onclick="return confirm('Are you sure you want to remove it?')"
+                                                                                        href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -473,16 +493,10 @@
 
                                                     </div>
                                                     <div class="d-flex justify-content-end mb-2">
-                                                        <a type="button" class="btn btn-primary addLivestockButton"
+                                                        <a type="button" class="btn btn-sm btn-primary addLivestockButton"
                                                             id="livestockBtns<?= $parcel['parcel_no']; ?>"
-                                                            data-parcel-no="<?= $parcel['parcel_no']; ?>">Add Livestock</a>
+                                                            data-parcel-no="<?= $parcel['parcel_no']; ?>"><i class="fa-solid fa-plus"></i> Livestock</a>
                                                     </div>
-                                                </div>
-
-                                                <div class="d-flex justify-content-end">
-                                                    <a class="btn btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>"
-                                                        onclick="return confirm('Are you sure you want to remove it?')"
-                                                        href="../backend/archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>">Remove Farm</a>
                                                 </div>
 
                                             </div>
@@ -500,25 +514,24 @@
                             </div>
 
                         </div>
+
+                        <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-sm btn-primary  me-1" id="prevButton"><i class="bi bi-arrow-left"></i></button>
+                    <!-- <button type="button" class="btn btn-sm btn-primary" id="nextButton"><i class="bi bi-arrow-right"></i></button> -->
+                </div>
+
                     </div>
 
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="reset" class="btn btn-secondary me-2">Reset</button>
-                    <button type="submit" id="submitFarmsButton" class="btn btn-success me-2">Save</button>
+                    <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2">Save</button>
                 </div>
 
                 <form class="needs-validation" method="POST" action="farmer-add-code.php" id="farmForm" novalidate>
                     <input type="hidden" name="update" value="1">
                     <input type="hidden" name="farms_data" id="farmsData" style="width: 100%;">
                 </form>
-
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary  me-1" id="prevButton"><i class="bi bi-arrow-left"></i></button>
-                    <button type="button" class="btn btn-primary" id="nextButton"><i class="bi bi-arrow-right"></i></button>
-                </div>
-
 
             </div>
         </section>

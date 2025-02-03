@@ -13,16 +13,13 @@ cropBtns.forEach(function(button) {
             <input id="" type="text" placeholder="Type here..." class="form-control crop cropName" required>
         </div>
 
-        <div class="col-md-5 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="ms-1">Crop Area</label>
             <input id="" type="number" placeholder="In hectares" class="form-control crop cropArea no-spin-button" required>
         </div>
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label>Classification</label>
             <input type="number" class="form-control crop no-spin-button classification" required>
-        </div>
-        <div class="d-flex justify-content-end col-md-2 mb-3 mt-4">
-            <a class="btn btn-danger removeCropButton" onclick="removeClosestDiv(this)">Remove</a>
         </div>
 
         <div class="col-md-3 mb-3 mt-3 d-flex align-items-center">
@@ -31,6 +28,10 @@ cropBtns.forEach(function(button) {
             <input class="form-check-input crop hvc" style="width: 2rem; height: 2rem;" type="checkbox" id="">
             <input type="hidden" class="parcelNum" value="${parcelNo}" style="width: 100%;"> 
             </div>
+        </div>
+
+        <div class="d-flex justify-content-end col-md-12 mb-3 mt-4">
+            <a class="btn btn-sm btn-danger removeCropButton" onclick="removeClosestDiv(this)"><i class="fa-solid fa-trash-can"></i></a>
         </div>
     `;
         button.closest('#cropsContainer').appendChild(cropInputDiv);
@@ -59,7 +60,7 @@ livestockBtns.forEach(function(button) {
                 <div class="input-group">
                 <input type="text" id="livestockType" class="form-control livestockType" placeholder="Enter animal type" required>
                 <div class="input-group-append">
-                    <a class="btn btn-danger removeLivestockButton" onclick="removeClosestDiv(this)">Remove</a>
+                    <a class="btn btn-sm btn-danger removeLivestockButton mt-1" onclick="removeClosestDiv(this)"><i class="fa-solid fa-trash-can"></i></a>
                 </div>
                 </div>
             </div>
@@ -94,6 +95,6 @@ const addRemoveCardEvent = (buttons, parcel = false) => {
     });
 };
 
-addRemoveCardEvent(parcels, true);
-addRemoveCardEvent(crops);
-addRemoveCardEvent(livestocks);
+// addRemoveCardEvent(parcels, true);
+// addRemoveCardEvent(crops);
+// addRemoveCardEvent(livestocks);

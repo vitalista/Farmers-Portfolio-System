@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <?php include '../includes/head.php' ?>
 <?php include '../backend/auth-check.php';?>
 <body style="font-family: fangsong;">
@@ -60,14 +59,14 @@
                 <div class="card-body text-center">
                     <div class="d-flex justify-content-center align-items-center mb-2">
                         <div class="d-flex align-items-center mx-3">
-                            <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
+                            <!-- <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i> -->
                             <div class="ms-2">
                                 <span class="fw-bold">Male</span>
                                 <div><?= countRows('farmers', '', $_GET['brgy'], 'MALE'); ?></div>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mx-3">
-                            <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
+                            <!-- <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i> -->
                             <div class="ms-2">
                                 <span class="fw-bold">Female</span>
                                 <div><?= countRows('farmers', '', $_GET['brgy'], 'FEMALE'); ?></div>
@@ -85,7 +84,7 @@
                 <div class="card-body text-center">
                     <div class="d-flex justify-content-center align-items-center mb-2">
                         <div class="d-flex align-items-center mx-3">
-                            <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i>
+                            <!-- <i class="fa fa-pagelines" style="font-size: 60px;color: rgb(29,140,20);"></i> -->
                             <div class="ms-2">
                                 <!-- CROP -->
                                 <span class="fw-bold">Crops</span>
@@ -93,7 +92,7 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center mx-3">
-                            <!-- PIG -->
+                        <!-- <i class="fa-solid fa-cow" style="font-size: 60px;color: brown"></i> -->
                             <div class="ms-2">
                                 <span class="fw-bold">Livestocks</span>
                                 <div><?= countRows('livestocks','', $_GET['brgy']); ?></div>
