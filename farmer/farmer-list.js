@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data === "No information Available") {
                   return data;
                 }
-                return `<i class="text-success">REGISTERED</i>`;
+                return `<h6 class="text-success">REGISTERED</h6>`;
               }
             }
             return data;

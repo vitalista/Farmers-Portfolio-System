@@ -51,8 +51,14 @@ if (isset($_POST['farms_data'])) {
             'province', 
             'firstName', 
             'middleName', 
-            'lastName', 'gender', 
-            'bday', 
+            'lastName', 
+            'gender', 
+            'bday',
+            'govIdType',
+            'govIdNumber',
+            'hbp',
+            'sss',
+            'region'
         ];
     
         foreach ($requiredFields as $field) {
@@ -75,10 +81,17 @@ if (isset($_POST['farms_data'])) {
         is_deceased, 
         is_active,
         no_of_parcels,
-
         modified_by,
-        modified_at
-        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        modified_at,
+
+        gov_id_number,
+        gov_id_type,
+        region,
+        sss,
+        hbp
+
+        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?
         )";
         $stmt = $conn->prepare($sql);
         
@@ -88,7 +101,7 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
         
-        $stmt->bind_param("sssssssssssiiis", 
+        $stmt->bind_param("sssssssssssiiissssss", 
         $farmer['ffrs'], 
         $farmer['brgy'], 
         $farmer['municipality'],
@@ -103,7 +116,12 @@ if (isset($_POST['farms_data'])) {
         $farmer['active'],
         $farmer['num_of_parcels'],
         $user_id,
-        $modifiedAt
+        $modifiedAt,
+        $farmer['govIdNumber'],
+        $farmer['govIdType'],
+        $farmer['region'],
+        $farmer['sss'],
+        $farmer['hbp']
     );
         
         if ($stmt->execute()) {
@@ -130,8 +148,14 @@ if (isset($_POST['farms_data'])) {
             'province', 
             'firstName', 
             'middleName', 
-            'lastName', 'gender', 
-            'bday', 
+            'lastName', 
+            'gender', 
+            'bday',
+            'govIdType',
+            'govIdNumber',
+            'hbp',
+            'sss',
+            'region'
         ];
     
         foreach ($requiredFields as $field) {
@@ -163,7 +187,14 @@ if (isset($_POST['farms_data'])) {
             no_of_parcels = ?, 
             modified_by = ?, 
             modified_at = ?,
-            modified_times = ?
+            modified_times = ?,
+
+            gov_id_number = ?,
+            gov_id_type = ?,
+            region = ?,
+            sss = ?,
+            hbp = ?
+
             WHERE id = ?";
     
         $stmt = $conn->prepare($sql);
@@ -175,7 +206,7 @@ if (isset($_POST['farms_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssssssssiiisii", 
+        $stmt->bind_param("sssssssssssiiisiisssss", 
             $farmer['ffrs'], 
             $farmer['brgy'], 
             $farmer['municipality'], 
@@ -192,7 +223,13 @@ if (isset($_POST['farms_data'])) {
             $user_id,
             $modifiedAt,
             $modifiedTimes,
-            $farmerId  // Pass the farmer ID to identify the record to update
+              // Pass the farmer ID to identify the record to update
+            $farmer['govIdNumber'],
+            $farmer['govIdType'],
+            $farmer['region'],
+            $farmer['sss'],
+            $farmer['hbp'],
+            $farmerId
         );
     
         // Execute the query
@@ -204,7 +241,84 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
     }
-    
+
+if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($_FILES['govIdPhotoFront'])) {
+    $farmerExt = $govIdPhotoBackExt = $govIdPhotoFrontExt = null;
+    $farmerPath = $govIdPhotoBackPath = $govIdPhotoFrontPath = null;
+    $farmerImageBlob = $govIdPhotoBackBlob = $govIdPhotoFrontBlob = null;
+
+    // Function to get image data as BLOB
+    function getImageBlob($file) {
+        if ($file && $file['error'] === UPLOAD_ERR_OK) {
+            echo "File uploaded successfully: " . $file['name'] . "<br>";
+            return file_get_contents($file['tmp_name']);
+        }
+        echo "Error uploading file: " . $file['error'] . "<br>";
+        return null;
+    }
+
+    function getFileExtension($file) {
+        // Get the file's extension
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        return strtolower($fileExtension);
+    }
+
+    // Get image blobs for each file
+    if (isset($_FILES['farmerImage'])) {
+        $farmerImageBlob = getImageBlob($_FILES['farmerImage']);
+        $farmerExt = getFileExtension($_FILES['farmerImage']);
+        $timestamp = date('Y-m-d_H-i-s');
+        $farmerPath = "../assets/img/" . $timestamp . "_farmer." . $farmerExt; // Add extension to path
+    }
+
+    if (isset($_FILES['govIdPhotoBack'])) {
+        $govIdPhotoBackBlob = getImageBlob($_FILES['govIdPhotoBack']);
+        $govIdPhotoBackExt = getFileExtension($_FILES['govIdPhotoBack']);
+        $timestamp = date('Y-m-d_H-i-s');
+        $govIdPhotoBackPath = "../assets/img/" . $timestamp . "_govIdBack." . $govIdPhotoBackExt; // Add extension to path
+    }
+
+    if (isset($_FILES['govIdPhotoFront'])) {
+        $govIdPhotoFrontBlob = getImageBlob($_FILES['govIdPhotoFront']);
+        $govIdPhotoFrontExt = getFileExtension($_FILES['govIdPhotoFront']);
+        $timestamp = date('Y-m-d_H-i-s');
+        $govIdPhotoFrontPath = "../assets/img/" . $timestamp . "_govIdFront." . $govIdPhotoFrontExt; // Add extension to path
+    }
+
+    $lastInsertedFarmerId = $farmerId; // Make sure $farmerId is initialized correctly
+
+    // Insert images into the images table
+    $imageTypes = ['farmerImage', 'govIdPhotoBack', 'govIdPhotoFront'];
+    $imageBlobs = [$farmerImageBlob, $govIdPhotoBackBlob, $govIdPhotoFrontBlob];
+    $imagePaths = [$farmerPath, $govIdPhotoBackPath, $govIdPhotoFrontPath];
+    $imageExt = [$farmerExt, $govIdPhotoBackExt, $govIdPhotoFrontExt];
+
+    $imageSql = "INSERT INTO images (farmer_id, image_type, image_path, image_data) VALUES (?, ?, ?, ?)";
+    $imageStmt = $conn->prepare($imageSql);
+    if (!$imageStmt) {
+        echo "Error preparing SQL statement: " . $conn->error . "<br>";
+    }
+
+    foreach ($imageTypes as $index => $type) {
+        if ($imageBlobs[$index]) {
+            $finalPath = $imagePaths[$index]; 
+            $imageStmt->bind_param('isss', $lastInsertedFarmerId, $type, $finalPath, $imageBlobs[$index]);
+            if ($imageStmt->execute()) {
+                echo "Image inserted successfully: " . $finalPath . "<br>";
+            } else {
+                echo "Error inserting image: " . $imageStmt->error . "<br>";
+            }
+        }
+    }
+
+    echo "Farmer Image Size: " . $_FILES['farmerImage']['size'] . " bytes<br>";
+    echo "Gov ID Photo Back Size: " . $_FILES['govIdPhotoBack']['size'] . " bytes<br>";
+    echo "Gov ID Photo Front Size: " . $_FILES['govIdPhotoFront']['size'] . " bytes<br>";
+
+} else {
+    echo "No files uploaded.<br>";
+}
+
     
     // Insert parcel data
     $parcelIds = []; // Initialize an empty array to store parcelNum and corresponding insert_id.

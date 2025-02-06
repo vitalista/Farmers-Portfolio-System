@@ -114,6 +114,7 @@ document
     if (farmerImage) formData.append("farmerImage", farmerImage);
     if (govIdPhotoBack) formData.append("govIdPhotoBack", govIdPhotoBack);
     if (govIdPhotoFront) formData.append("govIdPhotoFront", govIdPhotoFront);
+    
     if (checkEmptyFields("#farmerCard .card", ["farmerImg"], ["firstName"])) {
       const sendRequest = function (formData) {
         const xhr = new XMLHttpRequest();

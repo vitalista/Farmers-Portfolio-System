@@ -57,7 +57,7 @@ if (isset($_POST['truncate'])) {
     $table = preg_replace("/[^a-zA-Z0-9_]/", "", $table); // Allow only alphanumeric and underscores
 
     // Check if the table name is valid before truncating
-    $validTables = ['crops', 'parcels', 'livestocks', 'farmers', 'programs', 'resources', 'distributions'];
+    $validTables = ['crops', 'parcels', 'livestocks', 'farmers', 'programs', 'resources', 'distributions', 'images'];
     if (in_array($table, $validTables)) {
         // Truncate the table securely
         $stmt = $conn->prepare("TRUNCATE TABLE `$table`");
@@ -75,7 +75,7 @@ if (isset($_POST['truncate'])) {
 // Handle truncate all tables button
 if (isset($_POST['truncate_all'])) {
     // List of tables to truncate
-    $validTables = ['crops', 'parcels', 'livestocks', 'farmers', 'programs', 'resources', 'distributions'];
+    $validTables = ['crops', 'parcels', 'livestocks', 'farmers', 'programs', 'resources', 'distributions', 'images'];
 
     foreach ($validTables as $table) {
         // Truncate each valid table
@@ -147,6 +147,7 @@ $conn->close();
 <body>
 
 <div class="container">
+        <a class="btn btn-danger" href="../dashboard/dashboard.php">Back</a>
     <h2>Upload CSV File to MySQL</h2>
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="csv_file">Choose CSV file</label><br>   

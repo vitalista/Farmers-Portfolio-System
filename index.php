@@ -40,7 +40,11 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="#announcement">Announcement</a></li>
                     <li class="nav-item"><a class="nav-link" href="#aboutus">About Us</a></li>
+                    <?php
+                    if(is_dir('registration/')){
+                    ?>
                     <li class="nav-item"><a class="nav-link" href="registration/">Registration</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>

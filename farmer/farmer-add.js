@@ -240,7 +240,33 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
   });
 });
 
+function transferFile(srcInput, destInput) {
+  const selectedFile = srcInput.files[0];
+
+  if (selectedFile) {
+    const reader = new FileReader();
+
+    // When the file is read, transfer it to the destination input
+    reader.onload = (event) => {
+      const file = new File([event.target.result], selectedFile.name, { type: selectedFile.type });
+
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+
+      destInput.files = dataTransfer.files;
+    };
+
+    // Read the file as an array buffer
+    reader.readAsArrayBuffer(selectedFile);
+  }
+}
+
 document.getElementById('submitFarmsButton').addEventListener('click', function(e) {
+
+  transferFile(document.getElementById('farmerImg'), document.getElementById('farmerImg1'));
+  transferFile(document.getElementById('govIdPhotoFront'), document.getElementById('govIdPhotoFront1'));
+  transferFile(document.getElementById('govIdPhotoBack'), document.getElementById('govIdPhotoBack1'));
+  
   e.preventDefault();
   const farms = [];
   const farmCards = document.querySelectorAll('#farmContainer .card .card-body');
@@ -269,6 +295,12 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const bday = card.querySelector('.bday').value;
   const deceased = card.querySelector('.deceased').checked;
   const active = card.querySelector('.active').checked;
+
+  const govIdType = card.querySelector('.govIdType').value;
+  const govIdNumber = card.querySelector('.govIdNumber').value;
+  const hbp = card.querySelector('.hbp').value;
+  const sss = card.querySelector('.sss').value;
+  const region = card.querySelector('.region').value;
 
   // Select all input elements with the class 'parcelNum' and type 'hidden'
 const hiddenInputs = document.querySelectorAll('input[type="hidden"].parcelNum');
@@ -308,7 +340,12 @@ console.log("Largest farm number:", num_of_parcels);
           gender,
           bday,
           deceased,
-          active
+          active,
+          govIdNumber,
+          govIdType,
+          sss,
+          hbp,
+          region
         }
       });
     }
@@ -328,7 +365,12 @@ console.log("Largest farm number:", num_of_parcels);
           gender,
           bday,
           deceased,
-          active
+          active,
+          govIdNumber,
+          govIdType,
+          sss,
+          hbp,
+          region
         }
       });
     }
@@ -487,10 +529,9 @@ prevButton.addEventListener('click', () => {
     const prevTab = activeTab.parentElement.previousElementSibling;
     if (prevTab) {
       prevTab.querySelector('.nav-link').click();
+      updateButtonStates();
     }
   }
-
-  // Change class for buttons
 });
 
 nextButton.addEventListener('click', () => {
@@ -499,10 +540,46 @@ nextButton.addEventListener('click', () => {
     const nextTab = activeTab.parentElement.nextElementSibling;
     if (nextTab) {
       nextTab.querySelector('.nav-link').click();
+      updateButtonStates();
     }
   }
-
 });
+
+// Optionally, set initial states of buttons (disabled/enabled based on the active tab position)
+function updateButtonStates() {
+  const activeTab = document.querySelector('.nav-link.active');
+  const firstTab = document.querySelector('.nav-item:first-child .nav-link');
+  const lastTab = document.querySelector('.nav-item:last-child .nav-link');
+  
+  // Disable prevButton if we're on the first tab
+  if (activeTab === firstTab) {
+    prevButton.disabled = true;
+  } else {
+    prevButton.disabled = false;
+  }
+
+  // Disable nextButton if we're on the last tab
+  if (activeTab === lastTab) {
+    nextButton.disabled = true;
+  } else {
+    nextButton.disabled = false;
+  }
+}
+
+// Initialize the button states when the page loads
+document.addEventListener('DOMContentLoaded', updateButtonStates);
+
+// Keyboard arrow navigation (left and right)
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') {
+    // Left arrow (previous)
+    prevButton.click();
+  } else if (event.key === 'ArrowRight') {
+    // Right arrow (next)
+    nextButton.click();
+  }
+});
+
 
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -513,3 +590,52 @@ tabs.forEach(tab => {
     tab.classList.add('active');
   });
 });
+
+function previewImage() {
+  const fileInput = document.getElementById('farmerImg');
+  const imgElement = document.getElementById('farmerImage');
+
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      imgElement.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+
+// Function to handle image preview
+function handleImagePreview(fileInputId, previewContainerId, previewImageId) {
+    // Get the file input, preview container, and image elements by their IDs
+    const fileInput = document.getElementById(fileInputId);
+    const previewContainer = document.getElementById(previewContainerId);
+    const previewImage = document.getElementById(previewImageId);
+
+    // Listen for the change event on the file input
+    fileInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];  // Get the selected file
+
+        // Check if the file is an image
+        if (file && file.type.startsWith('image')) {
+            const reader = new FileReader();
+
+            // When the file is successfully read
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;  // Set the preview image source
+                previewContainer.style.display = 'block';  // Show the preview container
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+        } else {
+            // If the file is not an image, hide the preview container
+            previewContainer.style.display = 'none';
+        }
+    });
+}
+
+// Initialize preview handling for both front and back ID photos
+handleImagePreview('govIdPhotoFront', 'previewContainerFront', 'previewImageFront');
+handleImagePreview('govIdPhotoBack', 'previewContainerBack', 'previewImageBack');
