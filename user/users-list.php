@@ -19,8 +19,8 @@
               <?php include '../backend/status-messages.php' ?>
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Users list</h5>
-                <a href="user-add.php" class="btn btn-primary">
-                  Create
+                <a href="user-add.php" class="btn btn-sm btn-primary">
+                  Add user
                 </a>
               </div>
 
@@ -59,12 +59,12 @@
                   <tr>
                     <td><?= $row['email']; ?></td>
                     <td><?= $row['full_name']; ?></td>
-                    <td><?= $row['role'] == 1 ? '<a class="btn btn-success">ADMIN</a>' : '<a class="btn btn-primary">STANDARD</a>';?></td>
-                    <td><?= $row['is_logged_in'] == 1 ? '<a class="btn btn-success">Logged in</a>' : '<a class="btn btn-danger">Logged out</a>';?></td>
-                    <td><?= $row['is_banned']  == 1 ? '<a class="btn btn-warning">Banned</a>' : '<a class="btn btn-success">Allowed</a>'; ?></td>
+                    <td><?= $row['role'] == 1 ? '<a class="btn btn-sm btn-success">ADMIN</a>' : '<a class="btn btn-sm btn-primary">STANDARD</a>';?></td>
+                    <td><?= $row['is_logged_in'] == 1 ? '<a class="btn btn-sm btn-success">Logged in</a>' : '<a class="btn btn-sm btn-danger">Logged out</a>';?></td>
+                    <td><?= $row['is_banned']  == 1 ? '<a class="btn btn-sm btn-warning">Banned</a>' : '<a class="btn btn-sm btn-success">Allowed</a>'; ?></td>
                     <td><?= $row['login_timestamp']?> - <?= $row['logout_timestamp']?></td>
                     <td>
-                      <a href="user-edit.php?id=<?= $row['id']?>" class="btn btn-info">view</a>
+                      <a href="user-edit.php?id=<?= $row['id']?>" class="btn btn-sm btn-info">view</a>
                     </td>
                   </tr>
                   <?php

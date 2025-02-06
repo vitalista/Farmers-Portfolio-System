@@ -23,20 +23,22 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Distribution list</h5>
                 <div>
-                <a href="distributions-list.php" class="btn btn-danger">
-                    Clear
+                <a href="distributions-list.php" class="btn btn-sm btn-danger">
+                <i class="bi bi-arrow-counterclockwise"></i>
+
                 </a>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
-                    Filter
+                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
+                  <i class="bi bi-sort-down"></i>
+
                   </button>
-                  <a href="distribution-multiple-add.php" class="btn btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                  <a href="distribution-multiple-add.php" class="btn btn-sm btn-secondary"><i class="bi bi-plus-lg"></i></a>
                 </div>
 
               </div>
               
               <?php include 'filter.php'; ?>
 
-              <!-- <a href="#" class="btn -btn-success">Completed</a> -->
+              <!-- <a href="#" class="btn btn-sm -btn-success">Completed</a> -->
 
               <table id="example" class="display nowrap d-none">
                 <thead>
@@ -72,23 +74,23 @@
                         <td class="text-start"><strong><?=$row['quantity_distributed'];?></strong> <?=$row['unit_of_measure'];?></td>
                         <?php if(!isset($_GET['archived'])):?>
                         <td>
-                        <a href="distribution-view.php?id=<?= $row['id']?>" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a>
-                        <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a>
-                        <a href="../program/program-view.php?id=<?= $row['program_id'];?>" class="btn btn-success"><i class="bi bi-box2-fill"></i></a>
+                        <a href="distribution-view.php?id=<?= $row['id']?>" class="btn btn-sm btn-secondary"><i class="bi bi-pencil-square"></i></a>
+                        <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
+                        <a href="../program/program-view.php?id=<?= $row['program_id'];?>" class="btn btn-sm btn-success"><i class="bi bi-box2-fill"></i></a>
                         <a onclick="return confirm('Are you sure you want to archive it?')" 
-                         href="../backend/archive.php?distributions_id=<?= $row['id'];?>" class="btn btn-danger"><i class="bi bi-archive-fill"></i></a>
+                         href="../backend/archive.php?distributions_id=<?= $row['id'];?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
                          <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
-                        class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                        class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         <?php }?>
                         </td>
                         <?php else:?>
                           <td>
                           <a onclick="return confirm('Are you sure you want to archive it?')" 
-                          href="../backend/restore.php?distributions_id=<?= $row['id'];?>" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i></a>
+                          href="../backend/restore.php?distributions_id=<?= $row['id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
                           <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
                           <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
-                          class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                          class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                           <?php }?>
                           </td>
                         <?php endif;?>

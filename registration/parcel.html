@@ -1,0 +1,108 @@
+
+<fieldset class="border p-3">
+
+    <!-- Owner Information Section -->
+    <fieldset class="border p-3 mb-4">
+        <legend class="fw-bold">Owner Information</legend>
+     
+        <div class="mb-3">
+            <label for="ownershipType" class="form-label">Ownership Type</label>
+            <select class="form-select" id="ownershipType">
+                <option selected>Choose...</option>
+                <option value="Owner">Owner</option>
+                <option value="Tenant">Tenant</option>
+                <option value="Lessee">Lessee</option>
+            </select>
+        </div>
+        
+        <div class="row">
+            <!-- Owner First Name -->
+            <div class="col-md-6 mb-3">
+                <label for="ownerFirstName" class="form-label">Owner First Name</label>
+                <input type="text" class="form-control" id="ownerFirstName" placeholder="Owner First Name">
+            </div>
+
+            <!-- Owner Last Name -->
+            <div class="col-md-6 mb-3">
+                <label for="ownerLastName" class="form-label">Owner Last Name</label>
+                <input type="text" class="form-control" id="ownerLastName" placeholder="Owner Last Name">
+            </div>
+        </div>
+
+        <!-- Ownership Type -->
+    </fieldset>
+
+    <!-- Farm Location Section -->
+    <fieldset class="border p-3 mb-4">
+        <legend class="fw-bold">Farm Location</legend>
+        
+        <div class="row">
+            <!-- Barangay -->
+            <div class="col-md-4 mb-3">
+                <label for="barangay" class="form-label">Barangay</label>
+                <input type="text" class="form-control" id="barangay" placeholder="Barangay">
+            </div>
+
+            <!-- Municipality -->
+            <div class="col-md-4 mb-3">
+                <label for="municipality" class="form-label">Municipality</label>
+                <input type="text" class="form-control" id="municipality" placeholder="Municipality">
+            </div>
+
+            <!-- Province -->
+            <div class="col-md-4 mb-3">
+                <label for="province" class="form-label">Province</label>
+                <input type="text" class="form-control" id="province" placeholder="Province">
+            </div>
+        </div>
+
+        <!-- Farm Size -->
+        <div class="mb-3">
+            <label for="farmSize" class="form-label">Farm Size (in hectares)</label>
+            <input type="number" class="form-control" id="farmSize" placeholder="Farm Size">
+        </div>
+    </fieldset>
+
+    <!-- Farm Type Section -->
+    <fieldset class="border p-3">
+        <legend class="fw-bold">Farm Type</legend>
+        
+        <div class="mb-3">
+            <label for="farmType" class="form-label">Farm Type</label>
+            <select class="form-select" id="farmType">
+                <option selected>Choose...</option>
+                <option value="Crop">Crop</option>
+                <option value="Livestock">Livestock</option>
+                <option value="Mixed">Mixed</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend class="text-center font-weight-bold" style="font-size: 21px; margin-top: 15px;">Add Activity</legend>
+        <div class="d-flex justify-content-evenly align-items-center">
+          <button class="btn btn-success addCropButton" style="font-size: 19px; margin-right: 8px; background: rgb(149,200,4);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-plant" style="font-size: 28px;">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M7 15h10v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2v-4z"></path>
+              <path d="M12 9a6 6 0 0 0 -6 -6h-3v2a6 6 0 0 0 6 6h3"></path>
+              <path d="M12 11a6 6 0 0 1 6 -6h3v1a6 6 0 0 1 -6 6h-3"></path>
+              <path d="M12 15l0 -6"></path>
+            </svg>
+            Add Crop
+          </button>
+          <button class="btn btn-success addLivestockButton" style="font-size: 19px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-pig" style="font-size: 28px;">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M15 11v.01"></path>
+              <path d="M16 3l0 3.803a6.019 6.019 0 0 1 2.658 3.197h1.341a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-1.342a6.008 6.008 0 0 1 -1.658 2.473v2.027a1.5 1.5 0 0 1 -3 0v-.583a6.04 6.04 0 0 1 -1 .083h-4a6.04 6.04 0 0 1 -1 -.083v.583a1.5 1.5 0 0 1 -3 0v-2l0 -.027a6 6 0 0 1 4 -10.473h2.5l4.5 -3z"></path>
+            </svg>
+            Add Livestock
+          </button>
+        </div>
+
+        <div class="row" id="commodityContainer"></div>
+
+      </fieldset>
+
+</fieldset>
