@@ -71,7 +71,7 @@ if (isset($_FILES['govIdPhotoFront'])) {
     $govIdPhotoFrontPath = "../assets/img/" . $timestamp;
 }
 
-$sql = "INSERT INTO farmers_registration 
+$sql = "INSERT INTO farmers
         (
         ffrs_system_gen,
         first_name,
@@ -79,16 +79,16 @@ $sql = "INSERT INTO farmers_registration
         last_name, 
         ext_name, 
         gender, 
-        bday, 
+        birthday, 
         hbp, 
         sss, 
-        brgy, 
-        municipality, 
-        province, 
+        farmer_brgy_address, 
+        farmer_municipality_address, 
+        farmer_province_address, 
         region, 
         gov_id_type,
         gov_id_number, 
-        created_at,
+        modified_at,
         selected_enrollment) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

@@ -80,7 +80,7 @@
                         <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?distributions_id=<?= $row['id'];?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
-                         <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
+                         <a href="../backend/activity-logs.php?id=<?= $row['id']; ?>&distributions=Distributions"
                         class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                         <?php }?>
                         </td>

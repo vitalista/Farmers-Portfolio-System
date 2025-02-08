@@ -127,6 +127,7 @@ document
             document.getElementById(
               "submitFarmsButton"
             ).innerHTML = `<i class="fas fa-save me-2"></i>Save`;
+            window.location.reload();
             console.log("Response from PHP: " + xhr.responseText);
           } else {
             console.error("Error submitting data");

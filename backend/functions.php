@@ -4,7 +4,7 @@ $_SESSION['LoggedInUser']['role'] = 1;
 $_SESSION['LoggedInUser']['can_edit'] = 1;
 $_SESSION['LoggedInUser']['can_create'] = 1;
 $_SESSION['LoggedInUser']['can_delete'] = 1;
-$_SESSION['LoggedInUser']['id'] = 69;
+$_SESSION['LoggedInUser']['id'] = 3;
 $_SESSION['LoggedInUser']['full_name'] = "DEV";
 require 'database.php';
 

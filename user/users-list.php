@@ -4,11 +4,7 @@
 
 <body class="login-bg">
 <?php include '../includes/header.php' ?>
-
-  <!-- ======= Sidebar ======= -->
-  <?php include '../includes/sidebar.php' ?>
-  <!-- Database -->
-
+<?php include '../includes/sidebar.php' ?>
   <main id="main" class="main">
 
     <section class="section">
@@ -19,7 +15,7 @@
               <?php include '../backend/status-messages.php' ?>
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">Users list</h5>
-                <a href="user-add.php" class="btn btn-sm btn-primary">
+                <a href="user-add.php" class="btn btn-sm btn-sm btn-primary">
                   Add user
                 </a>
               </div>
@@ -28,7 +24,7 @@
               $tableName = "users";
               $id = $_SESSION['LoggedInUser']['id'];
 
-              $sql = "SELECT * FROM $tableName WHERE id != $id AND id != 3";
+              $sql = "SELECT * FROM $tableName";
               $result = $conn->query($sql);
 
               ?>
@@ -44,9 +40,9 @@
                     <th>Email</th>
                     <th>Full Name</th>
                     <th>Role</th>
-                    <th>isLoggedIn</th>
+                    <th class="d-none">isLoggedIn</th>
                     <th>isBanned</th>
-                    <th>login-logout timestamp</th>
+                    <th>Last logged in</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -60,11 +56,13 @@
                     <td><?= $row['email']; ?></td>
                     <td><?= $row['full_name']; ?></td>
                     <td><?= $row['role'] == 1 ? '<a class="btn btn-sm btn-success">ADMIN</a>' : '<a class="btn btn-sm btn-primary">STANDARD</a>';?></td>
-                    <td><?= $row['is_logged_in'] == 1 ? '<a class="btn btn-sm btn-success">Logged in</a>' : '<a class="btn btn-sm btn-danger">Logged out</a>';?></td>
+                    <td class="d-none"><?= $row['is_logged_in'] == 1 ? '<a class="btn btn-sm btn-success">Logged in</a>' : '<a class="btn btn-sm btn-danger">Logged out</a>';?></td>
                     <td><?= $row['is_banned']  == 1 ? '<a class="btn btn-sm btn-warning">Banned</a>' : '<a class="btn btn-sm btn-success">Allowed</a>'; ?></td>
-                    <td><?= $row['login_timestamp']?> - <?= $row['logout_timestamp']?></td>
+                    <td><?= $row['login_timestamp']?></td>
                     <td>
                       <a href="user-edit.php?id=<?= $row['id']?>" class="btn btn-sm btn-info">view</a>
+                      <a href="../backend/activity-logs.php?id=<?= $row['id']; ?>&users=Users"
+                        class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                     </td>
                   </tr>
                   <?php

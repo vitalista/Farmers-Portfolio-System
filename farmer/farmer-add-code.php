@@ -557,7 +557,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 );
                 
                 if ($stmt->execute()) {
-                    if (!insertActivityLog($stmt->insert_id, $user_id, 'crops', 'INSERT', $farmerId, 'farmers')) {
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'crops', 'INSERT', $farmerId, 'farmers, parcels')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
@@ -618,7 +618,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                     );
             
                     if ($stmt->execute()) {
-                        if (!insertActivityLog($crop, $user_id, 'crops', 'UPDATE', $farmerId, 'farmers')) {
+                        if (!insertActivityLog($crop, $user_id, 'crops', 'UPDATE', $farmerId, 'farmers, parcels')) {
                             echo "Error inserting log entry.";
                             redirect('farmer-list.php', 500, 'Something Went Wrong');
                             exit;
@@ -688,7 +688,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 
                 if ($stmt->execute()) {
 
-                    if (!insertActivityLog($stmt->insert_id, $user_id, 'livestocks', 'INSERT', $farmerId, 'farmers')) {
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'livestocks', 'INSERT', $farmerId, 'farmers, parcels')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
@@ -745,7 +745,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 );
         
                 if ($stmt->execute()) {
-                    if (!insertActivityLog($livestockId, $user_id, 'livestocks', 'UPDATE', $farmerId, 'farmers')) {
+                    if (!insertActivityLog($livestockId, $user_id, 'livestocks', 'UPDATE', $farmerId, 'farmers, parcels')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
