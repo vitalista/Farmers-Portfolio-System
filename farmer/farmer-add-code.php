@@ -38,7 +38,7 @@ if (isset($_POST['farms_data'])) {
     date_default_timezone_set('Asia/Taipei');
     $modifiedAt =  date('Y-m-d h:i:s A');
 
-    if (!isset($farmerId) &&isset($data[0]['farmer'])) {
+    if (!isset($farmerId) && isset($data[0]['farmer'])) {   
         $farmer = $data[0]['farmer'];
 
         $filteredFarmer = array_filter($farmer, function($value) {
@@ -126,6 +126,13 @@ if (isset($_POST['farms_data'])) {
         
         if ($stmt->execute()) {
             $farmerId = $stmt->insert_id;
+
+            if (!insertActivityLog($farmerId, $user_id, 'farmers', 'INSERT')) {
+                echo "Error inserting log entry.";
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
+                exit;
+            }
+
         } else {
             echo "Error executing farmer insert query: " . $stmt->error;
             redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -135,7 +142,7 @@ if (isset($_POST['farms_data'])) {
 
     // echo $farmer['num_of_parcels'];
 
-    if (isset($farmerId) && isset($data[0]['farmer'])) {
+    if (isset($farmerId) && isset($data[0]['farmer']) && array_key_exists('farmer_id', $data[0]['farmer'])) {
         $farmer = $data[0]['farmer'];
 
         $filteredFarmer = array_filter($farmer, function($value) {
@@ -234,7 +241,14 @@ if (isset($_POST['farms_data'])) {
     
         // Execute the query
         if ($stmt->execute()) {
-            // echo '<div style="position: fixed; top: 80px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Farmer updated successfully!</div>';
+
+            if (!insertActivityLog($farmerId, $user_id, 'farmers', 'UPDATE')) {
+                echo "Error inserting log entry.";
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
+                exit;
+            }
+
+           
         } else {
             echo "Error executing farmer update query: " . $stmt->error;
             redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -243,80 +257,87 @@ if (isset($_POST['farms_data'])) {
     }
 
 if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($_FILES['govIdPhotoFront'])) {
-    $farmerExt = $govIdPhotoBackExt = $govIdPhotoFrontExt = null;
-    $farmerPath = $govIdPhotoBackPath = $govIdPhotoFrontPath = null;
-    $farmerImageBlob = $govIdPhotoBackBlob = $govIdPhotoFrontBlob = null;
+        $farmerExt = $govIdPhotoBackExt = $govIdPhotoFrontExt = null;
+        $farmerPath = $govIdPhotoBackPath = $govIdPhotoFrontPath = null;
+        $farmerImageBlob = $govIdPhotoBackBlob = $govIdPhotoFrontBlob = null;
 
-    // Function to get image data as BLOB
-    function getImageBlob($file) {
-        if ($file && $file['error'] === UPLOAD_ERR_OK) {
-            echo "File uploaded successfully: " . $file['name'] . "<br>";
-            return file_get_contents($file['tmp_name']);
+        // Function to get image data as BLOB
+        function getImageBlob($file) {
+            if ($file && $file['error'] === UPLOAD_ERR_OK) {
+                echo "File uploaded successfully: " . $file['name'] . "<br>";
+                return file_get_contents($file['tmp_name']);
+            }
+            echo "Error uploading file: " . $file['error'] . "<br>";
+            return null;
         }
-        echo "Error uploading file: " . $file['error'] . "<br>";
-        return null;
-    }
 
-    function getFileExtension($file) {
-        // Get the file's extension
-        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        return strtolower($fileExtension);
-    }
+        function getFileExtension($file) {
+            // Get the file's extension
+            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            return strtolower($fileExtension);
+        }
 
-    // Get image blobs for each file
-    if (isset($_FILES['farmerImage'])) {
-        $farmerImageBlob = getImageBlob($_FILES['farmerImage']);
-        $farmerExt = getFileExtension($_FILES['farmerImage']);
-        $timestamp = date('Y-m-d_H-i-s');
-        $farmerPath = "../assets/img/" . $timestamp . "_farmer." . $farmerExt; // Add extension to path
-    }
+        // Get image blobs for each file
+        if (isset($_FILES['farmerImage'])) {
+            $farmerImageBlob = getImageBlob($_FILES['farmerImage']);
+            $farmerExt = getFileExtension($_FILES['farmerImage']);
+            $timestamp = date('Y-m-d_H-i-s');
+            $farmerPath = "../assets/img/" . $timestamp . "_farmer." . $farmerExt; // Add extension to path
+        }
 
-    if (isset($_FILES['govIdPhotoBack'])) {
-        $govIdPhotoBackBlob = getImageBlob($_FILES['govIdPhotoBack']);
-        $govIdPhotoBackExt = getFileExtension($_FILES['govIdPhotoBack']);
-        $timestamp = date('Y-m-d_H-i-s');
-        $govIdPhotoBackPath = "../assets/img/" . $timestamp . "_govIdBack." . $govIdPhotoBackExt; // Add extension to path
-    }
+        if (isset($_FILES['govIdPhotoBack'])) {
+            $govIdPhotoBackBlob = getImageBlob($_FILES['govIdPhotoBack']);
+            $govIdPhotoBackExt = getFileExtension($_FILES['govIdPhotoBack']);
+            $timestamp = date('Y-m-d_H-i-s');
+            $govIdPhotoBackPath = "../assets/img/" . $timestamp . "_govIdBack." . $govIdPhotoBackExt; // Add extension to path
+        }
 
-    if (isset($_FILES['govIdPhotoFront'])) {
-        $govIdPhotoFrontBlob = getImageBlob($_FILES['govIdPhotoFront']);
-        $govIdPhotoFrontExt = getFileExtension($_FILES['govIdPhotoFront']);
-        $timestamp = date('Y-m-d_H-i-s');
-        $govIdPhotoFrontPath = "../assets/img/" . $timestamp . "_govIdFront." . $govIdPhotoFrontExt; // Add extension to path
-    }
+        if (isset($_FILES['govIdPhotoFront'])) {
+            $govIdPhotoFrontBlob = getImageBlob($_FILES['govIdPhotoFront']);
+            $govIdPhotoFrontExt = getFileExtension($_FILES['govIdPhotoFront']);
+            $timestamp = date('Y-m-d_H-i-s');
+            $govIdPhotoFrontPath = "../assets/img/" . $timestamp . "_govIdFront." . $govIdPhotoFrontExt; // Add extension to path
+        }
 
-    $lastInsertedFarmerId = $farmerId; // Make sure $farmerId is initialized correctly
+        $lastInsertedFarmerId = $farmerId; // Make sure $farmerId is initialized correctly
 
-    // Insert images into the images table
-    $imageTypes = ['farmerImage', 'govIdPhotoBack', 'govIdPhotoFront'];
-    $imageBlobs = [$farmerImageBlob, $govIdPhotoBackBlob, $govIdPhotoFrontBlob];
-    $imagePaths = [$farmerPath, $govIdPhotoBackPath, $govIdPhotoFrontPath];
-    $imageExt = [$farmerExt, $govIdPhotoBackExt, $govIdPhotoFrontExt];
+        // Insert images into the images table
+        $imageTypes = ['farmerImage', 'govIdPhotoBack', 'govIdPhotoFront'];
+        $imageBlobs = [$farmerImageBlob, $govIdPhotoBackBlob, $govIdPhotoFrontBlob];
+        $imagePaths = [$farmerPath, $govIdPhotoBackPath, $govIdPhotoFrontPath];
+        $imageExt = [$farmerExt, $govIdPhotoBackExt, $govIdPhotoFrontExt];
 
-    $imageSql = "INSERT INTO images (farmer_id, image_type, image_path, image_data) VALUES (?, ?, ?, ?)";
-    $imageStmt = $conn->prepare($imageSql);
-    if (!$imageStmt) {
-        echo "Error preparing SQL statement: " . $conn->error . "<br>";
-    }
+        $imageSql = "INSERT INTO images (farmer_id, image_type, image_path, image_data) VALUES (?, ?, ?, ?)";
+        $imageStmt = $conn->prepare($imageSql);
+        if (!$imageStmt) {
+            echo "Error preparing SQL statement: " . $conn->error . "<br>";
+        }
 
-    foreach ($imageTypes as $index => $type) {
-        if ($imageBlobs[$index]) {
-            $finalPath = $imagePaths[$index]; 
-            $imageStmt->bind_param('isss', $lastInsertedFarmerId, $type, $finalPath, $imageBlobs[$index]);
-            if ($imageStmt->execute()) {
-                echo "Image inserted successfully: " . $finalPath . "<br>";
-            } else {
-                echo "Error inserting image: " . $imageStmt->error . "<br>";
+        foreach ($imageTypes as $index => $type) {
+            if ($imageBlobs[$index]) {
+                $finalPath = $imagePaths[$index]; 
+                $imageStmt->bind_param('isss', $lastInsertedFarmerId, $type, $finalPath, $imageBlobs[$index]);
+                if ($imageStmt->execute()) {
+                    
+                    $imageId = $imageStmt->insert_id;
+                    if (!insertActivityLog($imageId, $user_id, 'images', 'INSERT', $lastInsertedFarmerId, 'farmers')) {
+                        echo "Error inserting log entry.";
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
+
+                } else {
+                    echo "Error inserting image: " . $imageStmt->error . "<br>";
+                }
             }
         }
-    }
 
-    echo "Farmer Image Size: " . $_FILES['farmerImage']['size'] . " bytes<br>";
-    echo "Gov ID Photo Back Size: " . $_FILES['govIdPhotoBack']['size'] . " bytes<br>";
-    echo "Gov ID Photo Front Size: " . $_FILES['govIdPhotoFront']['size'] . " bytes<br>";
+        // echo "Farmer Image Size: " . $_FILES['farmerImage']['size'] . " bytes<br>";
+        // echo "Gov ID Photo Back Size: " . $_FILES['govIdPhotoBack']['size'] . " bytes<br>";
+        // echo "Gov ID Photo Front Size: " . $_FILES['govIdPhotoFront']['size'] . " bytes<br>";
 
-} else {
-    echo "No files uploaded.<br>";
+    } else {
+                echo "No files uploaded.<br>";
 }
 
     
@@ -396,6 +417,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             
             if ($stmt->execute()) {
                 $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
+
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'parcels', 'INSERT', $farmerId, 'farmers')) {
+                        echo "Error inserting log entry.";
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
+
             } else {
                 echo "Error executing parcel insert query: " . $stmt->error;
                 redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -458,7 +486,11 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             if ($stmt->execute()) {
                 // Parcel updated successfully
                 $parcelIds[$parcel['parcelNum']] = $parcel['parcel_id'];
-                // echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Parcel updated successfully!</div>';
+                if (!insertActivityLog($parcel['parcel_id'], $user_id, 'parcels', 'UPDATE', $farmerId, 'farmers')) {
+                    echo "Error inserting log entry.";
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
+                    exit;
+                }
             } else {
                 echo "Error executing parcel update query: " . $stmt->error;
                 redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -524,7 +556,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 $modifiedAt
                 );
                 
-                if (!$stmt->execute()) {
+                if ($stmt->execute()) {
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'crops', 'INSERT', $farmerId, 'farmers')) {
+                        echo "Error inserting log entry.";
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
+                }else{
                     echo "Error executing crop insert query: " . $stmt->error;
                     redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;
@@ -579,7 +617,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                         $cropId // Crop ID to identify the record to update
                     );
             
-                    if (!$stmt->execute()) {
+                    if ($stmt->execute()) {
+                        if (!insertActivityLog($crop, $user_id, 'crops', 'UPDATE', $farmerId, 'farmers')) {
+                            echo "Error inserting log entry.";
+                            redirect('farmer-list.php', 500, 'Something Went Wrong');
+                            exit;
+                        }
+                    }else{
                         echo "Error executing crop update query: " . $stmt->error;
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
@@ -642,7 +686,15 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                  $modifiedAt
                 );
                 
-                if (!$stmt->execute()) {
+                if ($stmt->execute()) {
+
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'livestocks', 'INSERT', $farmerId, 'farmers')) {
+                        echo "Error inserting log entry.";
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
+                  
+                }else{
                     echo 'Error executing livestock insert query: ' . $stmt->error;
                     redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;
@@ -692,7 +744,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                     $livestockId // Livestock ID to identify the record to update
                 );
         
-                if (!$stmt->execute()) {
+                if ($stmt->execute()) {
+                    if (!insertActivityLog($livestockId, $user_id, 'livestocks', 'UPDATE', $farmerId, 'farmers')) {
+                        echo "Error inserting log entry.";
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
+                }else{
                     echo "Error executing livestock update query: " . $stmt->error;
                     redirect('farmer-list.php', 500, 'Something Went Wrong');
                     exit;

@@ -84,7 +84,7 @@ if (isset($_POST['addItem'])) {
                 echo '</script>';
 
                 // Now perform the redirect
-                redirect('distribution-multiple-add.php', 200, 'Farmer added: ' . $row['resources_name']);
+                redirect('distribution-multiple-add.php', 200, 'Farmer added');
             }
         } else {
             redirect('distribution-multiple-add.php', 404, 'No Item Found');
@@ -221,7 +221,7 @@ if (isset($_POST['addItems'])) {
         $_SESSION['resourceItems'][] = $data;
     }
 
-    redirect('distribution-multiple-add.php', 200, 'Farmer added: ' . $row['resources_name']);
+    redirect('distribution-multiple-add.php', 200, 'Farmers added');
 
     // Debugging: Log session data to the console
     // echo '<script>';
@@ -233,7 +233,7 @@ if (isset($_POST['addItems'])) {
 
 if (isset($_POST['saveItem'])) {
 
-    $user_id = 0;
+    $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
     $modifiedAt =  date('Y-m-d h:i:s A');
 
     if (!empty($_SESSION['resourceItems']) && isset($_SESSION['resourceItems'])) {
@@ -328,6 +328,12 @@ if (isset($_POST['saveItem'])) {
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {
                     echo "Item successfully inserted into the database.<br>";
+
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'distributions', 'DISTRIBUTE', $item['farmer_id'], 'farmers')) {
+                        redirect('programs-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
+
                     // redirect('distribution-multiple-add.php', 200, 'Distribution Successfully Added');
                     // Now update the resource's quantity by subtracting the distributed quantity
                     $updateQuery = "UPDATE resources SET quantity_available = quantity_available - ? WHERE id = ?";

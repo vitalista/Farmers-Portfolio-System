@@ -22,7 +22,6 @@
             <h5 class="card-header">Edits user</h5>
             <div class="d-flex justify-content-end">
            
-            <a href="#" class="btn btn-success  me-2">Edit</a>
             <a href="users-list.php" class="btn btn-primary">Back</a>
             </div>
             </div>

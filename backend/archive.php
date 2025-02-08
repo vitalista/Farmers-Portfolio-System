@@ -19,6 +19,12 @@ require '../backend/functions.php';
             $archived = update($tableName, $id, $data);
 
             if ($archived) {
+                
+                if (!insertActivityLog($id, $user_id, $tableName, 'ARCHIVE')) {
+                redirect('programs-list.php', 500, 'Something Went Wrong');
+                exit;
+                }
+
                 redirect($redirectUrl, 200,$successMessage);
                 exit; // Ensure we exit after redirect
             } else {

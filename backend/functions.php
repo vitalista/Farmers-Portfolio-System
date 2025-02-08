@@ -547,5 +547,34 @@ function getCountArray($tableName, $columnName, $condition, $brgy = "") {
     }
 }
 
+function insertActivityLog($table_id, $created_by, $table_name, $action_type, $related_tableId = 0, $related_table = '') {
+    global $conn;
+    $created_at = date('Y-m-d H:i:s');
+
+    // Prepare the SQL query
+    $sql = "INSERT INTO activity_logs (table_id, created_by, table_name, created_at, action_type, related_tableId, related_table) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+
+    // Bind parameters (i = integer, s = string)
+    $stmt->bind_param("iisssis", $table_id, $created_by, $table_name, $created_at, $action_type, $related_tableId, $related_table);
+
+    // Execute the query
+    if ($stmt->execute()) {
+        $stmt->close();
+        return true;  // Success
+    } else {
+        $stmt->close();
+        echo "Error: " . $stmt->error;
+        return false;  // Failure
+    }
+}
+
 
 ?>

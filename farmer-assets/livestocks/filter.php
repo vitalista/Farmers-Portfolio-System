@@ -339,7 +339,7 @@ $result = $stmt->get_result();
                         </datalist>
                     </div>
 
-                    <div class="col-md-3 mb-3" style="background-color: red;">
+                    <div class="col-md-3 mb-3">
                         <label for="farmType" class="form-label">Farm Type</label>
                         <input type="text" id="farmType" list="farmTypeOpt" name="farmType" class="form-control" placeholder="Type here...">
                         <datalist id="farmTypeOpt">

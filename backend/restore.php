@@ -7,12 +7,19 @@ require '../backend/functions.php';
     if ($id && is_numeric($id)) {
         $id = validate($id);
         $category = getById($tableName, $id);
+        $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
 
         if ($category['status'] == 200) {
             $data = [   'is_archived' => 0];
             $archived = update($tableName, $id, $data);
 
             if ($archived) {
+                
+                if (!insertActivityLog($id, $user_id, $tableName, 'RESTORE')) {
+                    redirect('programs-list.php', 500, 'Something Went Wrong');
+                    exit;
+                }
+
                 redirect($redirectUrl, 200,$successMessage);
                 exit; // Ensure we exit after redirect
             } else {

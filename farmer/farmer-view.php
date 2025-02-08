@@ -34,9 +34,12 @@
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="card-header">Farmer Profile</h3>
+                    <div class="d-sm-flex justify-content-end align-items-center mt-2">
                     <a class="btn btn-sm btn-primary"
                         href="#"
                         onclick="window.history.back()">Back</a>
+                    <a class="btn btn-sm btn-info">Print</a>
+                    </div>
                 </div>
             </div>
 
@@ -131,10 +134,6 @@
                                     <input type="hidden" class="deceased" value="<?= $farmer['data']['is_deceased']; ?>">
                                     <input type="hidden" class="active" value="<?= $farmer['data']['is_active']; ?>">
                                     <input type="hidden" class="farmer_id" value="<?= $farmer['data']['id']; ?>">
-
-                                    <div class="d-sm-flex justify-content-end align-items-center mt-2">
-                                        <a class="btn btn-sm btn-info">Print</a>
-                                    </div>
                                     <hr>
                                     <div class="col-md-6 text-center mb-3 shadow-sm">
                                         <img id="farmerImage" class="rounded-circle mb-2"
