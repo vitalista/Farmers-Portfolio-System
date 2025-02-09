@@ -34,7 +34,6 @@ if (isset($_POST['program_data'])) {
     $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
     $programId = isset($data[0]['program']['program_id']) ? $data[0]['program']['program_id'] : null;
     date_default_timezone_set('Asia/Taipei');
-    $modifiedAt =  date('Y-m-d h:i:s A');
 
     if (!isset($programId) &&isset($data[0]['program'])) {
         $program = $data[0]['program'];
@@ -68,11 +67,8 @@ if (isset($_POST['program_data'])) {
         end_date, 
         total_beneficiaries,
         beneficiaries_available,
-        sourcing_agency, 
-
-        modified_by,
-        modified_at
-        )VALUES (?, ?, ?, ?, ?, ?, ?, ?,
+        sourcing_agency
+        )VALUES (?, ?, ?, ?, ?, ?,
         ?, ?
         )";
         $stmt = $conn->prepare($sql);
@@ -83,7 +79,7 @@ if (isset($_POST['program_data'])) {
             exit;
         }
         
-        $stmt->bind_param("sssssiisis", 
+        $stmt->bind_param("sssssiis", 
         $program['nameOfProgram'], 
         $program['programType'], 
         $program['description'], 
@@ -92,8 +88,6 @@ if (isset($_POST['program_data'])) {
         $program['totalBeneficiaries'], 
         $program['totalBeneficiaries'], 
         $program['sourcingAgency'], 
-        $user_id,
-        $modifiedAt
     );
         
         if ($stmt->execute()) {
@@ -149,9 +143,6 @@ if (isset($_POST['program_data'])) {
             total_beneficiaries = ?, 
             beneficiaries_available = ?, 
             sourcing_agency = ?, 
-
-            modified_by = ?, 
-            modified_at = ?,
             modified_times = ?
 
             WHERE id = ?";
@@ -165,7 +156,7 @@ if (isset($_POST['program_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssiisisii", 
+        $stmt->bind_param("sssssiisii", 
             $program['nameOfProgram'], 
             $program['programType'], 
             $program['description'], 
@@ -174,9 +165,6 @@ if (isset($_POST['program_data'])) {
             $program['totalBeneficiaries'], 
             $program['beneficiaries'], 
             $program['sourcingAgency'], 
-            
-            $user_id,
-            $modifiedAt,
             $modifiedTimes,
             $programId 
         );
@@ -229,11 +217,8 @@ if (isset($_POST['program_data'])) {
                       resource_type, 
                       total_quantity, 
                       quantity_available,
-                      unit_of_measure,
-
-                      modified_by,
-                      modified_at
-                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                      unit_of_measure
+                  ) VALUES (?, ?, ?, ?, ?, ?)";
     
             $stmt = $conn->prepare($sql);
             
@@ -244,16 +229,13 @@ if (isset($_POST['program_data'])) {
             }
     
             $stmt->bind_param(
-                "issiisis",
+                "issiis",
                 $programId,
                 $resources['resourcesName'],
                 $resources['resourcesType'],
                 $resources['resourcesNumber'],
                 $resources['resourcesNumber'],
                 $resources['unitOfMeasure'],
-
-                $user_id,
-                $modifiedAt
             );
             
            if($stmt->execute()){
@@ -288,9 +270,6 @@ if (isset($_POST['program_data'])) {
                         total_quantity = ?, 
                         quantity_available = ?, 
                         unit_of_measure = ?,
-
-                        modified_by = ?, 
-                        modified_at = ?,
                         modified_times = ?
                     WHERE id = ?"; 
         
@@ -304,16 +283,13 @@ if (isset($_POST['program_data'])) {
         
             // Bind parameters for the update query
             $stmt->bind_param(
-                "issiisisii", 
+                "issiisii", 
                 $programId,
                 $resources['resourcesName'],
                 $resources['resourcesType'],
                 $resources['resourcesNumber'],
                 $resources['resourcesAvailable'],
                 $resources['unitOfMeasure'],
-
-                $user_id,
-                $modifiedAt,
                 $modifiedTimes,
                 $resources['resources_id']
             );

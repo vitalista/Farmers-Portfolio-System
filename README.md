@@ -16,10 +16,11 @@ TO Do's:
 - [x] diff action column for lists like distribution-list.php
 - [x] FIlter LIKE contains string only find exact word not per letter exist
 - [x] archive and modified log name
-- [] GENERATE dashboard content adn brgy
+- [x] GENERATE dashboard content adn brgy
 - [] Important Fields
 - [] resend OTP
 - [] restrictions options in every lists
+- [] unused btns and make it sm
 - [x] restored
 
 TO REMIND:

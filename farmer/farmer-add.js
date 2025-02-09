@@ -294,7 +294,6 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const gender = card.querySelector('.gender').value;
   const bday = card.querySelector('.bday').value;
   const deceased = card.querySelector('.deceased').checked;
-  const active = card.querySelector('.active').checked;
 
   const govIdType = card.querySelector('.govIdType').value;
   const govIdNumber = card.querySelector('.govIdNumber').value;
@@ -340,7 +339,6 @@ console.log("Largest farm number:", num_of_parcels);
           gender,
           bday,
           deceased,
-          active,
           govIdNumber,
           govIdType,
           sss,
@@ -365,7 +363,6 @@ console.log("Largest farm number:", num_of_parcels);
           gender,
           bday,
           deceased,
-          active,
           govIdNumber,
           govIdType,
           sss,

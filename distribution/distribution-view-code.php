@@ -34,17 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         program_id = ?, 
                         quantity_distributed = ?, 
                         distribution_date = ?,
-                        modified_by = ?, 
-                        modified_at = ?, 
                         remarks = ?,
                         modified_times = ?
                         WHERE id = ?";
 
         // Prepare and execute the SQL query
         $stmt = $conn->prepare($updateQuery);
-        $stmt->bind_param("iiississii", $farmerId, $resourcesId, $programId, $quantityDistributed, $distributionDate, 
-        $user_id,
-        $modifiedAt,
+        $stmt->bind_param("iiisssii", $farmerId, $resourcesId, $programId, $quantityDistributed, $distributionDate, 
         $remarks,
         $modifiedTimes,
         $distributionId);

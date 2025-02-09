@@ -79,18 +79,14 @@ if (isset($_POST['farms_data'])) {
         ext_name, gender, 
         birthday, 
         is_deceased, 
-        is_active,
         no_of_parcels,
-        modified_by,
-        modified_at,
-
         gov_id_number,
         gov_id_type,
         region,
         sss,
         hbp
 
-        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+        )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?
         )";
         $stmt = $conn->prepare($sql);
@@ -101,7 +97,7 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
         
-        $stmt->bind_param("sssssssssssiiissssss", 
+        $stmt->bind_param("ssssssssssiisssss", 
         $farmer['ffrs'], 
         $farmer['brgy'], 
         $farmer['municipality'],
@@ -113,10 +109,7 @@ if (isset($_POST['farms_data'])) {
         $farmer['gender'], 
         $farmer['bday'], 
         $farmer['deceased'],
-        $farmer['active'],
         $farmer['num_of_parcels'],
-        $user_id,
-        $modifiedAt,
         $farmer['govIdNumber'],
         $farmer['govIdType'],
         $farmer['region'],
@@ -190,10 +183,7 @@ if (isset($_POST['farms_data'])) {
             gender = ?, 
             birthday = ?, 
             is_deceased = ?, 
-            is_active = ?, 
             no_of_parcels = ?, 
-            modified_by = ?, 
-            modified_at = ?,
             modified_times = ?,
 
             gov_id_number = ?,
@@ -213,7 +203,7 @@ if (isset($_POST['farms_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssssssssiiisiisssss", 
+        $stmt->bind_param("sssssssssssiiisssss", 
             $farmer['ffrs'], 
             $farmer['brgy'], 
             $farmer['municipality'], 
@@ -225,12 +215,8 @@ if (isset($_POST['farms_data'])) {
             $farmer['gender'], 
             $farmer['bday'], 
             $farmer['deceased'],
-            $farmer['active'],
             $farmer['num_of_parcels'],
-            $user_id,
-            $modifiedAt,
             $modifiedTimes,
-              // Pass the farmer ID to identify the record to update
             $farmer['govIdNumber'],
             $farmer['govIdType'],
             $farmer['region'],
@@ -384,11 +370,8 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                       parcel_municipality_address, 
                       parcel_province_address, 
                       parcel_area, 
-                      farm_type,
-
-                      modified_by,
-                      modified_at
-                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                      farm_type
+                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?,
                   ?, ?)";
     
             $stmt = $conn->prepare($sql);
@@ -400,7 +383,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             }
     
             $stmt->bind_param(
-                "iissssssssis",
+                "iissssssss",
                 $farmerId,
                 $parcel['parcelNum'],
                 $parcel['ofName'],
@@ -411,8 +394,6 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 $parcel['farmLocationProvince'],
                 $parcel['farmSize'],
                 $parcel['farmType'],
-                $user_id,
-                $modifiedAt
             );
             
             if ($stmt->execute()) {
@@ -450,8 +431,6 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                         parcel_province_address = ?, 
                         parcel_area = ?, 
                         farm_type = ?, 
-                        modified_by = ?, 
-                        modified_at = ?,
                         modified_times = ?
                     WHERE id = ?"; 
         
@@ -465,7 +444,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
         
             // Bind parameters for the update query
             $stmt->bind_param(
-                "iissssssssisii", 
+                "iissssssssii", 
                 $farmerId,
                 $parcel['parcelNum'],
                 $parcel['ofName'],
@@ -476,8 +455,6 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 $parcel['farmLocationProvince'],
                 $parcel['farmSize'],
                 $parcel['farmType'],
-                $user_id,
-                $modifiedAt,
                 $modifiedTimes,
                 $parcel['parcel_id']
             );
@@ -532,11 +509,8 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 hvc, 
                 crop_area,
                 crop_name, 
-                classification,
-
-                modified_by,
-                modified_at
-                ) VALUES (?, ?, ?, ?, ?, ?,
+                classification
+                ) VALUES (?, ?, ?, ?,
                 ?, ?)";
                 $stmt = $conn->prepare($sql);
                 
@@ -545,15 +519,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                     exit;
                 }
     
-                $stmt->bind_param("iiidsiis", 
+                $stmt->bind_param("iiidsi", 
                 $farmerId, 
                 $parcelId, 
                 $crop['hvc'], 
                 $crop['cropArea'], 
                 $crop['cropName'], 
-                $crop['classification'],
-                $user_id,
-                $modifiedAt
+                $crop['classification']
                 );
                 
                 if ($stmt->execute()) {
@@ -590,8 +562,6 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                             crop_area = ?, 
                             crop_name = ?,
                             classification = ?, 
-                            modified_by = ?, 
-                            modified_at = ?, 
                             modified_times = ?
                             WHERE id = ?";
                             
@@ -604,15 +574,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                     }
             
                     // Bind parameters
-                    $stmt->bind_param("iiidsiisii", 
+                    $stmt->bind_param("iiidsiii", 
                         $farmerId, 
                         $parcelId, 
                         $crop['hvc'], 
                         $crop['cropArea'], 
                         $crop['cropName'], 
                         $crop['classification'], 
-                        $user_id, 
-                        $modifiedAt,
                         $modifiedTimes, 
                         $cropId // Crop ID to identify the record to update
                     );
@@ -662,11 +630,8 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 farmer_id, 
                 parcel_id, 
                 no_of_heads, 
-                animal_name,
-                
-                modified_by,
-                modified_at
-                ) VALUES (?, ?, ?, ?,
+                animal_name
+                ) VALUES (?, ?,
                 ?, ?
                 )";
                 $stmt = $conn->prepare($sql);
@@ -677,13 +642,11 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                     exit;
                 }
     
-                $stmt->bind_param("iiisis",
+                $stmt->bind_param("iiis",
                  $farmerId, 
                  $parcelId, 
                  $livestock['numberOfHeads'], 
-                 $livestock['livestockType'],
-                 $user_id,
-                 $modifiedAt
+                 $livestock['livestockType']
                 );
                 
                 if ($stmt->execute()) {
@@ -719,8 +682,6 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                         parcel_id = ?, 
                         no_of_heads = ?, 
                         animal_name = ?, 
-                        modified_by = ?, 
-                        modified_at = ?,
                         modified_times = ?
                         WHERE id = ?";
         
@@ -733,13 +694,11 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 }
         
                 // Bind parameters for the update query
-                $stmt->bind_param("iiisisii", 
+                $stmt->bind_param("iiisii", 
                     $farmerId, 
                     $parcelId, 
                     $livestock['numberOfHeads'], 
                     $livestock['livestockType'], 
-                    $user_id, 
-                    $modifiedAt, 
                     $modifiedTimes,
                     $livestockId // Livestock ID to identify the record to update
                 );

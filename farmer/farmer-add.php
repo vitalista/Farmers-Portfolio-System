@@ -195,21 +195,12 @@
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
-                      <div class="col-md-2 mt-4 ms-5 d-none">
+                      <div class="col-md-2 mt-4 ms-5">
                         <label class="form-check-label" for="deceased">
                           Deceased?
                         </label>
                         <div class="form-check">
                           <input class="form-check-input me-2 deceased" style="width: 2rem; height: 2rem;" type="checkbox" id="deceased">
-                        </div>
-                      </div>
-
-                      <div class="col-md-2 mt-4 d-none">
-                        <label class="form-check-label" for="active">
-                          Active?
-                        </label>
-                        <div class="form-check">
-                          <input class="form-check-input me-2 active" style="width: 2rem; height: 2rem;" type="checkbox" id="active">
                         </div>
                       </div>
 

@@ -120,8 +120,6 @@
                                     $imageFilePath = '../assets/img/' . $matches[1] . '.' . $ext;
                                     file_put_contents($imageFilePath, $imgData);
                                 }
-                            } else {
-                                echo "No images found!";
                             }
 
                             // You can now use $imageArray, which holds the image types as keys and paths as values
@@ -131,8 +129,6 @@
 
                                 <div class="card-body row">
                                     <input type="hidden" class="ffrs" value="<?= $farmer['data']['ffrs_system_gen']; ?>">
-                                    <input type="hidden" class="deceased" value="<?= $farmer['data']['is_deceased']; ?>">
-                                    <input type="hidden" class="active" value="<?= $farmer['data']['is_active']; ?>">
                                     <input type="hidden" class="farmer_id" value="<?= $farmer['data']['id']; ?>">
                                     <hr>
                                     <div class="col-md-6 text-center mb-3 shadow-sm">
@@ -234,16 +230,8 @@
                                             </fieldset>
                                             <div class="ms-3 d-flex">
 
-
-                                                <div class="form-check d-none">
-                                                    <label class="form-check-label" for="active">
-                                                        Active?
-                                                    </label>
-                                                    <input class="form-check-input me-2 active" style="width: 2rem; height: 2rem;" type="checkbox" id="active" <?= $farmer['data']['is_active'] == 1 ? "checked" : ""; ?>>
-                                                </div>
-
-                                                <div class="ms-5 form-check d-none">
-                                                    <input class="form-check-input me-2 deceased" style="width: 2rem; height: 2rem;" type="checkbox" id="deceased">
+                                                <div class="ms-5 form-check">
+                                                    <input class="form-check-input me-2 deceased" style="width: 2rem; height: 2rem;" type="checkbox" id="deceased" <?= $farmer['data']['is_deceased'] == 1 ? 'checked': ''?>>
                                                     <label class="form-check-label" for="deceased">
                                                         Deceased?
                                                     </label>

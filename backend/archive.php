@@ -10,12 +10,9 @@ require '../backend/functions.php';
 
         $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
         date_default_timezone_set('Asia/Taipei');
-        $archivedAt =  date('Y-m-d h:i:s A');
 
         if ($category['status'] == 200) {
-            $data = [   'is_archived' => 1,
-                        'archived_by' =>  $user_id,
-                        'archived_at' => $archivedAt];
+            $data = [   'is_archived' => 1];
             $archived = update($tableName, $id, $data);
 
             if ($archived) {

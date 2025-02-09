@@ -304,24 +304,18 @@ if (isset($_POST['saveItem'])) {
             program_id, 
             resource_id,
             quantity_distributed,
-            distribution_date,
-
-            modified_by,
-            modified_at
+            distribution_date
             )
-              VALUES (?, ?, ?, ?, ?, ?, ?)";
+              VALUES (?, ?, ?, ?, ?)";
 
             if ($stmt = mysqli_prepare($conn, $query)) {
                 mysqli_stmt_bind_param(
                     $stmt,
-                    'iiiisis',
+                    'iiiis',
                     $item['farmer_id'],
                     $item['program_id'],
                     $item['resource_id'],
                     $item['quantity'],
-                    $modifiedAt,
-
-                    $user_id,
                     $modifiedAt
                 );
 

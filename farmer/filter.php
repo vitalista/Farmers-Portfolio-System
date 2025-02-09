@@ -25,12 +25,6 @@ if (!empty($_GET['gender'])) {
     $types .= "s"; 
 }
 
-if (!empty($_GET['active'])) {
-    $whereConditions[] = "is_active = ?";
-    $params[] = validate($_GET['active']);
-    $types .= "i"; 
-}
-
 if (!empty($_GET['deceased'])) {
     $whereConditions[] = "is_deceased = ?";
     $params[] = validate($_GET['deceased']);
@@ -174,18 +168,6 @@ $result = $stmt->get_result();
                                 <option value="greaterThan">Greater Than</option>
                             </select>
                             <input type="number" id="noHeads" name="numberOfParcels" min="0" class="form-control" placeholder="Enter">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Active?</label>
-                        <div class="form-check">
-                            <input class="form-check-input" name="active" style="width: 20px; height: 20px;" type="radio" id="activeYes" value="1">
-                            <label class="form-check-label" for="activeYes">Yes</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" name="active" style="width: 20px; height: 20px;" type="radio" id="activeNo" value="0">
-                            <label class="form-check-label" for="activeNo">No</label>
                         </div>
                     </div>
 
