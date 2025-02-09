@@ -240,7 +240,7 @@ if (isset($_POST['program_data'])) {
             
            if($stmt->execute()){
 
-            if (!insertActivityLog($stmt->insert_id, $user_id, 'resources', 'INSERT', $programId, 'programs')) {
+            if (!insertActivityLog($stmt->insert_id, $user_id, 'resources', 'INSERT', 'programs')) {
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
             }
@@ -298,7 +298,7 @@ if (isset($_POST['program_data'])) {
             if ($stmt->execute()) {
                 // Parcel updated successfully
                 // echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Resources updated successfully!</div>';
-                if (!insertActivityLog($resources['resources_id'], $user_id, 'resources', 'UPDATE', $programId, 'programs')) {
+                if (!insertActivityLog($resources['resources_id'], $user_id, 'resources', 'UPDATE', 'programs')) {
                     redirect('programs-list.php', 500, 'Something Went Wrong');
                     exit;
                 }

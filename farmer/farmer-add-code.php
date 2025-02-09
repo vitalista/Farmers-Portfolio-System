@@ -171,6 +171,32 @@ if (isset($_POST['farms_data'])) {
             $modifiedTimes = $checkId['data']['modified_times'] + 1;
         }
 
+        $changeKeyName = [
+            'num_of_parcels' => 'no_of_parcels', 
+            'ffrs' => 'ffrs_system_gen', 
+            'lastName' => 'last_name',
+            'middleName' => 'middle_name',
+            'firstName' => 'first_name',
+            'extName' => 'ext_name',
+            'bday' => 'birthday',
+            'brgy' => 'farmer_brgy_address',
+            'municipality' => 'farmer_municipality_address',
+            'province' => 'farmer_province_address',
+            'deceased' => 'is_deceased',
+            'govIdType' => 'gov_id_type',
+            'govIdNumber' => 'gov_id_number',
+            ];
+
+        $dbrecord= getRecordsById('farmers', $farmerId, ['id', 'modified_times', 'selected_enrollment', 'is_archived']);
+        $userRecord = removeAndCustomizeKeys($farmer, ['farmer_id'], $changeKeyName);
+        if (!compareArrays($dbrecord, $userRecord)){
+            if (!insertActivityLog($farmerId, $user_id, 'farmers', 'UPDATE')) {
+                echo "Error inserting log entry.";
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
+                exit;
+            }
+        }
+
         $sql = "UPDATE farmers SET
             ffrs_system_gen = ?, 
             farmer_brgy_address = ?, 
@@ -226,16 +252,7 @@ if (isset($_POST['farms_data'])) {
         );
     
         // Execute the query
-        if ($stmt->execute()) {
-
-            if (!insertActivityLog($farmerId, $user_id, 'farmers', 'UPDATE')) {
-                echo "Error inserting log entry.";
-                redirect('farmer-list.php', 500, 'Something Went Wrong');
-                exit;
-            }
-
-           
-        } else {
+        if (!$stmt->execute()) {
             echo "Error executing farmer update query: " . $stmt->error;
             redirect('farmer-list.php', 500, 'Something Went Wrong');
             exit;
@@ -306,7 +323,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 if ($imageStmt->execute()) {
                     
                     $imageId = $imageStmt->insert_id;
-                    if (!insertActivityLog($imageId, $user_id, 'images', 'INSERT', $lastInsertedFarmerId, 'farmers')) {
+                    if (!insertActivityLog($imageId, $user_id, 'images', 'INSERT', 'farmers')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
@@ -399,7 +416,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             if ($stmt->execute()) {
                 $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
 
-                    if (!insertActivityLog($stmt->insert_id, $user_id, 'parcels', 'INSERT', $farmerId, 'farmers')) {
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'parcels', 'INSERT', 'farmers')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
@@ -418,6 +435,35 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             $checkId = getById('parcels', $parcel['parcel_id']);
             if($checkId['status']== 200){
                 $modifiedTimes = $checkId['data']['modified_times'] + 1;
+            }
+
+            $changeKeyName = [
+                'parcelNum' => 'parcel_no', 
+                'ofName' => 'owner_first_name', 
+                'olName' => 'owner_last_name', 
+                'ownership' => 'ownership_type', 
+                'farmLocationBrgy' => 'parcel_brgy_address', 
+                'farmLocationMunicipality' => 'parcel_municipality_address', 
+                'farmLocationProvince' => 'parcel_province_address', 
+                'farmSize' => 'parcel_area', 
+                'farmType' => 'farm_type'
+                ];
+    
+            $dbrecord= getRecordsById('parcels', $parcel['parcel_id'], ['id', 'farmer_id', 'modified_times', 'is_archived']);
+            $userRecord = removeAndCustomizeKeys($parcel, ['parcel_id'], $changeKeyName);
+
+            // echo '<pre>';
+            // print_r($dbrecord);
+            // print_r($userRecord);
+            // print_r(compareArrays($dbrecord, $userRecord));
+            // echo '</pre>';
+
+            if (!compareArrays($dbrecord, $userRecord)){
+                if (!insertActivityLog($parcel['parcel_id'], $user_id, 'parcels', 'UPDATE', 'farmers')) {
+                    echo "Error inserting log entry.";
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
+                    exit;
+                }
             }
         
             $sql = "UPDATE parcels SET
@@ -461,13 +507,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
         
             // Execute the query
             if ($stmt->execute()) {
-                // Parcel updated successfully
                 $parcelIds[$parcel['parcelNum']] = $parcel['parcel_id'];
-                if (!insertActivityLog($parcel['parcel_id'], $user_id, 'parcels', 'UPDATE', $farmerId, 'farmers')) {
-                    echo "Error inserting log entry.";
-                    redirect('farmer-list.php', 500, 'Something Went Wrong');
-                    exit;
-                }
             } else {
                 echo "Error executing parcel update query: " . $stmt->error;
                 redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -529,7 +569,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 );
                 
                 if ($stmt->execute()) {
-                    if (!insertActivityLog($stmt->insert_id, $user_id, 'crops', 'INSERT', $farmerId, 'farmers, parcels')) {
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'crops', 'INSERT', 'farmers, parcels')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
@@ -554,6 +594,30 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 }
             
                 if ($parcelId) {
+
+                    
+            $changeKeyName = [
+               'cropArea' => 'crop_area',
+               'cropName' => 'crop_name',
+                ];
+    
+            $dbrecord= getRecordsById('crops', $cropId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id']);
+            $userRecord = removeAndCustomizeKeys($crop, ['crop_id', 'parcelNum'], $changeKeyName);
+
+            // echo '<pre>';
+            // print_r($dbrecord);
+            // print_r($userRecord);
+            // print_r(compareArrays($dbrecord, $userRecord));
+            // echo '</pre>';
+
+            if (!compareArrays($dbrecord, $userRecord)){
+                 if (!insertActivityLog($crop, $user_id, 'crops', 'UPDATE', 'farmers, parcels')) {
+                    echo "Error inserting log entry.";
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
+                    exit;
+                }
+            }
+
                     // Update query for the existing crop
                     $sql = "UPDATE crops SET 
                             farmer_id = ?, 
@@ -586,11 +650,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                     );
             
                     if ($stmt->execute()) {
-                        if (!insertActivityLog($crop, $user_id, 'crops', 'UPDATE', $farmerId, 'farmers, parcels')) {
-                            echo "Error inserting log entry.";
-                            redirect('farmer-list.php', 500, 'Something Went Wrong');
-                            exit;
-                        }
+                      
                     }else{
                         echo "Error executing crop update query: " . $stmt->error;
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -651,7 +711,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 
                 if ($stmt->execute()) {
 
-                    if (!insertActivityLog($stmt->insert_id, $user_id, 'livestocks', 'INSERT', $farmerId, 'farmers, parcels')) {
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'livestocks', 'INSERT', 'farmers, parcels')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
                         exit;
@@ -676,6 +736,30 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 }
             
             if ($parcelId) {
+
+                        
+            $changeKeyName = [
+               'numberOfHeads' => 'no_of_heads',
+               'livestockType' => 'animal_name',
+                 ];
+     
+             $dbrecord= getRecordsById('livestocks', $livestockId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'classification']);
+             $userRecord = removeAndCustomizeKeys($livestock, ['livestock_id', 'parcelNum'], $changeKeyName);
+ 
+            //  echo '<pre>';
+            //  print_r($dbrecord);
+            //  print_r($userRecord);
+            //  print_r(compareArrays($dbrecord, $userRecord));
+            //  echo '</pre>';
+ 
+             if (!compareArrays($dbrecord, $userRecord)){
+                if (!insertActivityLog($livestockId, $user_id, 'livestocks', 'UPDATE', 'farmers, parcels')) {
+                    echo "Error inserting log entry.";
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
+                    exit;
+                }
+             }
+
                 // Update query for existing livestock
                 $sql = "UPDATE livestocks SET
                         farmer_id = ?, 
@@ -704,11 +788,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 );
         
                 if ($stmt->execute()) {
-                    if (!insertActivityLog($livestockId, $user_id, 'livestocks', 'UPDATE', $farmerId, 'farmers, parcels')) {
-                        echo "Error inserting log entry.";
-                        redirect('farmer-list.php', 500, 'Something Went Wrong');
-                        exit;
-                    }
+                  
                 }else{
                     echo "Error executing livestock update query: " . $stmt->error;
                     redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -726,9 +806,9 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
         redirect('farmer-list.php', 200, 'Information Successfully Inserted');
     }
 
-    if(isset($_POST['update']) && $_POST['update'] == 1){
-        redirect('farmer-list.php', 200, 'Information Successfully Updated');
-    }
+    // if(isset($_POST['update']) && $_POST['update'] == 1){
+    //     redirect('farmer-list.php', 200, 'Information Successfully Updated');
+    // }
 
     if ($data) {
     foreach ($data as $item) {

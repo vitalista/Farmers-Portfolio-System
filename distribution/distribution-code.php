@@ -323,7 +323,7 @@ if (isset($_POST['saveItem'])) {
                 if (mysqli_stmt_execute($stmt)) {
                     echo "Item successfully inserted into the database.<br>";
 
-                    if (!insertActivityLog($stmt->insert_id, $user_id, 'distributions', 'DISTRIBUTE', $item['farmer_id'], 'farmers')) {
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'distributions', 'DISTRIBUTE', 'farmers')) {
                         redirect('programs-list.php', 500, 'Something Went Wrong');
                         exit;
                     }

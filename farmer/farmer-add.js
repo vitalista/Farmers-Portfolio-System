@@ -293,7 +293,7 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const extName = card.querySelector('.extName').value;
   const gender = card.querySelector('.gender').value;
   const bday = card.querySelector('.bday').value;
-  const deceased = card.querySelector('.deceased').checked;
+  const deceased = card.querySelector('.deceased').checked ? 1 : 0;
 
   const govIdType = card.querySelector('.govIdType').value;
   const govIdNumber = card.querySelector('.govIdNumber').value;
@@ -381,10 +381,9 @@ console.log("Largest farm number:", num_of_parcels);
       const farmLocationBrgy = card.querySelector('.farmLocationBrgy').value;
       const farmLocationMunicipality = card.querySelector('.farmLocationMunicipality').value;
       const farmLocationProvince = card.querySelector('.farmLocationProvince').value;
-      const farmSize = card.querySelector('.farmSize').value;
       const farmType = card.querySelector('.farmType').value;
-
-      const parcelNum = card.querySelector('.parcelNum').value;
+      const farmSize = card.querySelector('.farmSize').value;
+      const parcelNum = parseInt(card.querySelector('.parcelNum').value, 10);
 
       let parcel_id = '';
 
@@ -433,10 +432,10 @@ console.log("Largest farm number:", num_of_parcels);
   if (cropCards.length > 0) {
     cropCards.forEach(card => {
       const parcelNum = card.querySelector('.parcelNum').value;
-      const hvc = card.querySelector('.hvc').checked;
+      const hvc = card.querySelector('.hvc').checked ? 1 : 0;
       const cropArea = card.querySelector('.cropArea').value;
       const cropName = card.querySelector('.cropName').value;
-      const classification = card.querySelector('.classification').value;
+      const classification = parseInt(card.querySelector('.classification').value);
 
 
   let crop_id = '';
@@ -476,7 +475,7 @@ console.log("Largest farm number:", num_of_parcels);
   if (livestockCards.length > 0) {
     livestockCards.forEach(card => {
       const parcelNum = card.querySelector('.parcelNum').value;
-      const numberOfHeads = card.querySelector('.numberOfHeads').value;
+      const numberOfHeads = parseInt(card.querySelector('.numberOfHeads').value);
       const livestockType = card.querySelector('.livestockType').value;
 
   let livestock_id = '';

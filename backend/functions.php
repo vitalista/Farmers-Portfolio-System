@@ -547,13 +547,13 @@ function getCountArray($tableName, $columnName, $condition, $brgy = "") {
     }
 }
 
-function insertActivityLog($table_id, $created_by, $table_name, $action_type, $related_tableId = 0, $related_table = '') {
+function insertActivityLog($table_id, $created_by, $table_name, $action_type, $related_table = '') {
     global $conn;
     $created_at = date('Y-m-d H:i:s');
 
     // Prepare the SQL query
-    $sql = "INSERT INTO activity_logs (table_id, created_by, table_name, created_at, action_type, related_tableId, related_table) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO activity_logs (table_id, created_by, table_name, created_at, action_type, related_table) 
+            VALUES (?, ?, ?, ?, ?, ?)";
 
     // Prepare the statement
     $stmt = $conn->prepare($sql);
@@ -563,7 +563,7 @@ function insertActivityLog($table_id, $created_by, $table_name, $action_type, $r
     }
 
     // Bind parameters (i = integer, s = string)
-    $stmt->bind_param("iisssis", $table_id, $created_by, $table_name, $created_at, $action_type, $related_tableId, $related_table);
+    $stmt->bind_param("iissss", $table_id, $created_by, $table_name, $created_at, $action_type, $related_table);
 
     // Execute the query
     if ($stmt->execute()) {
@@ -575,6 +575,86 @@ function insertActivityLog($table_id, $created_by, $table_name, $action_type, $r
         return false;  // Failure
     }
 }
+
+function removeAndCustomizeKeys($arr, $keysToRemove, $keyMap = []) {
+    // Remove keys from the array
+    foreach ($keysToRemove as $key) {
+        if (array_key_exists($key, $arr)) {
+            unset($arr[$key]);
+        }
+    }
+
+    // Customize the keys based on $keyMap
+    foreach ($keyMap as $oldKey => $newKey) {
+        if (array_key_exists($oldKey, $arr)) {
+            $arr[$newKey] = $arr[$oldKey];  // Assign value to new key
+            unset($arr[$oldKey]);  // Remove old key
+        }
+    }
+
+    return $arr;
+}
+
+function getRecordsById($table_name, $id, $exclude_fields = []) {
+    global $conn;
+    $query = "SHOW COLUMNS FROM $table_name";
+    $result = $conn->query($query);
+    $columns = [];
+    while ($row = $result->fetch_assoc()) {
+        $columns[] = $row['Field'];
+    }
+    $fields_to_select = array_diff($columns, $exclude_fields);
+
+    if (empty($fields_to_select)) {
+        $fields_to_select = $columns;
+    }
+    $fields_string = implode(", ", $fields_to_select);
+    $query = "SELECT $fields_string FROM $table_name WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $records = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close(); 
+    return $records[0];
+}
+
+function compareArrays($arr1, $arr2) {
+    if (count($arr1) !== count($arr2)) {
+        // redirect('../logout.php', 500, 'Invalid Request');
+    }
+
+    $differences = [];
+    
+    foreach ($arr1 as $key => $value) {
+        // Check if the key exists in the second array
+        if (!array_key_exists($key, $arr2)) {
+            $differences[] = "Key '$key' is missing in the second array.";
+            continue;
+        }
+
+        if (is_double($value)) {
+            $value = (string)$value;
+        }
+
+        // Check if the types are different
+        if (gettype($arr2[$key]) !== gettype($value)) {
+            $differences[] = "Type mismatch for key '$key': '" . gettype($value) . "' (DBarr1) vs '" . gettype($arr2[$key]) . "' (arr2).";
+        }
+
+        // Check if the values are different
+        if ($arr2[$key] !== $value) {
+            $differences[] = "Value mismatch for key '$key': '{$arr1[$key]}' (DBarr1) vs '{$arr2[$key]}' (arr2).";
+        }
+    }
+    if (!empty($differences)) {
+        return false;
+        // return $differences;
+    }
+
+    return true;
+}
+
 
 
 ?>

@@ -46,7 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $distributionId);
 
         if ($stmt->execute()) {
-            echo "<h5>Distribution updated successfully.</h5>";
+            // echo "<h5>Distribution updated successfully.</h5>";
+            if (!insertActivityLog($distributionId, $user_id, 'distributions', 'EDIT DISTRIBUTION', 'farmers')) {
+                echo "Error inserting log entry.";
+                redirect('distributions-list.php', 500, 'Something Went Wrong');
+                exit;
+            }
         } else {
             echo "<h5>Error updating distribution. Please try again later.</h5>";
         }

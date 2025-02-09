@@ -17,7 +17,7 @@ require '../backend/functions.php';
 
             if ($archived) {
                 
-                if (!insertActivityLog($id, $user_id, $tableName, 'ARCHIVE', 0, $relatedTable)) {
+                if (!insertActivityLog($id, $user_id, $tableName, 'ARCHIVE', $relatedTable)) {
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
                 }
