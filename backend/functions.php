@@ -1,12 +1,58 @@
 <?php
+require 'database.php';
+session_set_cookie_params([
+    'lifetime' => 3600,  
+    'path' => '/',
+    'domain' => '', 
+    'secure' => true,  
+    'httponly' => true, 
+    'samesite' => 'Lax'
+]);
+
 session_start();
+
+if (isset($_SESSION["LAST_ACTIVITY"])) {
+    if ((time() - $_SESSION["LAST_ACTIVITY"]) > 300) { 
+        setLastAct();       
+        session_unset();   
+        session_destroy();
+        redirect('../login', 404, 'Session Expired');
+    } else if ((time() - $_SESSION["LAST_ACTIVITY"]) > 60) {    
+        $_SESSION["LAST_ACTIVITY"] = time();  
+    }
+}
+// // session_start();
+$_SESSION['LoggedIn'] = true;
 $_SESSION['LoggedInUser']['role'] = 1;
 $_SESSION['LoggedInUser']['can_edit'] = 1;
 $_SESSION['LoggedInUser']['can_create'] = 1;
 $_SESSION['LoggedInUser']['can_delete'] = 1;
 $_SESSION['LoggedInUser']['id'] = 3;
 $_SESSION['LoggedInUser']['full_name'] = "DEV";
-require 'database.php';
+$_SESSION["LAST_ACTIVITY"] = time();
+
+function setLastAct() {
+    $id = (int)$_SESSION['LoggedInUser']['id'];
+
+    if (!filter_var($id, FILTER_VALIDATE_INT)) {
+        redirect('../logout.php=notINT', 500, 'Something Went Wrong');
+        return false;
+    }
+
+    global $conn;
+    $query = "UPDATE users SET last_activity = NOW() WHERE id = ?";
+
+    $stmt = $conn->prepare($query);
+    if ($stmt === false) {
+        redirect('../logout.php=STMTX', 500, 'Something Went Wrong');
+        return false;
+    }
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+    return true;
+}
+
 
 function includes($file_path)
 {
@@ -297,6 +343,143 @@ function update($tableName, $id, $data)
     $result = mysqli_query($conn, $query);
     return $result;
 }
+
+function addFpsCode($tableName, $id, $brgy = ''){
+
+    $brgy = validate($brgy);
+    $fpsCode = '';
+    $currentYear = date("Y");
+    $fpsCode .= $currentYear;
+
+    switch ($tableName) {
+        case 'farmers':
+            $fpsCode .= '-FAR';
+            break;
+        case 'parcels':
+            $fpsCode .= '-PAR';
+            break;
+
+        case 'crops':
+            $fpsCode .= '-CRO';
+            break;
+        
+        case 'livestocks':
+            $fpsCode .= '-LIV';
+            break;
+
+        case 'resources':
+            $fpsCode .= '-RES-';
+            break;
+        
+        case 'distributions':
+            $fpsCode .= '-DIS';
+            break;
+        
+        default:
+            $fpsCode .= '-FPS';
+            break;
+    }
+ 
+    if (!empty($brgy) || $brgy != '') {
+        switch ($brgy) {
+            case "Bagong Nayon":
+                $code = "-03-14-03-001-";
+                break;
+            case "Barangca":
+                $code = "-03-14-03-002-";
+                break;
+            case "Calantipay":
+                $code = "-03-14-03-003-";
+                break;
+            case "Catulinan":
+                $code = "-03-14-03-004-";
+                break;
+            case "Concepcion":
+                $code = "-03-14-03-005-";
+                break;
+            case "Hinukay":
+                $code = "-03-14-03-006-";
+                break;
+            case "Makinabang":
+                $code = "-03-14-03-007-";
+                break;
+            case "Matangtubig":
+                $code = "-03-14-03-008-";
+                break;
+            case "Pagala":
+                $code = "-03-14-03-010-";
+                break;
+            case "Paitan":
+                $code = "-03-14-03-011-";
+                break;
+            case "Piel":
+                $code = "-03-14-03-012-";
+                break;
+            case "Pinagbarilan":
+                $code = "-03-14-03-013-";
+                break;
+            case "Poblacion":
+                $code = "-03-14-03-014-";
+                break;
+            case "Sabang":
+                $code = "-03-14-03-016-";
+                break;
+            case "San Jose":
+                $code = "-03-14-03-017-";
+                break;
+            case "San Roque":
+                $code = "-03-14-03-018-";
+                break;
+            case "Santa Barbara":
+                $code = "-03-14-03-019-";
+                break;
+            case "Santo Cristo":
+                $code = "-03-14-03-020-";
+                break;
+            case "Santo Niño":
+                $code = "-03-14-03-021-";
+                break;
+            case "Subic":
+                $code = "-03-14-03-022-";
+                break;
+            case "Sulivan":
+                $code = "-03-14-03-023-";
+                break;
+            case "Tangos":
+                $code = "-03-14-03-024-";
+                break;
+            case "Tarcan":
+                $code = "-03-14-03-025-";
+                break;
+            case "Tiaong":
+                $code = "-03-14-03-026-";
+                break;
+            case "Tibag":
+                $code = "-03-14-03-027-";
+                break;
+            case "Tilapayong":
+                $code = "-03-14-03-028-";
+                break;
+            case "Virgen delas Flores":
+                $code = "-03-14-03-030-";
+                break;
+            default:
+                $code = "-00-00-00-000-";
+                break;
+        }
+        // $formatted = substr($code, 0, 2) . '-' . substr($code, 2, 2) . '-' . substr($code, 4, 2) . '-' . substr($code, 6);
+        $fpsCode .= $code;
+    }
+
+    $idWithPadd = $id;
+    $fpsCode = $fpsCode . str_pad($idWithPadd, 5, '0', STR_PAD_LEFT);
+
+    return update($tableName, $id, [
+        'fps_code' => $fpsCode
+    ]);
+
+}
+
 // Delete data from the database using ID
 function delete($tableName, $id)
 {

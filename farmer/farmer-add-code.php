@@ -120,6 +120,8 @@ if (isset($_POST['farms_data'])) {
         if ($stmt->execute()) {
             $farmerId = $stmt->insert_id;
 
+            addFpsCode('farmers', $farmerId, $farmer['brgy']);
+
             if (!insertActivityLog($farmerId, $user_id, 'farmers', 'INSERT')) {
                 echo "Error inserting log entry.";
                 redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -187,8 +189,15 @@ if (isset($_POST['farms_data'])) {
             'govIdNumber' => 'gov_id_number',
             ];
 
-        $dbrecord= getRecordsById('farmers', $farmerId, ['id', 'modified_times', 'selected_enrollment', 'is_archived']);
+        $dbrecord= getRecordsById('farmers', $farmerId, ['id', 'modified_times', 'selected_enrollment', 'is_archived', 'created_at', 'updated_at']);
         $userRecord = removeAndCustomizeKeys($farmer, ['farmer_id'], $changeKeyName);
+
+            //  echo '<pre>';
+            // print_r($dbrecord);
+            // print_r($userRecord);
+            // print_r(compareArrays($dbrecord, $userRecord));
+            // echo '</pre>';
+
         if (!compareArrays($dbrecord, $userRecord)){
             if (!insertActivityLog($farmerId, $user_id, 'farmers', 'UPDATE')) {
                 echo "Error inserting log entry.";
@@ -449,7 +458,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 'farmType' => 'farm_type'
                 ];
     
-            $dbrecord= getRecordsById('parcels', $parcel['parcel_id'], ['id', 'farmer_id', 'modified_times', 'is_archived']);
+            $dbrecord= getRecordsById('parcels', $parcel['parcel_id'], ['id', 'farmer_id', 'modified_times', 'is_archived', 'created_at', 'updated_at']);
             $userRecord = removeAndCustomizeKeys($parcel, ['parcel_id'], $changeKeyName);
 
             // echo '<pre>';
@@ -601,7 +610,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                'cropName' => 'crop_name',
                 ];
     
-            $dbrecord= getRecordsById('crops', $cropId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id']);
+            $dbrecord= getRecordsById('crops', $cropId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'created_at', 'updated_at']);
             $userRecord = removeAndCustomizeKeys($crop, ['crop_id', 'parcelNum'], $changeKeyName);
 
             // echo '<pre>';
@@ -743,7 +752,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                'livestockType' => 'animal_name',
                  ];
      
-             $dbrecord= getRecordsById('livestocks', $livestockId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'classification']);
+             $dbrecord= getRecordsById('livestocks', $livestockId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'classification', 'created_at', 'updated_at']);
              $userRecord = removeAndCustomizeKeys($livestock, ['livestock_id', 'parcelNum'], $changeKeyName);
  
             //  echo '<pre>';
@@ -806,9 +815,9 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
         redirect('farmer-list.php', 200, 'Information Successfully Inserted');
     }
 
-    // if(isset($_POST['update']) && $_POST['update'] == 1){
-    //     redirect('farmer-list.php', 200, 'Information Successfully Updated');
-    // }
+    if(isset($_POST['update']) && $_POST['update'] == 1){
+        redirect('farmer-list.php', 200, 'Information Successfully Updated');
+    }
 
     if ($data) {
     foreach ($data as $item) {

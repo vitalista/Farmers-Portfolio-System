@@ -1,4 +1,4 @@
-<datalist id="options">
+<!-- <datalist id="options">
     <option value="Rice/Palay">
     <option value="Water melon">
     <option value="Pigs or swine">
@@ -38,4 +38,4 @@
     <option value="Kangkong"></option>
     <option value="Quail"></option>
     <option value="Spinach"></option>
-</datalist>
+</datalist> -->

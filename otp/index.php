@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include '../includes/head.php' ?>
+<?php 
+include '../includes/head.php';
+  if (!isset($_SESSION['otpTime']) || ! isset($_SESSION['otp']) || !isset($_SESSION['otp_attempts'])) {
+    redirect('logout', 500, 'Somehing Went Wrong');
+}
+?>
 
 <style>
      .needs-validation .invalid-feedback {

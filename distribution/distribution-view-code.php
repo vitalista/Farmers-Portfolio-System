@@ -7,13 +7,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate and sanitize the input data
 
     $distributionId = isset($_POST['id']) ? $_POST['id'] : null;
-
-    $farmerId = isset($_POST['farmer_id']) ? $_POST['farmer_id'] : null;
-    $resourcesId = isset($_POST['resources_id']) ? $_POST['resources_id'] : null;
-    $programId = isset($_POST['program_id']) ? $_POST['program_id'] : null;
-    $quantityDistributed = isset($_POST['quantity_distributed']) ? $_POST['quantity_distributed'] : null;
+    $distributions = [];
+    $farmerId = isset($_POST['farmer_id']) ? (int) $_POST['farmer_id'] : null;
+    $resourcesId = isset($_POST['resources_id']) ? (int) $_POST['resources_id'] : null;
+    $programId = isset($_POST['program_id']) ? (int) $_POST['program_id'] : null;
+    $quantityDistributed = isset($_POST['quantity_distributed']) ? (int) $_POST['quantity_distributed'] : null;
     $distributionDate = isset($_POST['distribution_date']) ? $_POST['distribution_date'] : null;
     $remarks = isset($_POST['remarks']) ? $_POST['remarks'] : null;
+
+    $distributions['farmer_id'] = $farmerId;
+    $distributions['resource_id'] = $resourcesId;
+    $distributions['program_id'] = $programId;
+    $distributions['quantity_distributed'] = $quantityDistributed;
+    $distributions['distribution_date'] = $distributionDate;
+    $distributions['remarks'] = $remarks;
 
     // Check if all required fields are provided
     if ($farmerId && $resourcesId && $programId && $quantityDistributed && $distributionDate) {
@@ -27,6 +34,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
         $modifiedAt =  date('Y-m-d h:i:s A');
+
+        
+          $changeKeyName = [];
+          $dbrecord= getRecordsById('distributions', $distributionId, ['id', 'modified_times', 'is_archived', 'created_at', 'updated_at']);
+          $userRecord = removeAndCustomizeKeys($distributions, ['id'], $changeKeyName);
+
+          echo '<pre>';
+          print_r($dbrecord);
+          print_r($userRecord);
+          print_r(compareArrays($dbrecord, $userRecord));
+          echo '</pre>';
+
+          if (!compareArrays($dbrecord, $userRecord)){
+           if (!insertActivityLog($distributionId, $user_id, 'distributions', 'EDIT DISTRIBUTION', 'farmers')) {
+                echo "Error inserting log entry.";
+                redirect('distributions-list.php', 500, 'Something Went Wrong');
+                exit;
+            }
+          }   
 
         $updateQuery = "UPDATE distributions SET 
                         farmer_id = ?, 
@@ -45,14 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $modifiedTimes,
         $distributionId);
 
-        if ($stmt->execute()) {
-            // echo "<h5>Distribution updated successfully.</h5>";
-            if (!insertActivityLog($distributionId, $user_id, 'distributions', 'EDIT DISTRIBUTION', 'farmers')) {
-                echo "Error inserting log entry.";
-                redirect('distributions-list.php', 500, 'Something Went Wrong');
-                exit;
-            }
-        } else {
+        if (!$stmt->execute()) {
             echo "<h5>Error updating distribution. Please try again later.</h5>";
         }
 

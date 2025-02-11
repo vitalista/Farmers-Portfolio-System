@@ -92,6 +92,7 @@ if (isset($_POST['program_data'])) {
         
         if ($stmt->execute()) {
             $programId = $stmt->insert_id;
+            addFpsCode('programs', $programId);
             if (!insertActivityLog($programId, $user_id, 'programs', 'INSERT')) {
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
@@ -134,6 +135,33 @@ if (isset($_POST['program_data'])) {
             $modifiedTimes = $checkId['data']['modified_times'] + 1;
         }
 
+                     
+        $changeKeyName = [
+            'nameOfProgram' => 'program_name',
+            'programType' => 'program_type',
+            'startDate' => 'start_date',
+            'endDate' => 'end_date',
+            'totalBeneficiaries' => 'total_beneficiaries',
+            'beneficiaries' => 'beneficiaries_available',
+            'sourcingAgency' => 'sourcing_agency'
+              ];
+  
+          $dbrecord= getRecordsById('programs', $programId, ['id', 'modified_times', 'is_archived', 'created_at', 'updated_at']);
+          $userRecord = removeAndCustomizeKeys($program, ['program_id'], $changeKeyName);
+
+        //   echo '<pre>';
+        //   print_r($dbrecord);
+        //   print_r($userRecord);
+        //   print_r(compareArrays($dbrecord, $userRecord));
+        //   echo '</pre>';
+
+          if (!compareArrays($dbrecord, $userRecord)){
+             if (!insertActivityLog($programId, $user_id, 'programs', 'UPDATE')) {
+                redirect('programs-list.php', 500, 'Something Went Wrong');
+                exit;
+            }
+          }
+
         $sql = "UPDATE programs SET
             program_name = ?, 
             program_type = ?, 
@@ -170,13 +198,7 @@ if (isset($_POST['program_data'])) {
         );
     
         // Execute the query
-        if ($stmt->execute()) {
-            // echo '<div style="position: fixed; top: 80px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Program updated successfully!</div>';
-            if (!insertActivityLog($programId, $user_id, 'programs', 'UPDATE')) {
-                redirect('programs-list.php', 500, 'Something Went Wrong');
-                exit;
-            }
-        } else {
+        if (!$stmt->execute()){
             echo "Error executing farmer update query: " . $stmt->error;
             redirect('programs-list.php', 500, 'Something Went Wrong');
             exit;
@@ -261,6 +283,30 @@ if (isset($_POST['program_data'])) {
             if($checkId['status']== 200){
                 $modifiedTimes = $checkId['data']['modified_times'] + 1;
             }
+
+            $changeKeyName = [
+                'resourcesName' => 'resources_name',
+                'unitOfMeasure' => 'unit_of_measure',
+                'resourcesType' => 'resource_type',
+                'resourcesAvailable' => 'quantity_available',
+                'resourcesNumber' => 'total_quantity',
+                  ];
+      
+              $dbrecord= getRecordsById('resources', $resources['resources_id'], ['id', 'modified_times', 'program_id','is_archived', 'created_at', 'updated_at']);
+              $userRecord = removeAndCustomizeKeys($resources, ['program_id', 'resources_id'], $changeKeyName);
+    
+            //   echo '<pre>';
+            //   print_r($dbrecord);
+            //   print_r($userRecord);
+            //   print_r(compareArrays($dbrecord, $userRecord));
+            //   echo '</pre>';
+    
+              if (!compareArrays($dbrecord, $userRecord)){
+               if (!insertActivityLog($resources['resources_id'], $user_id, 'resources', 'UPDATE', 'programs')) {
+                    redirect('programs-list.php', 500, 'Something Went Wrong');
+                    exit;
+                }
+              }    
         
             $sql = "UPDATE resources SET
 
@@ -295,14 +341,7 @@ if (isset($_POST['program_data'])) {
             );
         
             // Execute the query
-            if ($stmt->execute()) {
-                // Parcel updated successfully
-                // echo '<div style="position: fixed; top: 140px; right: 20px; padding: 10px 20px; background-color: yellow; color: black; font-size: 16px; border-radius: 5px;">Resources updated successfully!</div>';
-                if (!insertActivityLog($resources['resources_id'], $user_id, 'resources', 'UPDATE', 'programs')) {
-                    redirect('programs-list.php', 500, 'Something Went Wrong');
-                    exit;
-                }
-            } else {
+            if (!$stmt->execute()){
                 echo "Error executing resources update query: " . $stmt->error;
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
@@ -315,9 +354,9 @@ if (isset($_POST['program_data'])) {
         redirect('programs-list.php', 200, 'Program Successfully Inserted');
     }
 
-    if(isset($_POST['update']) && $_POST['update'] == 1){
-        redirect('programs-list.php', 200, 'Program Successfully Updated');
-    }
+    // if(isset($_POST['update']) && $_POST['update'] == 1){
+    //     redirect('programs-list.php', 200, 'Program Successfully Updated');
+    // }
     
 
     if ($data) {

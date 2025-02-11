@@ -49,6 +49,8 @@ $otpInput = $num1.$num2.$num3.$num4.$num5.$num6;
 $otpNumber = intval($otpInput);
 
 if($otpRan === $otpNumber){
+    $_SESSION["LAST_ACTIVITY"] = time();
+    setLastAct();  
     redirect('../dashboard/dashboard.php?success=validOTP', 200, 'Welcome');
 }else{
 redirect('index.php?error=wrongOTP', 500, 'Please check if your OTP is correct.');

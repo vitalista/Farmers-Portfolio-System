@@ -2,7 +2,6 @@
 <html lang="en">
 
 <?php
-// session_start();
 include '../includes/head.php';
 
 if (!isset($_SESSION['resourceItems'])) {

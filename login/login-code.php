@@ -52,23 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     'can_delete' => $row['can_delete'],
   ];
 
-  // Prepare SQL query to update login status
-  $updateQuery = "UPDATE users 
-                  SET is_logged_in = 1, 
-                  login_timestamp = NOW() 
-                  WHERE id = ?";
-  $updateStmt = mysqli_prepare($conn, $updateQuery);
-  mysqli_stmt_bind_param($updateStmt, "i", $row['id']);  // 'i' for integer type
-
-  if (mysqli_stmt_execute($updateStmt)) {
-    // If update was successful, redirect to OTP page
-    header('Location: ../otp/');
-    exit();
-  } else {
-    // If update fails, redirect with error
-    redirect('index.php?error=500', 500, 'Something went wrong.');
-    exit();
-  }
+header('Location: ../otp/');
+exit();
 
 } else {
   // If the request method is not POST or login is not set, handle it

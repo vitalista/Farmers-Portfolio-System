@@ -127,9 +127,7 @@
                             ";
                         }
                 
-                    } else {
-                        echo 'No activity logs found.';
-                    }
+                    } 
                     $stmt->close();
                 } else {
                     echo 'Error preparing query.';

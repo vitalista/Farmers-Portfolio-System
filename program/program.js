@@ -61,7 +61,7 @@ document.getElementById('submitButton').addEventListener('click', function(e) {
   let program_id = '';
   let beneficiaries = '';
   if (card.querySelector('.program_id')) {
-    beneficiaries = card.querySelector('.beneficiaries').value;
+    beneficiaries = parseInt(card.querySelector('.beneficiaries').value);
     program_id = card.querySelector('.program_id').value;
     console.log(`Program exists! ${program_id}`);
   } else {
@@ -69,7 +69,7 @@ document.getElementById('submitButton').addEventListener('click', function(e) {
   }
 
   const description = card.querySelector('.description').value;
-  const totalBeneficiaries = card.querySelector('.totalBeneficiaries').value;
+  const totalBeneficiaries = parseInt(card.querySelector('.totalBeneficiaries').value);
   const endDate = card.querySelector('.endDate').value;
   const startDate = card.querySelector('.startDate').value;
   const programType = card.querySelector('.programType').value;
@@ -114,7 +114,7 @@ console.log(resourcesCard.length);
     resourcesCard.forEach(card => {
       const resourcesName = card.querySelector('.resourcesName').value;
       const resourcesType = card.querySelector('.resourcesType').value;
-      const resourcesNumber = card.querySelector('.resourcesNumber').value;
+      const resourcesNumber = parseInt(card.querySelector('.resourcesNumber').value);
       const unitOfMeasure = card.querySelector('.unitOfMeasure').value;
 
       let resources_id = '';
@@ -122,7 +122,7 @@ console.log(resourcesCard.length);
 
       if (card.querySelector('.resources_id')) {
         resources_id = card.querySelector('.resources_id').value;
-        resourcesAvailable = card.querySelector('.resourcesAvailable').value;
+        resourcesAvailable = parseInt(card.querySelector('.resourcesAvailable').value);
         console.log(`resources_id exists! ${resources_id} ${resourcesAvailable}`);
       } else {
         console.log('resources_id class not exists!');
