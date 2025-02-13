@@ -35,10 +35,10 @@
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="card-header">Farmer Profile</h3>
                     <div class="d-sm-flex justify-content-end align-items-center mt-2">
-                    <a class="btn btn-sm btn-primary me-2">Print</a>
-                    <a class="btn btn-sm btn-danger"
-                        href="#"
-                        onclick="window.history.back()">Back</a>
+                        <a class="btn btn-sm btn-primary me-2">Print</a>
+                        <a class="btn btn-sm btn-danger"
+                            href="#"
+                            onclick="window.history.back()">Back</a>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                                             <div class="mt-3 text-start ms-5 p-2">
                                                 <h5 class="fw-bold"><?= $farmer['data']['first_name'] == '' ? 'Farmer' : $farmer['data']['first_name']; ?> <?= $farmer['data']['last_name'] == '' ? 'Name' : $farmer['data']['last_name']; ?></h5>
                                                 <span><span class="fw-bold">FFRS:</span> <?= $farmer['data']['ffrs_system_gen'] == '' ? '00-00-00-00000' : $farmer['data']['ffrs_system_gen']; ?></span><br>
-                                                <span><span class="fw-bold">FPS: <?= $farmer['data']['fps_code']?></span></span>
+                                                <span><span class="fw-bold">FPS: <?= $farmer['data']['fps_code'] ?></span></span>
                                             </div>
 
                                         </div>
@@ -231,7 +231,7 @@
                                             <div class="ms-3 d-flex">
 
                                                 <div class="ms-5 form-check">
-                                                    <input class="form-check-input me-2 deceased" style="width: 2rem; height: 2rem;" type="checkbox" id="deceased" <?= $farmer['data']['is_deceased'] == 1 ? 'checked': ''?>>
+                                                    <input class="form-check-input me-2 deceased" style="width: 2rem; height: 2rem;" type="checkbox" id="deceased" <?= $farmer['data']['is_deceased'] == 1 ? 'checked' : '' ?>>
                                                     <label class="form-check-label" for="deceased">
                                                         Deceased?
                                                     </label>
@@ -245,9 +245,9 @@
                                         <h6 class="text-success font-weight-bold">Farmer Address*</h6>
                                         <label class="form-label">House/BLDG/ Purok<input type="text" value="<?= $farmer['data']['hbp']; ?>" class="form-control hbp"></label>
                                         <label class="form-label">Street/Sitio/SubDV<input type="text" value="<?= $farmer['data']['sss']; ?>" class="form-control sss"></label>
-                                        <label class="form-label">Province<input type="text" value="<?= $farmer['data']['farmer_brgy_address']; ?>" class="form-control brgy"></label>
+                                        <label class="form-label">Barangay<input type="text" value="<?= $farmer['data']['farmer_brgy_address']; ?>" class="form-control brgy"></label>
                                         <label class="form-label">Municipality<input type="text" value="<?= $farmer['data']['farmer_municipality_address']; ?>" class="form-control municipality"></label>
-                                        <label class="form-label">Barangay<input type="text" value="<?= $farmer['data']['farmer_province_address']; ?>" class="form-control province"></label>
+                                        <label class="form-label">Province<input type="text" value="<?= $farmer['data']['farmer_province_address']; ?>" class="form-control province"></label>
                                         <label class="form-label">Region<input type="text" value="<?= $farmer['data']['region']; ?>" class="form-control region"></label>
                                     </fieldset>
                                     <hr>
@@ -289,8 +289,8 @@
                                                     if ($program['status'] == 200 || $resources['status'] == 200) {
                                             ?>
                                                         <tr>
-                                                            <td class="text-start"><?= $row['fps_code']?></td>
-                                                            <td class="text-start"><?= $row['created_at']?></td>
+                                                            <td class="text-start"><?= $row['fps_code'] ?></td>
+                                                            <td class="text-start"><?= $row['created_at'] ?></td>
                                                             <td class="text-start"><?= $program['data']['program_name']; ?></td>
 
                                                             <td class="text-start"><strong><?= $resources['data']['resources_name']; ?></strong> - <?= $resources['data']['resource_type']; ?></td>
@@ -323,7 +323,8 @@
                     <div class="container farm-card">
                         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: -20px;">
                             <h5 class="card-title">Farm List</h5>
-                            <a id="addFarmButton" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Farm</a>
+                            
+                            <a id="addFarmButton" class="btn btn-sm btn-primary <?= $_SESSION['LoggedInUser']['can_create'] == 0 ? 'd-none': '';?>"><i class="fa-solid fa-plus "></i> Farm</a>
                         </div>
 
                         <div id="farmContainer" class="mt-3">
@@ -379,11 +380,13 @@
                                             <div>
                                                 <h5 class="card-title ms-3">Parcel # <?= $parcel['parcel_no']; ?></h5>
                                             </div>
-                                            <div class="me-2">
-                                                <a class="btn btn-sm btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>"
-                                                    onclick="return confirm('Are you sure you want to remove it?')"
-                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>"><i class="fa-solid fa-x"></i></a>
-                                            </div>
+                                            <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
+                                                <div class="me-2">
+                                                    <a class="btn btn-sm btn-danger remove-farm" id="parcel<?= $parcel['parcel_no']; ?>"
+                                                        onclick="return confirm('Are you sure you want to remove it?')"
+                                                        href="../backend/archive.php?farmer=<?= $paramValue; ?>&parcel=<?= $parcel['id']; ?>"><i class="fa-solid fa-x"></i></a>
+                                                </div>
+                                            <?php } ?>
                                         </div>
 
 
@@ -494,19 +497,20 @@
                                                                         <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="d-flex justify-content-end col-md-12 mb-3 mt-4">
-                                                                    <a class="btn btn-sm btn-danger"
-                                                                        id="crop<?= $parcel['parcel_no']; ?>"
-                                                                        onclick="return confirm('Are you sure you want to remove it?')"
-                                                                        href="../backend/archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
-                                                                </div>
+                                                                <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
+                                                                    <div class="d-flex justify-content-end col-md-12 mb-3 mt-4">
+                                                                        <a class="btn btn-sm btn-danger"
+                                                                            id="crop<?= $parcel['parcel_no']; ?>"
+                                                                            onclick="return confirm('Are you sure you want to remove it?')"
+                                                                            href="../backend/archive.php?farmer=<?= $paramValue; ?>&crop=<?= $crop['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                                                    </div>
+                                                                <?php } ?>
                                                             </div>
                                                     <?php endforeach;
                                                     } ?>
                                                 </div>
                                                 <div class="d-flex justify-content-end mb-2">
-                                                    <a type="button" class="btn btn-sm btn-primary text-end"
+                                                    <a type="button" class="btn btn-sm btn-primary text-end <?= $_SESSION['LoggedInUser']['can_create'] == 0 ? 'd-none': '';?>"
                                                         id="cropBtns<?= $parcel['parcel_no']; ?>"
                                                         data-parcel-no="<?= $parcel['parcel_no']; ?>">
                                                         <i class="fa-solid fa-plus"></i> Crop
@@ -541,11 +545,14 @@
                                                                         <label for="livestockType">Animal type<span class="text-danger fw-bold">*</span></label>
                                                                         <div class="input-group">
                                                                             <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
-                                                                            <div class="input-group-append">
-                                                                                <a class="btn btn-sm btn-danger mt-1 removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
-                                                                                    onclick="return confirm('Are you sure you want to remove it?')"
-                                                                                    href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
-                                                                            </div>
+                                                                            <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
+
+                                                                                <div class="input-group-append">
+                                                                                    <a class="btn btn-sm btn-danger mt-1 removeLivestockButton" id="livestock<?= $parcel['parcel_no']; ?>"
+                                                                                        onclick="return confirm('Are you sure you want to remove it?')"
+                                                                                        href="../backend/archive.php?farmer=<?= $paramValue; ?>&livestock=<?= $livestock['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                                                                </div>
+                                                                            <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -556,7 +563,7 @@
 
                                                 </div>
                                                 <div class="d-flex justify-content-end mb-2">
-                                                    <a type="button" class="btn btn-sm btn-primary addLivestockButton"
+                                                    <a type="button" class="btn btn-sm btn-primary addLivestockButton <?= $_SESSION['LoggedInUser']['can_create'] == 0 ? 'd-none': '';?>"
                                                         id="livestockBtns<?= $parcel['parcel_no']; ?>"
                                                         data-parcel-no="<?= $parcel['parcel_no']; ?>"><i class="fa-solid fa-plus"></i> Livestock</a>
                                                 </div>

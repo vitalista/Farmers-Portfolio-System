@@ -26,7 +26,9 @@
                   <i class="bi bi-sort-down"></i>
 
                   </button>
+                  <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) {?>
                   <a href="program-add.php" class="btn btn-sm btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                <?php } ?>
                 </div>
               </div>
               <?php include 'resources-filter.php'; ?>
@@ -58,9 +60,13 @@
                     <td class="text-start"><?= $row['quantity_available'];?></td>
                     <?php if(!isset($_GET['archived'])):?>
                     <td class="text-start">
+                    <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>
                       <a href="program-view.php?id=<?= $row['program_id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-box2-fill"></i></a>
+                      <?php } ?>
+                      <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) {?>
                       <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?resources_id=<?= $row['id'];?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
+                         <?php }?>
                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
                          <a href="../backend/activity-logs.php?id=<?= $row['id']; ?>&resources=Resources"
                         class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>

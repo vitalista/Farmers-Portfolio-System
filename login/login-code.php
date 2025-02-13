@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     'role' => $row['role'],
     'can_create' => $row['can_create'],
     'can_edit' => $row['can_edit'],
-    'can_delete' => $row['can_delete'],
+    'can_archive' => $row['can_archive'],
   ];
 
 header('Location: ../otp/');

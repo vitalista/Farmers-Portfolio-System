@@ -73,7 +73,7 @@
                           </div>
                           <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="deleteSwitch" name="delete">
-                            <label class="form-check-label" for="deleteSwitch">Can Delete?</label>
+                            <label class="form-check-label" for="deleteSwitch">Can Archive?</label>
                           </div>
                           <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="exportSwitch" name="export">

@@ -91,7 +91,7 @@
                             <label class="form-check-label" for="editSwitch">Can Edit?</label>
                           </div>
                           <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="deleteSwitch" name="delete" <?= $user['data']['can_delete'] == 1? 'checked': ''; ?>>
+                            <input class="form-check-input" type="checkbox" id="deleteSwitch" name="delete" <?= $user['data']['can_archive'] == 1? 'checked': ''; ?>>
                             <label class="form-check-label" for="deleteSwitch">Can archive?</label>
                           </div>
                           <div class="form-check form-switch">

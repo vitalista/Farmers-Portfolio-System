@@ -11,7 +11,7 @@ if (!isset($_SESSION['resourceItems'])) {
 ?>
 
 <body class="login-bg">
-<?php include '../includes/header.php' ?>
+    <?php include '../includes/header.php' ?>
 
     <!-- ======= Sidebar ======= -->
     <?php include '../includes/sidebar.php' ?>
@@ -21,7 +21,7 @@ if (!isset($_SESSION['resourceItems'])) {
         <section class="section">
             <div class="row">
                 <div class="col-lg-12 main-table">
-                    <?php include '../backend/status-messages.php';?>
+                    <?php include '../backend/status-messages.php'; ?>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Distribution</h5>
@@ -126,72 +126,6 @@ if (!isset($_SESSION['resourceItems'])) {
                                         </form>
                                     </div>
                                 </div>
-
-                                <div class="card mt-3">
-
-                                    <div class="card-header">
-                                        <h5 class="mb-0"></h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive mb-3">
-                                            <table class="table table-bordered table-striped" id="example">
-                                                <?php //$_SESSION['status']; ?>
-                                                <thead class="thead">
-                                                    <tr>
-                                                        <th class="text-start">FFRS</th>
-                                                        <th class="text-start">Farmer Name</th>
-                                                        <th class="text-start">Program</th>
-                                                        <th class="text-start">Resources</th>
-                                                        <th class="text-start">Quantity</th>
-                                                        <th class="text-start">Remove</th>
-                                                    </tr>
-                                                </thead>
-
-
-
-
-                                                <tbody class="tbod">
-                                                    <?php
-                                                    if (isset($_SESSION['resourceItems']) && $_SESSION['resourceItems'] != null) {
-                                                        $sessionProducts = $_SESSION['resourceItems'];
-                                                        if (empty($sessionProducts)) {
-                                                            unset($sessionProducts['resourceItems']);
-                                                        }
-                                                        foreach ($sessionProducts as $key => $item) :
-                                                    ?>
-                                                            <tr>
-                                                                <td class="text-start"><strong><?= $item['ffrs_code']; ?></strong></td>
-                                                                <td class="text-start"><?= $item['farmer_name']; ?></td>
-                                                                <td class="text-start"><?= $item['program']; ?></td>
-                                                                <td class="text-start"><?= $item['resource_name']; ?> - <?= $item['resource_type']; ?></td>
-                                                                <td class="text-start">
-                                                                    <div class="input-group qtyBox">
-                                                                        <p style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;"><?= $item['quantity']; ?></p>
-
-                                                                        <p class="ms-1 mb-0"><?= $item['unit_of_measure']; ?></p>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="text-start">
-                                                                    <a href="distribution-code.php?index=<?= $item['farmer_id']; ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                                                                </td>
-                                                            </tr>
-
-                                                    <?php
-                                                        endforeach;
-                                                    }
-                                                    ?>
-
-                                                </tbody>
-
-
-                                            </table>
-                                        </div>
-
-                                        <hr>
-
-                                    </div>
-                                </div>
-
                             </div>
 
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -200,7 +134,7 @@ if (!isset($_SESSION['resourceItems'])) {
                                 <div class="card mt-4 shadow-sm">
 
                                     <div class="card-header d-flex justify-content-between">
-                                        <h5>Single distribution</h5>
+                                        <h5>Multiple distributions</h5>
                                     </div>
 
                                     <div class="card-body">
@@ -320,140 +254,84 @@ if (!isset($_SESSION['resourceItems'])) {
                                         </form>
                                     </div>
                                 </div>
-
-                                <style>
-                                    /* Align items in the top section (filter and length dropdown) */
-                                    .table-top {
-                                        display: flex;
-                                        /* Flexbox container */
-                                        justify-content: space-between;
-                                        /* Space between filter and length dropdown */
-                                        align-items: center;
-                                        /* Center the items vertically */
-                                        flex-wrap: wrap;
-                                        /* Allow wrapping when space is tight (for responsiveness) */
-                                        gap: 20px;
-                                        /* Space between items */
-                                    }
-
-                                    /* Ensure the filter and length dropdown have some spacing between them */
-                                    .table-top .dataTables_filter,
-                                    .table-top .dataTables_length {
-                                        margin: 0 10px;
-                                        /* Add some margin to the left and right */
-                                    }
-
-                                    /* Align pagination controls to the right side of table-bottom */
-                                    .table-bottom {
-                                        display: flex;
-                                        justify-content: space-between;
-                                        /* Align pagination controls to the right */
-                                        margin-top: 10px;
-                                        /* Optional: space between the table and pagination */
-                                        gap: 20px;
-                                        /* Space between pagination items */
-                                    }
-
-                                    /* Center the table content itself */
-                                    table.dataTable {
-                                        clear: both;
-                                        /* margin-top: 20px; */
-                                        /* Optional: space between the table and top section */
-                                    }
-
-                                    /* Media query for small screens (responsive design) */
-                                    @media (max-width: 400px) {
-
-                                        /* Stack the filter and length dropdown vertically on smaller screens */
-                                        .table-top {
-                                            flex-direction: column;
-                                            /* Stack items vertically */
-                                            align-items: flex-start;
-                                            /* Align to the left */
-                                        }
-
-                                        /* Stack pagination controls vertically as well */
-                                        .table-bottom {
-                                            flex-direction: column;
-                                            /* Stack pagination vertically */
-                                            align-items: flex-start;
-                                            /* Align to the left */
-                                            gap: 10px;
-                                            /* Reduce space between pagination items */
-                                        }
-                                    }
-                                </style>
-
-                                <div class="card mt-3">
-
-                                    <div class="card-header">
-                                        <h5 class="mb-0"></h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive mb-3">
-                                            <table class="table table-bordered table-striped" id="example2">
-                                                <?php //$_SESSION['status']; ?>
-                                                <thead class="thead">
-                                                    <tr>
-                                                        <th class="text-start">FFRS</th>
-                                                        <th class="text-start">Farmer Name</th>
-                                                        <th class="text-start">Program</th>
-                                                        <th class="text-start">Resources</th>
-                                                        <th class="text-start">Quantity</th>
-                                                        <th class="text-start">Remove</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="tbod">
-                                                    <?php
-                                                    if (isset($_SESSION['resourceItems']) && $_SESSION['resourceItems'] != null) {
-                                                        $sessionProducts = $_SESSION['resourceItems'];
-                                                        if (empty($sessionProducts)) {
-                                                            unset($sessionProducts['resourceItems']);
-                                                        }
-                                                        foreach ($sessionProducts as $key => $item) :
-                                                    ?>
-                                                            <tr>
-                                                                <td class="text-start"><strong><?= $item['ffrs_code']; ?></strong></td>
-                                                                <td class="text-start"><?= $item['farmer_name']; ?></td>
-                                                                <td class="text-start"><?= $item['program']; ?></td>
-                                                                <td class="text-start"><?= $item['resource_name']; ?> - <?= $item['resource_type']; ?></td>
-                                                                <td class="text-start">
-                                                                    <div class="input-group qtyBox">
-                                                                        <p style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;"><?= $item['quantity']; ?></p>
-
-                                                                        <p class="ms-1 mb-0"><?= $item['unit_of_measure']; ?></p>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="text-start">
-                                                                    <a href="distribution-code.php?index=<?= $item['farmer_id']; ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                                                                </td>
-                                                            </tr>
-
-                                                    <?php
-                                                        endforeach;
-                                                    }
-                                                    ?>
-
-                                                </tbody>
-
-
-                                            </table>
-                                        </div>
-
-                                        <hr>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
-                        <div class="row d-flex justify-content-end me-5">
-                            <div class="col-md-1 d-flex">
+
+                        <div class="card mt-3">
+
+                            <div class="card-header">
+                                <h5 class="mb-0"></h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive mb-3">
+                                    <table class="table table-bordered table-striped" id="example">
+                                        <?php //$_SESSION['status']; 
+                                        ?>
+                                        <thead class="thead">
+                                            <tr>
+                                                <th class="text-start">FFRS</th>
+                                                <th class="text-start">Farmer Name</th>
+                                                <th class="text-start">Program</th>
+                                                <th class="text-start">Resources</th>
+                                                <th class="text-start">Quantity</th>
+                                                <th class="text-start">Remove</th>
+                                            </tr>
+                                        </thead>
+
+
+
+
+                                        <tbody class="tbod">
+                                            <?php
+                                            if (isset($_SESSION['resourceItems']) && $_SESSION['resourceItems'] != null) {
+                                                $sessionProducts = $_SESSION['resourceItems'];
+                                                if (empty($sessionProducts)) {
+                                                    unset($sessionProducts['resourceItems']);
+                                                }
+                                                foreach ($sessionProducts as $key => $item) :
+                                            ?>
+                                                    <tr>
+                                                        <td class="text-start"><strong><?= $item['ffrs_code']; ?></strong></td>
+                                                        <td class="text-start"><?= $item['farmer_name']; ?></td>
+                                                        <td class="text-start"><?= $item['program']; ?></td>
+                                                        <td class="text-start"><?= $item['resource_name']; ?> - <?= $item['resource_type']; ?></td>
+                                                        <td class="text-start">
+                                                            <div class="input-group qtyBox">
+                                                                <p style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;"><?= $item['quantity']; ?></p>
+
+                                                                <p class="ms-1 mb-0"><?= $item['unit_of_measure']; ?></p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-start">
+                                                            <a href="distribution-code.php?index=<?= $item['farmer_id']; ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                                        </td>
+                                                    </tr>
+
+                                            <?php
+                                                endforeach;
+                                            }
+                                            ?>
+
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+
+                                <hr>
+
+                            </div>
+                        </div>
+
+                        <div class="row d-flex justify-content-end">
+                            <div class="col-md-12 d-flex justify-content-end">
                                 <a href="distribution-code.php?clear=true" class="btn btn-sm btn-secondary me-2"><i class="bi bi-trash3-fill" style="color: red;"></i></a>
-                          
-                                    <form action="distribution-code.php" method="post">
-                                        <button type="submit" class="btn btn-sm btn-success" name="saveItem"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                                    </form>
-                               
+
+                                <form action="distribution-code.php" method="post">
+                                    <button type="submit" class="btn btn-sm btn-success" name="saveItem"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                                </form>
+
                             </div>
 
                         </div>

@@ -391,8 +391,14 @@
                                  <td><?= $data['farmer_brgy_address'] ?></td>
                                  <td><?= $data['gender'] ?></td>
                                  <td><?= $data['birthday'] ?></td>
-                                 <td><a href="../farmer/farmer-view.php?id=<?= $data['id'] ?>" class="btn btn-primary"><i class="bi bi-person-square"></i></a></td>
+                   
 
+                                 <td>
+                                 <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>   
+                                 <a href="../farmer/farmer-view.php?id=<?= $data['id'] ?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
+                                 <?php } ?>
+                              
+                              </td>
                               </tr>
                         <?php }
                         } ?>

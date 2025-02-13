@@ -13,11 +13,13 @@ $page = $pageInstance->getPage();
           <i class="bi bi-circle-fill" style="<?= page($page, "programs-list.php");?>"></i><span style="<?= page($page, "programs-list.php");?>">List</span>
         </a>
       </li>
+      <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) {?>
       <li>
         <a href="../program/program-add.php" style="<?= page($page, "program-add.php", true);?>">
           <i class="bi bi-circle-fill" style="<?= page($page, "program-add.php");?>"></i><span style="<?= page($page, "program-add.php");?>">Create</span>
         </a>
       </li>
+      <?php } ?>
       <li>
         <a href="../program/resources-list.php" style="<?= page($page, "resources-list.php", true);?>">
           <i class="bi bi-circle-fill"  style="<?= page($page, "resources-list.php");?>"></i><span  style="<?= page($page, "resources-list.php");?>">Resources</span>

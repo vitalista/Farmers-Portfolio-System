@@ -115,7 +115,7 @@
 
                       <div class="d-flex justify-content-between align-items-center" style="margin-bottom: -20px;">
                         <h5 class="card-title">Resources List</h5>
-                        <a id="addResourcesButton" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Resource</a>
+                        <a id="addResourcesButton" class="btn btn-sm btn-primary <?= $_SESSION['LoggedInUser']['can_create'] == 0 ? 'd-none': '';?>"><i class="fa-solid fa-plus"></i> Resource</a>
                       </div>
 
                       <div id="resourcesContainer" class="mt-3">
@@ -167,9 +167,11 @@
 
                                 </div>
                                 <div class="d-flex justify-content-end">
+                                <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
                                   <a class="btn btn-sm btn-danger remove-resources"
                                     onclick="return confirm('Are you sure you want to remove it?')"
                                     href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                  <?php } ?>
                                 </div>
                               </div>
                             </div>
@@ -227,12 +229,18 @@
                                     <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
 
                                     <td class="text-start">
+                      <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>
                                     <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
+                                    <?php } ?>
+                      <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) {?>
                                       <a onclick="return confirm('Are you sure you want to archive it?')"
                                         class="btn btn-sm btn-danger"
                                         href="../backend/archive.php?program=<?= $paramValue; ?>&distributions=<?= $row['id']; ?>"><i class="bi bi-archive-fill"></i></a>
+                          <?php } ?>
+                                        <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
                                       <a href="../backend/activity-logs.php?id=<?= $row['id']; ?>&distributions=Distributions"
                                         class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                                        <?php } ?>
                                     </td>
                                   </tr>
 

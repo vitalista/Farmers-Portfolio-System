@@ -1,6 +1,6 @@
 <?php
 require '../backend/functions.php';
-// if($_SESSION['LoggedInUser']['can_delete'] == 1){
+// if($_SESSION['LoggedInUser']['can_archive'] == 1){
   function archiveEntity($paramName, $tableName, $redirectUrl, $successMessage, $relatedTable = '') {
     $id = checkParamId($paramName);
 

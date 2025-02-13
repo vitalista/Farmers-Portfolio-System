@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     $hashedPassword = password_hash($formData['password'], PASSWORD_DEFAULT);
 
     // Step 4: Insert the data into the database
-    $sql = "INSERT INTO users (full_name, email, password, can_create, can_edit, can_delete, can_export, is_banned, role)
+    $sql = "INSERT INTO users (full_name, email, password, can_create, can_edit, can_archive, can_export, is_banned, role)
             VALUES 
             ('{$formData['fullname']}', 
             '{$formData['email']}', 
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
                 email = '{$formData['email']}',
                 can_create = {$formData['create']},
                 can_edit = {$formData['edit']},
-                can_delete = {$formData['delete']},
+                can_archive = {$formData['delete']},
                 can_export = {$formData['export']},
                 is_banned = {$formData['banned']},
                 role = {$formData['promote']}";

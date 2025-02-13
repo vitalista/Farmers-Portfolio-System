@@ -26,7 +26,9 @@
                   <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     <i class="bi bi-sort-down"></i>
                   </button>
+                  <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) {?>
                   <a href="../farmer/farmer-add.php" class="btn btn-sm btn-secondary"><i class="bi bi-plus-lg"></i></a>
+                <?php } ?>
                 </div>
               </div>
 
@@ -64,11 +66,13 @@
 
 
                           <td  class="text-start">
-
+                          <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>
                             <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id']; ?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
-
+                            <?php }?>
+                            <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) {?>
                             <a onclick="return confirm('Are you sure you want to archive it?')"
                               href="../backend/archive.php?parcel_id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
+                              <?php }?>
 
                             <?php if ($_SESSION['LoggedInUser']['role'] == 1) { ?>
 
