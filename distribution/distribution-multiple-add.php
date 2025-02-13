@@ -26,7 +26,7 @@ if (!isset($_SESSION['resourceItems'])) {
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Distribution</h5>
                             <div>
-                                <a onclick="window.history.back()" class="btn btn-primary">Back</a>
+                                <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
                             </div>
                         </div>
 
@@ -119,8 +119,8 @@ if (!isset($_SESSION['resourceItems'])) {
                                                     <input type="number" name="quantity" min="1" value="1" required class="form-control">
                                                 </div>
 
-                                                <div class="col-md-3 mb-3 text-end" style="padding-top: 20px;">
-                                                    <button type="submit" name="addItem" class="btn btn-warning">Distribute</button>
+                                                <div class="col-md-3 mb-3 text-end mt-4">
+                                                    <button type="submit" name="addItem" class="btn btn-sm btn-warning">Distribute</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -138,12 +138,12 @@ if (!isset($_SESSION['resourceItems'])) {
                                                 <?php //$_SESSION['status']; ?>
                                                 <thead class="thead">
                                                     <tr>
-                                                        <th>FFRS System Gen.</th>
-                                                        <th>Farmer Name</th>
-                                                        <th>Program</th>
-                                                        <th>Resources</th>
-                                                        <th>Quantity</th>
-                                                        <th>Remove</th>
+                                                        <th class="text-start">FFRS</th>
+                                                        <th class="text-start">Farmer Name</th>
+                                                        <th class="text-start">Program</th>
+                                                        <th class="text-start">Resources</th>
+                                                        <th class="text-start">Quantity</th>
+                                                        <th class="text-start">Remove</th>
                                                     </tr>
                                                 </thead>
 
@@ -160,19 +160,19 @@ if (!isset($_SESSION['resourceItems'])) {
                                                         foreach ($sessionProducts as $key => $item) :
                                                     ?>
                                                             <tr>
-                                                                <td><strong><?= $item['ffrs_code']; ?></strong></td>
-                                                                <td><?= $item['farmer_name']; ?></td>
-                                                                <td><?= $item['program']; ?></td>
-                                                                <td><?= $item['resource_name']; ?> - <?= $item['resource_type']; ?></td>
-                                                                <td>
+                                                                <td class="text-start"><strong><?= $item['ffrs_code']; ?></strong></td>
+                                                                <td class="text-start"><?= $item['farmer_name']; ?></td>
+                                                                <td class="text-start"><?= $item['program']; ?></td>
+                                                                <td class="text-start"><?= $item['resource_name']; ?> - <?= $item['resource_type']; ?></td>
+                                                                <td class="text-start">
                                                                     <div class="input-group qtyBox">
                                                                         <p style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;"><?= $item['quantity']; ?></p>
 
                                                                         <p class="ms-1 mb-0"><?= $item['unit_of_measure']; ?></p>
                                                                     </div>
                                                                 </td>
-                                                                <td>
-                                                                    <a href="distribution-code.php?index=<?= $item['farmer_id']; ?>" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                                                <td class="text-start">
+                                                                    <a href="distribution-code.php?index=<?= $item['farmer_id']; ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                                                 </td>
                                                             </tr>
 
@@ -239,7 +239,7 @@ if (!isset($_SESSION['resourceItems'])) {
                                                 <!-- Criteria Button (Modal Trigger) -->
                                                 <div class="col-md-1 mb-3">
                                                     <label>Criteria</label>
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">Select</button>
+                                                    <button type="button" class="btn btn-sm btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">Select</button>
                                                 </div>
 
                                                 <!-- Quantity Input -->
@@ -249,8 +249,8 @@ if (!isset($_SESSION['resourceItems'])) {
                                                 </div>
 
                                                 <!-- Submit Button -->
-                                                <div class="col-md-3 mb-3 text-end" style="padding-top: 20px;">
-                                                    <button type="submit" name="addItems" class="btn btn-warning">Distribute</button>
+                                                <div class="col-md-6 mb-3 text-end mt-4">
+                                                    <button type="submit" name="addItems" class="btn btn-sm btn-warning">Distribute</button>
                                                 </div>
                                             </div>
 
@@ -260,7 +260,7 @@ if (!isset($_SESSION['resourceItems'])) {
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="ExtralargeModalLabel">Criteria</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <button type="button" class="btn btn-sm-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
                                                             <div class="row">
@@ -311,8 +311,8 @@ if (!isset($_SESSION['resourceItems'])) {
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" name="addItems" class="btn btn-primary">Distribute</button>
+                                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" name="addItems" class="btn btn-sm btn-warning">Distribute</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -395,12 +395,12 @@ if (!isset($_SESSION['resourceItems'])) {
                                                 <?php //$_SESSION['status']; ?>
                                                 <thead class="thead">
                                                     <tr>
-                                                        <th>FFRS System Gen.</th>
-                                                        <th>Farmer Name</th>
-                                                        <th>Program</th>
-                                                        <th>Resources</th>
-                                                        <th>Quantity</th>
-                                                        <th>Remove</th>
+                                                        <th class="text-start">FFRS</th>
+                                                        <th class="text-start">Farmer Name</th>
+                                                        <th class="text-start">Program</th>
+                                                        <th class="text-start">Resources</th>
+                                                        <th class="text-start">Quantity</th>
+                                                        <th class="text-start">Remove</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="tbod">
@@ -413,19 +413,19 @@ if (!isset($_SESSION['resourceItems'])) {
                                                         foreach ($sessionProducts as $key => $item) :
                                                     ?>
                                                             <tr>
-                                                                <td><strong><?= $item['ffrs_code']; ?></strong></td>
-                                                                <td><?= $item['farmer_name']; ?></td>
-                                                                <td><?= $item['program']; ?></td>
-                                                                <td><?= $item['resource_name']; ?> - <?= $item['resource_type']; ?></td>
-                                                                <td>
+                                                                <td class="text-start"><strong><?= $item['ffrs_code']; ?></strong></td>
+                                                                <td class="text-start"><?= $item['farmer_name']; ?></td>
+                                                                <td class="text-start"><?= $item['program']; ?></td>
+                                                                <td class="text-start"><?= $item['resource_name']; ?> - <?= $item['resource_type']; ?></td>
+                                                                <td class="text-start">
                                                                     <div class="input-group qtyBox">
                                                                         <p style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;"><?= $item['quantity']; ?></p>
 
                                                                         <p class="ms-1 mb-0"><?= $item['unit_of_measure']; ?></p>
                                                                     </div>
                                                                 </td>
-                                                                <td>
-                                                                    <a href="distribution-code.php?index=<?= $item['farmer_id']; ?>" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                                                <td class="text-start">
+                                                                    <a href="distribution-code.php?index=<?= $item['farmer_id']; ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                                                 </td>
                                                             </tr>
 
@@ -446,12 +446,12 @@ if (!isset($_SESSION['resourceItems'])) {
                             </div>
                         </div>
 
-                        <div class="row d-flex justify-content-end" style="margin-right: 20px;">
+                        <div class="row d-flex justify-content-end me-5">
                             <div class="col-md-1 d-flex">
-                                <a href="distribution-code.php?clear=true" class="btn btn-secondary me-2"><i class="bi bi-trash3-fill" style="color: red;"></i></a>
+                                <a href="distribution-code.php?clear=true" class="btn btn-sm btn-secondary me-2"><i class="bi bi-trash3-fill" style="color: red;"></i></a>
                           
                                     <form action="distribution-code.php" method="post">
-                                        <button type="submit" class="btn btn-success" name="saveItem">Save</button>
+                                        <button type="submit" class="btn btn-sm btn-success" name="saveItem"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                                     </form>
                                
                             </div>

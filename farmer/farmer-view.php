@@ -35,10 +35,10 @@
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="card-header">Farmer Profile</h3>
                     <div class="d-sm-flex justify-content-end align-items-center mt-2">
-                    <a class="btn btn-sm btn-primary"
+                    <a class="btn btn-sm btn-primary me-2">Print</a>
+                    <a class="btn btn-sm btn-danger"
                         href="#"
                         onclick="window.history.back()">Back</a>
-                    <a class="btn btn-sm btn-info">Print</a>
                     </div>
                 </div>
             </div>
@@ -268,16 +268,16 @@
                             </script>
 
                             <div class="card table-responsive mb-3">
-                                <h5 class="card-header ms-2">Resources</h5>
                                 <div class="card-body">
                                     <table class="table table-bordered table-striped" id="example">
                                         <thead class="thead">
                                             <tr>
 
-                                                <th>Date</th>
-                                                <th>Program</th>
-                                                <th>Resources</th>
-                                                <th>Quantity</th>
+                                                <th class="text-start">FPS</th>
+                                                <th class="text-start">Date</th>
+                                                <th class="text-start">Program</th>
+                                                <th class="text-start">Resources</th>
+                                                <th class="text-start">Quantity</th>
                                             </tr>
                                         </thead>
                                         <tbody class="tbod">
@@ -289,10 +289,11 @@
                                                     if ($program['status'] == 200 || $resources['status'] == 200) {
                                             ?>
                                                         <tr>
-                                                            <td>00-00-0000</td>
-                                                            <td><?= $program['data']['program_name']; ?></td>
+                                                            <td class="text-start"><?= $row['fps_code']?></td>
+                                                            <td class="text-start"><?= $row['created_at']?></td>
+                                                            <td class="text-start"><?= $program['data']['program_name']; ?></td>
 
-                                                            <td><strong><?= $resources['data']['resources_name']; ?></strong> - <?= $resources['data']['resource_type']; ?></td>
+                                                            <td class="text-start"><strong><?= $resources['data']['resources_name']; ?></strong> - <?= $resources['data']['resource_type']; ?></td>
 
                                                             <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
                                                         </tr>
@@ -586,7 +587,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2">Save</button>
+                    <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                 </div>
 
                 <form class="needs-validation" method="POST" action="farmer-add-code.php" id="farmForm" novalidate>

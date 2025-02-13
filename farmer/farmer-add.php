@@ -231,7 +231,7 @@
 
 
               <div class="d-flex justify-content-end">
-                <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2">Save</button>
+                <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2"><i class="fa-solid fa-floppy-disk"></i> Save</button>
               </div>
 
                 <input type="hidden" name="add" value="0">

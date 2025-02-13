@@ -25,7 +25,7 @@ let newFarmInput = `
 
         </div>
             <div class="d-flex justify-content-end">
-            <a class="btn btn-danger remove-resources">Remove</a>
+            <a class="btn btn-sm btn-danger remove-resources"><i class="fa-solid fa-trash-can"></i></a>
             </div>
         </div>
 `;

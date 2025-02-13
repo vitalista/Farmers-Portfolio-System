@@ -17,13 +17,14 @@ TO Do's:
 - [] Important Fields
 - [] resend OTP (optional)
 - [] restrictions options in every lists
-- [] unused btns and make it sm
+- [x] unused btns and make it sm
 - [] reports
+- [] inconsistent aos animations
 - [] update image
 - [] session last act bug (optional)
 - [x] fps code in every table
 - [] confirm password
-- [] remove act log and archived and restored
+- [x] remove act log and archived and restored
 - [] registration insertion (optional)
 - [x] restored
 

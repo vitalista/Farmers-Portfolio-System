@@ -30,7 +30,7 @@
                         <div class="d-sm-flex justify-content-between">
                             <h5 class="card-title">View Distribution</h5>
                             <div class="d-sm-flex justify-content-end align-items-center mt-2">
-                                <a onclick="window.history.back()" class="btn btn-info">Back</a>
+                                <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
                             </div>
                         </div>
                         <!-- Default Tabs -->
@@ -182,8 +182,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end mb-3 mt-3">
-                                <button type="reset" class="btn btn-secondary me-2">Reset</button>
-                                <button type="submit" class="btn btn-success me-2">Save</button>
+                                <button type="submit" class="btn btn-sm btn-success me-2"> <i class="fa-solid fa-floppy-disk"></i> Save</button>
                             </div>
 
 

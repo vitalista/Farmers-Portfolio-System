@@ -73,9 +73,6 @@
                           <td class="text-start">
                           <a onclick="return confirm('Are you sure you want to restore it?')" 
                           href="../backend/restore.php?program_id=<?= $row['id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
-                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
-                          <a class="btn btn-sm btn-secondary" href="../backend/archived-log.php?id=<?= $row['id']; ?>&programs=Program"><i class="bi bi-info-circle-fill"></i></a>
-                          <?php }?>
                           </td>
                     <?php endif;?>
                   </tr>

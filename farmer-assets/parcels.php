@@ -65,7 +65,7 @@
 
                           <td  class="text-start">
 
-                            <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id']; ?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
+                            <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id']; ?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
 
                             <a onclick="return confirm('Are you sure you want to archive it?')"
                               href="../backend/archive.php?parcel_id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
@@ -84,10 +84,6 @@
 
                             <a onclick="return confirm('Are you sure you want to restore it?')"
                               href="../backend/restore.php?parcel_id=<?= $row['id']; ?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
-                            <?php if ($_SESSION['LoggedInUser']['role'] == 1) { ?>
-                              <a class="btn btn-sm btn-secondary" href="../backend/archived-log.php?id=<?= $row['id']; ?>&parcels=Parcel"><i class="bi bi-info-circle-fill"></i></a>
-                            <?php } ?>
-
                           </td>
                         <?php endif; ?>
 

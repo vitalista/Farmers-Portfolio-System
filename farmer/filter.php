@@ -225,8 +225,8 @@ $result = $stmt->get_result();
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button onclick="updateData(this)" type="button" id="save" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button onclick="updateData(this)" type="button" id="save" class="btn btn-sm btn-primary"> <i class="fa-solid fa-floppy-disk"></i> Save</button>
         </div>
       </div>
     </div>

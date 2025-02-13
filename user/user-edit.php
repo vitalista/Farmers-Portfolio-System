@@ -19,7 +19,7 @@
           <?php include '../backend/status-messages.php' ?>
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-header">Edit user</h5>
-              <a href="users-list.php" class="btn btn-primary">Back</a>
+              <a href="users-list.php" class="btn btn-sm btn-danger">Back</a>
             </div>
 
             <!-- Default Tabs -->
@@ -119,8 +119,8 @@
                     </div>
 
                     <div class="d-flex justify-content-end mb-3 mt-3">
-                      <button type="reset" class="btn btn-secondary me-2">Reset</button>
-                      <button type="submit" name="update" class="btn btn-success me-2">Save</button>
+                      <button type="reset" class="btn btn-sm btn-secondary me-2">Reset</button>
+                      <button type="submit" name="update" class="btn btn-sm btn-success me-2"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                     </div>
 
                   </div>

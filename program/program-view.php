@@ -21,7 +21,7 @@
             <div class="d-sm-flex justify-content-between">
               <h5 class="card-title">View Program</h5>
               <div class="d-sm-flex justify-content-end align-items-center mt-2">
-                <a onclick="window.history.back()" class="btn btn-info">Back</a>
+                <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
               </div>
             </div>
             <!-- Default Tabs -->
@@ -115,7 +115,7 @@
 
                       <div class="d-flex justify-content-between align-items-center" style="margin-bottom: -20px;">
                         <h5 class="card-title">Resources List</h5>
-                        <a id="addResourcesButton" class="btn btn-primary">Add Resource</a>
+                        <a id="addResourcesButton" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Resource</a>
                       </div>
 
                       <div id="resourcesContainer" class="mt-3">
@@ -167,9 +167,9 @@
 
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                  <a class="btn btn-danger remove-resources"
+                                  <a class="btn btn-sm btn-danger remove-resources"
                                     onclick="return confirm('Are you sure you want to remove it?')"
-                                    href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id']; ?>">Remove</a>
+                                    href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
                                 </div>
                               </div>
                             </div>
@@ -198,12 +198,13 @@
                         <table class="table table-bordered table-striped" id="example">
                           <thead class="thead">
                             <tr>
-                              <th>FFRS System Gen.</th>
-                              <th>Farmer Name</th>
-                              <th>Program</th>
-                              <th>Resources</th>
-                              <th>Quantity</th>
-                              <th>Remove</th>
+                              <th class="text-start">FPS</th>
+                              <th class="text-start">FFRS System Gen.</th>
+                              <th class="text-start">Farmer Name</th>
+                              <th class="text-start">Program</th>
+                              <th class="text-start">Resources</th>
+                              <th class="text-start">Quantity</th>
+                              <th class="text-start">Action</th>
                             </tr>
                           </thead>
                           <tbody class="tbod">
@@ -216,25 +217,22 @@
                                 if ($farmerData['status'] == 200 || $program['status'] == 200 || $resources['status'] == 200) {
                             ?>
                                   <tr>
-                                    <td>
-                                      <?= $farmerData['data']['ffrs_system_gen']; ?>
-                                    </td>
+                                    <td class="text-start"><?= $row['fps_code']; ?></td>
+                                    <td class="text-start"><?= $farmerData['data']['ffrs_system_gen']; ?></td>
+                                    <td class="text-start"><?= $farmerData['data']['first_name']; ?> <?= $farmerData['data']['last_name']; ?></td>
+                                    <td class="text-start"><?= $program['data']['program_name']; ?></td>
 
-                                    <td><?= $farmerData['data']['first_name']; ?> <?= $farmerData['data']['last_name']; ?></td>
-
-                                    <td><?= $program['data']['program_name']; ?></td>
-
-                                    <td><strong><?= $resources['data']['resources_name']; ?></strong></td>
+                                    <td class="text-start"><strong><?= $resources['data']['resources_name']; ?></strong></td>
 
                                     <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
 
-                                    <td>
-                                    <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-success"><i class="bi bi-person-square"></i></a>
+                                    <td class="text-start">
+                                    <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
                                       <a onclick="return confirm('Are you sure you want to archive it?')"
-                                        class="btn btn-danger"
+                                        class="btn btn-sm btn-danger"
                                         href="../backend/archive.php?program=<?= $paramValue; ?>&distributions=<?= $row['id']; ?>"><i class="bi bi-archive-fill"></i></a>
-                                      <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
-                                        class="btn btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                                      <a href="../backend/activity-logs.php?id=<?= $row['id']; ?>&distributions=Distributions"
+                                        class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
                                     </td>
                                   </tr>
 
@@ -260,8 +258,8 @@
             </div>
 
             <div class="d-flex justify-content-end mb-3 mt-3">
-              <button type="reset" class="btn btn-secondary me-2">Reset</button>
-              <button type="submit" class="btn btn-success me-2" id="submitButton">Save</button>
+              <button type="reset" class="btn btn-sm btn-secondary me-2">Reset</button>
+              <button type="submit" class="btn btn-sm btn-success me-2" id="submitButton"> <i class="fa-solid fa-floppy-disk"></i> Save</button>
             </div>
 
             <form class="needs-validation" method="POST" action="program-add-code.php" id="programForm" novalidate>

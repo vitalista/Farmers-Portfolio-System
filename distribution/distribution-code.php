@@ -32,7 +32,7 @@ if (isset($_POST['addItem'])) {
                         'farmer_id' => $farmerId,
                         'ffrs_code' => $farmer['ffrs_system_gen'],
                         'farmer_name' => $farmer['first_name'] . ' ' . $farmer['last_name'],
-                        'brgy' => $farmer['farmer_brgy_address'] . ' ' . $farmer['farmer_brgy_address'],
+                        'brgy' => $farmer['farmer_brgy_address'],
                         'program_id' => $row['program_id'],
                         'program' => $program['data']['program_name'],
                         'program_total_beneficiaries' => $program['data']['total_beneficiaries'],

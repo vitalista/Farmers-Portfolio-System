@@ -74,8 +74,8 @@
                         <?php if(!isset($_GET['archived'])):?>
                         <td class="text-start">
                         <a href="distribution-view.php?id=<?= $row['id']?>" class="btn btn-sm btn-secondary"><i class="bi bi-pencil-square"></i></a>
-                        <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
-                        <a href="../program/program-view.php?id=<?= $row['program_id'];?>" class="btn btn-sm btn-success"><i class="bi bi-box2-fill"></i></a>
+                        <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
+                        <a href="../program/program-view.php?id=<?= $row['program_id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-box2-fill"></i></a>
                         <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?distributions_id=<?= $row['id'];?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
@@ -87,10 +87,6 @@
                           <td class="text-start">
                           <a onclick="return confirm('Are you sure you want to archive it?')" 
                           href="../backend/restore.php?distributions_id=<?= $row['id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
-                          <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
-                          <a href="../backend/activity-log.php?id=<?= $row['id']; ?>&distributions=Distributions"
-                          class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
-                          <?php }?>
                           </td>
                         <?php endif;?>
 

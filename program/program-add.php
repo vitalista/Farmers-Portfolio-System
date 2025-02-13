@@ -20,7 +20,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title">Add Program</h5>
               <div>
-                <a onclick="window.history.back()" class="btn btn-primary">Back</a>
+                <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
               </div>
             </div>
 
@@ -92,7 +92,7 @@
 
                     <div class="d-flex justify-content-between align-items-center" style="margin-bottom: -20px;">
                       <h5 class="card-title">Resources List</h5>
-                      <a id="addResourcesButton" class="btn btn-primary">Add Resource</a>
+                      <a id="addResourcesButton" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Resource</a>
                     </div>
 
                     <div id="resourcesContainer" class="mt-3"></div>
@@ -108,8 +108,7 @@
 
 
           <div class="d-flex justify-content-end mb-3 mt-3">
-            <button type="reset" class="btn btn-secondary me-2">Reset</button>
-            <button type="submit" class="btn btn-success me-2" id="submitButton">Save</button>
+            <button type="submit" class="btn btn-sm btn-success me-2" id="submitButton"><i class="fa-solid fa-floppy-disk"></i> Save</button>
           </div>
 
           <form class="needs-validation" method="POST" action="program-add-code.php" id="programForm" novalidate>
