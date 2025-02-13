@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         
           $changeKeyName = [];
-          $dbrecord= getRecordsById('distributions', $distributionId, ['id', 'modified_times', 'is_archived', 'created_at', 'updated_at']);
+          $dbrecord= getRecordsById('distributions', $distributionId, ['id', 'modified_times', 'is_archived', 'created_at', 'updated_at', 'fps_code']);
           $userRecord = removeAndCustomizeKeys($distributions, ['id'], $changeKeyName);
 
           echo '<pre>';

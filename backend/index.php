@@ -2,6 +2,7 @@
 session_start();
 include 'auth-check.php';
 // MySQL connection settings
+// require 'functions.php';
 require 'database.php';
 // include 'auth-check.php';
 
@@ -15,7 +16,7 @@ if (isset($_POST['submit'])) {
         if (($handle = fopen($csvFile, 'r')) !== false) {
             // Read the first row (header row) for column names
             $columns = fgetcsv($handle);
-
+            // print_r($columns);
             // Build the SQL INSERT statement dynamically based on the columns
             $columnsString = implode(", ", $columns);
             $placeholders = implode(", ", array_fill(0, count($columns), "?"));
@@ -31,9 +32,10 @@ if (isset($_POST['submit'])) {
             while (($data = fgetcsv($handle)) !== false) {
                 // Bind the actual data values to the prepared statement
                 $stmt->bind_param($types, ...$data);
-
+                // print_r($handle);
                 // Execute the insert statement
                 $stmt->execute();
+                // addFpsCode($table, $stmt->insert_id, $data[8]);
             }
             
             // Close the file and statement

@@ -37,6 +37,7 @@
                 <thead>
                   <tr>
                     <th>Registration</th>
+                    <th>FPS</th>
                     <th>FFRS</th>
                     <th>First Name</th>
                     <th>Middle Name</th>
@@ -56,6 +57,7 @@
                       <tr>
                         <input type="hidden" value="<?= $row['id'] ?>">
                         <td data-id="<?= $row['id'] ?>"><?= $row['ffrs_system_gen'] === "" ? "UNREGISTERED" : "REGISTERED"; ?></td>
+                        <td><strong><?= $row['fps_code'] ?></strong></td>
                         <td><strong><?= $row['ffrs_system_gen'] ?></strong></td>
                         <td><?= $row['first_name'] ?></td>
                         <td><?= $row['middle_name'] ?></td>

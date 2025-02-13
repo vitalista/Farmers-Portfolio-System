@@ -381,86 +381,86 @@ function addFpsCode($tableName, $id, $brgy = ''){
     }
  
     if (!empty($brgy) || $brgy != '') {
-        switch ($brgy) {
-            case "Bagong Nayon":
+        switch (strtolower($brgy)) {
+            case "bagong Nayon":
                 $code = "-03-14-03-001-";
                 break;
-            case "Barangca":
+            case "barangca":
                 $code = "-03-14-03-002-";
                 break;
-            case "Calantipay":
+            case "calantipay":
                 $code = "-03-14-03-003-";
                 break;
-            case "Catulinan":
+            case "catulinan":
                 $code = "-03-14-03-004-";
                 break;
-            case "Concepcion":
+            case "concepcion":
                 $code = "-03-14-03-005-";
                 break;
-            case "Hinukay":
+            case "hinukay":
                 $code = "-03-14-03-006-";
                 break;
-            case "Makinabang":
+            case "makinabang":
                 $code = "-03-14-03-007-";
                 break;
-            case "Matangtubig":
+            case "matangtubig":
                 $code = "-03-14-03-008-";
                 break;
-            case "Pagala":
+            case "pagala":
                 $code = "-03-14-03-010-";
                 break;
-            case "Paitan":
+            case "paitan":
                 $code = "-03-14-03-011-";
                 break;
-            case "Piel":
+            case "piel":
                 $code = "-03-14-03-012-";
                 break;
-            case "Pinagbarilan":
+            case "pinagbarilan":
                 $code = "-03-14-03-013-";
                 break;
-            case "Poblacion":
+            case "poblacion":
                 $code = "-03-14-03-014-";
                 break;
-            case "Sabang":
+            case "sabang":
                 $code = "-03-14-03-016-";
                 break;
-            case "San Jose":
+            case "san jose":
                 $code = "-03-14-03-017-";
                 break;
-            case "San Roque":
+            case "san roque":
                 $code = "-03-14-03-018-";
                 break;
-            case "Santa Barbara":
+            case "santa barbara":
                 $code = "-03-14-03-019-";
                 break;
-            case "Santo Cristo":
+            case "santo cristo":
                 $code = "-03-14-03-020-";
                 break;
-            case "Santo Niño":
+            case "santo niño":
                 $code = "-03-14-03-021-";
                 break;
-            case "Subic":
+            case "subic":
                 $code = "-03-14-03-022-";
                 break;
-            case "Sulivan":
+            case "sulivan":
                 $code = "-03-14-03-023-";
                 break;
-            case "Tangos":
+            case "tangos":
                 $code = "-03-14-03-024-";
                 break;
-            case "Tarcan":
+            case "tarcan":
                 $code = "-03-14-03-025-";
                 break;
-            case "Tiaong":
+            case "tiaong":
                 $code = "-03-14-03-026-";
                 break;
-            case "Tibag":
+            case "tibag":
                 $code = "-03-14-03-027-";
                 break;
-            case "Tilapayong":
+            case "tilapayong":
                 $code = "-03-14-03-028-";
                 break;
-            case "Virgen delas Flores":
+            case "virgen delas flores":
                 $code = "-03-14-03-030-";
                 break;
             default:

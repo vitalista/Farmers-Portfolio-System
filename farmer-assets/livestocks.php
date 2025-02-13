@@ -38,10 +38,11 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th>FFRS</th>
-                    <th>Animal Type</th>
+                    <th class="text-start">FPS</th>
+                    <th class="text-start">FFRS</th>
+                    <th class="text-start">Animal Type</th>
                     <th class="text-start">No of Heads</th>
-                    <th>Action</th>
+                    <th class="text-start">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,11 +54,12 @@
                       if ($farmerData['status'] == 200) {
                   ?>
                         <tr>
-                          <td><?= $farmerData['data']['ffrs_system_gen']; ?></td>
-                          <td><?= $row['animal_name'] ?></td>
+                          <td class="text-start"><?= $row['fps_code'] ?></td>
+                          <td class="text-start"><?= $farmerData['data']['ffrs_system_gen']; ?></td>
+                          <td class="text-start"><?= $row['animal_name'] ?></td>
                           <td class="text-start"><strong><?= $row['no_of_heads'] ?></strong></td>
                           <?php if (!isset($_GET['archived'])): ?>
-                            <td>
+                            <td class="text-start">
                               <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id']; ?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
                               <a onclick="return confirm('Are you sure you want to archive it?')"
                                 href="../backend/archive.php?livestock_id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
@@ -67,7 +69,7 @@
                               <?php } ?>
                             </td>
                           <?php else: ?>
-                            <td>
+                            <td class="text-start">
                               <a onclick="return confirm('Are you sure you want to restore it?')"
                                 href="../backend/restore.php?livestock_id=<?= $row['id']; ?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
                               <?php if ($_SESSION['LoggedInUser']['role'] == 1) { ?>

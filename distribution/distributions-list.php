@@ -43,12 +43,13 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th>FFRS</th>
-                    <th>Farmer Name</th>
-                    <th>Program</th>
-                    <th>Resources</th>
-                    <th class="text-start">Quantity</th>
-                    <th>Action</th>
+                    <th class="text-start">FPS</th>
+                    <th class="text-start">FFRS</th>
+                    <th class="text-start">Farmer Name</th>
+                    <th class="text-start">Program</th>
+                    <th class="text-start">Resources</th>
+                    <th class="text-start" class="text-start">Quantity</th>
+                    <th class="text-start">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,19 +62,17 @@
                         // if($farmerData['status'] == 200 || $program['status'] == 200 || $resources['status'] == 200){
                   ?>
                       <tr>
-                        <td> 
-                          <?= $row['ffrs_system_gen'];?>
-                       </td>
+                        <td class="text-start"><?= $row['fps_code'];?></td>
+                        <td class="text-start"><?= $row['ffrs_system_gen'];?></td>
+                        <td class="text-start"><?=$row['first_name'];?> - <?=$row['last_name'];?></td>
 
-                        <td><?=$row['first_name'];?> - <?=$row['last_name'];?></td>
+                        <td class="text-start"><?=$row['program_name'];?><?=$row['program_type'] == '' ? '' : ' - '.$row['program_type'];?></td>
 
-                        <td><?=$row['program_name'];?><?=$row['program_type'] == '' ? '' : ' - '.$row['program_type'];?></td>
-
-                        <td><strong><?=$row['resources_name'];?></strong><?=$row['resource_type'] == '' ? '' : ' - '.$row['resource_type'];?></td>
+                        <td class="text-start"><strong><?=$row['resources_name'];?></strong><?=$row['resource_type'] == '' ? '' : ' - '.$row['resource_type'];?></td>
 
                         <td class="text-start"><strong><?=$row['quantity_distributed'];?></strong> <?=$row['unit_of_measure'];?></td>
                         <?php if(!isset($_GET['archived'])):?>
-                        <td>
+                        <td class="text-start">
                         <a href="distribution-view.php?id=<?= $row['id']?>" class="btn btn-sm btn-secondary"><i class="bi bi-pencil-square"></i></a>
                         <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
                         <a href="../program/program-view.php?id=<?= $row['program_id'];?>" class="btn btn-sm btn-success"><i class="bi bi-box2-fill"></i></a>
@@ -85,7 +84,7 @@
                         <?php }?>
                         </td>
                         <?php else:?>
-                          <td>
+                          <td class="text-start">
                           <a onclick="return confirm('Are you sure you want to archive it?')" 
                           href="../backend/restore.php?distributions_id=<?= $row['id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
                           <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>

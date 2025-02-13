@@ -146,7 +146,7 @@ if (isset($_POST['program_data'])) {
             'sourcingAgency' => 'sourcing_agency'
               ];
   
-          $dbrecord= getRecordsById('programs', $programId, ['id', 'modified_times', 'is_archived', 'created_at', 'updated_at']);
+          $dbrecord= getRecordsById('programs', $programId, ['id', 'modified_times', 'is_archived', 'created_at', 'updated_at', 'fps_code']);
           $userRecord = removeAndCustomizeKeys($program, ['program_id'], $changeKeyName);
 
         //   echo '<pre>';
@@ -261,7 +261,7 @@ if (isset($_POST['program_data'])) {
             );
             
            if($stmt->execute()){
-
+            addFpsCode('resources', $stmt->insert_id);
             if (!insertActivityLog($stmt->insert_id, $user_id, 'resources', 'INSERT', 'programs')) {
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
@@ -292,7 +292,7 @@ if (isset($_POST['program_data'])) {
                 'resourcesNumber' => 'total_quantity',
                   ];
       
-              $dbrecord= getRecordsById('resources', $resources['resources_id'], ['id', 'modified_times', 'program_id','is_archived', 'created_at', 'updated_at']);
+              $dbrecord= getRecordsById('resources', $resources['resources_id'], ['id', 'modified_times', 'program_id','is_archived', 'created_at', 'updated_at', 'fps_code']);
               $userRecord = removeAndCustomizeKeys($resources, ['program_id', 'resources_id'], $changeKeyName);
     
             //   echo '<pre>';
@@ -354,9 +354,9 @@ if (isset($_POST['program_data'])) {
         redirect('programs-list.php', 200, 'Program Successfully Inserted');
     }
 
-    // if(isset($_POST['update']) && $_POST['update'] == 1){
-    //     redirect('programs-list.php', 200, 'Program Successfully Updated');
-    // }
+    if(isset($_POST['update']) && $_POST['update'] == 1){
+        redirect('programs-list.php', 200, 'Program Successfully Updated');
+    }
     
 
     if ($data) {

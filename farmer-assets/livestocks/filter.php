@@ -3,6 +3,7 @@ $archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
 $query = "
     SELECT
     l.id,
+    l.fps_code,
     l.farmer_id,
     l.parcel_id,
     l.animal_name,

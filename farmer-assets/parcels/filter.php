@@ -4,6 +4,7 @@ $query = "
     SELECT
     p.id,
     p.farmer_id,
+    p.fps_code,
     f.no_of_parcels,
     f.ffrs_system_gen,
     p.parcel_no,

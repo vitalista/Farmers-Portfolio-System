@@ -35,11 +35,12 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
+                    <th class="text-start">FPS</th>
                     <th class="text-start">FFRS</th>
-                    <th>Parcel No. - Farm Type</th>
-                    <th>Brgy</th>
-                    <th>Parcel Area</th>
-                    <th>Action</th>
+                    <th  class="text-start">Parcel No. - Farm Type</th>
+                    <th  class="text-start">Brgy</th>
+                    <th  class="text-start">Parcel Area</th>
+                    <th  class="text-start">Action</th>
 
                   </tr>
                 </thead>
@@ -50,16 +51,19 @@
                     while ($row = $result->fetch_assoc()) {
                   ?>
                       <tr>
+                         <td class="text-start">
+                          <strong><?= $row['fps_code']; ?></strong>
+                        </td>
                         <td class="text-start">
                           <strong><?= $row['ffrs_system_gen']; ?></strong>
                         </td>
-                        <td><?= $row['parcel_no'] ?> - <?= $row['farm_type'] ?></td>
-                        <td><?= $row['parcel_brgy_address'] ?></td>
-                        <td><strong><?= $row['parcel_area'] ?> Ha</strong></td>
+                        <td  class="text-start"><?= $row['parcel_no'] ?> - <?= $row['farm_type'] ?></td>
+                        <td  class="text-start"><?= $row['parcel_brgy_address'] ?></td>
+                        <td  class="text-start"><strong><?= $row['parcel_area'] ?> Ha</strong></td>
                         <?php if (!isset($_GET['archived'])): ?>
 
 
-                          <td>
+                          <td  class="text-start">
 
                             <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id']; ?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
 
@@ -76,7 +80,7 @@
                           </td>
 
                         <?php else: ?>
-                          <td>
+                          <td  class="text-start">
 
                             <a onclick="return confirm('Are you sure you want to restore it?')"
                               href="../backend/restore.php?parcel_id=<?= $row['id']; ?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>

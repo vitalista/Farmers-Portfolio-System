@@ -33,11 +33,12 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th>FFRS</th>
-                    <th>Crop Name</th>
-                    <th>Crop Area</th>
+                    <th class="text-start">FPS</th>
+                    <th class="text-start">FFRS</th>
+                    <th class="text-start">Crop Name</th>
+                    <th class="text-start">Crop Area</th>
                     <th class="text-start">Classification</th>
-                    <th>Action</th>
+                    <th class="text-start">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -49,12 +50,13 @@
                       if ($farmerData['status'] == 200) {
                   ?>
                         <tr>
-                          <td><?= $row['ffrs_system_gen']; ?></td>
-                          <td><?= $row['crop_name'] ?></td>
-                          <td><strong><?= $row['crop_area'] ?>Ha</strong></td>
+                          <td class="text-start"><?= $row['fps_code']; ?></td>
+                          <td class="text-start"><?= $row['ffrs_system_gen']; ?></td>
+                          <td class="text-start"><?= $row['crop_name'] ?></td>
+                          <td class="text-start"><strong><?= $row['crop_area'] ?>Ha</strong></td>
                           <td class="text-start"><?= $row['classification'] ?></td>
                         <?php if(!isset($_GET['archived'])):?>
-                          <td>
+                          <td class="text-start">
                             <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id']; ?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
                             <a onclick="return confirm('Are you sure you want to archive it?')"
                              href="../backend/archive.php?crop_id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
@@ -64,7 +66,7 @@
                             <?php }?>
                           </td>
                           <?php else:?>
-                          <td>
+                          <td class="text-start">
                           <a onclick="return confirm('Are you sure you want to restore it?')" 
                           href="../backend/restore.php?crop_id=<?= $row['id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
                           <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>

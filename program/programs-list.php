@@ -36,13 +36,14 @@
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th>Program Name</th>
-                    <th>Type</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Beneficiaries</th>
-                    <th>Sourcing Agency</th>
-                    <th>Action</th>
+                    <th class="text-start">FPS</th>
+                    <th class="text-start">Program Name</th>
+                    <th class="text-start">Type</th>
+                    <th class="text-start">Start Date</th>
+                    <th class="text-start">End Date</th>
+                    <th class="text-start">Beneficiaries</th>
+                    <th class="text-start">Sourcing Agency</th>
+                    <th class="text-start">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,14 +52,15 @@
                     while ($row = $result->fetch_assoc()) {
                   ?>
                   <tr>
-                    <td><?= $row['program_name'];?></td>
-                    <td><?= $row['program_type'];?></td>
-                    <td><?= $row['start_date'];?></td>
-                    <td><?= $row['end_date'];?></td>
-                    <td><?= $row['total_beneficiaries'];?></td>
-                    <td><?= $row['sourcing_agency'];?></td>
+                    <td class="text-start"><?= $row['fps_code'];?></td>
+                    <td class="text-start"><?= $row['program_name'];?></td>
+                    <td class="text-start"><?= $row['program_type'];?></td>
+                    <td class="text-start"><?= $row['start_date'];?></td>
+                    <td class="text-start"><?= $row['end_date'];?></td>
+                    <td class="text-start"><?= $row['total_beneficiaries'];?></td>
+                    <td class="text-start"><?= $row['sourcing_agency'];?></td>
                     <?php if(!isset($_GET['archived'])):?>
-                    <td>
+                    <td class="text-start">
                       <a href="program-view.php?id=<?= $row['id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-box2-fill"></i></a>
                       <a onclick="return confirm('Are you sure you want to archive it?')" 
                          href="../backend/archive.php?program_id=<?= $row['id'];?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
@@ -68,7 +70,7 @@
                         <?php }?>
                     </td>
                     <?php else:?>
-                          <td>
+                          <td class="text-start">
                           <a onclick="return confirm('Are you sure you want to restore it?')" 
                           href="../backend/restore.php?program_id=<?= $row['id'];?>" class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i></a>
                           <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>

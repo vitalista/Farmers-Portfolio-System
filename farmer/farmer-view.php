@@ -148,7 +148,7 @@
                                             <div class="mt-3 text-start ms-5 p-2">
                                                 <h5 class="fw-bold"><?= $farmer['data']['first_name'] == '' ? 'Farmer' : $farmer['data']['first_name']; ?> <?= $farmer['data']['last_name'] == '' ? 'Name' : $farmer['data']['last_name']; ?></h5>
                                                 <span><span class="fw-bold">FFRS:</span> <?= $farmer['data']['ffrs_system_gen'] == '' ? '00-00-00-00000' : $farmer['data']['ffrs_system_gen']; ?></span><br>
-                                                <span><span class="fw-bold">FPS:</span></span>
+                                                <span><span class="fw-bold">FPS: <?= $farmer['data']['fps_code']?></span></span>
                                             </div>
 
                                         </div>

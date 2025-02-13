@@ -189,7 +189,7 @@ if (isset($_POST['farms_data'])) {
             'govIdNumber' => 'gov_id_number',
             ];
 
-        $dbrecord= getRecordsById('farmers', $farmerId, ['id', 'modified_times', 'selected_enrollment', 'is_archived', 'created_at', 'updated_at']);
+        $dbrecord= getRecordsById('farmers', $farmerId, ['id', 'modified_times', 'selected_enrollment', 'is_archived', 'created_at', 'updated_at', 'fps_code']);
         $userRecord = removeAndCustomizeKeys($farmer, ['farmer_id'], $changeKeyName);
 
             //  echo '<pre>';
@@ -261,7 +261,9 @@ if (isset($_POST['farms_data'])) {
         );
     
         // Execute the query
-        if (!$stmt->execute()) {
+        if($stmt->execute()) {
+            addFpsCode('farmers', $farmerId, $farmer['brgy']);
+        }else{
             echo "Error executing farmer update query: " . $stmt->error;
             redirect('farmer-list.php', 500, 'Something Went Wrong');
             exit;
@@ -424,6 +426,8 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             
             if ($stmt->execute()) {
                 $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
+                    
+                addFpsCode('parcels', $stmt->insert_id, $farmer['brgy']);
 
                     if (!insertActivityLog($stmt->insert_id, $user_id, 'parcels', 'INSERT', 'farmers')) {
                         echo "Error inserting log entry.";
@@ -458,7 +462,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 'farmType' => 'farm_type'
                 ];
     
-            $dbrecord= getRecordsById('parcels', $parcel['parcel_id'], ['id', 'farmer_id', 'modified_times', 'is_archived', 'created_at', 'updated_at']);
+            $dbrecord= getRecordsById('parcels', $parcel['parcel_id'], ['id', 'farmer_id', 'modified_times', 'is_archived', 'created_at', 'updated_at', 'fps_code']);
             $userRecord = removeAndCustomizeKeys($parcel, ['parcel_id'], $changeKeyName);
 
             // echo '<pre>';
@@ -578,6 +582,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 );
                 
                 if ($stmt->execute()) {
+                    addFpsCode('crops', $stmt->insert_id, $farmer['brgy']);
                     if (!insertActivityLog($stmt->insert_id, $user_id, 'crops', 'INSERT', 'farmers, parcels')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -610,7 +615,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                'cropName' => 'crop_name',
                 ];
     
-            $dbrecord= getRecordsById('crops', $cropId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'created_at', 'updated_at']);
+            $dbrecord= getRecordsById('crops', $cropId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'created_at', 'updated_at', 'fps_code']);
             $userRecord = removeAndCustomizeKeys($crop, ['crop_id', 'parcelNum'], $changeKeyName);
 
             // echo '<pre>';
@@ -719,7 +724,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 );
                 
                 if ($stmt->execute()) {
-
+                    addFpsCode('livestocks', $stmt->insert_id, $farmer['brgy']);
                     if (!insertActivityLog($stmt->insert_id, $user_id, 'livestocks', 'INSERT', 'farmers, parcels')) {
                         echo "Error inserting log entry.";
                         redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -752,7 +757,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                'livestockType' => 'animal_name',
                  ];
      
-             $dbrecord= getRecordsById('livestocks', $livestockId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'classification', 'created_at', 'updated_at']);
+             $dbrecord= getRecordsById('livestocks', $livestockId, ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'classification', 'created_at', 'updated_at', 'fps_code']);
              $userRecord = removeAndCustomizeKeys($livestock, ['livestock_id', 'parcelNum'], $changeKeyName);
  
             //  echo '<pre>';
