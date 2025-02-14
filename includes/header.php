@@ -16,7 +16,7 @@
     <li class="nav-item dropdown pe-3">
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-        <span class="fw-bold">USER: <?=  (time() - $_SESSION["LAST_ACTIVITY"]) ?></span>
+        <span class="fw-bold">USER:</span>
       <span class="d-none d-md-block dropdown-toggle ps-2"><?= isset($_SESSION['LoggedInUser']['full_name']) ? $_SESSION['LoggedInUser']['full_name'] : ''; ?></span>
       </a><!-- End Profile Iamge Icon -->
 
