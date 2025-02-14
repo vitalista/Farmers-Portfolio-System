@@ -53,6 +53,7 @@
                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Farm Profile</button>
                     </li>
                 </ul>
+                <form method="POST" action="farmer-add-code.php" id="farmForm" enctype="multipart/form-data">
 
                 <div class="tab-content pt-2" id="myTabContent">
 
@@ -139,8 +140,8 @@
                                         <div class="text-center">
                                             <label for="farmerImg" class="form-label text-emphasis-color fs-6 fw-bold">Upload Image:</label>
                                             <div class="mb-3">
-                                                <input type="file" class="form-control" accept="image/*" id="farmerImg" name="farmerImage"
-                                                    onchange="previewImage()">
+                                                <!-- <input type="file" class="form-control" accept="image/*" id="farmerImg" name="farmerImage"
+                                                    onchange="previewImage()"> -->
                                                 <small class="text-muted">Photo taken within 6 months</small>
                                             </div>
 
@@ -596,8 +597,6 @@
                 <div class="d-flex justify-content-end">
                     <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                 </div>
-
-                <form class="needs-validation" method="POST" action="farmer-add-code.php" id="farmForm" novalidate>
                     <input type="hidden" name="update" value="1">
                     <input type="hidden" name="farms_data" id="farmsData" style="width: 100%;">
                 </form>

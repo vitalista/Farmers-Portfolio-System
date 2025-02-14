@@ -16,11 +16,11 @@ TO Do's:
 - [x] GENERATE dashboard content adn brgy
 - [] Important Fields
 - [] resend OTP (optional)
-- [] restrictions options in every lists
+- [x] restrictions options in every lists
 - [x] unused btns and make it sm
 - [] reports
 - [] inconsistent aos animations
-- [] update image
+- [x] update image
 - [] export individual farmer
 - [] session last act bug (optional)
 - [x] fps code in every table

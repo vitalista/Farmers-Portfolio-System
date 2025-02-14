@@ -321,38 +321,105 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
         $imagePaths = [$farmerPath, $govIdPhotoBackPath, $govIdPhotoFrontPath];
         $imageExt = [$farmerExt, $govIdPhotoBackExt, $govIdPhotoFrontExt];
 
+        $checkImgs = "SELECT * FROM images WHERE farmer_id = ? AND image_type = ?";
+        $checkImgsStmt = $conn->prepare($checkImgs);
+        
         $imageSql = "INSERT INTO images (farmer_id, image_type, image_path, image_data) VALUES (?, ?, ?, ?)";
         $imageStmt = $conn->prepare($imageSql);
+        
+        if (!$checkImgsStmt) {
+            echo "Error preparing SQL statement: " . $conn->error . "<br>";
+        }
+        
         if (!$imageStmt) {
             echo "Error preparing SQL statement: " . $conn->error . "<br>";
         }
-
+        
         foreach ($imageTypes as $index => $type) {
-            if ($imageBlobs[$index]) {
-                $finalPath = $imagePaths[$index]; 
-                $imageStmt->bind_param('isss', $lastInsertedFarmerId, $type, $finalPath, $imageBlobs[$index]);
-                if ($imageStmt->execute()) {
+            $checkImgsStmt->bind_param('is', $farmerId, $type);
+            if ($checkImgsStmt->execute()) {
+                $result = $checkImgsStmt->get_result();
+                if ($result->num_rows === 0) {
                     
-                    $imageId = $imageStmt->insert_id;
-                    if (!insertActivityLog($imageId, $user_id, 'images', 'INSERT', 'farmers')) {
-                        echo "Error inserting log entry.";
-                        redirect('farmer-list.php', 500, 'Something Went Wrong');
-                        exit;
-                    }
+                    if (isset($imageBlobs[$index]) && !empty($imageBlobs[$index])) {
+                        $finalPath = $imagePaths[$index] ?? '';
 
-                } else {
-                    echo "Error inserting image: " . $imageStmt->error . "<br>";
+                        $imageStmt->bind_param('isss', $lastInsertedFarmerId, $type, $finalPath, $imageBlobs[$index]);
+                        if ($imageStmt->execute()) {
+                            $imageId = $imageStmt->insert_id;
+                            if (!insertActivityLog($imageId, $user_id, 'images', 'INSERT', 'farmers')) {
+                                echo "Error inserting log entry.";
+                                redirect('farmer-list.php', 500, 'Something Went Wrong');
+                                exit;
+                            }
+                        } else {
+                            echo "Error inserting image: " . $imageStmt->error . "<br>";
+                        }
+                    }
                 }
+            } else {
+                echo "Error executing checkImgs SQL statement: " . $checkImgsStmt->error . "<br>";
             }
         }
+        
+        
+        if (array_key_exists('farmer_id', $data[0]['farmer'])) {
+            $imageSql = "UPDATE images SET 
+            image_path = ?, 
+            image_data = ?
+            WHERE farmer_id = ? AND image_type = ?";
+                $imageStmt = $conn->prepare($imageSql);
+                if (!$imageStmt) {
+                    echo "Error preparing SQL statement: " . $conn->error . "<br>";
+                }
 
+                foreach ($imageTypes as $index => $type) {
+                    if ($imageBlobs[$index]) {
+                        $finalPath = $imagePaths[$index]; 
+                        $imageStmt->bind_param('ssis', $finalPath, $imageBlobs[$index], $farmerId, $type);
+                        if ($imageStmt->execute()) {
+                            echo "Image updated";
+                        } else {
+                            echo "Error inserting image: " . $imageStmt->error . "<br>";
+                        }
+                    }
+                }
+        }
+        
+    //     else{
+
+    //     $imageSql = "INSERT INTO images (farmer_id, image_type, image_path, image_data) VALUES (?, ?, ?, ?)";
+    //     $imageStmt = $conn->prepare($imageSql);
+    //     if (!$imageStmt) {
+    //         echo "Error preparing SQL statement: " . $conn->error . "<br>";
+    //     }
+
+    //     foreach ($imageTypes as $index => $type) {
+    //         if ($imageBlobs[$index]) {
+    //             $finalPath = $imagePaths[$index]; 
+    //             $imageStmt->bind_param('isss', $lastInsertedFarmerId, $type, $finalPath, $imageBlobs[$index]);
+    //             if ($imageStmt->execute()) {
+                    
+    //                 $imageId = $imageStmt->insert_id;
+    //                 if (!insertActivityLog($imageId, $user_id, 'images', 'INSERT', 'farmers')) {
+    //                     echo "Error inserting log entry.";
+    //                     redirect('farmer-list.php', 500, 'Something Went Wrong');
+    //                     exit;
+    //                 }
+
+    //             } else {
+    //                 echo "Error inserting image: " . $imageStmt->error . "<br>";
+    //             }
+    //         }
+    //     }
+    // }
         // echo "Farmer Image Size: " . $_FILES['farmerImage']['size'] . " bytes<br>";
         // echo "Gov ID Photo Back Size: " . $_FILES['govIdPhotoBack']['size'] . " bytes<br>";
         // echo "Gov ID Photo Front Size: " . $_FILES['govIdPhotoFront']['size'] . " bytes<br>";
 
     } else {
                 echo "No files uploaded.<br>";
-}
+    }
 
     
     // Insert parcel data
@@ -816,13 +883,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
 
     
     
-    if(isset($_POST['add']) && $_POST['add'] == 0){
-        redirect('farmer-list.php', 200, 'Information Successfully Inserted');
-    }
+    // if(isset($_POST['add']) && $_POST['add'] == 0){
+    //     redirect('farmer-list.php', 200, 'Information Successfully Inserted');
+    // }
 
-    if(isset($_POST['update']) && $_POST['update'] == 1){
-        redirect('farmer-list.php', 200, 'Information Successfully Updated');
-    }
+    // if(isset($_POST['update']) && $_POST['update'] == 1){
+    //     redirect('farmer-list.php', 200, 'Information Successfully Updated');
+    // }
 
     if ($data) {
     foreach ($data as $item) {
