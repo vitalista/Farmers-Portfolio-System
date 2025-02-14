@@ -16,7 +16,9 @@
             </div>
             <div class="mt-3">
                <a href="dashboard.php" class="btn btn-danger btn-sm d-none d-sm-inline-block" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">Back</a>
+               <?php if($_SESSION['LoggedInUser']['can_export'] === 1){?>
                <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="brgy-print.php?brgy=<?= $_GET['brgy']; ?>" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+               <?php }?>
             </div>
          </div>
 

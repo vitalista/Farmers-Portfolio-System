@@ -1,6 +1,42 @@
-let totalEntries = getTotalEntries();
+const tds = document.querySelectorAll('td');
 
-// Calculate 25%, 50%, and 75% of the total entries
+let dataId = null;
+
+tds.forEach(td => {
+  td.addEventListener('click', function() {
+    dataId = this.getAttribute('data-id');
+    // console.log('Clicked TD with data-id: ' + dataId);
+  });
+});
+
+function updateData(button) {
+  const input = document.getElementById('ffrsCode');
+  const inputValue = input.value;
+
+  console.log('Input value:', inputValue);
+
+  if (dataId) { // Ensure dataId is set before making the AJAX request
+    $.ajax({
+      url: 'update.php',
+      type: 'POST',
+      data: {
+        id: dataId,
+        ffrs: inputValue
+      },
+      success: function(response) {
+        console.log(response);
+        window.location.reload();
+      },
+      error: function(xhr, status, error) {
+        alert('Error: ' + error);
+      }
+    });
+  } else {
+    alert('Please select a valid table row first!');
+  }
+}
+
+let totalEntries = getTotalEntries();
 let twentyFivePercent = Math.ceil(totalEntries * 0.25);
 let fiftyPercent = Math.ceil(totalEntries * 0.5);
 let seventyFivePercent = Math.ceil(totalEntries * 0.75);
@@ -25,115 +61,124 @@ let lengthMenuLabels = [
 document.addEventListener("DOMContentLoaded", function () {
   const example = document.getElementById("example");
 
-  setTimeout(() => {
-    example.classList.remove("d-none");
-    $("#example").DataTable({
-      language: {
-        emptyTable: `<span class="text-danger"><strong>Empty Table</strong></span>`,
+  // Initialize DataTable
+  const table = new DataTable(example, {
+    language: {
+      emptyTable: `<span class="text-danger"><strong>Empty Table</strong></span>`,
+    },
+    dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+    responsive: true,
+    buttons: [
+      {
+        extend: "copy",
+        title: "Baliwag Agriculture Office",
+        exportOptions: {
+          columns: columnArr,
+          modifier: {
+            page: "current",
+          },
+        },
       },
-      dom: 'B<"table-top"lf>t<"table-bottom"ip>',
-      responsive: true,
-      buttons: [
-        {
-          extend: "copy",
-          title: "Baliwag Agriculture Office",
-          exportOptions: {
-            columns: columnArr, // Specify the columns you want to copy
+      {
+        extend: "csv",
+        title: "Baliwag Agriculture Office",
+        action: function (e, dt, node, config) {
+          config.exportOptions = {
+            columns: columnArr,
             modifier: {
-              page: "current", // Only copy the data on the current page
+              page: "current",
             },
-          },
+          };
+          DataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
         },
-
-        {
-          extend: "csv",
-          title: "Baliwag Agriculture Office",
-          action: function (e, dt, node, config) {
-            config.exportOptions = {
-              columns: columnArr,
-              modifier: {
-                page: "current",
-              },
-            };
-
-            $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
-          },
-        },
-        {
-          extend: "print",
-          action: function (e, dt, node, config) {
-            config.customize = function (win) {
-              $(win.document.body)
-                .css("font-size", "12pt")
-                .find("h1")
-                .replaceWith(
-                  '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
-                );
-            };
-
-            config.exportOptions = {
-              columns: columnArr,
-              modifier: {
-                page: "current",
-              },
-            };
-
-            $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
-          },
-        },
-        {
-          extend: "excel",
-          title: "Baliwag Agriculture Office",
-          action: function (e, dt, node, config) {
-            config.exportOptions = {
-              columns: columnArr,
-              modifier: {
-                page: "current",
-              },
-            };
-
-            $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
-          },
-        },
-        {
-          extend: "pdf",
-          title: "Baliwag Agriculture Office",
-          action: function (e, dt, node, config) {
-            config.exportOptions = {
-              columns: columnArr,
-              modifier: {
-                page: "current",
-              },
-            };
-
-            $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
-          },
-        },
-      ],
-      colReorder: true,
-      fixedHeader: true,
-      rowReorder: false,
-      lengthMenu: [lengthMenuValues, lengthMenuLabels],
-
-      columnDefs: [
-        {
-          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-          render: function (data, type, row, meta) {
-            if (type === "display" || type === "filter") {
-              if (meta.col === 0) {
-                if (data === "UNREGISTERED") {
-                  return `<button type="button" class="btn btn-danger ms-4" data-bs-toggle="modal" data-bs-target="#basicModal"><i class="bi bi-question-diamond-fill"></i></button>`;
-                }
-                if (data === "No information Available") {
-                  return data;
-                }
-                return `REGISTERED`;
-              }
+      },
+      {
+        extend: "print",
+        action: function (e, dt, node, config) {
+          config.customize = function (win) {
+            const body = win.document.body;
+            body.style.fontSize = "12pt";
+            const h1 = win.document.querySelector("h1");
+            if (h1) {
+              const newElement = win.document.createElement('h4');
+              newElement.style.fontWeight = 'bold';
+              newElement.style.textAlign = 'center'; 
+              const img = win.document.createElement('img');
+              img.style.width = '30px';
+              img.style.margin = '0px 0px 4px 0px';
+              img.src = '../assets/img/Agri Logo.png';
+              img.alt = '';
+              const textNode = win.document.createTextNode('Baliwag Agriculture Office');
+              newElement.appendChild(img);
+              newElement.appendChild(textNode);
+              h1.replaceWith(newElement);
             }
-            return data;
-          },
+          };
+          config.exportOptions = {
+            columns: columnArr,
+            modifier: {
+              page: "current",
+            },
+          };
+          DataTable.ext.buttons.print.action(e, dt, node, config);
         },
-      ],
-    });
-  }, 500);
+      },
+      {
+        extend: "excel",
+        title: "Baliwag Agriculture Office",
+        action: function (e, dt, node, config) {
+          config.exportOptions = {
+            columns: columnArr,
+            modifier: {
+              page: "current",
+            },
+          };
+          DataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
+        },
+      },
+      {
+        extend: "pdf",
+        title: "Baliwag Agriculture Office",
+        action: function (e, dt, node, config) {
+          config.exportOptions = {
+            columns: columnArr,
+            modifier: {
+              page: "current",
+            },
+          };
+          DataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
+        },
+      }
+    ],
+    colReorder: true,
+    fixedHeader: true,
+    rowReorder: false,
+    lengthMenu: [lengthMenuValues, lengthMenuLabels],
+
+    columnDefs: [
+      {
+        targets: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        render: function (data, type, row, meta) {
+          if (type === "display" || type === "filter") {
+            if (meta.col === 0) {
+              if (data === "UNREGISTERED") {
+                return `<button type="button" class="btn btn-danger ms-4" data-bs-toggle="modal" data-bs-target="#basicModal"><i class="bi bi-question-diamond-fill"></i></button>`;
+              }
+              if (data === "No information Available") {
+                return data;
+              }
+              return `REGISTERED`;
+            }
+          }
+          return data;
+        },
+      },
+    ],
+  });
+  if (!canExport()) {
+    const dtButtons = document.querySelector('.dt-buttons');
+  if (dtButtons) {
+    dtButtons.style.display = 'none';
+  }
+}  
 });

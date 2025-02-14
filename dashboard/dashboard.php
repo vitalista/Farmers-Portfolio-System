@@ -34,9 +34,11 @@
                      <div class="col-md-4 text-center">
                      <h3 class="text-dark mb-0">Dashboard</h3>
                      </div>
+                     <?php if($_SESSION['LoggedInUser']['can_export'] === 1){?>
                      <div class="col-md-4 text-end">
                      <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="dashboard-print.php" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                      </div>
+                     <?php }?>
                   </div>
                   <div class="row">
                      <?php if (is_dir('../program')) { ?>

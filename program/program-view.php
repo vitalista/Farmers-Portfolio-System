@@ -196,7 +196,7 @@
                       </script>
 
                       <!-- Distributions -->
-                      <div class="table-responsive mb-3">
+                      <div class="table-responsive mb-3 mt-3">
                         <table class="table table-bordered table-striped" id="example">
                           <thead class="thead">
                             <tr>
@@ -314,7 +314,6 @@
     document.addEventListener("DOMContentLoaded", function() {
       const example = document.getElementById("example");
       const columns = [0, 1, 2, 3, 4];
-      setTimeout(() => {
         example.classList.remove("d-none");
         $("#example").DataTable({
           language: {
@@ -403,7 +402,13 @@
           rowReorder: false,
           lengthMenu: [lengthMenuValues, lengthMenuLabels],
         });
-      }, 500);
+        
+  if (!canExport()) {
+    const dtButtons = document.querySelector('.dt-buttons');
+  if (dtButtons) {
+    dtButtons.style.display = 'none';
+  }
+}  
     });
   </script>
 

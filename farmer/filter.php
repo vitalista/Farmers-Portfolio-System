@@ -3,9 +3,6 @@ $archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
 $query = "
      SELECT * FROM farmers WHERE is_archived =  ".$archived."
 ";
-
-// echo $query;
-
 $whereConditions = [];
 $params = [];
 $types = "";

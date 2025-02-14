@@ -268,7 +268,7 @@
                             </script>
 
                             <div class="card table-responsive mb-3">
-                                <div class="card-body">
+                                <div class="card-body mt-3">
                                     <table class="table table-bordered table-striped" id="example">
                                         <thead class="thead">
                                             <tr>
@@ -697,15 +697,15 @@
         document.addEventListener("DOMContentLoaded", function() {
             const example = document.getElementById("example");
             const columns = [0, 1, 2, 3];
-            setTimeout(() => {
-                example.classList.remove("d-none");
+
                 $("#example").DataTable({
                     language: {
                         emptyTable: `<span class="text-danger"><strong>No Resources</strong></span>`,
                     },
                     dom: 'B<"table-top"lf>t<"table-bottom"ip>',
                     responsive: true,
-                    buttons: [{
+                    buttons: 
+                    [{
                             extend: "copy",
                             title: "Baliwag Agriculture Office",
                             exportOptions: {
@@ -786,7 +786,13 @@
                     rowReorder: false,
                     lengthMenu: [lengthMenuValues, lengthMenuLabels],
                 });
-            }, 500);
+
+                if (!canExport()) {
+    const dtButtons = document.querySelector('.dt-buttons');
+  if (dtButtons) {
+    dtButtons.style.display = 'none';
+  }
+} 
         });
     </script>
 

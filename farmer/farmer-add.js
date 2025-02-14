@@ -1,5 +1,3 @@
-
-
 document.getElementById('addFarmButton').addEventListener('click', function() {
   farmCounter++;
   const farmContainer = document.getElementById('farmContainer');

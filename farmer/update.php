@@ -33,10 +33,10 @@ $modifiedTimes++;
 date_default_timezone_set('Asia/Taipei');
 $modifiedAt = date('Y-m-d h:i:s A');
 
-$sql = "UPDATE farmers SET ffrs_system_gen = ?, modified_times = ?, modified_at = ? WHERE id = ?";
+$sql = "UPDATE farmers SET ffrs_system_gen = ?, modified_times = ? WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sisi", $name, $modifiedTimes, $modifiedAt, $id);
+$stmt->bind_param("sii", $name, $modifiedTimes, $id);
 
 // Execute the query
 if ($stmt->execute()) {

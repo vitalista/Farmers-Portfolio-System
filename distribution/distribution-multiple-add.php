@@ -378,107 +378,9 @@ if (!isset($_SESSION['resourceItems'])) {
         ];
 
         document.addEventListener("DOMContentLoaded", function() {
-            const example = document.getElementById("example2");
-            const columns = [0, 1, 2, 3, 4];
-
-            setTimeout(() => {
-                example.classList.remove("d-none");
-                $("#example2").DataTable({
-                    language: {
-                        emptyTable: `<span class="text-danger"><strong>No Item Available</strong></span>`
-                    },
-                    dom: 'B<"table-top"lf>t<"table-bottom d-flex"ip>',
-                    responsive: true,
-                    buttons: [{
-                            extend: "copy",
-                            title: "Baliwag Agriculture Office",
-                            exportOptions: {
-                                columns: columns, // Specify the columns you want to copy
-                                modifier: {
-                                    page: "all", // Only copy the data on the all page
-                                },
-                            },
-                        },
-
-                        {
-                            extend: "csv",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "print",
-                            action: function(e, dt, node, config) {
-
-                                config.customize = function(win) {
-                                    $(win.document.body)
-                                        .css("font-size", "12pt")
-                                        .find("h1")
-                                        .replaceWith(
-                                            '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
-                                        );
-                                };
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "excel",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "pdf",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
-                            },
-                        },
-                    ],
-                    colReorder: true,
-                    fixedHeader: true,
-                    rowReorder: false,
-                    lengthMenu: [lengthMenuValues, lengthMenuLabels],
-                });
-            }, 500);
-
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
             const example = document.getElementById("example");
             const columns = [0, 1, 2, 3, 4];
 
-            setTimeout(() => {
                 example.classList.remove("d-none");
                 $("#example").DataTable({
                     language: {
@@ -567,7 +469,12 @@ if (!isset($_SESSION['resourceItems'])) {
                     rowReorder: false,
                     lengthMenu: [lengthMenuValues, lengthMenuLabels],
                 });
-            }, 500);
+                if (!canExport()) {
+            const dtButtons = document.querySelector('.dt-buttons');
+          if (dtButtons) {
+            dtButtons.style.display = 'none';
+          }
+        }
 
         });
     </script>

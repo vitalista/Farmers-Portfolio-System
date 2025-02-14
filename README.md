@@ -21,6 +21,7 @@ TO Do's:
 - [] reports
 - [] inconsistent aos animations
 - [] update image
+- [] export individual farmer
 - [] session last act bug (optional)
 - [x] fps code in every table
 - [] confirm password

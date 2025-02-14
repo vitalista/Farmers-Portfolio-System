@@ -26,7 +26,8 @@ $_SESSION['LoggedIn'] = true;
 $_SESSION['LoggedInUser']['role'] = 1;
 $_SESSION['LoggedInUser']['can_edit'] = 1;
 $_SESSION['LoggedInUser']['can_create'] = 1;
-$_SESSION['LoggedInUser']['can_delete'] = 1;
+$_SESSION['LoggedInUser']['can_archive'] = 1;
+$_SESSION['LoggedInUser']['can_export'] = 1;
 $_SESSION['LoggedInUser']['id'] = 3;
 $_SESSION['LoggedInUser']['full_name'] = "DEV";
 $_SESSION["LAST_ACTIVITY"] = time();
@@ -77,25 +78,14 @@ function page($path, $page, $border = false)
     return '';
 }
 
-class Page
-{
-    // Step 1: Declare a static variable to hold the instance of the class
+class Page{
     private static $instance = null;
-
-    // Step 2: Declare a private property to store the page filename
     private $page;
-
-    // Step 3: Private constructor to prevent direct instantiation
-    private function __construct()
-    {
-        // Set the page filename when the object is created
+    private function __construct(){
         $this->page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1);
     }
 
-    // Step 4: Public static method to get the single instance of the class
-    public static function getInstance()
-    {
-        // Check if the instance doesn't exist and create it
+    public static function getInstance(){
         if (self::$instance === null) {
             self::$instance = new Page();
         }
@@ -103,9 +93,7 @@ class Page
         return self::$instance;
     }
 
-    // Step 5: Getter method to access the page filename
-    public function getPage()
-    {
+    public function getPage(){
         return $this->page;
     }
 }
@@ -122,6 +110,10 @@ class Page
         card.style.opacity = '1';
         card.style.transition = 'opacity 0.5s ease';
         card.style.opacity = '0';
+    }
+    
+    function canExport(){
+        return <?= $_SESSION['LoggedInUser']['can_export'] === 1? true: false; ?>
     }
 </script>
 

@@ -35,7 +35,7 @@
 
               <?php include 'filter.php'; ?>
 
-              <table id="example" class="display nowrap d-none">
+              <table id="example" class="display nowrap">
                 <thead>
                   <tr>
                     <th>Registration</th>
@@ -99,55 +99,9 @@
         </div>
       </div>
     </section>
-
-    <script>
-      const tds = document.querySelectorAll('td');
-
-      let dataId = null;
-
-      tds.forEach(td => {
-        td.addEventListener('click', function() {
-          dataId = this.getAttribute('data-id');
-          console.log('Clicked TD with data-id: ' + dataId);
-        });
-      });
-
-      function updateData(button) {
-        const input = document.getElementById('ffrsCode');
-        const inputValue = input.value;
-
-        console.log('Input value:', inputValue);
-
-        if (dataId) { // Ensure dataId is set before making the AJAX request
-          $.ajax({
-            url: 'update.php',
-            type: 'POST',
-            data: {
-              id: dataId,
-              ffrs: inputValue
-            },
-            success: function(response) {
-              alert('Data updated successfully!');
-              console.log(response);
-              window.location.reload();
-            },
-            error: function(xhr, status, error) {
-              alert('Error: ' + error);
-            }
-          });
-        } else {
-          alert('Please select a valid table row first!');
-        }
-      }
-    </script>
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <?php include '../includes/footer.php' ?>
-
-  <!-- ======= JavaScript for List Table ======= -->
+  </main>
   <script src="./farmer-list.js"></script>
+  <?php include '../includes/footer.php' ?>
 
 </body>
 
