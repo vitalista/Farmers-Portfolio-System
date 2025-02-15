@@ -3,7 +3,7 @@
 <?php 
 include '../includes/head.php';
   if (!isset($_SESSION['LoggedInUser']['email'])) {
-    redirect('../logout.php', 404, 'Please login first.');
+    redirect('../login/', 404, 'Please login first.');
 }
 ?>
 

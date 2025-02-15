@@ -239,6 +239,14 @@ $result = $stmt->get_result();
                         </div>
                     </div>
 
+                    <div class="col-md-12 mb-3 text-center">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#moreFilters" aria-expanded="false" aria-controls="moreFilters">
+                            Show more <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                    </div>
+
+                <div class="collapse row" id="moreFilters">
+
                     <div class="col-md-3 mb-3">
                         <label for="numberOfParcelsComp" class="form-label">Number of Parcels</label>
                         <div class="input-group">
@@ -329,6 +337,7 @@ $result = $stmt->get_result();
                     <div class="col-md-3 mb-3">
                         <label for="numOfEntries" class="form-label">No. of <strong>(Entries)</strong></label>
                         <input type="number" id="numOfEntries" name="numOfEntries" class="form-control" min="0" placeholder="By default 10">
+                    </div>
                     </div>
 
                     <div class="modal-footer">

@@ -144,6 +144,13 @@ $result = $stmt->get_result();
                         <input type="date" name="birthday" id="birthday" class="form-control">
                     </div>
 
+                    <div class="col-md-12 mb-3 text-center">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#moreFilters" aria-expanded="false" aria-controls="moreFilters">
+                            Show more <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                    </div>
+
+                <div class="collapse row" id="moreFilters">
                     <div class="col-md-3 mb-3">
                         <label for="farmerAddComparison" class="form-label">Farmer Address<strong>(Contains)</strong></label>
                         <div class="input-group">
@@ -197,6 +204,8 @@ $result = $stmt->get_result();
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </div>
+
+                </div>
 
                 </form>
             </div>

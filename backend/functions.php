@@ -22,15 +22,15 @@ if (isset($_SESSION["LAST_ACTIVITY"])) {
     }
 }
 // // session_start();
-// $_SESSION['LoggedIn'] = true;
-// $_SESSION['LoggedInUser']['role'] = 1;
-// $_SESSION['LoggedInUser']['can_edit'] = 1;
-// $_SESSION['LoggedInUser']['can_create'] = 1;
-// $_SESSION['LoggedInUser']['can_archive'] = 1;
-// $_SESSION['LoggedInUser']['can_export'] = 1;
-// $_SESSION['LoggedInUser']['id'] = 3;
-// $_SESSION['LoggedInUser']['full_name'] = "DEV";
-// $_SESSION["LAST_ACTIVITY"] = time();
+$_SESSION['LoggedIn'] = true;
+$_SESSION['LoggedInUser']['role'] = 1;
+$_SESSION['LoggedInUser']['can_edit'] = 1;
+$_SESSION['LoggedInUser']['can_create'] = 1;
+$_SESSION['LoggedInUser']['can_archive'] = 1;
+$_SESSION['LoggedInUser']['can_export'] = 1;
+$_SESSION['LoggedInUser']['id'] = 3;
+$_SESSION['LoggedInUser']['full_name'] = "DEV";
+$_SESSION["LAST_ACTIVITY"] = time();
 
 function setLastAct() {
     $id = (int)$_SESSION['LoggedInUser']['id'];
@@ -112,9 +112,12 @@ class Page{
         card.style.opacity = '0';
     }
     <?php if(isset($_SESSION['LoggedInUser']['can_export'])){?>
-    function canExport(){
-        return <?= $_SESSION['LoggedInUser']['can_export'] === 1? true: false; ?>
+    const canExport = () =>{
+        return <?= $_SESSION['LoggedInUser']['can_export'] === 1? true: false;?>
     }
+
+    localStorage.setItem('fullName', '<?= addslashes($_SESSION['LoggedInUser']['full_name']); ?>');
+    
     <?php }?>
 </script>
 

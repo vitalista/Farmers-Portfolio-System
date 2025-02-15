@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["verify"])) {
 
     if ($_SESSION['otp_attempts'] > 2) {
         unsetSessions();
-        redirect('../login/index.php?error=wrongOTP', 500, 'You have been used 3 attempts you will Please relogin.');
+        redirect('../login/index.php?error=wrongOTP', 500, 'You have been used 3 attempts, Please relogin.');
         exit();
     }
 

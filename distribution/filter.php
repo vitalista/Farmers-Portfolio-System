@@ -188,6 +188,14 @@ $result = $stmt->get_result();
                         <input type="text" id="programName" name="programName" class="form-control" placeholder="Type here...">
                     </div>
 
+                    <div class="col-md-12 mb-3 text-center">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#moreFilters" aria-expanded="false" aria-controls="moreFilters">
+                            Show more <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                    </div>
+
+                <div class="collapse row" id="moreFilters">
+
                     <div class="col-md-3 mb-3">
                         <label for="programType" class="form-label">Program Type</label>
                         <input type="text" id="programType" name="programType" class="form-control" placeholder="Type here...">
@@ -214,7 +222,8 @@ $result = $stmt->get_result();
                             <label class="form-check-label" for="archived">Yes</label>
                             <input class="form-check-input" style="width: 20px; height: 20px;" type="checkbox" id="archived" name="archived" value="1">
                         </div>
-                    </div>
+                        </div>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
