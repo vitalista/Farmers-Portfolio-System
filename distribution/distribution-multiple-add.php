@@ -326,7 +326,7 @@ if (!isset($_SESSION['resourceItems'])) {
 
                         <div class="row d-flex justify-content-end">
                             <div class="col-md-12 d-flex justify-content-end">
-                                <a href="distribution-code.php?clear=true" class="btn btn-sm btn-secondary me-2"><i class="bi bi-trash3-fill" style="color: red;"></i></a>
+                                <a href="distribution-code.php?clear=true" class="btn btn-sm btn-secondary me-2">Clear</a>
 
                                 <form action="distribution-code.php" method="post">
                                     <button type="submit" class="btn btn-sm btn-success" name="saveItem"><i class="fa-solid fa-floppy-disk"></i> Save</button>

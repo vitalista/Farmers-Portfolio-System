@@ -111,7 +111,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
   // Append the new card to the container
   farmContainer.appendChild(newFarmCard);
 
-  entryFade(newFarmCard);
+ // entryFade(newFarmCard);
 
   const parcelTitle = newFarmCard.querySelector('.card-title.ms-3').textContent;
   const farmNumber = parseInt(parcelTitle.replace('Parcel #', '').trim());
@@ -154,7 +154,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
         </div>
     `;
     cropsContainer.appendChild(cropInputDiv);
-    entryFade(cropInputDiv);
+    //entryFade(cropInputDiv);
 
     // Add event listener for the remove button
     cropInputDiv.querySelector('.removeCropButton').addEventListener('click', function() {
@@ -191,7 +191,7 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
 
   `;
     livestockContainer.appendChild(livestockInputDiv);
-    entryFade(livestockInputDiv);
+    //entryFade(livestockInputDiv);
 
     // Add event listener for the remove button
     livestockInputDiv.querySelector('.removeLivestockButton').addEventListener('click', function() {

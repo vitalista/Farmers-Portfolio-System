@@ -70,6 +70,34 @@ if (!empty($_GET['numberOfParcels'])) {
     $types .= "i";
 }
 
+
+if(!empty('created') && isset($_GET['created'])) {
+    $created = validate($_GET['created']);
+    switch ($created) {
+        case 'today':
+            $whereConditions[] = "created_at >= CURDATE() 
+                                  AND created_at < CURDATE() + INTERVAL 1 DAY";
+            break;
+        case 'thisWeek':
+            $whereConditions[] = "YEARWEEK(created_at, 1) = YEARWEEK(CURDATE(), 1)";
+            break;
+        case 'thisMonth':
+            $whereConditions[] = "MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())";
+            break;
+        case 'thisYear':
+            $whereConditions[] = "YEAR(created_at) = YEAR(CURDATE())";
+            break;
+        case 'dateRange':
+            $fromCreated = validate($_GET['fromCreated']);
+            $toCreated = validate($_GET['toCreated']);
+            $whereConditions[] = "created_at BETWEEN ? AND ?";
+            $params[] = $fromCreated;
+            $params[] = $toCreated;
+            $types .= "ss";
+            break;
+    }
+}
+
 if (!empty($whereConditions)) {
     $query .= " AND " . implode(" AND ", $whereConditions);
 }
@@ -112,6 +140,48 @@ $result = $stmt->get_result();
             <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
             <form id="filterForm" class="row" method="get">
 
+                    <div class="col-md-4 mb-3">
+                        <label for="created" class="form-label">Created</label>
+                        <select id="created" name="created" class="form-select" onchange="toggleDateInputs(this.value)">
+                            <option value="today">Today</option>
+                            <option value="thisWeek">This Week</option>
+                            <option value="thisMonth">This Month</option>
+                            <option value="thisYear">This Year</option>
+                            <option value="dateRange">Date Range</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="fromCreated" class="form-label">From</label>
+                        <input type="date" name="fromCreated" id="fromCreated" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="toCreated" class="form-label">To</label>
+                        <input type="date" name="toCreated" id="toCreated" class="form-control" disabled>
+                    </div>
+
+                    <script>
+                        function toggleDateInputs(value) {
+                            const fromDateInput = document.getElementById('fromCreated');
+                            const toDateInput = document.getElementById('toCreated');
+                            
+                            if (value === 'dateRange') {
+                                fromDateInput.disabled = false;
+                                toDateInput.disabled = false;
+                            } else {
+                                fromDateInput.disabled = true;
+                                toDateInput.disabled = true;
+                            }
+                        }
+                    </script>
+
+                    <div class="col-md-12 mb-3 text-center">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#moreFilters" aria-expanded="false" aria-controls="moreFilters">
+                            Show more <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                    </div>
+
+                <div class="collapse row" id="moreFilters">
+
                     <div class="col-md-3 mb-3">
                         <label for="ffrs" class="form-label">FFRS SYSTEM GEN</label>
                         <input type="text" name="ffrs" id="ffrs" class="form-control" placeholder="Type here...">
@@ -144,13 +214,7 @@ $result = $stmt->get_result();
                         <input type="date" name="birthday" id="birthday" class="form-control">
                     </div>
 
-                    <div class="col-md-12 mb-3 text-center">
-                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#moreFilters" aria-expanded="false" aria-controls="moreFilters">
-                            Show more <i class="fa-solid fa-arrow-down"></i>
-                        </button>
-                    </div>
-
-                <div class="collapse row" id="moreFilters">
+                   
                     <div class="col-md-3 mb-3">
                         <label for="farmerAddComparison" class="form-label">Farmer Address<strong>(Contains)</strong></label>
                         <div class="input-group">
@@ -200,12 +264,14 @@ $result = $stmt->get_result();
                         <input type="number" id="numOfEntries" name="numOfEntries" class="form-control" min="0" placeholder="By default 10">
                     </div>
 
+                </div>
+
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </div>
 
-                </div>
 
                 </form>
             </div>

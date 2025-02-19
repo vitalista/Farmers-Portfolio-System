@@ -445,7 +445,7 @@
                      </div>
 
                      <div class="col-lg-6">
-                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
+                        <div class="card">
                            <div class="card-body">
                               <h5 class="card-title">Farmers population</h5>
 
