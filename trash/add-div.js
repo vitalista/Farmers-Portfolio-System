@@ -13,8 +13,8 @@ document.getElementById('addFarmButton').addEventListener('click', async functio
             <h5 class="card-title fw-bold">Parcel #${farmCounter}</h5>
             <a class="remove-farm btn btn-sm btn-danger"><i class="fas fa-x text-white"></i></a>
         </div>
-          <input type="hidden" class="parcelNum" value="${farmCounter}" style="width: 100%;">
-        <div id="farmContent-${farmCounter}">
+        <div id="farmContent-${farmCounter}" class="farmContent">
+          <input type="hidden" class="parcelNum" value="${farmCounter}">
             <!-- Content from the fetched file will go here -->
         </div>
     `;
@@ -29,7 +29,7 @@ document.getElementById('addFarmButton').addEventListener('click', async functio
 
         // Insert the fetched content into the specific section of the card
         const farmContentContainer = newFarmCard.querySelector(`#farmContent-${farmCounter}`);
-        farmContentContainer.innerHTML = htmlContent;
+        farmContentContainer.insertAdjacentHTML( "beforeend",htmlContent);
 
         // Append the new farm card to the container
         farmContainer.appendChild(newFarmCard);
@@ -74,7 +74,6 @@ document.getElementById('addFarmButton').addEventListener('click', async functio
         </div>
         `;
 
-
         cropsContainer.appendChild(cropInputDiv);
         // Add event listener for the remove button
         cropInputDiv.querySelector('.removeCropButton').addEventListener('click', function() {
@@ -83,7 +82,7 @@ document.getElementById('addFarmButton').addEventListener('click', async functio
           }, 250);
         });
     });
-
+    //Add Livestock
     newFarmCard.querySelector('.addLivestockButton').addEventListener('click', function() {
         const livestockContainer = newFarmCard.querySelector('#commodityContainer');
         const livestockInputDiv = document.createElement('div');

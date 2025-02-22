@@ -7,9 +7,9 @@
      
         <div class="mb-3">
             <label for="ownershipType" class="form-label">Ownership Type</label>
-            <select class="form-select" id="ownershipType">
-                <option selected>Choose...</option>
-                <option value="Owner">Owner</option>
+            <select class="form-select ownership">
+                <option selected value="" disabled>Choose...</option>
+                <option value="Owner">Registered Owner</option>
                 <option value="Tenant">Tenant</option>
                 <option value="Lessee">Lessee</option>
             </select>
@@ -19,13 +19,13 @@
             <!-- Owner First Name -->
             <div class="col-md-6 mb-3">
                 <label for="ownerFirstName" class="form-label">Owner First Name</label>
-                <input type="text" class="form-control" id="ownerFirstName" placeholder="Owner First Name">
+                <input type="text" class="form-control ofName" placeholder="Owner First Name">
             </div>
 
             <!-- Owner Last Name -->
             <div class="col-md-6 mb-3">
                 <label for="ownerLastName" class="form-label">Owner Last Name</label>
-                <input type="text" class="form-control" id="ownerLastName" placeholder="Owner Last Name">
+                <input type="text" class="form-control olName"  placeholder="Owner Last Name">
             </div>
         </div>
 
@@ -40,26 +40,26 @@
             <!-- Barangay -->
             <div class="col-md-4 mb-3">
                 <label for="barangay" class="form-label">Barangay</label>
-                <input type="text" class="form-control" id="barangay" placeholder="Barangay">
+                <input type="text" class="form-control farmLocationBrgy"  placeholder="Barangay">
             </div>
 
             <!-- Municipality -->
             <div class="col-md-4 mb-3">
                 <label for="municipality" class="form-label">Municipality</label>
-                <input type="text" class="form-control" id="municipality" placeholder="Municipality">
+                <input type="text" class="form-control farmLocationMunicipality" placeholder="Municipality">
             </div>
 
             <!-- Province -->
             <div class="col-md-4 mb-3">
                 <label for="province" class="form-label">Province</label>
-                <input type="text" class="form-control" id="province" placeholder="Province">
+                <input type="text" class="form-control farmLocationProvince" placeholder="Province">
             </div>
         </div>
 
         <!-- Farm Size -->
         <div class="mb-3">
             <label for="farmSize" class="form-label">Farm Size (in hectares)</label>
-            <input type="number" class="form-control" id="farmSize" placeholder="Farm Size">
+            <input type="number" class="form-control farmSize" placeholder="Farm Size">
         </div>
     </fieldset>
 
@@ -69,11 +69,11 @@
         
         <div class="mb-3">
             <label for="farmType" class="form-label">Farm Type</label>
-            <select class="form-select" id="farmType">
-                <option selected>Choose...</option>
-                <option value="Crop">Crop</option>
-                <option value="Livestock">Livestock</option>
-                <option value="Mixed">Mixed</option>
+            <select class="form-select farmType" >
+                <option selected value="" disabled>Choose...</option>
+                <option value="Crop">Irregated</option>
+                <option value="Livestock">Rainfed Upland</option>
+                <option value="Mixed">Rainfed Lowland</option>
             </select>
         </div>
     </fieldset>
