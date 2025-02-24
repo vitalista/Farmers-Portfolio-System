@@ -14,20 +14,21 @@ TO Do's:
 - [x] FIlter LIKE contains string only find exact word not per letter exist
 - [x] archive and modified log name
 - [x] GENERATE dashboard content adn brgy
-- [] Important Fields
-- [] resend OTP (optional)
+- [x] restored
 - [x] restrictions options in every lists
 - [x] unused btns and make it sm
-- [] reports
-- [] inconsistent aos animations
 - [x] update image
-- [] export individual farmer
-- [] session last act bug (optional)
 - [x] fps code in every table
-- [] confirm password
 - [x] remove act log and archived and restored
-- [] registration insertion (optional)
-- [x] restored
-
-TO REMIND:
-update will also insert if condition not met
+- [x] registration insertion [optional]
+- [] registration insertion [optional]
+- [] Important Fields
+- [] session last act bug [optional]
+- [] export individual farmer
+- [] inconsistent aos animations
+- [] reports
+- [] resend OTP [optional]
+- [] filter updating/new
+- [] hide FFRS code field when new is selected
+- [] updating click change archived the old record [optional]
+- [] confirm password

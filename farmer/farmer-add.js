@@ -39,7 +39,6 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
                     <option value="Tenant">Tenant</option>
                     <option value="Registered Owner">Registered Owner</option>
                     <option value="Lesse">Lesse</option>
-                    <option value="Others">Others</option>
                 </select>
                 <div class="invalid-feedback">Please select.</div>
             </div>
