@@ -415,36 +415,6 @@
          </div>
       </div>
       </div>
-
-      <!-- Modal -->
-      <!-- <div class="modal fade" id="modal-1" tabindex="-1">
-         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h4 class="modal-title" style="color: #026a44;">Program History</h4>
-                  <button class="btn-close" data-bs-dismiss="modal"></button>
-               </div>
-               <div class="modal-body">
-                  <div class="table-responsive">
-                     <table class="table table-hover table-bordered">
-                        <thead>
-                           <tr>
-                              <th>Program Name</th>
-                              <th>Date Received</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>Palay</td>
-                              <td>09/22/2020</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div> -->
    </main>
 
    <?php include '../includes/footer.php'; ?>

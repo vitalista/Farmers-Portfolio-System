@@ -28,7 +28,6 @@
   <script src="../assets/vendor/php-email-form/validate.js"></script>
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
   <script>AOS.init();</script>
    

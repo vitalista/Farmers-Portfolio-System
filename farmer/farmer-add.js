@@ -237,33 +237,8 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
   });
 });
 
-function transferFile(srcInput, destInput) {
-  const selectedFile = srcInput.files[0];
-
-  if (selectedFile) {
-    const reader = new FileReader();
-
-    // When the file is read, transfer it to the destination input
-    reader.onload = (event) => {
-      const file = new File([event.target.result], selectedFile.name, { type: selectedFile.type });
-
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
-
-      destInput.files = dataTransfer.files;
-    };
-
-    // Read the file as an array buffer
-    reader.readAsArrayBuffer(selectedFile);
-  }
-}
-
 document.getElementById('submitFarmsButton').addEventListener('click', function(e) {
 
-  transferFile(document.getElementById('farmerImg'), document.getElementById('farmerImg1'));
-  transferFile(document.getElementById('govIdPhotoFront'), document.getElementById('govIdPhotoFront1'));
-  transferFile(document.getElementById('govIdPhotoBack'), document.getElementById('govIdPhotoBack1'));
-  
   e.preventDefault();
   const farms = [];
   const farmCards = document.querySelectorAll('#farmContainer .card .card-body');

@@ -231,7 +231,9 @@ $result = $stmt->get_result();
                     <div class="col-md-4 mb-3">
                         <label for="created" class="form-label">Created</label>
                         <select id="created" name="created" class="form-select" onchange="toggleDateInputs(this.value)">
-                            <option value="today">Today</option>
+                        <option selected disabled>--Choose--</option>
+                            
+                        <option value="today">Today</option>
                             <option value="thisWeek">This Week</option>
                             <option value="thisMonth">This Month</option>
                             <option value="thisYear">This Year</option>

@@ -20,7 +20,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title">Add Program</h5>
               <div>
-                <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
+                <a href="programs-list.php" class="btn btn-sm btn-danger">Back</a>
               </div>
             </div>
 

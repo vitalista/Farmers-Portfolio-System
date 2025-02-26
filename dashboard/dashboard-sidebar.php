@@ -7,4 +7,4 @@ $page = $pageInstance->getPage();
       <i class="bi bi-bar-chart-fill" style="<?= page($page, "dashboard.php");?>"></i>
       <span style="<?= page($page, "dashboard.php");?>">DashBoard</span>
     </a>
-  </li><!--DashBoard -->
+</li><!--DashBoard -->

@@ -140,8 +140,8 @@
                                         <div class="text-center">
                                             <label for="farmerImg" class="form-label text-emphasis-color fs-6 fw-bold">Upload Image:</label>
                                             <div class="mb-3">
-                                                <!-- <input type="file" class="form-control" accept="image/*" id="farmerImg" name="farmerImage"
-                                                    onchange="previewImage()"> -->
+                                                <input type="file" class="form-control" accept="image/*" id="farmerImg" name="farmerImage"
+                                                    onchange="previewImage()">
                                                 <small class="text-muted">Photo taken within 6 months</small>
                                             </div>
 
@@ -595,7 +595,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="submit" id="submitFarmsButton" class="btn btn-sm btn-success me-2"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                    <button id="submitFarmsButton" class="btn btn-sm btn-success me-2"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                 </div>
                     <input type="hidden" name="update" value="1">
                     <input type="hidden" name="farms_data" id="farmsData" style="width: 100%;">
@@ -605,195 +605,13 @@
         </section>
     </main>
 
-    <?php
-    $target_id = $paramValue;
-
-    $sql = "SELECT parcel_no FROM parcels WHERE farmer_id = ? ORDER BY parcel_no ASC";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $target_id);
-
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $numbers = [];
-    $missingNumbers = [];
-
-    while ($row = $result->fetch_assoc()) {
-        $numbers[] = $row['parcel_no'];
-    }
-
-    $has_gap = false;
-    $largest_number = 0;
-    for ($i = 0; $i < count($numbers); $i++) {
-        if ($i > 0 && $numbers[$i] != $numbers[$i - 1] + 1) {
-            $has_gap = true;
-            for ($missing = $numbers[$i - 1] + 1; $missing < $numbers[$i]; $missing++) {
-                array_push($missingNumbers, $missing - 1);
-            }
-        }
-        $largest_number = max($largest_number, $numbers[$i]);
-    }
-
-    if (empty($missingNumbers)) {
-        array_push($missingNumbers, $largest_number);
-    }
-
-    // print_r($missingNumbers);
-    $missingNumbersJson = json_encode($missingNumbers);
-
-    $conn->close();
-    ?>
-    <script type="text/javascript">
-        let missingNumbers = <?php echo $missingNumbersJson; ?>;
-
-        missingNumbers.forEach(function(number) {
-            console.log("Next number: " + (parseInt(number) + 1));
-        });
-
-        let farmCounter = 0;
-        let currentIndex = 0;
-
-        document.getElementById('addFarmButton').addEventListener('click', function() {
-            if (currentIndex < missingNumbers.length) {
-                farmCounter = missingNumbers[currentIndex];
-                currentIndex++;
-            } else {
-                console.log("No more numbers in missingNumbers.");
-            }
-        });
-    </script>
-
+    <?php include 'missing-parcel.php'; ?>
     <script src="./farmer-view.js"></script>
 
     <!-- ======= Footer ======= -->
     <?php include '../includes/footer.php' ?>
     <script src="./farmer-add.js"></script>
-
-    <script>
-        let totalEntries = getTotalEntries();
-
-        // Calculate 25%, 50%, and 75% of the total entries
-        let twentyFivePercent = Math.ceil(totalEntries * 0.25);
-        let fiftyPercent = Math.ceil(totalEntries * 0.5);
-        let seventyFivePercent = Math.ceil(totalEntries * 0.75);
-
-        let lengthMenuValues = [
-            10,
-            twentyFivePercent,
-            fiftyPercent,
-            seventyFivePercent,
-            -1,
-        ];
-        let lengthMenuLabels = [
-            10,
-            `${twentyFivePercent} (25%)`,
-            `${fiftyPercent} (50%)`,
-            `${seventyFivePercent} (75%)`,
-            "Show All",
-        ];
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const example = document.getElementById("example");
-            const columns = [0, 1, 2, 3];
-
-                $("#example").DataTable({
-                    language: {
-                        emptyTable: `<span class="text-danger"><strong>No Resources</strong></span>`,
-                    },
-                    dom: 'B<"table-top"lf>t<"table-bottom"ip>',
-                    responsive: true,
-                    buttons: 
-                    [{
-                            extend: "copy",
-                            title: "Baliwag Agriculture Office",
-                            exportOptions: {
-                                columns: columns, // Specify the columns you want to copy
-                                modifier: {
-                                    page: "current", // Only copy the data on the current page
-                                },
-                            },
-                        },
-
-                        {
-                            extend: "csv",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "current",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "print",
-                            action: function(e, dt, node, config) {
-                                config.customize = function(win) {
-                                    $(win.document.body)
-                                        .css("font-size", "12pt")
-                                        .find("h1")
-                                        .replaceWith(
-                                            '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
-                                        );
-                                };
-
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "current",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "excel",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "current",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "pdf",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "current",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
-                            },
-                        },
-                    ],
-                    colReorder: true,
-                    fixedHeader: true,
-                    rowReorder: false,
-                    lengthMenu: [lengthMenuValues, lengthMenuLabels],
-                });
-
-                if (!canExport()) {
-    const dtButtons = document.querySelector('.dt-buttons');
-  if (dtButtons) {
-    dtButtons.style.display = 'none';
-  }
-} 
-        });
-    </script>
+    <script src="script.js"></script>
 
 </body>
 

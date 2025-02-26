@@ -328,34 +328,4 @@
     on('click', '#iconPassword', togglePasswordVisibility);
   }
 
-  // Datatables
-  $(document).ready(function() {
-//     $('#example').DataTable({
-//         dom: 'B<"table-top"lf>t<"table-bottom"ip>',
-//         responsive: true,
-//         buttons: [
-//             'copy', 'csv', 'print', 'excel', 'pdf'
-//         ],
-//         colReorder: false,
-//         fixedHeader: false,
-//         rowReorder: false,
-// lengthMenu: [
-//     [10, 100, 1000, -1], // Values for entries
-//     [10, 100, 1000, "Show All"] // Labels for entries
-// ],
-// columnDefs: [
-//     {
-//         targets: 0,
-//         render: function(data, type, row) {
-//             if (type === 'display' || type === 'filter') {
-//                 return `<strong>${data}</strong>`;
-//             }
-//             return null;
-//         }
-//     }
-// ]
-//     });
-});
-
 })();
-

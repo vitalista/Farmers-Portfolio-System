@@ -18,7 +18,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">Add Farmer</h5>
                 <div>
-                  <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
+                  <a href="farmer-list.php" class="btn btn-sm btn-danger">Back</a>
                 </div>
               </div>
 
@@ -249,9 +249,7 @@
 
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
-  <script>
-    let farmCounter = 0;
-  </script>
+  <script>let farmCounter = 0;</script>
   <script src="./farmer-add.js"></script>
 
 </body>

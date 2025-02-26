@@ -881,15 +881,13 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
         }
     }
 
-    
-    
-    // if(isset($_POST['add']) && $_POST['add'] == 0){
-    //     redirect('farmer-list.php', 200, 'Information Successfully Inserted');
-    // }
+    if(isset($_POST['add']) && $_POST['add'] == 0){
+        redirect('farmer-list.php', 200, 'Information Successfully Inserted');
+    }
 
-    // if(isset($_POST['update']) && $_POST['update'] == 1){
-    //     redirect('farmer-list.php', 200, 'Information Successfully Updated');
-    // }
+    if(isset($_POST['update']) && $_POST['update'] == 1){
+        redirect('farmer-list.php', 200, 'Information Successfully Updated');
+    }
 
     if ($data) {
     foreach ($data as $item) {

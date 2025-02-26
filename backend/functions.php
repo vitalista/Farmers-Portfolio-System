@@ -286,7 +286,7 @@ function sumColumn($table, $column, $brgy = "") {
        $query = " SELECT SUM(p.$columnName) AS totalSum FROM $tableName p, farmers f WHERE p.farmer_id = f.id AND p.is_archived = 0 AND f.is_archived = 0 AND f.farmer_brgy_address ='$brgy'";
     }
 
-   echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
+//    echo "<script>console.log('Query: " . addslashes($query) . "');</script>";
 
     $result = mysqli_query($conn, $query);
     

@@ -26,7 +26,7 @@ if (!isset($_SESSION['resourceItems'])) {
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Distribution</h5>
                             <div>
-                                <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
+                                <a href="distributions-list.php" class="btn btn-sm btn-danger">Back</a>
                             </div>
                         </div>
 
@@ -188,69 +188,8 @@ if (!isset($_SESSION['resourceItems'])) {
                                                 </div>
                                             </div>
 
-                                            <!-- Modal Form (Filter Options) -->
-                                            <div class="modal fade" id="ExtralargeModal" tabindex="-1" aria-labelledby="ExtralargeModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-xl">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="ExtralargeModalLabel">Criteria</h5>
-                                                            <button type="button" class="btn btn-sm-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
-                                                            <div class="row">
-                                                                <!-- Filter Form -->
-                                                                <!-- <div class="col-md-3 mb-3">
-                                                                    <label for="farmerComparison" class="form-label">Farmer (Contains)</label>
-                                                                    <div class="input-group">
-                                                                        <select id="farmerComparison" class="form-select" name="farmerComparison">
-                                                                            <option value="last_name">Last Name</option>
-                                                                            <option value="first_name">First Name</option>
-                                                                            <option value="middle_name">Middle Name</option>
-                                                                            <option value="extension_name">Extension Name</option>
-                                                                        </select>
-                                                                        <input type="text" id="farmer" name="farmer" class="form-control" placeholder="Enter">
-                                                                    </div>
-                                                                </div> -->
-
-                                                                <div class="col-md-3 mb-3">
-                                                                    <label for="farmerAddComparison" class="form-label">Farmer Address (Contains)</label>
-                                                                    <div class="input-group">
-                                                                        <select id="farmerAddComparison" name="farmerAddComparison" class="form-select">
-                                                                            <option value="farmer_brgy_address">Barangay</option>
-                                                                            <option value="farmer_municipality_address">Municipality</option>
-                                                                            <option value="farmer_province_address">Province</option>
-                                                                        </select>
-                                                                        <input type="text" id="farmerAdd" name="farmerAdd" class="form-control" placeholder="Enter">
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- Other fields like Program Name, Resources, etc. -->
-                                                                <!-- <div class="col-md-3 mb-3">
-                                                                    <label for="programName" class="form-label">Program Name</label>
-                                                                    <input type="text" id="programName" name="programName" class="form-control" placeholder="Type here...">
-                                                                </div>
-
-                                                                <div class="col-md-3 mb-3">
-                                                                    <label for="programType" class="form-label">Program Type</label>
-                                                                    <input type="text" id="programType" name="programType" class="form-control" placeholder="Type here...">
-                                                                </div>
-
-                                                                <div class="col-md-3 mb-3">
-                                                                    <label class="form-label">Archived?</label>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" id="archived" name="archived" value="1">
-                                                                        <label class="form-check-label" for="archived">Yes</label>
-                                                                    </div>
-                                                                </div> -->
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" name="addItems" class="btn btn-sm btn-warning">Distribute</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <!-- Criteria Modal -->
+                                             <?php include 'criteria-modal.php'; ?>
                                         </form>
                                     </div>
                                 </div>
@@ -278,9 +217,6 @@ if (!isset($_SESSION['resourceItems'])) {
                                                 <th class="text-start">Remove</th>
                                             </tr>
                                         </thead>
-
-
-
 
                                         <tbody class="tbod">
                                             <?php
@@ -346,143 +282,8 @@ if (!isset($_SESSION['resourceItems'])) {
 
     <!-- ======= Footer ======= -->
     <?php include '../includes/footer.php' ?>
-    <script>
-        // Initialize Select2
-        $(document).ready(function() {
-            $('.mySelect').select2({
-                width: '100%'
-            });
-
-        });
-
-        let totalEntries = <?= count($_SESSION['resourceItems']); ?>;
-
-        // Calculate 25%, 50%, and 75% of the total entries
-        let twentyFivePercent = Math.ceil(totalEntries * 0.25);
-        let fiftyPercent = Math.ceil(totalEntries * 0.5);
-        let seventyFivePercent = Math.ceil(totalEntries * 0.75);
-
-        let lengthMenuValues = [
-            10,
-            twentyFivePercent,
-            fiftyPercent,
-            seventyFivePercent,
-            -1,
-        ];
-        let lengthMenuLabels = [
-            10,
-            `${twentyFivePercent} (25%)`,
-            `${fiftyPercent} (50%)`,
-            `${seventyFivePercent} (75%)`,
-            "Show All",
-        ];
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const example = document.getElementById("example");
-            const columns = [0, 1, 2, 3, 4];
-
-                example.classList.remove("d-none");
-                $("#example").DataTable({
-                    language: {
-                        emptyTable: `<span class="text-danger"><strong>No Item Available</strong></span>`,
-                    },
-                    dom: 'B<"table-top"lf>t<"table-bottom"ip>',
-                    responsive: true,
-                    buttons: [{
-                            extend: "copy",
-                            title: "Baliwag Agriculture Office",
-                            exportOptions: {
-                                columns: columns, // Specify the columns you want to copy
-                                modifier: {
-                                    page: "all", // Only copy the data on the all page
-                                },
-                            },
-                        },
-
-                        {
-                            extend: "csv",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "print",
-                            action: function(e, dt, node, config) {
-
-                                config.customize = function(win) {
-                                    $(win.document.body)
-                                        .css("font-size", "12pt")
-                                        .find("h1")
-                                        .replaceWith(
-                                            '<h4 style="font-weight: bold;"><img style="width: 30px; margin: 0px 0px 4px 0px" src="../assets/img/Agri Logo.png" alt="">Baliwag Agriculture Office</h4>'
-                                        );
-                                };
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "excel",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
-                            },
-                        },
-                        {
-                            extend: "pdf",
-                            title: "Baliwag Agriculture Office",
-                            action: function(e, dt, node, config) {
-                                config.exportOptions = {
-                                    columns: columns,
-                                    modifier: {
-                                        page: "all",
-                                    },
-                                };
-
-                                $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
-                            },
-                        },
-                    ],
-                    colReorder: true,
-                    fixedHeader: true,
-                    rowReorder: false,
-                    lengthMenu: [lengthMenuValues, lengthMenuLabels],
-                });
-                if (!canExport()) {
-            const dtButtons = document.querySelector('.dt-buttons');
-          if (dtButtons) {
-            dtButtons.style.display = 'none';
-          }
-        }
-
-        });
-    </script>
-
-
-
-
-
+    <script> let totalEntries = <?= count($_SESSION['resourceItems']); ?>;</script>
+    <script src="./script.js"></script>
 
 </body>
 

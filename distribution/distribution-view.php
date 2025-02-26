@@ -30,7 +30,7 @@
                         <div class="d-sm-flex justify-content-between">
                             <h5 class="card-title">View Distribution</h5>
                             <div class="d-sm-flex justify-content-end align-items-center mt-2">
-                                <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
+                                <a href="distributions-list.php" class="btn btn-sm btn-danger">Back</a>
                             </div>
                         </div>
                         <!-- Default Tabs -->

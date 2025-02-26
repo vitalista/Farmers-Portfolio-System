@@ -72,20 +72,19 @@ include '../includes/head.php';
         </div>
     </section>
 </main>
-<script>
-     let seconds = 0; // Initialize counter to track seconds
+    <script>
+        let seconds = 0; 
 
-// Set an interval to log each second
-let interval = setInterval(() => {
-    console.log(`Time: ${seconds} second(s)`); // Log the elapsed time
-    seconds++; // Increment the counter
+        let interval = setInterval(() => {
+            console.log(`Time: ${seconds} second(s)`);
+            seconds++;
 
-    if (seconds >= 60) {
-        clearInterval(interval); // Stop the interval
-        console.log("Time Out!"); // Log the timeout message
-    }
-}, 1000); // 1000 ms = 1 second
-</script>
+            if (seconds >= 60) {
+                clearInterval(interval); 
+                console.log("Time Out!");
+            }
+        }, 1000);
+    </script>
     <script src="script.js"></script>
     <?php include '../includes/footer.php'; ?>
 </body>
