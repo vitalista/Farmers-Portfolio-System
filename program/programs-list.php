@@ -35,7 +35,7 @@
 
               <!-- <a href="#" class="btn btn-sm -btn-success">Completed</a> -->
 
-              <table id="example" class="display nowrap d-none">
+              <table id="example">
                 <thead>
                   <tr>
                     <th class="text-start">FPS</th>

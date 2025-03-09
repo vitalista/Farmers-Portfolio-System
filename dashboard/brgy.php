@@ -3,11 +3,8 @@
 <?php include '../includes/head.php'; ?>
 
 <body class="login-bg">
-<?php include '../includes/header.php'; ?>
+   <?php include '../includes/header.php'; ?>
    <?php include '../includes/sidebar.php'; ?>
-   <!-- Database -->
-
-
    <main id="main" class="main">
       <div class="card container-fluid pb-5">
          <div class="d-flex justify-content-between">
@@ -16,15 +13,14 @@
             </div>
             <div class="mt-3">
                <a href="dashboard.php" class="btn btn-danger btn-sm d-none d-sm-inline-block" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">Back</a>
-               <?php if($_SESSION['LoggedInUser']['can_export'] === 1){?>
-               <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="brgy-print.php?brgy=<?= $_GET['brgy']; ?>" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-               <?php }?>
+               <?php if ($_SESSION['LoggedInUser']['can_export'] === 1) { ?>
+                  <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="brgy-print.php?brgy=<?= $_GET['brgy']; ?>" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+               <?php } ?>
             </div>
          </div>
 
          <div class="container-fluid">
             <div class="row">
-
                <div class="col-md-6 col-xl-3 mb-4">
                   <div class="card shadow border-left-success py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
                      <div class="card-body pb-0">
@@ -116,47 +112,10 @@
                </div>
 
             </div>
-
          </div>
 
          <div class="row">
 
-            <!-- <div class="col-lg-6">
-                        <div class="card" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50">
-                           <div class="card-body">
-                              <h5 class="card-title">Farmers population</h5>
-
-                    
-                              <div id="polarAreaChart"></div>
-
-                              <script>
-                                 document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#polarAreaChart"), {
-                                       series: [14, 23, 21, 17, 15, 10, 12, 17, 21, 10, 11, 12, 13, 15, 16, 17, 19, 20], // data values
-                                       chart: {
-                                          type: 'polarArea',
-                                          height: 350,
-                                          toolbar: {
-                                             show: true
-                                          }
-                                       },
-                                       stroke: {
-                                          colors: ['#fff']
-                                       },
-                                       fill: {
-                                          opacity: 0.8
-                                       },
-                                       labels: ['Barangaca', 'Calantipay', 'Catulinan', 'Hinukay', 'Makinabang', 'Matangtubig', 'Pagala', 'Paitan', 'Pinagbarilan', 'Sabang', 'San Roque', 'Sta Barbara', 'Sto Nino', 'Tangos', 'Tilapayong', 'Piel', 'Tarcan', 'Piel'] // custom series names
-                                    }).render();
-                                 });
-                              </script>
-                   
-
-                           </div>
-                        </div>
-                     </div> -->
-
-                     
             <div class="col-lg-6">
                <div class="card ">
                   <div class="card-header text-center">
@@ -203,7 +162,7 @@
                            </div>
                         </div>
                         <div class="d-flex align-items-center mx-3">
-                        <i class="fa-solid fa-cow" style="font-size: 60px;color: brown"></i>
+                           <i class="fa-solid fa-cow" style="font-size: 60px;color: brown"></i>
                            <div class="ms-2">
                               <a class="fw-bold text-success" href="../farmer-assets/livestocks.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>">Livestock <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
@@ -277,75 +236,7 @@
          </div>
       </div>
 
-      <!-- <div class="row">
-            <?php //if(is_dir('../program')){
-            ?>
-            <div class="col">
-               <div class="card mb-4 my-2" data-aos="zoom-in-left">
-                  <div class="card-header d-flex justify-content-between">
-                     <h4 style="color: #026a44;">Program History</h4>
-                     <button class="btn btn-link text-decoration-underline" data-bs-toggle="modal" data-bs-target="#modal-1">View all</button>
-                  </div>
-                  <div class="card-body">
-                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                           <thead>
-                              <tr>
-                                 <th>Program Name</th>
-                                 <th>Date Received</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>Palay</td>
-                                 <td>09/22/2020</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <?php //}
-            ?>
-         </div> -->
-
       <div class="row">
-         <!-- <div class="col">
-               <div class="card " data-aos="zoom-in-left">
-                  <div class="card-header">
-                     <h4 style="color: #026a44;">Farmers List</h4>
-                  </div>
-                  <div class="card-body">
-                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                           <thead>
-                              <tr>
-                                 <th>Name</th>
-                                 <th>Operation Type</th>
-                                 <th>Farm Area</th>
-                                 <th>Action</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>Jude Kenjay</td>
-                                 <td>LIVESTOCK</td>
-                                 <td>2ha</td>
-                                 <td><a href="../farmer/farmer-view.php" class="btn btn-primary bg-success">View Profile</a></td>
-                              </tr>
-                              <tr>
-                                 <td>Monkey Luffy</td>
-                                 <td>CROP</td>
-                                 <td>1.5ha</td>
-                                 <td><a href="../farmer/farmer-view.php" class="btn btn-primary bg-success">View Profile</a></td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-               </div>
-            </div> -->
 
          <?php
          $brgy = validate($_GET['brgy']);
@@ -393,14 +284,14 @@
                                  <td><?= $data['farmer_brgy_address'] ?></td>
                                  <td><?= $data['gender'] ?></td>
                                  <td><?= $data['birthday'] ?></td>
-                   
+
 
                                  <td>
-                                 <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>   
-                                 <a href="../farmer/farmer-view.php?id=<?= $data['id'] ?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
-                                 <?php } ?>
-                              
-                              </td>
+                                    <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) { ?>
+                                       <a href="../farmer/farmer-view.php?id=<?= $data['id'] ?>" class="btn btn-sm btn-primary"><i class="bi bi-person-square"></i></a>
+                                    <?php } ?>
+
+                                 </td>
                               </tr>
                         <?php }
                         } ?>

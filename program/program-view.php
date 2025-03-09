@@ -4,7 +4,7 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-<?php include '../includes/header.php' ?>
+  <?php include '../includes/header.php' ?>
 
   <!-- ======= Sidebar ======= -->
   <?php include '../includes/sidebar.php' ?>
@@ -17,10 +17,11 @@
         <div class="col-lg-12 main-table">
 
           <div class="card-body">
-          <?php include '../backend/status-messages.php';?>
+            <?php include '../backend/status-messages.php'; ?>
             <div class="d-sm-flex justify-content-between">
               <h5 class="card-title">View Program</h5>
               <div class="d-sm-flex justify-content-end align-items-center mt-2">
+              <a class="btn btn-primary btn-sm d-none d-sm-inline-block me-1" role="button" href="program-print.php?id=<?= $_GET['id']; ?>" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Print</a>
                 <a onclick="window.history.back()" class="btn btn-sm btn-danger">Back</a>
               </div>
             </div>
@@ -115,7 +116,7 @@
 
                       <div class="d-flex justify-content-between align-items-center" style="margin-bottom: -20px;">
                         <h5 class="card-title">Resources List</h5>
-                        <a id="addResourcesButton" class="btn btn-sm btn-primary <?= $_SESSION['LoggedInUser']['can_create'] == 0 ? 'd-none': '';?>"><i class="fa-solid fa-plus"></i> Resource</a>
+                        <a id="addResourcesButton" class="btn btn-sm btn-primary <?= $_SESSION['LoggedInUser']['can_create'] == 0 ? 'd-none' : ''; ?>"><i class="fa-solid fa-plus"></i> Resource</a>
                       </div>
 
                       <div id="resourcesContainer" class="mt-3">
@@ -167,10 +168,10 @@
 
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
-                                  <a class="btn btn-sm btn-danger remove-resources"
-                                    onclick="return confirm('Are you sure you want to remove it?')"
-                                    href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                  <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
+                                    <a class="btn btn-sm btn-danger remove-resources"
+                                      onclick="return confirm('Are you sure you want to remove it?')"
+                                      href="../backend/archive.php?program=<?= $paramValue; ?>&resources=<?= $item['id']; ?>"><i class="fa-solid fa-trash-can"></i></a>
                                   <?php } ?>
                                 </div>
                               </div>
@@ -201,7 +202,7 @@
                           <thead class="thead">
                             <tr>
                               <th class="text-start">FPS</th>
-                              <th class="text-start">FFRS System Gen.</th>
+                              <th class="text-start">FFRS</th>
                               <th class="text-start">Farmer Name</th>
                               <th class="text-start">Program</th>
                               <th class="text-start">Resources</th>
@@ -229,18 +230,18 @@
                                     <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
 
                                     <td class="text-start">
-                      <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>
-                                    <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id'];?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
-                                    <?php } ?>
-                      <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) {?>
-                                      <a onclick="return confirm('Are you sure you want to archive it?')"
-                                        class="btn btn-sm btn-danger"
-                                        href="../backend/archive.php?program=<?= $paramValue; ?>&distributions=<?= $row['id']; ?>"><i class="bi bi-archive-fill"></i></a>
-                          <?php } ?>
-                                        <?php if ($_SESSION['LoggedInUser']['role'] == 1) {?>
-                                      <a href="../backend/activity-logs.php?id=<?= $row['id']; ?>&distributions=Distributions"
-                                        class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
-                                        <?php } ?>
+                                      <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) { ?>
+                                        <a href="../farmer/farmer-view.php?id=<?= $farmerData['data']['id']; ?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
+                                      <?php } ?>
+                                      <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
+                                        <a onclick="return confirm('Are you sure you want to archive it?')"
+                                          class="btn btn-sm btn-danger"
+                                          href="../backend/archive.php?program=<?= $paramValue; ?>&distributions=<?= $row['id']; ?>"><i class="bi bi-archive-fill"></i></a>
+                                      <?php } ?>
+                                      <?php if ($_SESSION['LoggedInUser']['role'] == 1) { ?>
+                                        <a href="../backend/activity-logs.php?id=<?= $row['id']; ?>&distributions=Distributions"
+                                          class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
+                                      <?php } ?>
                                     </td>
                                   </tr>
 
@@ -288,8 +289,10 @@
   <?php include '../includes/footer.php' ?>
   <script src="./program.js"></script>
 
-  <script>const columns = [0, 1, 2, 3, 4];</script>
-  <script src="dttable.js"></script>
+  <script>
+    const columns = [0, 1, 2, 3, 4];
+  </script>
+  <script src="../assets/js/dttable.js"></script>
 
 </body>
 

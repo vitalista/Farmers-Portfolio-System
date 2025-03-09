@@ -2,8 +2,9 @@
 <html lang="en">
 
 <?php include '../includes/head.php' ?>
+
 <body class="login-bg">
-<?php include '../includes/header.php' ?>
+   <?php include '../includes/header.php' ?>
 
    <!-- ======= Sidebar ======= -->
    <?php include '../includes/sidebar.php' ?>
@@ -32,13 +33,13 @@
                   <div class="row">
                      <?php includes('select-dashboard-content.php'); ?>
                      <div class="col-md-4 text-center">
-                     <h3 class="text-dark mb-0">Dashboard</h3>
+                        <h3 class="text-dark mb-0">Dashboard</h3>
                      </div>
-                     <?php if($_SESSION['LoggedInUser']['can_export'] === 1){?>
-                     <div class="col-md-4 text-end">
-                     <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="dashboard-print.php" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                     </div>
-                     <?php }?>
+                     <?php if ($_SESSION['LoggedInUser']['can_export'] === 1) { ?>
+                        <div class="col-md-4 text-end">
+                           <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-aos="fade-left" data-aos-duration="400" data-aos-delay="50" href="dashboard-print.php" target="_blank"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        </div>
+                     <?php } ?>
                   </div>
                   <div class="row">
                      <?php if (is_dir('../program')) { ?>
@@ -132,7 +133,7 @@
                      <div class="col-lg-6">
                         <div class="card">
                            <div class="card-header text-center">
-                              <h3 class="fw-bolder text-success" >Gender</h3>
+                              <h3 class="fw-bolder text-success">Gender</h3>
                            </div>
                            <div class="card-body text-center">
                               <div class="d-flex justify-content-center align-items-center mb-2">
@@ -173,7 +174,7 @@
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
-                                 <i class="fa-solid fa-cow" style="font-size: 60px;color: brown"></i>
+                                    <i class="fa-solid fa-cow" style="font-size: 60px;color: brown"></i>
                                     <div class="ms-2">
                                        <a class="fw-bold text-success" href="../farmer-assets/livestocks.php">Livestock<i class="bi bi-arrow-right-short"></i></a>
                                        <div><?= countRows('livestocks'); ?></div>

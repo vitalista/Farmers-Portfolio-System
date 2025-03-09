@@ -366,13 +366,16 @@ function addFpsCode($tableName, $id, $brgy = ''){
         case 'resources':
             $fpsCode .= '-RES-';
             break;
+        case 'programs':
+            $fpsCode .= '-PRO-';
+            break;
         
         case 'distributions':
             $fpsCode .= '-DIS';
             break;
         
         default:
-            $fpsCode .= '-FPS';
+            $fpsCode .= '-FPS-';
             break;
     }
  

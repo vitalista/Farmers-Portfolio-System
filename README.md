@@ -1,14 +1,16 @@
 Remove the dollar sign "$" to include module.
-
 If ERROR change || check database name
 [google](www.google.com)
 Notes for Backend:
-- [x] Use php to hide action buttons  at each list page
+
+- [x] Use php to hide action buttons at each list page
 - [x] Edit log fetch id in url OR using js to get value then submit in current page
-- [x] Counter for each parcels added at farmers-add.php 
+- [x] Counter for each parcels added at farmers-add.php
 - [x] Empty array to hide dbuttons
-TO Do's:
-- [X] FARM TYPE should be in crops db table
+
+      TO Do's:
+
+- [x] FARM TYPE should be in crops db table
 - [x] change VIEW and ADD in farmers ownership type and farm type to datalist not select tag
 - [x] diff action column for lists like distribution-list.php
 - [x] FIlter LIKE contains string only find exact word not per letter exist
@@ -20,15 +22,16 @@ TO Do's:
 - [x] update image
 - [x] fps code in every table
 - [x] remove act log and archived and restored
-- [x] registration insertion [optional]
-- [] registration insertion [optional]
-- [] Important Fields
-- [] session last act bug [optional]
-- [] export individual farmer
-- [] inconsistent aos animations
+- [x] inconsistent aos animations
 - [] reports
-- [] resend OTP [optional]
 - [] filter updating/new
 - [] hide FFRS code field when new is selected
-- [] updating click change archived the old record [optional]
 - [] confirm password
+- [] Important Fields
+- [] individual farmer export
+
+- [] session last act bug [optional]
+- [] updating click change archived the old record [optional]
+- [] resend OTP [optional]
+- [x] registration insertion [optional]
+- [x] registration insertion [optional]
