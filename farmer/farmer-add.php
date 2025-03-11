@@ -13,7 +13,7 @@
         <div class="col-lg-12 main-table">
           <div class="card farmer-registration">
             <div class="card-body">
-            <form method="POST" action="farmer-add-code.php" id="farmForm" enctype="multipart/form-data">
+            <form method="POST" action="farmer-add-code.php" id="farmForm" class="needs-validation" enctype="multipart/form-data">
 
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">Add Farmer</h5>

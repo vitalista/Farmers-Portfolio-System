@@ -52,7 +52,68 @@ document.getElementById('addResourcesButton').addEventListener('click', function
   });
 });
 
+function emptyFields(card, idArr = [], classArr = []) {
+  const parent = document.querySelector(card);
+  let emptyFields = [];
+  let checkClass = [];
+  classArr.forEach((classId) => {
+    if (parent.querySelector(`.${classId}`)) {
+      checkClass.push(classId);
+    }
+  });
+
+  checkClass.forEach((classId) => {
+    const classElements = parent.querySelectorAll(`.${classId}`);
+    if (classElements.length > 0) {
+      classElements.forEach((classElement) => {
+        if (!classElement || !classElement.value) {
+          emptyFields.push(classId);
+          classElement.style.border = "1px solid red";
+        } else {
+          classElement.style.border = "";
+        }
+      });
+    } else {
+      emptyFields.push(classId);
+    }
+  });
+
+  idArr.forEach((id) => {
+    const idElement = parent.querySelector(`#${id}`);
+    if (!idElement || !idElement.value) {
+      emptyFields.push(id);
+      if (idElement) idElement.style.border = "1px solid red";
+    } else {
+      if (idElement) idElement.style.border = "";
+    }
+  });
+
+  console.log(emptyFields);
+  if (emptyFields.length === 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 document.getElementById('submitButton').addEventListener('click', function(e) {
+
+  if (emptyFields('.card .card-body', [], ['nameOfProgram', 'programType', 'startDate', 'endDate', 'totalBeneficiaries', 'description', 'sourcingAgency', 'resourcesName', 'resourcesType', 'resourcesNumber', 'unitOfMeasure'])) {
+    Swal.fire({
+      title: "Empty Fields!",
+      text: "Please fill in all the required fields.",
+      icon: "warning",
+      confirmButtonText: "OK",
+    });
+
+    document.getElementById("submitButton").disabled = false;
+    document.getElementById(
+      "submitButton"
+    ).innerHTML = `<i class="fas fa-save me-2"></i>Save`;
+
+    return;
+  }
+
   e.preventDefault();
   const program = [];
   const card = document.querySelector('#myTabContent .card .card-body');

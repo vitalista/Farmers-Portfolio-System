@@ -24,7 +24,7 @@
               $tableName = "users";
               $id = $_SESSION['LoggedInUser']['id'];
 
-              $sql = "SELECT * FROM $tableName";
+              $sql = "SELECT * FROM $tableName WHERE id != $id OR id != 3";
               $result = $conn->query($sql);
 
               ?>

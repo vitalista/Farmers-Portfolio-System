@@ -10,18 +10,23 @@ session_set_cookie_params([
 ]);
 
 session_start();
-
+if (isset($_SESSION['LoggedInUser']) || !empty($_SESSION['LoggedInUser'])) {
 if (isset($_SESSION["LAST_ACTIVITY"])) {
-    if ((time() - $_SESSION["LAST_ACTIVITY"]) > 300) { 
+    $session_timout = 600; // dont set less than 60
+    $session_timout_reset = 60;
+    if ((time() - $_SESSION["LAST_ACTIVITY"]) > $session_timout) { 
         setLastAct();       
         session_unset();   
         session_destroy();
+        session_start();
         redirect('../login', 404, 'Session Expired');
-    } else if ((time() - $_SESSION["LAST_ACTIVITY"]) > 60) {    
+    } else if ((time() - $_SESSION["LAST_ACTIVITY"]) > $session_timout_reset) {    
         $_SESSION["LAST_ACTIVITY"] = time();  
     }
 }
-// // session_start();
+$_SESSION["LAST_ACTIVITY"] = time();
+}
+
 $_SESSION['LoggedIn'] = true;
 $_SESSION['LoggedInUser']['role'] = 1;
 $_SESSION['LoggedInUser']['can_edit'] = 1;
@@ -30,13 +35,12 @@ $_SESSION['LoggedInUser']['can_archive'] = 1;
 $_SESSION['LoggedInUser']['can_export'] = 1;
 $_SESSION['LoggedInUser']['id'] = 3;
 $_SESSION['LoggedInUser']['full_name'] = "DEV";
-$_SESSION["LAST_ACTIVITY"] = time();
 
 function setLastAct() {
     $id = (int)$_SESSION['LoggedInUser']['id'];
 
     if (!filter_var($id, FILTER_VALIDATE_INT)) {
-        redirect('../logout.php=notINT', 500, 'Something Went Wrong');
+        redirect('../logout.php?=notINT', 500, 'Something Went Wrong');
         return false;
     }
 
@@ -45,7 +49,7 @@ function setLastAct() {
 
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
-        redirect('../logout.php=STMTX', 500, 'Something Went Wrong');
+        redirect('../logout.php?=STMTX', 500, 'Something Went Wrong');
         return false;
     }
     $stmt->bind_param("i", $id);

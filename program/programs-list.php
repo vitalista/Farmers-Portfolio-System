@@ -40,11 +40,9 @@
                   <tr>
                     <th class="text-start">FPS</th>
                     <th class="text-start">Program Name</th>
-                    <th class="text-start">Type</th>
                     <th class="text-start">Start Date</th>
                     <th class="text-start">End Date</th>
                     <th class="text-start">Beneficiaries</th>
-                    <th class="text-start">Sourcing Agency</th>
                     <th class="text-start">Action</th>
                   </tr>
                 </thead>
@@ -56,11 +54,9 @@
                   <tr>
                     <td class="text-start"><?= $row['fps_code'];?></td>
                     <td class="text-start"><?= $row['program_name'];?></td>
-                    <td class="text-start"><?= $row['program_type'];?></td>
                     <td class="text-start"><?= $row['start_date'];?></td>
                     <td class="text-start"><?= $row['end_date'];?></td>
                     <td class="text-start"><?= $row['total_beneficiaries'];?></td>
-                    <td class="text-start"><?= $row['sourcing_agency'];?></td>
                     <?php if(!isset($_GET['archived'])):?>
                     <td class="text-start">
                     <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>

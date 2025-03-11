@@ -1,6 +1,6 @@
 Remove the dollar sign "$" to include module.
 If ERROR change || check database name
-[google](www.google.com)
+[Baliwag Agriculture](https://baliwagargiculture.shop/)
 Notes for Backend:
 
 - [x] Use php to hide action buttons at each list page
@@ -23,6 +23,7 @@ Notes for Backend:
 - [x] fps code in every table
 - [x] remove act log and archived and restored
 - [x] inconsistent aos animations
+
 - [] reports
 - [] filter updating/new
 - [] hide FFRS code field when new is selected
@@ -30,7 +31,7 @@ Notes for Backend:
 - [] Important Fields
 - [] individual farmer export
 
-- [] session last act bug [optional]
+- [x] session last act bug [optional]
 - [] updating click change archived the old record [optional]
 - [] resend OTP [optional]
 - [x] registration insertion [optional]

@@ -1,5 +1,5 @@
 <?php
 if (!isset($_SESSION['LoggedInUser']) || empty($_SESSION['LoggedInUser'])) {
-    header("Location: ../logout.php");
+    redirect('../login/', 500, 'Unauthorized Access! Please login to access the page.');
     exit;
 }

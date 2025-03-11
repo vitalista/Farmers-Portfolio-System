@@ -2,7 +2,7 @@
 <html lang="en">
 
 <?php include '../includes/head.php' ?>
-
+<?php include '../backend/auth-check.php'; ?>
 <body>
 
     <div class="container-fluid">
@@ -293,7 +293,7 @@
                                 </tr>
                             </table>
 
-                            <div class="form-group" id="cropsContainer">
+                            <div class="form-group <?= !isset($parcel['crops']) ? 'd-none' : ''?>" id="cropsContainer">
                                 <div class="d-flex align-items-center">
                                     <i class="fa fa-pagelines" style="font-size: 30px;color: rgb(29,140,20);"></i>
                                     <h5 class="card-title ms-3 mb-0">Crops</h5>
@@ -323,7 +323,7 @@
                                 </table>
                             </div>
 
-                            <div class="form-group" id="livestockContainer">
+                            <div class="form-group <?= !isset($parcel['livestocks']) ? 'd-none' : ''?>" id="livestockContainer">
                                 <div class="d-flex align-items-center">
                                     <i class="fa-solid fa-cow" style="font-size: 30px;color: brown"></i>
                                     <h5 class="card-title ms-3 mb-0">Livestocks</h5>
@@ -420,7 +420,11 @@
 
 
     </div>
-
+<script>
+    window.onload = function() {
+        window.print();
+    }
+</script>
 </body>
 
 </html>

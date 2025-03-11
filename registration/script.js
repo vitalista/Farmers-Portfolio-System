@@ -10,12 +10,12 @@ function debounce(func, wait) {
   };
 }
 
-function checkEmptyFields(card, idArr = [], classArr = []) {
+function emptyFields(card, idArr = [], classArr = []) {
   const parent = document.querySelector(card);
   let emptyFields = [];
   let checkClass = [];
   classArr.forEach((classId) => {
-    if(parent.querySelector(`.${classId}`)) {
+    if (parent.querySelector(`.${classId}`)) {
       checkClass.push(classId);
     }
   });
@@ -26,6 +26,9 @@ function checkEmptyFields(card, idArr = [], classArr = []) {
       classElements.forEach((classElement) => {
         if (!classElement || !classElement.value) {
           emptyFields.push(classId);
+          classElement.style.border = "1px solid red";
+        } else {
+          classElement.style.border = "";
         }
       });
     } else {
@@ -33,19 +36,21 @@ function checkEmptyFields(card, idArr = [], classArr = []) {
     }
   });
 
-
   idArr.forEach((id) => {
     const idElement = parent.querySelector(`#${id}`);
     if (!idElement || !idElement.value) {
       emptyFields.push(id);
+      if (idElement) idElement.style.border = "1px solid red";
+    } else {
+      if (idElement) idElement.style.border = "";
     }
   });
 
   console.log(emptyFields);
   if (emptyFields.length === 0) {
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 }
 
@@ -140,9 +145,9 @@ document
     if (govIdPhotoBack) formData.append("govIdPhotoBack", govIdPhotoBack);
     if (govIdPhotoFront) formData.append("govIdPhotoFront", govIdPhotoFront);
     
-    if (!checkEmptyFields("#farmerCard .card", ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'],[
+    if (emptyFields("#farmerCard .card", ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'],[
       "firstName", "bday", "hbp", "sss", "brgy", "municipality", "province", "region", "govIdType", "govIdNumber",,
-      "hvc", "cropArea", "cropName", "classification", "numberOfHeads", "livestockType", "ofName", "olName", "ownership", "farmLocationBrgy", "farmLocationMunicipality", "farmLocationProvince", "farmSize", "farmType"
+      "hvc", "cropArea", "cropName", "classification", "numberOfHeads", "livestockType", "ofName", "olName", "ownership", "farmLocationBrgy", "farmLocationMunicipality", "farmLocationProvince", "farmSize", "farmType", "lastName", "middleName", "ffrs"
     ])) {
       Swal.fire({
         title: "Empty Fields!",

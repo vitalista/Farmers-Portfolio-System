@@ -237,6 +237,51 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
   });
 });
 
+function emptyFields(card, idArr = [], classArr = []) {
+  const parent = document.querySelector(card);
+  let emptyFields = [];
+  let checkClass = [];
+  classArr.forEach((classId) => {
+    if (parent.querySelector(`.${classId}`)) {
+      checkClass.push(classId);
+    }
+  });
+
+  checkClass.forEach((classId) => {
+    const classElements = parent.querySelectorAll(`.${classId}`);
+    if (classElements.length > 0) {
+      classElements.forEach((classElement) => {
+        if (!classElement || !classElement.value) {
+          emptyFields.push(classId);
+          classElement.style.border = "1px solid red";
+        } else {
+          classElement.style.border = "";
+        }
+      });
+    } else {
+      emptyFields.push(classId);
+    }
+  });
+
+  idArr.forEach((id) => {
+    const idElement = parent.querySelector(`#${id}`);
+    if (!idElement || !idElement.value) {
+      emptyFields.push(id);
+      if (idElement) idElement.style.border = "1px solid red";
+    } else {
+      if (idElement) idElement.style.border = "";
+    }
+  });
+
+  console.log(emptyFields);
+  if (emptyFields.length === 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+
 document.getElementById('submitFarmsButton').addEventListener('click', function(e) {
 
   e.preventDefault();
@@ -245,6 +290,22 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const livestockCards = document.querySelectorAll('#livestockContainer .row');
   const cropCards = document.querySelectorAll('#cropsContainer .row');
   const card = document.querySelector('#farmerCard .card-body');
+
+  if (emptyFields('.tab-content', ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'], ['ffrs', 'govIdType', 'govIdNumber', 'hbp', 'sss', 'region', 'brgy', 'municipality', 'province', 'firstName', 'middleName', 'lastName', 'gender', 'bday', 'ofName', 'olName', 'ownership', 'farmLocationBrgy', 'farmLocationMunicipality', 'farmLocationProvince', 'farmSize', 'farmType', 'cropName', 'cropArea', 'classification', 'numberOfHeads', 'livestockType'])) {
+    Swal.fire({
+      title: "Empty Fields!",
+      text: "Please fill in all the required fields.",
+      icon: "warning",
+      confirmButtonText: "OK",
+    });
+
+    document.getElementById("submitFarmsButton").disabled = false;
+    document.getElementById(
+      "submitFarmsButton"
+    ).innerHTML = `<i class="fas fa-save me-2"></i>Save`;
+
+    return;
+  }
 
   let farmer_id = '';
 
