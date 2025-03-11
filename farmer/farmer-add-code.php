@@ -29,9 +29,9 @@ include '../backend/functions.php';
 if (isset($_POST['farms_data'])) {
     $data = json_decode($_POST['farms_data'], true);
 ?>
-<script>
-    console.log(<?php echo json_encode($data);?>);
-</script>
+<!-- <script>
+    console.log(<?//php echo json_encode($data);?>);
+</script> -->
 <?php
     $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
     $farmerId = isset($data[0]['farmer']['farmer_id']) ? $data[0]['farmer']['farmer_id'] : null;

@@ -43,7 +43,7 @@
                     <th class="text-start">Resources Type</th>
                     <th class="text-start">Total Quantity</th>
                     <th class="text-start">Quantity Available</th>
-                    <th class="text-start">Action</th>
+                    <th class="text-start notExport">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@
                     <td class="text-start"><?= $row['program_name'];?></td>
                     <td class="text-start"><?= $row['resource_type'];?></td>
                     <td class="text-start"><?= $row['total_quantity'];?></td>
-                    <td class="text-start"><?= $row['quantity_available'];?></td>
+                    <td class="text-start "><?= $row['quantity_available'];?></td>
                     <?php if(!isset($_GET['archived'])):?>
                     <td class="text-start">
                     <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>
@@ -100,7 +100,6 @@
 
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
-  <script> const columns = [0, 1, 2, 3]; </script>
   <script src="../assets/js/dttable.js"></script>
 </body>
 

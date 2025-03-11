@@ -94,7 +94,6 @@ const addRemoveCardEvent = (buttons, parcel = false) => {
         });
     });
 };
-
 // addRemoveCardEvent(parcels, true);
 // addRemoveCardEvent(crops);
 // addRemoveCardEvent(livestocks);

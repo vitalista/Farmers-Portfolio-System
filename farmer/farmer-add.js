@@ -290,8 +290,12 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const livestockCards = document.querySelectorAll('#livestockContainer .row');
   const cropCards = document.querySelectorAll('#cropsContainer .row');
   const card = document.querySelector('#farmerCard .card-body');
+  let idArr = [];
+  if (window.location.pathname.includes('farmer-add.php')) {
+    idArr = ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'];
+  }
 
-  if (emptyFields('.tab-content', ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'], ['ffrs', 'govIdType', 'govIdNumber', 'hbp', 'sss', 'region', 'brgy', 'municipality', 'province', 'firstName', 'middleName', 'lastName', 'gender', 'bday', 'ofName', 'olName', 'ownership', 'farmLocationBrgy', 'farmLocationMunicipality', 'farmLocationProvince', 'farmSize', 'farmType', 'cropName', 'cropArea', 'classification', 'numberOfHeads', 'livestockType'])) {
+  if (emptyFields('.tab-content', idArr, ['ffrs', 'govIdType', 'govIdNumber', 'hbp', 'sss', 'region', 'brgy', 'municipality', 'province', 'firstName', 'middleName', 'lastName', 'gender', 'bday', 'ofName', 'olName', 'ownership', 'farmLocationBrgy', 'farmLocationMunicipality', 'farmLocationProvince', 'farmSize', 'farmType', 'cropName', 'cropArea', 'classification', 'numberOfHeads', 'livestockType'])) {
     Swal.fire({
       title: "Empty Fields!",
       text: "Please fill in all the required fields.",

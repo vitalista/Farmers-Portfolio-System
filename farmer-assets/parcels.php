@@ -42,7 +42,7 @@
                     <th  class="text-start">Parcel No. - Farm Type</th>
                     <th  class="text-start">Brgy</th>
                     <th  class="text-start">Parcel Area</th>
-                    <th  class="text-start">Action</th>
+                    <th  class="text-start notExport">Action</th>
 
                   </tr>
                 </thead>
@@ -111,7 +111,6 @@
 
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
-  <script>const columns = [0, 1, 2, 3];</script>
   <script src="../assets/js/dttable.js"></script>
 </body>
 

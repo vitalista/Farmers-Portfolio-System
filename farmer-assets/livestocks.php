@@ -44,7 +44,7 @@
                     <th class="text-start">FFRS</th>
                     <th class="text-start">Animal Type</th>
                     <th class="text-start">No of Heads</th>
-                    <th class="text-start">Action</th>
+                    <th class="text-start notExport">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -102,7 +102,6 @@
 
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
-  <script> const columns = [0, 1, 2];</script>
   <script src="../assets/js/dttable.js"></script>
 </body>
 

@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include '../includes/head.php' ?>
-
+<?php
+if($_SESSION['LoggedInUser']['role'] == 0){
+  header('Location: ../logout.php');
+}
+?>
 <body class="login-bg">
 <?php include '../includes/header.php' ?>
 <?php include '../includes/sidebar.php' ?>

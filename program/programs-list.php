@@ -43,7 +43,7 @@
                     <th class="text-start">Start Date</th>
                     <th class="text-start">End Date</th>
                     <th class="text-start">Beneficiaries</th>
-                    <th class="text-start">Action</th>
+                    <th class="text-start notExport">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -98,7 +98,6 @@
 
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
-  <script>const columns = [0, 1, 2, 3, 4, 5];</script>
   <script src="../assets/js/dttable.js"></script>
 </body>
 

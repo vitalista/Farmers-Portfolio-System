@@ -1,6 +1,10 @@
 <?php
 require '../backend/functions.php';
 
+if($_SESSION['LoggedInUser']['role'] == 0){
+  header('Location: ../logout.php');
+}
+
 // Step 2: Handle the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     // Collect form data

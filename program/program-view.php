@@ -207,7 +207,7 @@
                               <th class="text-start">Program</th>
                               <th class="text-start">Resources</th>
                               <th class="text-start">Quantity</th>
-                              <th class="text-start">Action</th>
+                              <th class="text-start notExport">Action</th>
                             </tr>
                           </thead>
                           <tbody class="tbod">
@@ -288,10 +288,6 @@
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
   <script src="./program.js"></script>
-
-  <script>
-    const columns = [0, 1, 2, 3, 4];
-  </script>
   <script src="../assets/js/dttable.js"></script>
 
 </body>

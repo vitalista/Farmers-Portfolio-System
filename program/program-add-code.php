@@ -27,9 +27,9 @@ include '../backend/functions.php';
 if (isset($_POST['program_data'])) {
     $data = json_decode($_POST['program_data'], true);
 ?>
-<script>
-    console.log(<?php echo json_encode($data);?>);
-</script>
+<!-- <script>
+    console.log(<?//php echo json_encode($data);?>);
+</script> -->
 <?php
     $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
     $programId = isset($data[0]['program']['program_id']) ? $data[0]['program']['program_id'] : null;
