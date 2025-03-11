@@ -141,9 +141,15 @@
     }
     ?>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            window.print();
-        });
+       window.onload = function() {
+        window.print();
+
+        window.onafterprint = function() {
+            if (!window.matchMedia('print').matches) {
+                window.close();
+            }
+        };
+        };
     </script>
 </body>
 
