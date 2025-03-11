@@ -10,13 +10,17 @@ $query = "
     r.total_quantity,
     r.quantity_available,
     r.unit_of_measure,
+
+    p.fps_code AS program_fps_code,
     p.program_name,
     p.program_type,
+    p.description,
     p.start_date,
     p.end_date,
     p.total_beneficiaries,
     p.beneficiaries_available,
     p.sourcing_agency
+
     FROM 
         resources AS r
     JOIN 

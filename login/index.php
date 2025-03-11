@@ -33,9 +33,8 @@
 
                 <div class="card-body auth-card" data-aos="zoom-in" data-aos-duration="500">
 
-                  <div class="pt-4 pb-2">
+                  <div class="pt-4 pb-2 mx-4">
                     <h5 class="card-title text-center pb-0 fs-4">Login</h5>
-                    <p class="text-center small">Enter your email & password to login</p>
                   </div>
 
                   <form class="row g-3 needs-validation" method="POST" action="login-code.php" novalidate>
@@ -44,7 +43,7 @@
                       <label for="yourUsername" class="form-label text-center">Email</label>
                       <div class="input-group has-validation d-flex justify-content-center">
                         <span class="input-group-text" id="email">@</span>
-                        <input type="text" name="email" class="form-control" id="yourUsername" required>
+                        <input type="text" name="email" class="form-control" id="yourUsername" placeholder="Enter your email" required>
                         <div class="invalid-feedback">Please enter your email.</div>
                       </div>
                     </div>
@@ -53,7 +52,7 @@
                       <label for="yourPassword" class="form-label text-center">Password</label>
                       <div class="input-group has-validation d-flex justify-content-center">
                         <span class="input-group-text" id="password"><i class="bi bi-eye-slash" id="iconPassword"></i></span>
-                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                        <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Enter your password" required>
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
                     </div>

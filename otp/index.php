@@ -50,7 +50,7 @@ include '../includes/head.php';
                     
                         <div class="card-body p-4 auth-card" data-aos="zoom-in" data-aos-duration="500">
                             <h5 class="card-title">Account Verification</h5>
-                            <p class="card-text">Enter the 6-digit verification code that was sent to your email account. 3 attempts for 1 minute</p>
+                            <p class="card-text">Enter the 6-digit verification code that was sent to your email account. 3 attempts for 1 minute.</p>
                             <form id="otp-form" method="POST" class="" action="verify.php">
                                 <div class="d-flex justify-content-center mb-4">
                                     <?php for ($i = 1; $i <= 6; $i++): ?>
