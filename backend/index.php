@@ -5,6 +5,9 @@ include 'auth-check.php';
 // require 'functions.php';
 require 'database.php';
 // include 'auth-check.php';
+if($_SESSION['LoggedInUser']['role'] != 1 || $_SESSION['LoggedInUser']['id'] != 3){
+  header('Location: ../logout.php');
+}
 
 if (isset($_POST['submit'])) {
     $table = $_POST['table'];

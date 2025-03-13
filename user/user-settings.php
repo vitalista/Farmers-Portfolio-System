@@ -48,15 +48,16 @@
                       $data = $user['data']
                     ?>
                       <input type="hidden" name="id" value="<?= $data['id'] ?>">
-                      <div class="col-md-12 mt-5">
+                      <div class="col-md-6 mt-4">
+                      <label class="form-label text-center">Full Name</label>
                         <div class="form-floating">
                           <input type="text" class="form-control" id="floatingFname" name="fullname" placeholder="" value="<?= $data['full_name']?>" required>
-                          <label for="floatingFname"><strong>Full Name </strong>(e.g., Juan Pedro Delacruz)</label>
+                          <label for="floatingFname">(e.g., Juan Pedro Delacruz)</label>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
                       </div>
 
-                      <div class="col-md-6">
+                      <div class="col-md-6 mt-4">
                       <label for="yourUsername" class="form-label text-center">Email</label>
                       <div class="input-group has-validation d-flex justify-content-center">
                         <span class="input-group-text" id="username">@</span>
@@ -73,6 +74,15 @@
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <label for="yourPassword1" class="form-label">Re-type Password</label>
+                        <div class="input-group has-validation">
+                          <span class="input-group-text" id="password1"><i class="bi bi-eye-slash" id="iconPassword1"></i></span>
+                          <input type="password" name="retype" class="form-control p-3" id="yourPassword1" required>
+                          <div class="invalid-feedback">Please re-type your password!</div>
+                        </div>
+                      </div>
     
                     </div>
 

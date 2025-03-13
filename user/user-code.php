@@ -20,8 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
         'promote' => isset($_POST['promoteSwitch']) ? 1 : 0,
     ];
 
+    if(emailExists($formData['email'])){
+        redirect('user-add.php', 500, 'Email already exist');
+    }
+
     if (strlen($formData['password']) < 8) {
-        redirect('user-add.php', 500, 'Password should be 8 characters or more');
+        redirect('user-add.php', 404, 'Password should be 8 characters or more');
+    }
+
+    if($formData['password'] !== $_POST['retype']){
+        redirect('user-add.php', 404, 'Password mismatch.');
     }
     
 
@@ -78,7 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     ];
 
     if (!empty($formData['password']) && strlen($formData['password']) < 8) {
-        redirect('user-edit.php?id='.$_POST['id'], 500, 'Password should be 8 characters or more');
+        redirect('user-edit.php?id='.$_POST['id'], 404, 'Password should be 8 characters or more');
+    }
+
+    if($formData['password'] !== $_POST['retype']){
+        redirect('user-edit.php?id='.$_POST['id'], 404, 'Password mismatch.');
     }
 
     // Step 3: Hash the password for security, only if it's updated
@@ -108,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         redirect('users-list.php', 200, 'User updated successfully');
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
-        redirect('user-edit.php', 500, 'Something Went Wrong');
+        redirect('user-list.php', 500, 'Something Went Wrong');
     }
 
     // Step 6: Dynamically echo the POST data using a loop
@@ -133,7 +145,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['settings'])) {
     ];
 
     if (!empty($formData['password']) && strlen($formData['password']) < 8) {
-        redirect('users-list.php', 500, 'Password should be 8 characters or more');
+        redirect('user-settings.php', 404, 'Password should be 8 characters or more');
+    }
+
+    if($formData['password'] !== $_POST['retype']){
+        redirect('user-settings.php', 404, 'Password mismatch.');
     }
 
     // Step 3: Hash the password for security, only if it's updated
