@@ -226,12 +226,17 @@
                                             <div class="col">
                                                 <fieldset>
                                                     <label class="form-label">Birthday<input type="date" value="<?= $farmer['data']['birthday'] == '0000-00-00' ? '' : $farmer['data']['birthday']; ?>" class="form-control bday"></label>
-                                                    <label class="form-label">Gender<input type="text" value="<?= $farmer['data']['gender']; ?>" class="form-control gender"></label>
+                                                    <label class="form-label">Gender
+                                                        <select class="form-control gender">
+                                                            <option value="Male" <?= $farmer['data']['gender'] == 'Male' ? 'selected' : ''; ?>>Male</option>
+                                                            <option value="Female" <?= $farmer['data']['gender'] == 'Female' ? 'selected' : ''; ?>>Female</option>
+                                                        </select>
+                                                    </label>
                                                     <label class="form-label">Number of Parcels<input type="text" disabled value="<?= $farmer['data']['no_of_parcels']; ?>" class="form-control"></label>
                                                 </fieldset>
                                                 <div class="ms-3 d-flex">
 
-                                                    <div class="ms-5 form-check">
+                                                    <div class="ms-5 form-check d-none">
                                                         <input class="form-check-input me-2 deceased" style="width: 2rem; height: 2rem;" type="checkbox" id="deceased" <?= $farmer['data']['is_deceased'] == 1 ? 'checked' : '' ?>>
                                                         <label class="form-check-label" for="deceased">
                                                             Deceased?
@@ -246,10 +251,42 @@
                                             <h6 class="text-success font-weight-bold">Farmer Address*</h6>
                                             <label class="form-label">House/BLDG/ Purok<input type="text" value="<?= $farmer['data']['hbp']; ?>" class="form-control hbp"></label>
                                             <label class="form-label">Street/Sitio/SubDV<input type="text" value="<?= $farmer['data']['sss']; ?>" class="form-control sss"></label>
-                                            <label class="form-label">Barangay<input type="text" value="<?= $farmer['data']['farmer_brgy_address']; ?>" class="form-control brgy"></label>
-                                            <label class="form-label">Municipality<input type="text" value="<?= $farmer['data']['farmer_municipality_address']; ?>" class="form-control municipality"></label>
-                                            <label class="form-label">Province<input type="text" value="<?= $farmer['data']['farmer_province_address']; ?>" class="form-control province"></label>
-                                            <label class="form-label">Region<input type="text" value="<?= $farmer['data']['region']; ?>" class="form-control region"></label>
+                                            <label class="form-label">Barangay
+                                                <input list="barangayList" type="text" value="<?= $farmer['data']['farmer_brgy_address']; ?>" class="form-control brgy">
+                                                <datalist id="barangayList">
+                                                    <option value="Bagong Nayon">
+                                                    <option value="Barangca">
+                                                    <option value="Calantipay">
+                                                    <option value="Catulinan">
+                                                    <option value="Concepcion">
+                                                    <option value="Hinukay">
+                                                    <option value="Makinabang">
+                                                    <option value="Matangtubig">
+                                                    <option value="Pagala">
+                                                    <option value="Paitan">
+                                                    <option value="Piel">
+                                                    <option value="Pinagbarilan">
+                                                    <option value="Poblacion">
+                                                    <option value="Sabang">
+                                                    <option value="San Jose">
+                                                    <option value="San Roque">
+                                                    <option value="Santa Barbara">
+                                                    <option value="Santo Cristo">
+                                                    <option value="Santo Niño">
+                                                    <option value="Subic">
+                                                    <option value="Sulivan">
+                                                    <option value="Tangos">
+                                                    <option value="Tarcan">
+                                                    <option value="Tiaong">
+                                                    <option value="Tibag">
+                                                    <option value="Tilapayong">
+                                                    <option value="Virgen delas Flores">
+                                                </datalist>
+                                                </datalist>
+                                            </label>
+                                            <label class="form-label">Municipality<input disabled type="text" value="<?= $farmer['data']['farmer_municipality_address']; ?>" class="form-control municipality"></label>
+                                            <label class="form-label">Province<input disabled type="text" value="<?= $farmer['data']['farmer_province_address']; ?>" class="form-control province"></label>
+                                            <label class="form-label">Region<input disabled type="text" value="<?= $farmer['data']['region']; ?>" class="form-control region"></label>
                                         </fieldset>
                                         <hr>
                                     </div>
@@ -426,21 +463,50 @@
                                                     <h6 class="mt-2">Farm Location</h6>
                                                     <div class="col-md-4">
                                                         <div class="form-floating">
-                                                            <input type="text" value="<?= $parcel['parcel_brgy_address']; ?>" class="form-control validationCustom06 farmLocationBrgy" id="" placeholder="" required>
+                                                            <select class="form-select validationCustom06 farmLocationBrgy" id="" required>
+                                                                <option selected disabled value="">Choose...</option>
+                                                                <option value="Bagong Nayon" <?= $parcel['parcel_brgy_address'] == 'Bagong Nayon' ? 'selected' : ''; ?>>Bagong Nayon</option>
+                                                                <option value="Barangca" <?= $parcel['parcel_brgy_address'] == 'Barangca' ? 'selected' : ''; ?>>Barangca</option>
+                                                                <option value="Calantipay" <?= $parcel['parcel_brgy_address'] == 'Calantipay' ? 'selected' : ''; ?>>Calantipay</option>
+                                                                <option value="Catulinan" <?= $parcel['parcel_brgy_address'] == 'Catulinan' ? 'selected' : ''; ?>>Catulinan</option>
+                                                                <option value="Concepcion" <?= $parcel['parcel_brgy_address'] == 'Concepcion' ? 'selected' : ''; ?>>Concepcion</option>
+                                                                <option value="Hinukay" <?= $parcel['parcel_brgy_address'] == 'Hinukay' ? 'selected' : ''; ?>>Hinukay</option>
+                                                                <option value="Makinabang" <?= $parcel['parcel_brgy_address'] == 'Makinabang' ? 'selected' : ''; ?>>Makinabang</option>
+                                                                <option value="Matangtubig" <?= $parcel['parcel_brgy_address'] == 'Matangtubig' ? 'selected' : ''; ?>>Matangtubig</option>
+                                                                <option value="Pagala" <?= $parcel['parcel_brgy_address'] == 'Pagala' ? 'selected' : ''; ?>>Pagala</option>
+                                                                <option value="Paitan" <?= $parcel['parcel_brgy_address'] == 'Paitan' ? 'selected' : ''; ?>>Paitan</option>
+                                                                <option value="Piel" <?= $parcel['parcel_brgy_address'] == 'Piel' ? 'selected' : ''; ?>>Piel</option>
+                                                                <option value="Pinagbarilan" <?= $parcel['parcel_brgy_address'] == 'Pinagbarilan' ? 'selected' : ''; ?>>Pinagbarilan</option>
+                                                                <option value="Poblacion" <?= $parcel['parcel_brgy_address'] == 'Poblacion' ? 'selected' : ''; ?>>Poblacion</option>
+                                                                <option value="Sabang" <?= $parcel['parcel_brgy_address'] == 'Sabang' ? 'selected' : ''; ?>>Sabang</option>
+                                                                <option value="San Jose" <?= $parcel['parcel_brgy_address'] == 'San Jose' ? 'selected' : ''; ?>>San Jose</option>
+                                                                <option value="San Roque" <?= $parcel['parcel_brgy_address'] == 'San Roque' ? 'selected' : ''; ?>>San Roque</option>
+                                                                <option value="Santa Barbara" <?= $parcel['parcel_brgy_address'] == 'Santa Barbara' ? 'selected' : ''; ?>>Santa Barbara</option>
+                                                                <option value="Santo Cristo" <?= $parcel['parcel_brgy_address'] == 'Santo Cristo' ? 'selected' : ''; ?>>Santo Cristo</option>
+                                                                <option value="Santo Niño" <?= $parcel['parcel_brgy_address'] == 'Santo Niño' ? 'selected' : ''; ?>>Santo Niño</option>
+                                                                <option value="Subic" <?= $parcel['parcel_brgy_address'] == 'Subic' ? 'selected' : ''; ?>>Subic</option>
+                                                                <option value="Sulivan" <?= $parcel['parcel_brgy_address'] == 'Sulivan' ? 'selected' : ''; ?>>Sulivan</option>
+                                                                <option value="Tangos" <?= $parcel['parcel_brgy_address'] == 'Tangos' ? 'selected' : ''; ?>>Tangos</option>
+                                                                <option value="Tarcan" <?= $parcel['parcel_brgy_address'] == 'Tarcan' ? 'selected' : ''; ?>>Tarcan</option>
+                                                                <option value="Tiaong" <?= $parcel['parcel_brgy_address'] == 'Tiaong' ? 'selected' : ''; ?>>Tiaong</option>
+                                                                <option value="Tibag" <?= $parcel['parcel_brgy_address'] == 'Tibag' ? 'selected' : ''; ?>>Tibag</option>
+                                                                <option value="Tilapayong" <?= $parcel['parcel_brgy_address'] == 'Tilapayong' ? 'selected' : ''; ?>>Tilapayong</option>
+                                                                <option value="Virgen delas Flores" <?= $parcel['parcel_brgy_address'] == 'Virgen delas Flores' ? 'selected' : ''; ?>>Virgen delas Flores</option>
+                                                            </select>
                                                             <label>Barangay<span class="text-danger fw-bold">*</span></label>
                                                             <div class="invalid-feedback">Please enter.</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-floating">
-                                                            <input type="text" value="<?= $parcel['parcel_municipality_address']; ?>" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" required>
+                                                            <input type="text" value="<?= $parcel['parcel_municipality_address']; ?>" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" disabled required>
                                                             <label>Municipality<span class="text-danger fw-bold">*</span></label>
                                                             <div class="invalid-feedback">Please enter.</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-floating">
-                                                            <input type="text" value="<?= $parcel['parcel_province_address']; ?>" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" required>
+                                                            <input type="text" value="<?= $parcel['parcel_province_address']; ?>" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" disabled required>
                                                             <label>Province<span class="text-danger fw-bold">*</span></label>
                                                             <div class="invalid-feedback">Please enter.</div>
                                                         </div>

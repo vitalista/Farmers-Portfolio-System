@@ -34,38 +34,45 @@
                 <div class="card-body auth-card" data-aos="zoom-in" data-aos-duration="500">
 
                   <div class="pt-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login</h5>
+                    <h5 class="card-title text-center pb-0 fs-4">Register</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" method="POST" action="login-code.php" novalidate>
+                  <form class="row g-3 needs-validation" method="POST" action="registration-code.php" novalidate>
 
                     <div class="col-10 mx-auto">
                       <label for="yourUsername" class="form-label text-center">Email</label>
                       <div class="input-group has-validation d-flex justify-content-center">
                         <span class="input-group-text" id="email">@</span>
-                        <input type="text" name="email" class="form-control" id="yourUsername" placeholder="Enter your email" required>
+                        <input type="email" name="email" class="form-control" id="yourUsername" placeholder="Enter your email" required>
                         <div class="invalid-feedback">Please enter your email.</div>
                       </div>
                     </div>
 
-                    <div class="col-10 mx-auto mb-3">
+                    <div class="col-10 mx-auto">
                       <label for="yourPassword" class="form-label text-center">Password</label>
                       <div class="input-group has-validation d-flex justify-content-center">
-                        <span class="input-group-text" id="password"><i class="bi bi-eye-slash" id="iconPassword"></i></span>
-                        <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Enter your password" required>
+                        <span class="input-group-text"><i class="bi bi-eye-slash" id="iconPassword"></i></span>
+                        <input type="password" name="password" class="form-control inputPassword" id="yourPassword" placeholder="Enter your password" required>
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
                     </div>
 
                     <div class="col-10 mx-auto">
-                      <button class="btn btn-success w-100" name="login" type="submit">Login</button>
+                      <label for="yourPassword1" class="form-label text-center">Re-Type Password</label>
+                      <div class="input-group has-validation d-flex justify-content-center">
+                        <span class="input-group-text"><i class="bi bi-eye-slash" id="iconPassword1"></i></span>
+                        <input type="password" name="retype" class="form-control inputPassword" id="yourPassword1" placeholder="Re-type your password" required>
+                        <div class="invalid-feedback">Please re-type your password!</div>
+                      </div>
                     </div>
 
-                    <?php if(is_dir('../registration')){?>
                     <div class="col-10 mx-auto">
-                      <a href="../registration/register-farmer.php">No account? register.</a>
+                      <button class="btn btn-success w-100" name="add" type="submit">Register</button>
                     </div>
-                    <?php } ?>
+
+                    <div class="col-10 mx-auto">
+                      <a href="../login/">Already have account? Login.</a>
+                    </div>
 
                   </form>
 

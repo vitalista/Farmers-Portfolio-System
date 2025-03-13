@@ -12,7 +12,7 @@
                       <div class="col-md-3 mb-3">
                           <label for="farmerAddComparison" class="form-label">Farmer Barangay</label>
                           <div class="input-group">
-                              <select id="farmerAddComparison" name="farmerAddComparison" class="form-select">
+                              <select id="farmerAddComparison" name="farmerAddComparison" class="form-select" disabled>
                                   <option value="farmer_brgy_address">Barangay</option>
                               </select>
                               <select name="farmerAdd" id="farmerAdd" class="form-select">

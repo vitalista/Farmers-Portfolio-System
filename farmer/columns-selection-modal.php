@@ -10,7 +10,9 @@
                     <div class="form-group row">
 
                         <div class="col-md-6 my-2">
-                            <div><input type="checkbox" class="form-check-input" name="columns[]" value="fps" <?= (isset($_GET['columns']) && in_array('fps', $_GET['columns'])) ? 'checked' : ''; ?>> FPS</div>
+                        <div><input type="checkbox" class="form-check-input" name="columns[]" value="fps" 
+                        <?= (isset($_GET['columns']) && in_array('fps', $_GET['columns'])) ? 'checked' : ''; ?>> FPS
+                        </div>
                             
                         </div>
 

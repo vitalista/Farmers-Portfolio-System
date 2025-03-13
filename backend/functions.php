@@ -12,7 +12,7 @@ session_set_cookie_params([
 session_start();
 if (isset($_SESSION['LoggedInUser']) || !empty($_SESSION['LoggedInUser'])) {
 if (isset($_SESSION["LAST_ACTIVITY"])) {
-    $session_timout = 600; // dont set less than 60
+    $session_timout = 6000; // dont set less than 60
     $session_timout_reset = 60;
     if ((time() - $_SESSION["LAST_ACTIVITY"]) > $session_timout) { 
         setLastAct();       
@@ -839,6 +839,26 @@ function compareArrays($arr1, $arr2) {
     }
 
     return true;
+}
+
+function emailExists($email) {
+    global $conn;
+    $stmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+        redirect('register-farmer.php', 500, 'Something Went Wrong.');
+    }
+
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        return true; // Email exists
+    } else {
+        return false; // Email does not exist
+    }
+    $stmt->close();
 }
 
 

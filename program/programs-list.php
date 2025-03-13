@@ -26,7 +26,7 @@
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                                         <i class="bi bi-sort-down"></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
+                                    <button type="button" class="btn btn-sm btn-success d-none" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
                                     <i class="bi bi-table"></i>
                                     </button>
                                     <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) { ?>
@@ -37,7 +37,7 @@
                             <?php include 'filter.php'; ?>
                             <?php include 'column-selection-modal.php'; ?>
 
-                            <table id="example">
+                            <table id="example"  class="display nowrap d-none">
                                 <thead>
                                     <tr>
                                         <?php

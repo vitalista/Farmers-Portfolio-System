@@ -2,7 +2,7 @@
 <html lang="en">
 <?php include '../includes/head.php' ?>
 <?php
-if($_SESSION['LoggedInUser']['role'] == 0){
+if($_SESSION['LoggedInUser']['role'] != 1){
   header('Location: ../logout.php');
 }
 ?>
@@ -28,7 +28,7 @@ if($_SESSION['LoggedInUser']['role'] == 0){
               $tableName = "users";
               $id = $_SESSION['LoggedInUser']['id'];
 
-              $sql = "SELECT * FROM $tableName WHERE id != $id OR id != 3";
+              $sql = "SELECT * FROM $tableName WHERE id != $id AND id != 3 AND role != 2";
               $result = $conn->query($sql);
 
               ?>

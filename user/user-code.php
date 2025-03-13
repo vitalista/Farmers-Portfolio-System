@@ -1,7 +1,7 @@
 <?php
 require '../backend/functions.php';
 
-if($_SESSION['LoggedInUser']['role'] == 0){
+if($_SESSION['LoggedInUser']['role'] != 1){
   header('Location: ../logout.php');
 }
 

@@ -310,22 +310,33 @@
   }
 
   // Toggle eye-button in Login
-  const togglePasswordVisibility = () => {
-    const passwordField = select('#yourPassword');
-    const show = select('#iconPassword');
-    if (passwordField && show) {
-      if (passwordField.type === 'password') {
-        passwordField.type = 'text';
-        show.className = 'bi bi-eye';
-      } else {
-        passwordField.type = 'password';
-        show.className = 'bi bi-eye-slash';
-      }
-    }
+  const togglePasswordVisibility = (inputPassword, iconPassword) => {
+      if (inputPassword.includes('#') && iconPassword.includes('#')) {
+      const passwordField = document.querySelector(inputPassword);
+      const show = document.querySelector(iconPassword);
+
+      if (passwordField && show) {
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+          show.className = 'bi bi-eye';
+        } else {
+          passwordField.type = 'password';
+          show.className = 'bi bi-eye-slash';
+            }
+          }
+        }
   }
 
-  if (select('#iconPassword')) {
-    on('click', '#iconPassword', togglePasswordVisibility);
+  if (document.querySelector('#iconPassword')) {
+    document.querySelector('#iconPassword').addEventListener('click', () => {
+      togglePasswordVisibility('#yourPassword', '#iconPassword');
+    });
+  }
+
+  if (document.querySelector('#iconPassword1')) {
+    document.querySelector('#iconPassword1').addEventListener('click', () => {
+      togglePasswordVisibility('#yourPassword1', '#iconPassword1');
+    });
   }
 
 })();

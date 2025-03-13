@@ -45,21 +45,50 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
             <h6 class="mt-2">Farm Location</h6>
             <div class="col-md-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control validationCustom06 farmLocationBrgy" id="" placeholder="" required>
-                    <label>Barangay<span class="text-danger fw-bold">*</span></label>
-                    <div class="invalid-feedback">Please enter.</div>
-                </div>
+                                                            <select class="form-select validationCustom06 farmLocationBrgy" id="" required>
+                                                                <option selected disabled value="">Choose...</option>
+                                                                <option value="Bagong Nayon" <?= $parcel['parcel_brgy_address'] == 'Bagong Nayon' ? 'selected' : ''; ?>Bagong Nayon</option>
+                                                                <option value="Barangca" <?= $parcel['parcel_brgy_address'] == 'Barangca' ? 'selected' : ''; ?>Barangca</option>
+                                                                <option value="Calantipay" <?= $parcel['parcel_brgy_address'] == 'Calantipay' ? 'selected' : ''; ?>Calantipay</option>
+                                                                <option value="Catulinan" <?= $parcel['parcel_brgy_address'] == 'Catulinan' ? 'selected' : ''; ?>Catulinan</option>
+                                                                <option value="Concepcion" <?= $parcel['parcel_brgy_address'] == 'Concepcion' ? 'selected' : ''; ?>Concepcion</option>
+                                                                <option value="Hinukay" <?= $parcel['parcel_brgy_address'] == 'Hinukay' ? 'selected' : ''; ?>Hinukay</option>
+                                                                <option value="Makinabang" <?= $parcel['parcel_brgy_address'] == 'Makinabang' ? 'selected' : ''; ?>Makinabang</option>
+                                                                <option value="Matangtubig" <?= $parcel['parcel_brgy_address'] == 'Matangtubig' ? 'selected' : ''; ?>Matangtubig</option>
+                                                                <option value="Pagala" <?= $parcel['parcel_brgy_address'] == 'Pagala' ? 'selected' : ''; ?>Pagala</option>
+                                                                <option value="Paitan" <?= $parcel['parcel_brgy_address'] == 'Paitan' ? 'selected' : ''; ?>Paitan</option>
+                                                                <option value="Piel" <?= $parcel['parcel_brgy_address'] == 'Piel' ? 'selected' : ''; ?>Piel</option>
+                                                                <option value="Pinagbarilan" <?= $parcel['parcel_brgy_address'] == 'Pinagbarilan' ? 'selected' : ''; ?>Pinagbarilan</option>
+                                                                <option value="Poblacion" <?= $parcel['parcel_brgy_address'] == 'Poblacion' ? 'selected' : ''; ?>Poblacion</option>
+                                                                <option value="Sabang" <?= $parcel['parcel_brgy_address'] == 'Sabang' ? 'selected' : ''; ?>Sabang</option>
+                                                                <option value="San Jose" <?= $parcel['parcel_brgy_address'] == 'San Jose' ? 'selected' : ''; ?>San Jose</option>
+                                                                <option value="San Roque" <?= $parcel['parcel_brgy_address'] == 'San Roque' ? 'selected' : ''; ?>San Roque</option>
+                                                                <option value="Santa Barbara" <?= $parcel['parcel_brgy_address'] == 'Santa Barbara' ? 'selected' : ''; ?>Santa Barbara</option>
+                                                                <option value="Santo Cristo" <?= $parcel['parcel_brgy_address'] == 'Santo Cristo' ? 'selected' : ''; ?>Santo Cristo</option>
+                                                                <option value="Santo Niño" <?= $parcel['parcel_brgy_address'] == 'Santo Niño' ? 'selected' : ''; ?>Santo Niño</option>
+                                                                <option value="Subic" <?= $parcel['parcel_brgy_address'] == 'Subic' ? 'selected' : ''; ?>Subic</option>
+                                                                <option value="Sulivan" <?= $parcel['parcel_brgy_address'] == 'Sulivan' ? 'selected' : ''; ?>Sulivan</option>
+                                                                <option value="Tangos" <?= $parcel['parcel_brgy_address'] == 'Tangos' ? 'selected' : ''; ?>Tangos</option>
+                                                                <option value="Tarcan" <?= $parcel['parcel_brgy_address'] == 'Tarcan' ? 'selected' : ''; ?>Tarcan</option>
+                                                                <option value="Tiaong" <?= $parcel['parcel_brgy_address'] == 'Tiaong' ? 'selected' : ''; ?>Tiaong</option>
+                                                                <option value="Tibag" <?= $parcel['parcel_brgy_address'] == 'Tibag' ? 'selected' : ''; ?>Tibag</option>
+                                                                <option value="Tilapayong" <?= $parcel['parcel_brgy_address'] == 'Tilapayong' ? 'selected' : ''; ?>Tilapayong</option>
+                                                                <option value="Virgen delas Flores" <?= $parcel['parcel_brgy_address'] == 'Virgen delas Flores' ? 'selected' : ''; ?>Virgen delas Flores</option>
+                                                            </select>
+                                                            <label>Barangay<span class="text-danger fw-bold">*</span></label>
+                                                            <div class="invalid-feedback">Please enter.</div>
+                                                        </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" required>
+                    <input type="text" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" value="Baliwag" disabled required>
                     <label>Municipality<span class="text-danger fw-bold">*</span></label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" required>
+                    <input type="text" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" value="Bulacan" disabled required>
                     <label>Province<span class="text-danger fw-bold">*</span></label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>

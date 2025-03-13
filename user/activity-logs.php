@@ -2,7 +2,7 @@
 <html lang="en">
 <?php include '../includes/head.php' ?>
 <?php
-if($_SESSION['LoggedInUser']['role'] == 0){
+if($_SESSION['LoggedInUser']['role'] != 1){
   header('Location: ../logout.php');
 }
 ?>
