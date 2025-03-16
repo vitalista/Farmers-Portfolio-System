@@ -96,6 +96,7 @@ if($_SESSION['LoggedInUser']['role'] != 1){
                       <div class="row mt-4">
                         <p class="col-sm-3 col-form-label" id="restrictions"><strong>Restriction Options:</strong></p>
                         <div class="col-sm-4 mt-2">
+                       <?php if ($user['data']['role'] == 1) { ?>
                           <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="createSwitch" name="create" <?= $user['data']['can_create'] == 1? 'checked': ''; ?>>
                             <label class="form-check-label" for="createSwitch">Can Create?</label>
@@ -112,11 +113,13 @@ if($_SESSION['LoggedInUser']['role'] != 1){
                             <input class="form-check-input" type="checkbox" id="exportSwitch" name="export" <?= $user['data']['can_export'] == 1? 'checked': ''; ?>>
                             <label class="form-check-label" for="exportSwitch">Can Export?</label>
                           </div>
+                        <?php } ?>
                           <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="bannedSwitch" <?= $user['data']['is_banned'] == 1? 'checked': ''; ?> name="bannedSwitch">
                             <label class="form-check-label" for="bannedSwitch">Banned?</label>
                           </div>
                         </div>
+                       <?php if ($user['data']['role'] == 1) { ?>
                         <p class="col-sm-2 col-form-label"><strong>Authorization:</strong></p>
                         <div class="col-sm-3">
                           <div class="form-check form-switch mt-2">
@@ -124,6 +127,7 @@ if($_SESSION['LoggedInUser']['role'] != 1){
                             <label class="form-check-label" for="promoteSwitch">Promote to admin?</label>
                           </div>
                         </div>
+                        <?php } ?>
                       </div>
 
                       <?php

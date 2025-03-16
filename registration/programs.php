@@ -113,7 +113,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        if (isset($_GET['program']) || isset($_GET['brgy'])) {
+                                        if (isset($_GET['program']) && isset($_GET['brgy'])) {
 
                                             $distributions = getAll('distributions', $_GET['program'], $_GET['brgy']);
                                             if (mysqli_num_rows($distributions) > 0) {
@@ -125,6 +125,10 @@
                                                     </tr>
                                         <?php
                                                 }
+                                            }else{
+                                                echo "<tr>
+                                                        <td colspan='2' style='text-align: center;'>No Information Available</td>
+                                                      </tr>";
                                             }
                                         } else {
                                             // Assuming the table has 5 columns, set the colspan to 5
@@ -150,7 +154,7 @@
                                     <thead>
                                         <tr>
                                             <th>Program Name</th>
-                                            <th>Type</th>
+                                            <th>Program Term</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -161,7 +165,7 @@
                                             ?>
                                            <tr>
                                            <td><?= $item['program_name'];?></td>
-                                           <td><?= $item['program_type'];?></td>
+                                           <td><?= $item['start_date'];?> <strong>-</strong> <?= $item['end_date'];?></td>
                                            </tr>
                                             <?php
                                                 }
@@ -189,7 +193,7 @@
                                     <thead>
                                         <tr>
                                             <th>Program Name</th>
-                                            <th>Type</th>
+                                            <th>Program Term</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -200,7 +204,7 @@
                                             ?>
                                            <tr>
                                            <td><?= $item['program_name'];?></td>
-                                           <td><?= $item['program_type'];?></td>
+                                           <td><?= $item['start_date'];?> <strong>-</strong> <?= $item['end_date'];?></td>
                                            </tr>
                                             <?php
                                                 }

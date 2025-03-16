@@ -139,7 +139,7 @@ if (isset($_POST['addItems'])) {
     $farmerAdd = validate($_POST['farmerAdd']);
     $resourcesId = validate($_POST['resources_id']);
     $quantity = validate($_POST['quantity']);
-
+    echo "SELECT * FROM farmers WHERE $farmerAddComparison LIKE '$farmerAdd'";
     // Initialize an empty array for resource data
     $resourceData = [];
 
@@ -153,6 +153,7 @@ if (isset($_POST['addItems'])) {
 
     // Check if farmers exist based on the provided comparison
     $checkReFarmers = mysqli_query($conn, "SELECT * FROM farmers WHERE $farmerAddComparison LIKE '$farmerAdd'");
+    
     if (!$checkReFarmers || mysqli_num_rows($checkReFarmers) == 0) {
         redirect('distribution-multiple-add.php', 404, 'No Farmers Found');
         return;  // Early return if no farmers found

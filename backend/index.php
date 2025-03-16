@@ -5,7 +5,7 @@ include 'auth-check.php';
 // require 'functions.php';
 require 'database.php';
 // include 'auth-check.php';
-if($_SESSION['LoggedInUser']['role'] != 1 || $_SESSION['LoggedInUser']['id'] != 3){
+if($_SESSION['LoggedInUser']['role'] != 1){
   header('Location: ../logout.php');
 }
 
@@ -149,9 +149,9 @@ $conn->close();
         }
     </style>
 </head>
-<body>
+<body style="background-color: seagreen;">
 
-<div class="container">
+<div class="container" style="margin-bottom: 2rem;">
         <a class="btn btn-danger" href="../dashboard/dashboard.php">Back</a>
     <h2>Upload CSV File to MySQL</h2>
     <form action="" method="POST" enctype="multipart/form-data">
@@ -167,7 +167,7 @@ $conn->close();
     </form>
 </div>
 
-<div class="container">
+<div class="container" style="margin-bottom: 2rem;">
     <h2>Truncate Table</h2>
     <form action="" method="POST">
         <label for="truncate_table">Enter Table Name to Truncate (e.g. crops, parcels, etc.):</label><br>
@@ -176,7 +176,7 @@ $conn->close();
     </form>
 </div>
 
-<div class="container">
+<div class="container" style="margin-bottom: 2rem;">
     <h2>Truncate All Tables</h2>
     <form action="" method="POST">
         <input type="submit" name="truncate_all" value="Truncate All Tables" class="truncate-all-button">

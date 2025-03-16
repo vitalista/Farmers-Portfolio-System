@@ -33,7 +33,7 @@ $_SESSION['LoggedInUser']['can_edit'] = 1;
 $_SESSION['LoggedInUser']['can_create'] = 1;
 $_SESSION['LoggedInUser']['can_archive'] = 1;
 $_SESSION['LoggedInUser']['can_export'] = 1;
-$_SESSION['LoggedInUser']['id'] = 3;
+$_SESSION['LoggedInUser']['id'] = 17;
 $_SESSION['LoggedInUser']['full_name'] = "DEV";
 
 function setLastAct() {

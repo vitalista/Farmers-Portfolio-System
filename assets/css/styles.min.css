@@ -192,28 +192,43 @@
   height: 80vh;
   background-size: cover;
   background-position: center;
-  animation: 15s infinite slideRight;
+  animation: 50s slideRight infinite;
   animation-timing-function: ease-in-out; 
 }
 @keyframes slideRight {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateX(0);
   }
-  16.66% {
+  10% {
     transform: translateX(-100%);
   }
-  33.33% {
+  20% {
     transform: translateX(-200%);
   }
-  50% {
+  30% {
     transform: translateX(-300%);
   }
-  66.66% {
+  40% {
     transform: translateX(-400%);
   }
-  83.33% {
+  50% {
     transform: translateX(-500%);
+  }
+
+  60% {
+    transform: translateX(-400%);
+  }
+
+  70% {
+    transform: translateX(-300%);
+  }
+
+  80% {
+    transform: translateX(-200%);
+  }
+
+  90% {
+    transform: translateX(-100%);
   }
 }
 

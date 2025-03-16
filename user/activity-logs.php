@@ -53,7 +53,7 @@ if($_SESSION['LoggedInUser']['role'] != 1){
                             $user = getById('users', $log['created_by']);
                             
                             if ($user && $user['status'] == 200) {
-                                $fullName = isset($user['data']['full_name']) ? $user['data']['full_name'] : 'Unknown';
+                                $fullName = empty($user['data']['full_name']) ? $user['data']['email'] : $user['data']['full_name'];
                             } else {
                                 $fullName = 'INVALID USER';
                             }

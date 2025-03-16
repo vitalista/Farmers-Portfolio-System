@@ -354,13 +354,13 @@ if (isset($_POST['program_data'])) {
     }   
     }
     
-    // if(isset($_POST['add']) && $_POST['add'] == 0){
-    //     redirect('programs-list.php', 200, 'Program Successfully Inserted');
-    // }
+    if(isset($_POST['add']) && $_POST['add'] == 0){
+        redirect('programs-list.php', 200, 'Program Successfully Inserted');
+    }
 
-    // if(isset($_POST['update']) && $_POST['update'] == 1){
-    //     redirect('programs-list.php', 200, 'Program Successfully Updated');
-    // }
+    if(isset($_POST['update']) && $_POST['update'] == 1){
+        redirect('programs-list.php', 200, 'Program Successfully Updated');
+    }
     
 
     if ($data) {

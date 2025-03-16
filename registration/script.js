@@ -145,9 +145,14 @@ document
     if (govIdPhotoBack) formData.append("govIdPhotoBack", govIdPhotoBack);
     if (govIdPhotoFront) formData.append("govIdPhotoFront", govIdPhotoFront);
     
-    if (emptyFields("#farmerCard .card", ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'],[
+    if (emptyFields("#farmerCard .card", [
+      // 'farmerImg', 
+      // 'govIdPhotoBack', 
+      // 'govIdPhotoFront'
+    ],[
       "firstName", "bday", "hbp", "sss", "brgy", "municipality", "province", "region", "govIdType", "govIdNumber",,
-      "hvc", "cropArea", "cropName", "classification", "numberOfHeads", "livestockType", "ofName", "olName", "ownership", "farmLocationBrgy", "farmLocationMunicipality", "farmLocationProvince", "farmSize", "farmType", "lastName", "middleName", "ffrs"
+      "hvc", "cropArea", "cropName", "classification", "numberOfHeads", "livestockType", "ofName", "olName", "ownership", "farmLocationBrgy", "farmLocationMunicipality", "farmLocationProvince", "farmSize", "farmType", "lastName", "middleName", 
+      //"ffrs"
     ])) {
       Swal.fire({
         title: "Empty Fields!",
@@ -266,7 +271,7 @@ document
 
       const sendRequest = function (formData) {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "submit_registration.php", true);
+        xhr.open("POST", "submit-registration.php", true);
 
         xhr.onload = function () {
           if (xhr.status === 200) {
