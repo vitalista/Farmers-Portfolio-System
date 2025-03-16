@@ -108,7 +108,12 @@
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
-                      <div class="col-md-4 mt-5 form-floating mb-3">
+                      <div class="col-md-1">
+                      <label for="programColor" class="form-label">Color<span class="red-star red-star"></span></label>
+                      <input type="color" placeholder="" class="form-control programColor" id="programColor" value="<?= $data['color']; ?>">
+                    </div>
+
+                      <div class="col-md-4 mt-5 form-floating mb-2">
                         <textarea required class="form-control description" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"><?= $data['description']; ?></textarea>
                         <label for="floatingTextarea">Description</label>
                         <div class="invalid-feedback">Please enter.</div>

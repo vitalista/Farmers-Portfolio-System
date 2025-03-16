@@ -19,7 +19,8 @@ $query = "
     p.end_date,
     p.total_beneficiaries,
     p.beneficiaries_available,
-    p.sourcing_agency
+    p.sourcing_agency,
+    p.color
 
     FROM 
         resources AS r

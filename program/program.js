@@ -136,6 +136,7 @@ document.getElementById('submitButton').addEventListener('click', function(e) {
   const programType = card.querySelector('.programType').value;
   const sourcingAgency = card.querySelector('.sourcingAgency').value;
   const nameOfProgram = card.querySelector('.nameOfProgram').value;
+  const programColor = card.querySelector('.programColor').value;
 
   if (card.querySelector('.program_id')) {
     if (resourcesCard.length <= 0 || resourcesCard.length > 0) {
@@ -149,7 +150,8 @@ document.getElementById('submitButton').addEventListener('click', function(e) {
           startDate,
           programType,
           sourcingAgency,
-          nameOfProgram
+          nameOfProgram,
+          programColor
         }
       });
     }
@@ -163,7 +165,8 @@ document.getElementById('submitButton').addEventListener('click', function(e) {
           startDate,
           programType,
           sourcingAgency,
-          nameOfProgram
+          nameOfProgram,
+          programColor
         }
       });
     }

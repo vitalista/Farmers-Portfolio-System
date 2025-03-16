@@ -78,10 +78,16 @@
                       <div class="invalid-feedback">Please enter.</div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       <label for="totalBeneficiaries" class="form-label">Total beneficiaries<span class="red-star red-star"></span></label>
                       <input type="number" placeholder="" class="form-control no-spin-button totalBeneficiaries" id="totalBeneficiaries" required max="9999999999" min="9000000000" step="1">
                       <div class="invalid-feedback">Please enter.</div>
+                    </div>
+
+                    
+                    <div class="col-md-1">
+                      <label for="programColor" class="form-label">Color<span class="red-star red-star"></span></label>
+                      <input type="color" placeholder="" class="form-control programColor" id="programColor">
                     </div>
 
                     <div class="col-md-5 mt-5 form-floating mb-3">
@@ -126,7 +132,6 @@
   <!-- ======= Footer ======= -->
   <?php include '../includes/footer.php' ?>
   <script src="./program.js"></script>
-
 </body>
 
 </html>

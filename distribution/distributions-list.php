@@ -57,9 +57,9 @@
                         <td class="text-start"><?= $row['ffrs_system_gen'];?></td>
                         <td class="text-start"><?=$row['first_name'];?> - <?=$row['last_name'];?></td>
 
-                        <td class="text-start"><?=$row['program_name'];?><?=$row['program_type'] == '' ? '' : ' - '.$row['program_type'];?></td>
+                        <td class="text-start" style="color: <?=  $row['color']; ?>;"><?=$row['program_name'];?><?=$row['program_type'] == '' ? '' : ' - '.$row['program_type'];?></td>
 
-                        <td class="text-start"><strong><?=$row['resources_name'];?></strong><?=$row['resource_type'] == '' ? '' : ' - '.$row['resource_type'];?></td>
+                        <td class="text-start"><strong style="color: <?=  $row['color']; ?>;"><?=$row['resources_name'];?></strong><?=$row['resource_type'] == '' ? '' : ' - '.$row['resource_type'];?></td>
 
                         <td class="text-start"><strong><?=$row['quantity_distributed'];?></strong> <?=$row['unit_of_measure'];?></td>
                         <?php if(!isset($_GET['archived'])):?>

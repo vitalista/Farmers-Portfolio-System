@@ -67,9 +67,10 @@ if (isset($_POST['program_data'])) {
         end_date, 
         total_beneficiaries,
         beneficiaries_available,
-        sourcing_agency
+        sourcing_agency,
+        color
         )VALUES (?, ?, ?, ?, ?, ?,
-        ?, ?
+        ?, ?, ?
         )";
         $stmt = $conn->prepare($sql);
         
@@ -79,7 +80,7 @@ if (isset($_POST['program_data'])) {
             exit;
         }
         
-        $stmt->bind_param("sssssiis", 
+        $stmt->bind_param("sssssiiss", 
         $program['nameOfProgram'], 
         $program['programType'], 
         $program['description'], 
@@ -88,6 +89,7 @@ if (isset($_POST['program_data'])) {
         $program['totalBeneficiaries'], 
         $program['totalBeneficiaries'], 
         $program['sourcingAgency'], 
+        $program['programColor']
     );
         
         if ($stmt->execute()) {
@@ -171,7 +173,8 @@ if (isset($_POST['program_data'])) {
             total_beneficiaries = ?, 
             beneficiaries_available = ?, 
             sourcing_agency = ?, 
-            modified_times = ?
+            modified_times = ?,
+            color = ?
 
             WHERE id = ?";
     
@@ -184,7 +187,7 @@ if (isset($_POST['program_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssiisii", 
+        $stmt->bind_param("sssssiisisi", 
             $program['nameOfProgram'], 
             $program['programType'], 
             $program['description'], 
@@ -194,6 +197,7 @@ if (isset($_POST['program_data'])) {
             $program['beneficiaries'], 
             $program['sourcingAgency'], 
             $modifiedTimes,
+            $program['programColor'], 
             $programId 
         );
     
@@ -350,13 +354,13 @@ if (isset($_POST['program_data'])) {
     }   
     }
     
-    if(isset($_POST['add']) && $_POST['add'] == 0){
-        redirect('programs-list.php', 200, 'Program Successfully Inserted');
-    }
+    // if(isset($_POST['add']) && $_POST['add'] == 0){
+    //     redirect('programs-list.php', 200, 'Program Successfully Inserted');
+    // }
 
-    if(isset($_POST['update']) && $_POST['update'] == 1){
-        redirect('programs-list.php', 200, 'Program Successfully Updated');
-    }
+    // if(isset($_POST['update']) && $_POST['update'] == 1){
+    //     redirect('programs-list.php', 200, 'Program Successfully Updated');
+    // }
     
 
     if ($data) {

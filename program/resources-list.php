@@ -66,7 +66,7 @@
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                   ?>
-                      <tr>
+                      <tr style="color: <?=  $row['color']; ?>;">
                         <?php
                         if (in_array('fps', $selectedColumns)) echo '<td class="text-start">' . $row['fps_code'] . '</td>';
                         if (in_array('programName', $selectedColumns)) echo '<td class="text-start">' . $row['program_name'] . '</td>';

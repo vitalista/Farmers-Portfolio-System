@@ -329,9 +329,9 @@
                                                             <tr>
                                                                 <td class="text-start"><?= $row['fps_code'] ?></td>
                                                                 <td class="text-start"><?= $row['created_at'] ?></td>
-                                                                <td class="text-start"><?= $program['data']['program_name']; ?></td>
+                                                                <td class="text-start" style="color: <?= $program['data']['color'];?>;"><?= $program['data']['program_name']; ?></td>
 
-                                                                <td class="text-start"><strong><?= $resources['data']['resources_name']; ?></strong> - <?= $resources['data']['resource_type']; ?></td>
+                                                                <td class="text-start" style="color: <?= $program['data']['color'];?>;"><strong><?= $resources['data']['resources_name']; ?> </strong> - <?= $resources['data']['resource_type']; ?></td>
 
                                                                 <td class="text-start"><strong><?= $row['quantity_distributed']; ?></strong> <?= $resources['data']['unit_of_measure']; ?></td>
                                                             </tr>
