@@ -53,7 +53,7 @@
                             <small class="text-muted">Photo taken within 6 months</small>
                           </div>
 
-                          <label for="ffrs">FFRS SYSTEM GEN.<span class="text-danger fw-bold">*</span></label>
+                          <label for="ffrs">FFRS SYSTEM GEN.<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control ffrs" id="ffrs" placeholder="">
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
@@ -124,19 +124,19 @@
                         <h6 class="fw-bold">Address</h6>
 
                         <div class="col-md-3">
-                          <label for="hbp">House/BLDG/ Purok<span class="text-danger fw-bold">*</span></label>
+                          <label for="hbp">House/BLDG/ Purok<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control hbp" id="hbp" placeholder="" required>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
 
                         <div class="col-md-3">
-                          <label for="sss">Street/Sitio/SubDV<span class="text-danger fw-bold">*</span></label>
+                          <label for="sss">Street/Sitio/SubDV<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control sss" id="sss" placeholder="" required>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
 
                         <div class="col-md-3">
-                          <label for="personalBrgy">BARANGAY<span class="text-danger fw-bold">*</span></label>
+                          <label for="personalBrgy">BARANGAY<span class="text-danger fw-bold red-star"></span></label>
                           <select class="form-select brgy" id="personalBrgy" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="Bagong Nayon">Bagong Nayon</option>
@@ -171,27 +171,27 @@
                         </div>
 
                         <div class="col-md-3">
-                          <label for="personalMunicipality">Municipality<span class="text-danger fw-bold">*</span></label>
+                          <label for="personalMunicipality">Municipality<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control municipality" id="personalMunicipality" placeholder="" value="Baliwag" disabled required>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
 
                         <div class="col-md-3">
-                          <label for="brgy">Province<span class="text-danger fw-bold">*</span></label>
+                          <label for="brgy">Province<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control province" id="brgy" placeholder="" value="Bulacan" disabled required>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
 
 
                         <div class="col-md-3">
-                          <label for="region">Region<span class="text-danger fw-bold">*</span></label>
-                          <input type="text" class="form-control region" id="region" placeholder="" value="3" disabled required>
+                          <label for="region">Region<span class="text-danger fw-bold red-star"></span></label>
+                          <input type="text" class="form-control region" id="region" placeholder="" value="III" disabled required>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
 
                         <h6 class="fw-bold">Full Name</h6>
                         <div class="col-md-3">
-                          <label for="floatingFname">First Name<span class="text-danger fw-bold">*</span></label>
+                          <label for="floatingFname">First Name<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control firstName" id="floatingFname" placeholder="" required>
 
                           <div class="invalid-feedback">Please enter.</div>
@@ -199,7 +199,7 @@
                         </div>
 
                         <div class="col-md-3">
-                          <label for="floatingMname">Middle Name<span class="text-danger fw-bold">*</span></label>
+                          <label for="floatingMname">Middle Name<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control middleName" id="floatingMname" placeholder="" required>
 
                           <div class="invalid-feedback">Please enter.</div>
@@ -207,7 +207,7 @@
                         </div>
 
                         <div class="col-md-3">
-                          <label for="floatingLname">Last Name<span class="text-danger fw-bold">*</span></label>
+                          <label for="floatingLname">Last Name<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control lastName" id="floatingLname" placeholder="" required>
 
                           <div class="invalid-feedback">Please enter.</div>
@@ -221,7 +221,7 @@
                         </div>
 
                         <div class="col-md-3">
-                          <label for="validationCustom01" class="form-label">Gender<span class="text-danger fw-bold">*</span></label>
+                          <label for="validationCustom01" class="form-label">Gender<span class="text-danger fw-bold red-star"></span></label>
                           <select class="form-select gender" id="validationCustom01" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="Male">Male</option>
@@ -231,7 +231,7 @@
                         </div>
 
                         <div class="col-md-3">
-                          <label for="validationCustom05" class="form-label">Birthday<span class="text-danger fw-bold">*</span></label>
+                          <label for="validationCustom05" class="form-label">Birthday<span class="text-danger fw-bold red-star"></span></label>
                           <input type="date" class="form-control bday" id="validationCustom05" required>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>

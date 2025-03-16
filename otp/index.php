@@ -2,7 +2,7 @@
 <html lang="en">
 <?php 
 include '../includes/head.php';
-  if (!isset($_SESSION['LoggedInUser']['email'])) {
+  if (!isset($_SESSION['LoggedInUser']['email']) && !isset($_SESSION['otp']) || empty($_SESSION['otp'])) {
     redirect('../login/', 404, 'Please login first.');
 }
 ?>
@@ -42,9 +42,9 @@ include '../includes/head.php';
 
                     <input type="hidden" id="email" name="email" value="<?= $_SESSION['LoggedInUser']['email'];?>">
 
-                    <input type="hidden" value="<?= isset($_SESSION['otpTime']) ? date("Y-m-d H:i:s", $_SESSION['otpTime']) : ''; ?>">
-                    <input type="hidden" value="<?= isset($_SESSION['otp']) ? $_SESSION['otp'] : ''; ?>">
-                    <input type="hidden" value="<?= isset($_SESSION['otp_attempts']) ? $_SESSION['otp_attempts'] : ''; ?>">
+                    <input type="text" value="<?= isset($_SESSION['otpTime']) ? date("Y-m-d H:i:s", $_SESSION['otpTime']) : ''; ?>">
+                    <input type="text" value="<?= isset($_SESSION['otp']) ? $_SESSION['otp'] : ''; ?>">
+                    <input type="text" value="<?= isset($_SESSION['otp_attempts']) ? $_SESSION['otp_attempts'] : ''; ?>">
 
                     <?php include '../backend/status-messages.php';?>
                     
@@ -85,7 +85,7 @@ include '../includes/head.php';
             }
         }, 1000);
     </script>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
     <?php include '../includes/footer.php'; ?>
 </body>
 

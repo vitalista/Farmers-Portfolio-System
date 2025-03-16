@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <?php include '../includes/head.php' ?>
-
 <body class="login-bg">
-   <?php include '../includes/header.php' ?>
-
-   <!-- ======= Sidebar ======= -->
-   <?php include '../includes/sidebar.php' ?>
-   <?php include '../backend/status-messages.php' ?>
+<?php include '../includes/header.php' ?>
+<!-- ======= Sidebar ======= -->
+<?php include '../includes/sidebar.php' ?>
+<?php include '../backend/status-messages.php' ?>
 
    <main id="main" class="main">
 

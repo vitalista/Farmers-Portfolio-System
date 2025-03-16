@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="col-10 mx-auto">
-                      <a href="../login/">Already have account? Login.</a>
+                      <a href="../login/" class="text-success">Already have account? Login.</a>
                     </div>
 
                   </form>

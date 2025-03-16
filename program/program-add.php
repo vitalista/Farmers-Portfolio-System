@@ -73,13 +73,13 @@
 
 
                     <div class="col-md-2">
-                      <label for="endDate" class="form-label">End date<span class="red-star">*</span></label>
+                      <label for="endDate" class="form-label">End date<span class="red-star red-star"></span></label>
                       <input type="date" class="form-control endDate" id="endDate" required>
                       <div class="invalid-feedback">Please enter.</div>
                     </div>
 
                     <div class="col-md-3">
-                      <label for="totalBeneficiaries" class="form-label">Total beneficiaries<span class="red-star">*</span></label>
+                      <label for="totalBeneficiaries" class="form-label">Total beneficiaries<span class="red-star red-star"></span></label>
                       <input type="number" placeholder="" class="form-control no-spin-button totalBeneficiaries" id="totalBeneficiaries" required max="9999999999" min="9000000000" step="1">
                       <div class="invalid-feedback">Please enter.</div>
                     </div>

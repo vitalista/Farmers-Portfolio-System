@@ -3,6 +3,7 @@
 
 <?php include '../includes/head.php' ?>
 <?php include '../backend/auth-check.php'; ?>
+<?php include '../backend/no-access.php'; ?>
 <body>
 
     <div class="container-fluid">

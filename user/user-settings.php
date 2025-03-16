@@ -4,10 +4,25 @@
 <?php include '../includes/head.php' ?>
 
 <body class="login-bg">
-<?php include '../includes/header.php' ?>
+<?php 
+if ($_SESSION['LoggedInUser']['role'] === 0 || $_SESSION['LoggedInUser']['role'] === 1) {
+  include '../includes/header.php';
+}
+if ($_SESSION['LoggedInUser']['role'] === 2) {
+  include '../registration/registration-header.php';
+}
+ ?>
 
   <!-- ======= Sidebar ======= -->
-  <?php include '../includes/sidebar.php' ?>
+  <?php 
+  if ($_SESSION['LoggedInUser']['role'] === 0 || $_SESSION['LoggedInUser']['role'] === 1) {
+    include '../includes/sidebar.php';
+  }
+
+  if ($_SESSION['LoggedInUser']['role'] === 2) {
+    include '../registration/registration-sidebar.php';
+  }
+  ?>
 
 
   <!-- ======= Main ======= -->
@@ -20,10 +35,6 @@
           <?php include '../backend/status-messages.php' ?>
             <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-header">Edits user</h5>
-            <div class="d-flex justify-content-end">
-           
-            <a href="users-list.php" class="btn btn-sm btn-danger">Back</a>
-            </div>
             </div>
 
             <!-- Default Tabs -->

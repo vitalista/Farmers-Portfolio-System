@@ -75,21 +75,21 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
                                                                 <option value="Tilapayong" <?= $parcel['parcel_brgy_address'] == 'Tilapayong' ? 'selected' : ''; ?>Tilapayong</option>
                                                                 <option value="Virgen delas Flores" <?= $parcel['parcel_brgy_address'] == 'Virgen delas Flores' ? 'selected' : ''; ?>Virgen delas Flores</option>
                                                             </select>
-                                                            <label>Barangay<span class="text-danger fw-bold">*</span></label>
+                                                            <label>Barangay<span class="text-danger fw-bold red-star"></span></label>
                                                             <div class="invalid-feedback">Please enter.</div>
                                                         </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" value="Baliwag" disabled required>
-                    <label>Municipality<span class="text-danger fw-bold">*</span></label>
+                    <label>Municipality<span class="text-danger fw-bold red-star"></span></label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
                     <input type="text" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" value="Bulacan" disabled required>
-                    <label>Province<span class="text-danger fw-bold">*</span></label>
+                    <label>Province<span class="text-danger fw-bold red-star"></span></label>
                     <div class="invalid-feedback">Please enter.</div>
                 </div>
             </div>
@@ -154,16 +154,16 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
     cropInputDiv.innerHTML = `
 
         <div class="col-md-3 mb-3">
-            <label class="ms-1">Crop Name<span class="text-danger fw-bold">*</span></label>
+            <label class="ms-1">Crop Name<span class="text-danger fw-bold red-star"></span></label>
             <input id="" type="text" placeholder="Type here..." class="form-control crop cropName" required>
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="ms-1">Crop Area<span class="text-danger fw-bold">*</span></label>
+            <label class="ms-1">Crop Area<span class="text-danger fw-bold red-star"></span></label>
             <input id="" type="number" placeholder="In hectares" class="form-control crop cropArea no-spin-button" required>
         </div>
         <div class="col-md-2 mb-3">
-            <label>Classification<span class="text-danger fw-bold">*</span></label>
+            <label>Classification<span class="text-danger fw-bold red-star"></span></label>
             <input type="number" class="form-control crop no-spin-button classification" required>
         </div>
 
@@ -200,14 +200,14 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
     livestockInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
     livestockInputDiv.innerHTML = `
   <div class="col-md-6 mb-3">
-      <label>Number of heads<span class="text-danger fw-bold">*</span></label>
+      <label>Number of heads<span class="text-danger fw-bold red-star"></span></label>
       <input type="number" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
       <input type="hidden" class="parcelNum" value="${farmNumber}" style="width: 100%;">
       <div class="invalid-feedback">Please enter.</div>
   </div>
   <div class="col-md-6 mb-3">
   <div class="form-group">
-    <label for="livestockType">Animal type<span class="text-danger fw-bold">*</span></label>
+    <label for="livestockType">Animal type<span class="text-danger fw-bold red-star"></span></label>
     <div class="input-group">
       <input type="text" id="livestockType" class="form-control livestockType" placeholder="Enter animal type" required>
       <div class="input-group-append">

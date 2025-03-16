@@ -2,6 +2,7 @@
 <html lang="en">
 <?php include '../includes/head.php' ?>
 <?php include '../backend/auth-check.php'; ?>
+<?php include '../backend/no-access.php'; ?>
 
 <body style="font-family: fangsong;">
     <div class="container mt-5" id="overview">

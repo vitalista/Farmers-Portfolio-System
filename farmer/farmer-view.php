@@ -434,7 +434,7 @@
                                                 <input type="hidden" class="parcel_id" value="<?= $parcel['id']; ?>">
 
                                                 <div class="row">
-                                                    <h6 class="mt-2 me-3">Owner Information <span class="text-danger">*</span></h6>
+                                                    <h6 class="mt-2 me-3">Owner Information <span class="text-danger red-star"></span></h6>
                                                     <div class="col-md-4 mt-1">
                                                         <div class="form-floating">
                                                             <input type="text" value="<?= $parcel['owner_first_name']; ?>" class="form-control ofName" id="" placeholder="" required>
@@ -493,21 +493,21 @@
                                                                 <option value="Tilapayong" <?= $parcel['parcel_brgy_address'] == 'Tilapayong' ? 'selected' : ''; ?>>Tilapayong</option>
                                                                 <option value="Virgen delas Flores" <?= $parcel['parcel_brgy_address'] == 'Virgen delas Flores' ? 'selected' : ''; ?>>Virgen delas Flores</option>
                                                             </select>
-                                                            <label>Barangay<span class="text-danger fw-bold">*</span></label>
+                                                            <label>Barangay<span class="text-danger fw-bold red-star"></span></label>
                                                             <div class="invalid-feedback">Please enter.</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-floating">
                                                             <input type="text" value="<?= $parcel['parcel_municipality_address']; ?>" class="form-control validationCustom07 farmLocationMunicipality" id="" placeholder="" disabled required>
-                                                            <label>Municipality<span class="text-danger fw-bold">*</span></label>
+                                                            <label>Municipality<span class="text-danger fw-bold red-star"></span></label>
                                                             <div class="invalid-feedback">Please enter.</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-floating">
                                                             <input type="text" value="<?= $parcel['parcel_province_address']; ?>" class="form-control validationCustom08 farmLocationProvince" id="" placeholder="" disabled required>
-                                                            <label>Province<span class="text-danger fw-bold">*</span></label>
+                                                            <label>Province<span class="text-danger fw-bold red-star"></span></label>
                                                             <div class="invalid-feedback">Please enter.</div>
                                                         </div>
                                                     </div>
@@ -544,16 +544,16 @@
                                                                     <input type="hidden" class="crop_id" value="<?= $crop['id']; ?>">
 
                                                                     <div class="col-md-3 mb-3">
-                                                                        <label class="ms-1">Crop Name<span class="text-danger fw-bold">*</span></label>
+                                                                        <label class="ms-1">Crop Name<span class="text-danger fw-bold red-star"></span></label>
                                                                         <input id="" type="text" value="<?= $crop['crop_name']; ?>" placeholder="Type here..." class="form-control crop cropName" required>
                                                                     </div>
 
                                                                     <div class="col-md-3 mb-3">
-                                                                        <label class="ms-1">Crop Area<span class="text-danger fw-bold">*</span></label>
+                                                                        <label class="ms-1">Crop Area<span class="text-danger fw-bold red-star"></span></label>
                                                                         <input id="" type="number" value="<?= $crop['crop_area']; ?>" placeholder="In hectares" class="form-control crop cropArea no-spin-button" required>
                                                                     </div>
                                                                     <div class="col-md-3 mb-3">
-                                                                        <label>Classification<span class="text-danger fw-bold">*</span></label>
+                                                                        <label>Classification<span class="text-danger fw-bold red-star"></span></label>
                                                                         <input type="number" value="<?= $crop['classification']; ?>" class="form-control crop no-spin-button classification" required>
                                                                     </div>
 
@@ -601,7 +601,7 @@
                                                                     <input type="hidden" class="livestock_id" value="<?= $livestock['id']; ?>">
 
                                                                     <div class="col-md-6 mb-3">
-                                                                        <label>Number of heads<span class="text-danger fw-bold">*</span></label>
+                                                                        <label>Number of heads<span class="text-danger fw-bold red-star"></span></label>
                                                                         <input type="number" value="<?= $livestock['no_of_heads']; ?>" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
                                                                         <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
                                                                         <div class="invalid-feedback">Please enter.</div>
@@ -609,7 +609,7 @@
 
                                                                     <div class="col-md-6 mb-3">
                                                                         <div class="form-group">
-                                                                            <label for="livestockType">Animal type<span class="text-danger fw-bold">*</span></label>
+                                                                            <label for="livestockType">Animal type<span class="text-danger fw-bold red-star"></span></label>
                                                                             <div class="input-group">
                                                                                 <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
                                                                                 <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>

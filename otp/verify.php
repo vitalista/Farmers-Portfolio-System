@@ -50,8 +50,13 @@ $otpNumber = intval($otpInput);
 
 if($otpRan === $otpNumber){
     $_SESSION["LAST_ACTIVITY"] = time();
-    setLastAct();  
-    redirect('../dashboard/dashboard.php?success=validOTP', 200, 'Welcome');
+    setLastAct();
+    if ($_SESSION['LoggedInUser']['role'] === '1' || $_SESSION['LoggedInUser']['role'] === '0') {
+        redirect('../dashboard/dashboard.php?success=validOTP', 200, 'Welcome');
+    }
+    if ($_SESSION['LoggedInUser']['role'] === '2') {
+        redirect('../registration/?success=validOTP', 200, 'Welcome');
+    }
 }else{
 redirect('index.php?error=wrongOTP', 500, 'Please check if your OTP is correct.');
 }

@@ -1,5 +1,6 @@
 <?php
-$archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
+try {
+    $archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
 $query = "
      SELECT * FROM farmers WHERE is_archived =  ".$archived."
 ";
@@ -122,6 +123,9 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 
+} catch (\Throwable $th) {
+    header("Location: ../logout.php");
+}
 ?>
 
 <script>

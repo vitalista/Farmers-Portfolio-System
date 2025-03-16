@@ -91,19 +91,19 @@
 
 
                       <div class="col-md-2">
-                        <label for="validationCustom05" class="form-label">End date<span class="red-star">*</span></label>
+                        <label for="validationCustom05" class="form-label">End date<span class="red-star red-star"></span></label>
                         <input type="date" value="<?= $data['end_date']  == '0000-00-00' ? '' : $data['end_date']; ?>" class="form-control endDate" id="validationCustom05" required>
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
                       <div class="col-md-2">
-                        <label for="validationCustom05" class="form-label">Total beneficiaries<span class="red-star">*</span></label>
+                        <label for="validationCustom05" class="form-label">Total beneficiaries<span class="red-star red-star"></span></label>
                         <input type="number" value="<?= $data['total_beneficiaries']; ?>" placeholder="" class="form-control totalBeneficiaries no-spin-button" id="validationCustom05" required max="9999999999" min="9000000000" step="1">
                         <div class="invalid-feedback">Please enter.</div>
                       </div>
 
                       <div class="col-md-2">
-                        <label for="validationCustom05" class="form-label">Beneficiaries Available<span class="red-star">*</span></label>
+                        <label for="validationCustom05" class="form-label">Beneficiaries Available<span class="red-star red-star"></span></label>
                         <input type="number" value="<?= $data['beneficiaries_available']; ?>" placeholder="" class="form-control beneficiaries no-spin-button" id="validationCustom05" required max="9999999999" min="9000000000" step="1">
                         <div class="invalid-feedback">Please enter.</div>
                       </div>

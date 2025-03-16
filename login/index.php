@@ -63,7 +63,7 @@
 
                     <?php if(is_dir('../registration')){?>
                     <div class="col-10 mx-auto">
-                      <a href="../registration/register-farmer.php">No account? register.</a>
+                      <a href="../registration/register-farmer.php" class="text-success">No account? register.</a>
                     </div>
                     <?php } ?>
 

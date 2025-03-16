@@ -43,7 +43,7 @@
                     <?php
                     if(is_dir('registration/')){
                     ?>
-                    <li class="nav-item"><a class="nav-link" href="registration/">Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./login/">Registration</a></li>
                     <?php }?>
                 </ul>
             </div>

@@ -1,5 +1,4 @@
 <?php include '../backend/auth-check.php';?>
-<?php include '../backend/no-access.php';?>
 <header id="header" class="header fixed-top d-flex align-items-center">
 <div class="d-flex align-items-center justify-content-between">
   <a href="../index.php" class="logo d-flex align-items-center">
@@ -61,4 +60,3 @@
 </nav><!-- End Icons Navigation -->
 
 </header><!-- End Header -->
-
