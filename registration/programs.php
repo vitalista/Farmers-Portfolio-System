@@ -3,8 +3,25 @@
 <?php include '../includes/head.php'; ?>
 
 <body class="login-bg">
-<?php include 'registration-header.php'; ?>
-<?php include 'registration-sidebar.php'; ?>
+<?php 
+if ($_SESSION['LoggedInUser']['role'] == 0 || $_SESSION['LoggedInUser']['role'] == 1) {
+  include '../includes/header.php';
+}
+if ($_SESSION['LoggedInUser']['role'] == 2) {
+  include '../registration/registration-header.php';
+}
+ ?>
+
+  <!-- ======= Sidebar ======= -->
+  <?php 
+  if ($_SESSION['LoggedInUser']['role'] == 0 || $_SESSION['LoggedInUser']['role'] == 1) {
+    include '../includes/sidebar.php';
+  }
+
+  if ($_SESSION['LoggedInUser']['role'] == 2) {
+    include '../registration/registration-sidebar.php';
+  }
+  ?>
 
     <main id="main" class="main">
     <div class="container">

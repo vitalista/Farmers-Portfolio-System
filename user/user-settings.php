@@ -5,21 +5,21 @@
 
 <body class="login-bg">
 <?php 
-if ($_SESSION['LoggedInUser']['role'] === 0 || $_SESSION['LoggedInUser']['role'] === 1) {
+if ($_SESSION['LoggedInUser']['role'] == 0 || $_SESSION['LoggedInUser']['role'] == 1) {
   include '../includes/header.php';
 }
-if ($_SESSION['LoggedInUser']['role'] === 2) {
+if ($_SESSION['LoggedInUser']['role'] == 2) {
   include '../registration/registration-header.php';
 }
  ?>
 
   <!-- ======= Sidebar ======= -->
   <?php 
-  if ($_SESSION['LoggedInUser']['role'] === 0 || $_SESSION['LoggedInUser']['role'] === 1) {
+  if ($_SESSION['LoggedInUser']['role'] == 0 || $_SESSION['LoggedInUser']['role'] == 1) {
     include '../includes/sidebar.php';
   }
 
-  if ($_SESSION['LoggedInUser']['role'] === 2) {
+  if ($_SESSION['LoggedInUser']['role'] == 2) {
     include '../registration/registration-sidebar.php';
   }
   ?>

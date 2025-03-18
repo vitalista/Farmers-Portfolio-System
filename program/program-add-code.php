@@ -74,7 +74,7 @@ if (isset($_POST['program_data'])) {
         )";
         $stmt = $conn->prepare($sql);
         
-        if ($stmt === false) {
+        if ($stmt == false) {
             echo "Error preparing program insert query: " . $conn->error;
             redirect('programs-list.php', 500, 'Something Went Wrong');
             exit;
@@ -180,7 +180,7 @@ if (isset($_POST['program_data'])) {
     
         $stmt = $conn->prepare($sql);
     
-        if ($stmt === false) {
+        if ($stmt == false) {
             echo "Error preparing program update query: " . $conn->error;
             redirect('programs-list.php', 500, 'Something Went Wrong');
             exit;
@@ -248,7 +248,7 @@ if (isset($_POST['program_data'])) {
     
             $stmt = $conn->prepare($sql);
             
-            if ($stmt === false) {
+            if ($stmt == false) {
                 echo "Error preparing resources insert query: " . $conn->error;
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
@@ -325,7 +325,7 @@ if (isset($_POST['program_data'])) {
         
             $stmt = $conn->prepare($sql);
         
-            if ($stmt === false) {
+            if ($stmt == false) {
                 echo "Error preparing parcel update query: " . $conn->error;
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
@@ -392,7 +392,7 @@ if (isset($_POST['program_data'])) {
 </body>
 </html>
 
-<!-- ======================================== Format JSON ======================================== -->
+<!-- =========================== Format JSON =========================== -->
 <script>
     // Get the container with the unsorted divs
 let container = document.querySelector('.unsorted'); // Replace with your container selector
@@ -403,11 +403,11 @@ let parcel = document.querySelector('.parcel');
 
 let divs = container.querySelectorAll('div');
 divs.forEach(function(div) {
-  if (div.className === 'farmer') {
+  if (div.className == 'farmer') {
     farmer.appendChild(div);
   }
 
-  if (div.className === 'parcel') {
+  if (div.className == 'parcel') {
     parcel.appendChild(div);
   }
 

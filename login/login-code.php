@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
   }
 
   // Start session and set user data
-  $_SESSION['LoggedIn'] = true;
+  $_SESSION['LoggedIn'] = false;
   $_SESSION['LoggedInUser'] = [
     'id' => $row['id'],
     'full_name' => $row['full_name'],
@@ -52,6 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     'can_archive' => $row['can_archive'],
     'can_export' => $row['can_export'],
   ];
+  
+  if (!isset($_SESSION['otp'])) {
+    $_SESSION['otp'] = rand(100000, 999999);
+  }
 
 header('Location: ../otp/');
 exit();

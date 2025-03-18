@@ -33,57 +33,71 @@
                   <?php } ?>
                 </div>
               </div>
-              <?php include 'resources-filter.php'; ?>
+                <?php
+                try {
+                include 'resources-filter.php';
+                } catch (Exception $e) {
+                echo 'Error: ' . $e->getMessage();
+                }
+                ?>
               <?php include 'resources-columns-selection-modal.php'; ?>
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
                   <?php
+                  try {
                     $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['fps', 'programName', 'resourceType', 'totalQuantity', 'quantityAvailable'];
-                    if (in_array('fps', $selectedColumns)) echo '<th  class="text-start">FPS</th>';
-                    if (in_array('programName', $selectedColumns)) echo '<th  class="text-start">Program Name</th>';
-                    if (in_array('resourceName', $selectedColumns)) echo '<th  class="text-start">Resources Name</th>';
-                    if (in_array('resourceType', $selectedColumns)) echo '<th  class="text-start">Resources Type</th>';
-                    if (in_array('totalQuantity', $selectedColumns)) echo '<th  class="text-start">Total Quantity</th>';
-                    if (in_array('quantityAvailable', $selectedColumns)) echo '<th  class="text-start">Quantity Available</th>';
+                    if (in_array('fps', $selectedColumns)) { echo '<th  class="text-start">FPS</th>'; }
+                    if (in_array('programName', $selectedColumns)) { echo '<th  class="text-start">Program Name</th>'; }
+                    if (in_array('resourceName', $selectedColumns)) { echo '<th  class="text-start">Resources Name</th>'; }
+                    if (in_array('resourceType', $selectedColumns)) { echo '<th  class="text-start">Resources Type</th>'; }
+                    if (in_array('totalQuantity', $selectedColumns)) { echo '<th  class="text-start">Total Quantity</th>'; }
+                    if (in_array('quantityAvailable', $selectedColumns)) { echo '<th  class="text-start">Quantity Available</th>'; }
 
-                    if (in_array('p.fps', $selectedColumns)) echo '<th  class="text-start">FPS Program</th>';
-                    if (in_array('programType', $selectedColumns)) echo '<th  class="text-start">Program Type</th>';
-                    if (in_array('startDate', $selectedColumns)) echo '<th  class="text-start">Start Date</th>';
-                    if (in_array('endDate', $selectedColumns)) echo '<th  class="text-start">End Date</th>';
-                    if (in_array('totalBeneficiaries', $selectedColumns)) echo '<th  class="text-start">Total Beneficiaries</th>';
-                    if (in_array('beneficiariesAvailable', $selectedColumns)) echo '<th  class="text-start">Beneficiaries Available</th>';
-                    if (in_array('sourcingAgency', $selectedColumns)) echo '<th  class="text-start">Sourcing Agency</th>';
-                    if (in_array('description', $selectedColumns)) echo '<th  class="text-start">Description</th>';
+                    if (in_array('p.fps', $selectedColumns)) { echo '<th  class="text-start">FPS Program</th>'; }
+                    if (in_array('programType', $selectedColumns)) { echo '<th  class="text-start">Program Type</th>'; }
+                    if (in_array('startDate', $selectedColumns)) { echo '<th  class="text-start">Start Date</th>'; }
+                    if (in_array('endDate', $selectedColumns)) { echo '<th  class="text-start">End Date</th>'; }
+                    if (in_array('totalBeneficiaries', $selectedColumns)) { echo '<th  class="text-start">Total Beneficiaries</th>'; }
+                    if (in_array('beneficiariesAvailable', $selectedColumns)) { echo '<th  class="text-start">Beneficiaries Available</th>'; }
+                    if (in_array('sourcingAgency', $selectedColumns)) { echo '<th  class="text-start">Sourcing Agency</th>'; }
+                    if (in_array('description', $selectedColumns)) { echo '<th  class="text-start">Description</th>'; }
+                  } catch (Exception $e) {
+                    echo 'Error: ' . $e->getMessage();
+                  }
                   ?>
-                    
-                    <th class="text-start notExport">Action</th>
+                  
+                  <th class="text-start notExport">Action</th>
                   </tr>
                 </thead>
                 <tbody>
 
                   <?php
                   if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                  while ($row = $result->fetch_assoc()) {
                   ?>
-                      <tr style="color: <?=  $row['color']; ?>;">
-                        <?php
-                        if (in_array('fps', $selectedColumns)) echo '<td class="text-start">' . $row['fps_code'] . '</td>';
-                        if (in_array('programName', $selectedColumns)) echo '<td class="text-start">' . $row['program_name'] . '</td>';
-                        if (in_array('resourceName', $selectedColumns)) echo '<td class="text-start">' . $row['resources_name'] . '</td>';
-                        if (in_array('resourceType', $selectedColumns)) echo '<td class="text-start">' . $row['resource_type'] . '</td>';
-                        if (in_array('totalQuantity', $selectedColumns)) echo '<td class="text-start">' . $row['total_quantity'] . '</td>';
-                        if (in_array('quantityAvailable', $selectedColumns)) echo '<td class="text-start">' . $row['quantity_available'] . '</td>';
+                    <tr style="color: <?=  $row['color']; ?>;">
+                    <?php
+                    try {
+                      if (in_array('fps', $selectedColumns)) { echo '<td class="text-start">' . $row['fps_code'] . '</td>'; }
+                      if (in_array('programName', $selectedColumns)) { echo '<td class="text-start">' . $row['program_name'] . '</td>'; }
+                      if (in_array('resourceName', $selectedColumns)) { echo '<td class="text-start">' . $row['resources_name'] . '</td>'; }
+                      if (in_array('resourceType', $selectedColumns)) { echo '<td class="text-start">' . $row['resource_type'] . '</td>'; }
+                      if (in_array('totalQuantity', $selectedColumns)) { echo '<td class="text-start">' . $row['total_quantity'] . '</td>'; }
+                      if (in_array('quantityAvailable', $selectedColumns)) { echo '<td class="text-start">' . $row['quantity_available'] . '</td>'; }
 
-                        if (in_array('p.fps', $selectedColumns)) echo '<td  class="text-start">' . $row['program_fps_code'] . '</td>';
-                        if (in_array('programType', $selectedColumns)) echo '<td  class="text-start">' . $row['program_type'] . '</td>';
-                        if (in_array('startDate', $selectedColumns)) echo '<td  class="text-start">' . $row['start_date'] . '</td>';
-                        if (in_array('endDate', $selectedColumns)) echo '<td  class="text-start">' . $row['end_date'] . '</td>';
-                        if (in_array('totalBeneficiaries', $selectedColumns)) echo '<td  class="text-start">' . $row['total_beneficiaries'] . '</td>';
-                        if (in_array('beneficiariesAvailable', $selectedColumns)) echo '<td  class="text-start">' . $row['beneficiaries_available'] . '</td>';
-                        if (in_array('sourcingAgency', $selectedColumns)) echo '<td  class="text-start">' . $row['sourcing_agency'] . '</td>';
-                        if (in_array('description', $selectedColumns)) echo '<td  class="text-start">' . $row['description'] . '</td>';
-                        ?>
+                      if (in_array('p.fps', $selectedColumns)) { echo '<td  class="text-start">' . $row['program_fps_code'] . '</td>'; }
+                      if (in_array('programType', $selectedColumns)) { echo '<td  class="text-start">' . $row['program_type'] . '</td>'; }
+                      if (in_array('startDate', $selectedColumns)) { echo '<td  class="text-start">' . $row['start_date'] . '</td>'; }
+                      if (in_array('endDate', $selectedColumns)) { echo '<td  class="text-start">' . $row['end_date'] . '</td>'; }
+                      if (in_array('totalBeneficiaries', $selectedColumns)) { echo '<td  class="text-start">' . $row['total_beneficiaries'] . '</td>'; }
+                      if (in_array('beneficiariesAvailable', $selectedColumns)) { echo '<td  class="text-start">' . $row['beneficiaries_available'] . '</td>'; }
+                      if (in_array('sourcingAgency', $selectedColumns)) { echo '<td  class="text-start">' . $row['sourcing_agency'] . '</td>'; }
+                      if (in_array('description', $selectedColumns)) { echo '<td  class="text-start">' . $row['description'] . '</td>'; }
+                    } catch (Exception $e) {
+                      echo 'Error: ' . $e->getMessage();
+                    }
+                    ?>
                         <?php if (!isset($_GET['archived'])): ?>
                           <td class="text-start">
                             <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) { ?>

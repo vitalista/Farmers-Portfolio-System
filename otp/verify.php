@@ -49,6 +49,7 @@ $otpInput = $num1.$num2.$num3.$num4.$num5.$num6;
 $otpNumber = intval($otpInput);
 
 if($otpRan === $otpNumber){
+     $_SESSION['LoggedIn'] = true;
     $_SESSION["LAST_ACTIVITY"] = time();
     setLastAct();
     if ($_SESSION['LoggedInUser']['role'] === '1' || $_SESSION['LoggedInUser']['role'] === '0') {

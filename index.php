@@ -148,7 +148,7 @@
         Our Programs&nbsp;
     </h3>
 
-    <div class="container" data-aos="" data-aos-duration="500" data-aos-delay="200">
+    <div class="container" data-aos="fade-left" data-aos-duration="500" data-aos-delay="200">
         <div class="row">
             <div class="col hover-card" id="program-card">
                 <div>
@@ -176,7 +176,7 @@
         </div>
     </div>
 
-    <div class="container" data-aos="" data-aos-duration="500" data-aos-delay="200">
+    <div class="container" data-aos="fade-left" data-aos-duration="500" data-aos-delay="200">
         <div class="row">
             <div class="col hover-card" id="program-card">
                 <div>
@@ -205,7 +205,7 @@
         </div>
     </div>
 
-    <div class="container" data-aos="" data-aos-duration="500" data-aos-delay="200">
+    <div class="container" data-aos="fade-left" data-aos-duration="500" data-aos-delay="200">
         <div class="row">
             <div class="col hover-card" id="program-card">
                 <div>
@@ -235,7 +235,7 @@
     </div>
 
 
-    <div class="container" data-aos="" data-aos-duration="500" data-aos-delay="200">
+    <div class="container" data-aos="fade-left" data-aos-duration="500" data-aos-delay="200">
         <div class="row">
             <div class="col hover-card" id="program-card">
                 <div>
@@ -264,7 +264,7 @@
     </div>
 
 
-    <div class="container" data-aos="" data-aos-duration="500" data-aos-delay="200">
+    <div class="container" data-aos="fade-left" data-aos-duration="500" data-aos-delay="200">
         <div class="row">
             <div class="col hover-card" id="program-card">
                 <div>
@@ -402,7 +402,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        if (isset($_GET['program']) || isset($_GET['brgy'])) {
+                                        if (isset($_GET['program']) && isset($_GET['brgy'])) {
 
                                             $distributions = getAll('distributions', $_GET['program'], $_GET['brgy']);
                                             if (mysqli_num_rows($distributions) > 0) {
