@@ -24,7 +24,9 @@
                 </a>
                   <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                   <i class="bi bi-sort-down"></i>
-
+                  </button>
+                  <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
+                    <i class="bi bi-table"></i>
                   </button>
                   <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) {?>
                   <a href="distribution-multiple-add.php" class="btn btn-sm btn-secondary"><i class="bi bi-plus-lg"></i></a>
@@ -34,16 +36,17 @@
               </div>
               
               <?php include 'filter.php'; ?>
+              <?php include 'columns-selection-modal.php'; ?>
 
               <table id="example" class="display nowrap mt-3">
                 <thead>
                   <tr>
-                    <th class="text-start">FPS</th>
-                    <th class="text-start">FFRS</th>
-                    <th class="text-start">Farmer Name</th>
-                    <th class="text-start">Program</th>
-                    <th class="text-start">Resources</th>
-                    <th class="text-start" class="text-start">Quantity</th>
+                    <?php $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['distribution_code', 'distribution_date', 'quantity_distributed'];?>
+                    <?php include 'distributions-th-content.php';?>
+                    <?php include '../farmer/farmer-th-content.php';?>
+                    <?php include '../program/programs-th-content.php';?>
+                    <?php include '../program/resources-th-content.php';?>
+                    
                     <th class="text-start notExport">Action</th>
                   </tr>
                 </thead>
@@ -53,15 +56,12 @@
                     while ($row = $result->fetch_assoc()) {
                   ?>
                       <tr>
-                        <td class="text-start"><?= $row['fps_code'];?></td>
-                        <td class="text-start"><?= $row['ffrs_system_gen'];?></td>
-                        <td class="text-start"><?=$row['first_name'];?> - <?=$row['last_name'];?></td>
 
-                        <td class="text-start" style="color: <?=  $row['color']; ?>;"><?=$row['program_name'];?><?=$row['program_type'] == '' ? '' : ' - '.$row['program_type'];?></td>
-
-                        <td class="text-start"><strong style="color: <?=  $row['color']; ?>;"><?=$row['resources_name'];?></strong><?=$row['resource_type'] == '' ? '' : ' - '.$row['resource_type'];?></td>
-
-                        <td class="text-start"><strong><?=$row['quantity_distributed'];?></strong> <?=$row['unit_of_measure'];?></td>
+                      <?php include 'distributions-td-content.php';?>
+                      <?php include '../farmer/farmer-td-content.php';?>
+                      <?php include '../program/programs-td-content.php';?>
+                      <?php include '../program/resources-td-content.php';?>
+                         
                         <?php if(!isset($_GET['archived'])):?>
                         <td class="text-start">
                         <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>

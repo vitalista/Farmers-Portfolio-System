@@ -2,7 +2,8 @@
 $archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
 $query = "
     SELECT
-    * FROM programs
+    *, fps_code AS program_fps_code
+    FROM programs
     WHERE 
         is_archived = ".$archived."
 ";

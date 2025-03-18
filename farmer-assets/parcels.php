@@ -26,6 +26,9 @@
                   <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     <i class="bi bi-sort-down"></i>
                   </button>
+                  <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
+                    <i class="bi bi-table"></i>
+                  </button>
                   <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) {?>
                   <a href="../farmer/farmer-add.php" class="btn btn-sm btn-secondary"><i class="bi bi-plus-lg"></i></a>
                 <?php } ?>
@@ -33,17 +36,22 @@
               </div>
 
               <?php include 'parcels/filter.php'; ?>
+              <?php include 'parcels/columns-selection-modal.php'; ?>
 
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th class="text-start">FPS</th>
-                    <th class="text-start">FFRS</th>
-                    <th  class="text-start">Parcel No. - Farm Type</th>
-                    <th  class="text-start">Brgy</th>
-                    <th  class="text-start">Parcel Area</th>
+                  
+                  <?php
+                  try {
+                      $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['fps', 'first_name', 'last_name'];
+                  } catch (Exception $e) {
+                      echo 'Error: ' . $e->getMessage();
+                  }
+                  ?>
+                  <?php include 'parcels/parcel-th-content.php'; ?><
+                    <?php include '../farmer/farmer-th-content.php'; ?>
                     <th  class="text-start notExport">Action</th>
-
                   </tr>
                 </thead>
                 <tbody>
@@ -53,15 +61,8 @@
                     while ($row = $result->fetch_assoc()) {
                   ?>
                       <tr>
-                         <td class="text-start">
-                          <strong><?= $row['fps_code']; ?></strong>
-                        </td>
-                        <td class="text-start">
-                          <strong><?= $row['ffrs_system_gen']; ?></strong>
-                        </td>
-                        <td  class="text-start"><?= $row['parcel_no'] ?> - <?= $row['farm_type'] ?></td>
-                        <td  class="text-start"><?= $row['parcel_brgy_address'] ?></td>
-                        <td  class="text-start"><strong><?= $row['parcel_area'] ?> Ha</strong></td>
+                        <?php include 'parcels/parcel-td-content.php'; ?>
+                        <?php include '../farmer/farmer-td-content.php'; ?>
                         <?php if (!isset($_GET['archived'])): ?>
 
 

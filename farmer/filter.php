@@ -244,7 +244,7 @@ $result = $stmt->get_result();
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-3 mb-3 d-none">
                         <label class="form-label">Deceased?</label>
                         <div class="form-check">
                             <input class="form-check-input" name="deceased" style="width: 20px; height: 20px;" type="radio" id="decYes" value="1">

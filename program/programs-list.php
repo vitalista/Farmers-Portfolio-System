@@ -26,7 +26,7 @@
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                                         <i class="bi bi-sort-down"></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-success d-none" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
+                                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
                                     <i class="bi bi-table"></i>
                                     </button>
                                     <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) { ?>
@@ -41,17 +41,8 @@
                                 <thead>
                                     <tr>
                                         <?php
-                                        $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['programName', 'startDate', 'endDate', 'fps'];
-
-                                        if (in_array('fps', $selectedColumns)) echo '<th  class="text-start">FPS</th>';
-                                        if (in_array('programName', $selectedColumns)) echo '<th  class="text-start">Program Name</th>';
-                                        if (in_array('programType', $selectedColumns)) echo '<th  class="text-start">Program Type</th>';
-                                        if (in_array('startDate', $selectedColumns)) echo '<th  class="text-start">Start Date</th>';
-                                        if (in_array('endDate', $selectedColumns)) echo '<th  class="text-start">End Date</th>';
-                                        if (in_array('totalBeneficiaries', $selectedColumns)) echo '<th  class="text-start">Total Beneficiaries</th>';
-                                        if (in_array('beneficiariesAvailable', $selectedColumns)) echo '<th  class="text-start">Beneficiaries Available</th>';
-                                        if (in_array('sourcingAgency', $selectedColumns)) echo '<th  class="text-start">Sourcing Agency</th>';
-                                        if (in_array('description', $selectedColumns)) echo '<th  class="text-start">Description</th>';
+                                        $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['program_name', 'start_date', 'end_date', 'program_code'];
+                                        include 'programs-th-content.php';
                                         ?>
 
                                         <th class="text-start notExport">Action</th>
@@ -63,18 +54,8 @@
                                         while ($row = $result->fetch_assoc()) {
                                     ?>
                                             <tr style="color: <?=  $row['color']; ?>;">
-                                                <?php
-                                                if (in_array('fps', $selectedColumns)) echo '<td  class="text-start">' . $row['fps_code'] . '</td>';
-                                                if (in_array('programName', $selectedColumns)) echo '<td  class="text-start">' . $row['program_name'] . '</td>';
-                                                if (in_array('programType', $selectedColumns)) echo '<td  class="text-start">' . $row['program_type'] . '</td>';
-                                                if (in_array('startDate', $selectedColumns)) echo '<td  class="text-start">' . $row['start_date'] . '</td>';
-                                                if (in_array('endDate', $selectedColumns)) echo '<td  class="text-start">' . $row['end_date'] . '</td>';
-                                                if (in_array('totalBeneficiaries', $selectedColumns)) echo '<td  class="text-start">' . $row['total_beneficiaries'] . '</td>';
-                                                if (in_array('beneficiariesAvailable', $selectedColumns)) echo '<td  class="text-start">' . $row['beneficiaries_available'] . '</td>';
-                                                if (in_array('sourcingAgency', $selectedColumns)) echo '<td  class="text-start">' . $row['sourcing_agency'] . '</td>';
-                                                if (in_array('description', $selectedColumns)) echo '<td  class="text-start">' . $row['description'] . '</td>';
-                                                ?>
-
+                                               
+                                                <?php include 'programs-td-content.php';?>
 
                                                 <?php if (!isset($_GET['archived'])): ?>
                                                     <td class="text-start">

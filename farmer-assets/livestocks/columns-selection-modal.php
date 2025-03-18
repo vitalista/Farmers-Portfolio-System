@@ -9,15 +9,29 @@
                 <form method="get">
                     <div class="form-group row">
 
-                    <?php include 'resources-selection-content.php'; ?>
-
+                    <div class="col-md-6">
+                        <div><input type="checkbox" class="form-check-input" name="columns[]" value="parcel_code"
+                                <?= (isset($_GET['columns']) && in_array('parcel_code', $_GET['columns'])) ? 'checked' : ''; ?>> Parcel FPS
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><input type="checkbox" class="form-check-input" name="columns[]" value="animal_name"
+                                <?= (isset($_GET['columns']) && in_array('animal_name', $_GET['columns'])) ? 'checked' : ''; ?>> Animal Name
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><input type="checkbox" class="form-check-input" name="columns[]" value="no_of_heads"
+                                <?= (isset($_GET['columns']) && in_array('no_of_heads', $_GET['columns'])) ? 'checked' : ''; ?>> Number of Heads
+                        </div>
+                    </div>
                         <div class="col-md-12 mb-3 text-center">
                             <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#showMore" aria-expanded="false" aria-controls="showMore">
                                 Show more <i class="fa-solid fa-arrow-down"></i>
                             </button>
                         </div>
                         <div class="collapse row" id="showMore">
-                           <?php include 'program-selection-content.php'; ?>
+                        <?php include 'parcels/parcel-selection-content.php'; ?>
+                       <?php include '../farmer/farmer-selection-content.php'; ?>
                         </div>
                     </div>
             </div>

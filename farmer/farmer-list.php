@@ -25,7 +25,7 @@
                   <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     <i class="bi bi-sort-down"></i>
                   </button>
-                  <button type="button" class="btn btn-sm btn-success d-none" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
+                  <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
                     <i class="bi bi-table"></i>
                   </button>
                   <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) { ?>
@@ -40,16 +40,16 @@
               <table id="example" class="display nowrap">
                 <thead>
                   <tr>
-                    <th>Registration</th>
-                    <th>FPS</th>
-                    <th>FFRS</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Barangay</th>
-                    <th>Gender</th>
-                    <th>Municipality</th>
-                    <th>Action</th>
+            <?php
+            try {
+                $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['fps', 'first_name', 'last_name'];
+            } catch (Exception $e) {
+                echo 'Error: ' . $e->getMessage();
+            }
+            ?>
+                    <?php include 'farmer-th-content.php'; ?>
+                  
+                    <th class="notExport">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,16 +59,8 @@
                     while ($row = $result->fetch_assoc()) {
                   ?>
                       <tr>
-                        <input type="hidden" value="<?= $row['id'] ?>">
-                        <td data-id="<?= $row['id'] ?>"><?= $row['ffrs_system_gen'] === "" ? "UNREGISTERED" : "REGISTERED"; ?></td>
-                        <td><strong><?= $row['fps_code'] ?></strong></td>
-                        <td><strong><?= $row['ffrs_system_gen'] ?></strong></td>
-                        <td><?= $row['first_name'] ?></td>
-                        <td><?= $row['middle_name'] ?></td>
-                        <td><?= $row['last_name'] ?></td>
-                        <td><?= $row['farmer_brgy_address'] ?></td>
-                        <td><?= $row['gender'] ?></td>
-                        <td><?= $row['farmer_municipality_address'] ?></td>
+                        <?php include 'farmer-td-content.php'; ?>
+                        
                         <?php if (!isset($_GET['archived'])): ?>
                           <td>
                             <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) { ?>

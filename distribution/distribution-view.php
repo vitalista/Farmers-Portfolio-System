@@ -165,7 +165,7 @@
                                                 </div>
 
                                                 <div class="col-md-4 mt-5 form-floating mb-3">
-                                                    <textarea required class="form-control" name="remarks" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"><?= $data['remarks']; ?></textarea>
+                                                    <textarea class="form-control" name="remarks" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"><?= $data['remarks']; ?></textarea>
                                                     <label for="floatingTextarea">Remarks</label>
                                                     <div class="invalid-feedback">Please enter.</div>
                                                 </div>

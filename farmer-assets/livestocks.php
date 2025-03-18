@@ -27,6 +27,9 @@
                   <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                     <i class="bi bi-sort-down"></i>
                   </button>
+                  <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
+                    <i class="bi bi-table"></i>
+                  </button>
                   <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) {?>
                   <a href="../farmer/farmer-add.php" class="btn btn-sm btn-secondary"><i class="bi bi-plus-lg"></i></a>
                 <?php } ?>
@@ -34,16 +37,23 @@
               </div>
 
               <?php include 'livestocks/filter.php'; ?>
+              <?php include 'livestocks/columns-selection-modal.php'; ?>
 
               <!-- <a href="#" class="btn btn-sm -btn-success">Completed</a> -->
 
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th class="text-start">FPS</th>
-                    <th class="text-start">FFRS</th>
-                    <th class="text-start">Animal Type</th>
-                    <th class="text-start">No of Heads</th>
+                  <?php
+                  try {
+                      $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['fps', 'first_name', 'last_name'];
+                  } catch (Exception $e) {
+                      echo 'Error: ' . $e->getMessage();
+                  }
+                  ?>
+                  <?php include 'livestocks/livestock-th-content.php'; ?>
+                  <?php include 'parcels/parcel-th-content.php'; ?>
+                  <?php include '../farmer/farmer-th-content.php'; ?>
                     <th class="text-start notExport">Action</th>
                   </tr>
                 </thead>
@@ -56,10 +66,11 @@
                       if ($farmerData['status'] == 200) {
                   ?>
                         <tr>
-                          <td class="text-start"><?= $row['fps_code'] ?></td>
-                          <td class="text-start"><?= $farmerData['data']['ffrs_system_gen']; ?></td>
-                          <td class="text-start"><?= $row['animal_name'] ?></td>
-                          <td class="text-start"><strong><?= $row['no_of_heads'] ?></strong></td>
+                        <?php include 'livestocks/livestock-td-content.php'; ?>
+                        <?php include 'parcels/parcel-td-content.php'; ?>
+                        <?php include '../farmer/farmer-td-content.php'; ?>
+
+
                           <?php if (!isset($_GET['archived'])): ?>
                             <td class="text-start">
                            <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>

@@ -24,6 +24,9 @@
                   <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
                   <i class="bi bi-sort-down"></i>
                   </button>
+                  <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#columnSelectionModal">
+                    <i class="bi bi-table"></i>
+                  </button>
                   <?php if ($_SESSION['LoggedInUser']['can_create'] == 1) {?>
 
                   <a href="../farmer/farmer-add.php" class="btn btn-sm btn-secondary"><i class="bi bi-plus-lg"></i></a>
@@ -32,15 +35,23 @@
               </div>
 
               <?php include 'crops/filter.php'; ?>
+              <?php include 'crops/columns-selection-modal.php'; ?>
 
               <table id="example" class="display nowrap d-none">
                 <thead>
                   <tr>
-                    <th class="text-start">FPS</th>
-                    <th class="text-start">FFRS</th>
-                    <th class="text-start">Crop Name</th>
-                    <th class="text-start">Crop Area</th>
-                    <th class="text-start">Classification</th>
+                  <?php
+                  try {
+                      $selectedColumns = isset($_GET['columns']) ? $_GET['columns'] : ['fps', 'first_name', 'last_name'];
+                  } catch (Exception $e) {
+                      echo 'Error: ' . $e->getMessage();
+                  }
+                  ?>
+                  <?php include 'crops/crop-th-content.php'; ?>
+                  <?php include 'parcels/parcel-th-content.php'; ?>
+                  <?php include '../farmer/farmer-th-content.php'; ?>
+
+
                     <th class="text-start notExport">Action</th>
                   </tr>
                 </thead>
@@ -53,11 +64,10 @@
                       if ($farmerData['status'] == 200) {
                   ?>
                         <tr>
-                          <td class="text-start"><?= $row['fps_code']; ?></td>
-                          <td class="text-start"><?= $row['ffrs_system_gen']; ?></td>
-                          <td class="text-start"><?= $row['crop_name'] ?></td>
-                          <td class="text-start"><strong><?= $row['crop_area'] ?>Ha</strong></td>
-                          <td class="text-start"><?= $row['classification'] ?></td>
+                        <?php include 'crops/crop-td-content.php'; ?>
+                        <?php include 'parcels/parcel-td-content.php'; ?>
+                        <?php include '../farmer/farmer-td-content.php'; ?>
+
                         <?php if(!isset($_GET['archived'])):?>
                           <td class="text-start">
                            <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>
