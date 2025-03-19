@@ -234,6 +234,19 @@
                                                     </label>
                                                     <label class="form-label">Number of Parcels<input type="text" disabled value="<?= $farmer['data']['no_of_parcels']; ?>" class="form-control"></label>
                                                 </fieldset>
+
+                                                <fieldset>
+                                                    <label class="form-label">STATUS
+                                                        <select class="form-select selected_enrollment" id="selected_enrollment">
+                                                            <option value=""> -- Select -- </option>
+                                                            <option value="NEW" <?= $farmer['data']['selected_enrollment'] == 'NEW' ? 'selected' : ''; ?>>NEW</option>
+                                                            <option value="UPDATING" <?= $farmer['data']['selected_enrollment'] == 'UPDATING' ? 'selected' : ''; ?>>UPDATING</option>
+                                                            <option value="OLD" <?= $farmer['data']['selected_enrollment'] == 'OLD' ? 'selected' : ''; ?>>Old</option>
+                                                            <option value="CURRENT" <?= $farmer['data']['selected_enrollment'] == 'CURRENT' ? 'selected' : ''; ?>>CURRENT</option>
+                                                        </select>
+                                                    </label>
+                                                </fieldset>
+
                                                 <div class="ms-3 d-flex">
 
                                                     <div class="ms-5 form-check d-none">

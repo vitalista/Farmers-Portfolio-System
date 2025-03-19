@@ -59,12 +59,24 @@ function clearAllInputsAndSelects() {
   const selects = document.querySelectorAll('select');
   const images = document.querySelectorAll('img');
 
+  const ignoredInputs = [
+    'form-control municipality',
+    'province',
+    'form-control province',
+    'region',
+    'form-control region',
+    'farmLocationMunicipality',
+    'farmLocationProvince'
+  ];
+
   inputs.forEach(input => {
-    input.value = null;
+      if (!ignoredInputs.includes(input.className)){
+        input.value = '';
+      }
   });
 
   selects.forEach(select => {
-    select.value = null;
+    select.value = '';
   });
 
   images.forEach(img => {
@@ -127,9 +139,19 @@ document
     const region = farmer.querySelector(".region").value;
     const govIdType = farmer.querySelector(".govIdType").value;
     const govIdNumber = farmer.querySelector(".govIdNumber").value;
+
+    const classArr = [
+      "firstName", "bday", "hbp", "sss", "brgy", "municipality", "province", "region", "govIdType", "govIdNumber",,
+      "hvc", "cropArea", "cropName", "classification", "numberOfHeads", "livestockType", "ofName", "olName", "ownership", "farmLocationBrgy", "farmLocationMunicipality", "farmLocationProvince", "farmSize", "farmType", "lastName", "middleName"
+    ];
+
     const selectedEnrollment = document.querySelector(
       'input[name="enrollment"]:checked'
     )?.value;
+
+    if(selectedEnrollment === 'UPDATING'){
+      classArr.push('ffrs');
+    }
 
     const farmerImg = document.getElementById("farmerImg");
     const farmerImage = farmerImg.files[0];
@@ -146,14 +168,10 @@ document
     if (govIdPhotoFront) formData.append("govIdPhotoFront", govIdPhotoFront);
     
     if (emptyFields("#farmerCard .card", [
-      // 'farmerImg', 
-      // 'govIdPhotoBack', 
-      // 'govIdPhotoFront'
-    ],[
-      "firstName", "bday", "hbp", "sss", "brgy", "municipality", "province", "region", "govIdType", "govIdNumber",,
-      "hvc", "cropArea", "cropName", "classification", "numberOfHeads", "livestockType", "ofName", "olName", "ownership", "farmLocationBrgy", "farmLocationMunicipality", "farmLocationProvince", "farmSize", "farmType", "lastName", "middleName", 
-      //"ffrs"
-    ])) {
+      'farmerImg', 
+      'govIdPhotoBack', 
+      'govIdPhotoFront'
+    ], classArr)) {
       Swal.fire({
         title: "Empty Fields!",
         text: "Please fill in all the required fields.",

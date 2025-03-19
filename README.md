@@ -24,12 +24,19 @@ Notes for Backend:
 - [x] remove act log and archived and restored
 - [x] inconsistent aos animations
 
-- [] reports
+- [x] reports
 - [] filter updating/new
-- [] hide FFRS code field when new is selected
-- [] confirm password
-- [] Important Fields
-- [] individual farmer export
+- [] contact us not ajax
+- [] modified_times bug
+- [] fps insertion should'nt be update 
+- [] change fps auto generate alogrithm
+- [] announcement pagination
+- [] current pw and (do wanna change pw?)
+- [] brgy dtbtns
+- [x] hide FFRS code field when new is selected
+- [x] confirm password
+- [x] Important Fields
+- [x] individual farmer export
 
 - [x] session last act bug [optional]
 - [] updating click change archived the old record [optional]

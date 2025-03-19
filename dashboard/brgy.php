@@ -258,15 +258,14 @@
                   <table id="example" class="display nowrap d-none">
                      <thead>
                         <tr>
-                           <th>Registration</th>
-                           <th>FFRS</th>
+                         
                            <th>First Name</th>
                            <th>Middle Name</th>
                            <th>Last Name</th>
                            <th>Barangay</th>
                            <th>Gender</th>
                            <th>Birthday</th>
-                           <th>Action</th>
+                           <th class="notExport">Action</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -276,8 +275,7 @@
                         ?>
                               <tr>
 
-                                 <td><?= $data['ffrs_system_gen'] ?></td>
-                                 <td><?= $data['ffrs_system_gen'] ?></td>
+                              
                                  <td><?= $data['first_name'] ?></td>
                                  <td><?= $data['middle_name'] ?></td>
                                  <td><?= $data['last_name'] ?></td>
@@ -310,54 +308,157 @@
 
    <?php include '../includes/footer.php'; ?>
    <script>
-      let totalEntries = getTotalEntries();
+    let totalEntries = getTotalEntries();
 
-      let twentyFivePercent = Math.ceil(totalEntries * 0.25);
-      let fiftyPercent = Math.ceil(totalEntries * 0.50);
-      let seventyFivePercent = Math.ceil(totalEntries * 0.75);
+// Calculate 25%, 50%, and 75% of the total entries
+let twentyFivePercent = Math.ceil(totalEntries * 0.25);
+let fiftyPercent = Math.ceil(totalEntries * 0.5);
+let seventyFivePercent = Math.ceil(totalEntries * 0.75);
 
-      let lengthMenuValues = [10, twentyFivePercent, fiftyPercent, seventyFivePercent, -1];
-      let lengthMenuLabels = [10,
-         `${twentyFivePercent} (25%)`,
-         `${fiftyPercent} (50%)`,
-         `${seventyFivePercent} (75%)`,
-         "Show All"
-      ];
+let lengthMenuValues = [
+  10,
+  twentyFivePercent,
+  fiftyPercent,
+  seventyFivePercent,
+  -1,
+];
+let lengthMenuLabels = [
+  10,
+  `${twentyFivePercent} (25%)`,
+  `${fiftyPercent} (50%)`,
+  `${seventyFivePercent} (75%)`,
+  "Show All",
+];
 
-      document.addEventListener("DOMContentLoaded", function() {
-         const example = document.getElementById("example");
+document.addEventListener("DOMContentLoaded", function() {
+  const example = document.getElementById("example");
+  example.classList.remove("d-none");
 
-         setTimeout(() => {
-            example.classList.remove("d-none");
-            $('#example').DataTable({
+  const columns = [];
+  const table = $('#example').DataTable({
+    language: {
+      emptyTable: `<span class="text-danger"><strong>Empty Table</strong></span>`,
+    },
+    dom: 'B<"table-top"lf>t<"table-bottom"ip>',
+    responsive: true,
+    buttons: [{
+        extend: "copy",
+        title: "Baliwag Agriculture Office",
+        exportOptions: {
+          columns: getExportColumns(), // Use the function to get the columns to export
+          modifier: {
+            page: "current",
+          },
+        },
+      },
+      {
+        extend: "csv",
+        title: "Baliwag Agriculture Office",
+        action: function(e, dt, node, config) {
+          config.exportOptions = {
+            columns: getExportColumns(), // Use the function to get the columns to export
+            modifier: {
+              page: "current",
+            },
+          };
 
-               dom: 'B<"table-top"lf>t<"table-bottom"ip>',
-               responsive: true,
-               buttons: [
-                  'copy', 'csv', 'print', 'excel', 'pdf'
-               ],
-               colReorder: true,
-               fixedHeader: true,
-               rowReorder: false,
-               lengthMenu: [
-                  lengthMenuValues, // Values for entries
-                  lengthMenuLabels // Labels for entries
-               ],
-               columnDefs: [{
-                  targets: 0,
-                  render: function(data, type, row) {
-                     if (type === 'display' || type === 'filter') {
-                        if (data === "") {
-                           return `<b class="text-danger">UNREGISTERED</b>`
-                        }
-                        return `<b  class="text-success">REGISTERED</b>`
-                     }
-                     return null;
-                  }
-               }]
-            });
-         }, 500);
-      });
+          $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
+        },
+      },
+      {
+        extend: "print",
+        action: function(e, dt, node, config) {
+          config.customize = function(win) {
+            const body = win.document.body;
+            body.style.fontSize = "12pt";
+            const h1 = win.document.querySelector("h1");
+            if (h1) {
+              const newElement = win.document.createElement('div');
+              newElement.style.display = 'flex';
+              newElement.style.justifyContent = 'space-between';
+              newElement.style.margin = '10px 0';
+              const img = win.document.createElement('img');
+              img.style.width = '30px';
+              img.style.margin = '0px 0px 4px 0px';
+              img.src = '../assets/img/Agri Logo.png';
+              img.alt = '';
+              const textNode = win.document.createTextNode('Baliwag Agriculture Office');
+              const div = win.document.createElement('div');
+              div.style.fontWeight = 'bold';
+              div.appendChild(img);
+              div.appendChild(textNode);
+              const reportBy = win.document.createElement('span');
+              reportBy.textContent = "Generated by :" + localStorage.getItem('fullName');
+              newElement.appendChild(div);
+              newElement.appendChild(reportBy);
+              h1.replaceWith(newElement);
+            }
+          };
+
+          config.exportOptions = {
+            columns: getExportColumns(), // Use the function to get the columns to export
+            modifier: {
+              page: "current",
+            },
+          };
+
+          $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
+        },
+      },
+      {
+        extend: "excel",
+        title: "Baliwag Agriculture Office",
+        action: function(e, dt, node, config) {
+          config.exportOptions = {
+            columns: getExportColumns(), // Use the function to get the columns to export
+            modifier: {
+              page: "current",
+            },
+          };
+
+          $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
+        },
+      },
+      {
+        extend: "pdf",
+        title: "Baliwag Agriculture Office",
+        action: function(e, dt, node, config) {
+          config.exportOptions = {
+            columns: getExportColumns(), // Use the function to get the columns to export
+            modifier: {
+              page: "current",
+            },
+          };
+
+          $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);
+        },
+      },
+    ],
+    colReorder: true,
+    fixedHeader: true,
+    rowReorder: false,
+    lengthMenu: [lengthMenuValues, lengthMenuLabels],
+  });
+
+  function getExportColumns() {
+    const exportColumns = [];
+    $('#example thead th').each(function(index) {
+      const column = $(this);
+      if (!column.hasClass('notExport')) {
+        exportColumns.push(index);
+      }
+    });
+    return exportColumns;
+  }
+
+  if (!canExport()) {
+    const dtButtons = document.querySelector('.dt-buttons');
+    if (dtButtons) {
+      dtButtons.style.display = 'none';
+    }
+  }
+});
+
    </script>
 </body>
 

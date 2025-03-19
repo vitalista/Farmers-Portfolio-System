@@ -61,7 +61,7 @@ document.getElementById('addFarmButton').addEventListener('click', async functio
 
                    <label class="form-label d-block mb-2" style="font-size: 19px; font-weight: bold;">
                     Classification:
-                    <input type="text" class="form-control rounded-3 classification">
+                    <input type="number" class="form-control rounded-3 classification">
                   </label>
                   
                   <fieldset class="mt-3">
@@ -103,7 +103,7 @@ document.getElementById('addFarmButton').addEventListener('click', async functio
                   </label>
                   <label class="form-label d-block mb-2" style="font-size: 19px; font-weight: bold;">
                     No. of Livestock (Per Head):
-                    <input type="text" class="form-control rounded-3 numberOfHeads" placeholder="Per Head">
+                    <input type="number" class="form-control rounded-3 numberOfHeads" placeholder="Per Head">
                   </label>
                 </div>
               </div>

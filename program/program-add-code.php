@@ -130,12 +130,11 @@ if (isset($_POST['program_data'])) {
             }
         }
 
-         
-        $modifiedTimes;
         $checkId = getById('programs', $programId);
-        if($checkId['status']== 200){
-            $modifiedTimes = $checkId['data']['modified_times'] + 1;
+        if($checkId['status'] > 200){
+            redirect('programs-list.php', 500, 'Something Went Wrong');
         }
+        $modifiedTimes = $checkId['data']['modified_times'];
 
                      
         $changeKeyName = [
@@ -158,6 +157,7 @@ if (isset($_POST['program_data'])) {
         //   echo '</pre>';
 
           if (!compareArrays($dbrecord, $userRecord)){
+            $modifiedTimes += 1;
              if (!insertActivityLog($programId, $user_id, 'programs', 'UPDATE')) {
                 redirect('programs-list.php', 500, 'Something Went Wrong');
                 exit;
@@ -282,11 +282,11 @@ if (isset($_POST['program_data'])) {
 
         if (isset($resources['resources_id'])) {
 
-            $modifiedTimes;
             $checkId = getById('resources', $resources['resources_id']);
-            if($checkId['status']== 200){
-                $modifiedTimes = $checkId['data']['modified_times'] + 1;
+            if($checkId['status'] > 200){
+                redirect('programs-list.php', 500, 'Something Went Wrong');
             }
+            $modifiedTimes = $checkId['data']['modified_times'];
 
             $changeKeyName = [
                 'resourcesName' => 'resources_name',
@@ -296,7 +296,7 @@ if (isset($_POST['program_data'])) {
                 'resourcesNumber' => 'total_quantity',
                   ];
       
-              $dbrecord= getRecordsById('resources', $resources['resources_id'], ['id', 'modified_times', 'program_id','is_archived', 'created_at', 'updated_at', 'fps_code']);
+              $dbrecord= getRecordsById('resources', $resources['resources_id'], ['id', 'modified_times', 'program_id','is_archived', 'created_at', 'updated_at', 'fps_code', 'color']);
               $userRecord = removeAndCustomizeKeys($resources, ['program_id', 'resources_id'], $changeKeyName);
     
             //   echo '<pre>';
@@ -306,6 +306,7 @@ if (isset($_POST['program_data'])) {
             //   echo '</pre>';
     
               if (!compareArrays($dbrecord, $userRecord)){
+                $modifiedTimes += 1;
                if (!insertActivityLog($resources['resources_id'], $user_id, 'resources', 'UPDATE', 'programs')) {
                     redirect('programs-list.php', 500, 'Something Went Wrong');
                     exit;

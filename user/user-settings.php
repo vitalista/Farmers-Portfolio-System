@@ -48,7 +48,7 @@ if ($_SESSION['LoggedInUser']['role'] == 2) {
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                   <div class="card">
-                  <form class="needs-validation" id="farmForm" action="user-code.php" method="POST" novalidate>
+                  <form class="needs-validation" id="farmForm" action="<?= $_SESSION['LoggedInUser']['role'] == 2 ? '../registration/user-settings.php' : 'user-code.php';?>" method="POST" novalidate>
 
                     <div class="card-body row g-3">
 

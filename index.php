@@ -49,6 +49,8 @@
             </div>
         </div>
     </nav>
+    
+    <?php include 'backend/status-messages.php';?>
 
     <div class="text-center">
         <div class="slideshow">
@@ -523,7 +525,7 @@
                             style="border:0;" allowfullscreen=""></iframe>
                     </div>
                     <div class="col-md-6">
-                        <form method="post">
+                        <form method="post" action="otp/send-mail.php">
                             <h3 class="text-center">Contact us</h3>
                             <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name"
                                     required></div>
@@ -540,21 +542,17 @@
                     <div class="col-md-3">
                         <span>Additional Contact Information</span>
                         <div class="d-grid mt-2">
-                            <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                    viewBox="0 0 20 20" fill="none">
-                                    <path
-                                        d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z"
-                                        fill="currentColor"></path>
-                                </svg> 09-123-4567-89</span>
+                            <i class="bi bi-envelope-at-fill"></i>
+                            <span> agritechbaliwag@yahoo.com</span>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <span>Social Media</span>
                         <ul class="list-inline mt-2">
-                            <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li class="list-inline-item"><a href="https://www.facebook.com/Agritechbaliwag"><i class="fa fa-facebook"></i></a></li>
+                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>-->
+                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>-->
                         </ul>
                     </div>
                     <!-- </div> -->

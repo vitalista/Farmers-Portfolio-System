@@ -26,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($farmerId && $resourcesId && $programId && $quantityDistributed && $distributionDate) {
         // Update the distribution in the database (Assuming a function `updateDistribution` exists)
 
-        $modifiedTimes;
         $checkId = getById('distributions', $_POST['id']);
-        if($checkId['status']== 200){
-            $modifiedTimes = $checkId['data']['modified_times'] + 1;
+        if($checkId['status'] > 200){
+            redirect('distributions-list.php', 500, 'Something Went Wrong');
         }
+        $modifiedTimes = $checkId['data']['modified_times'];
 
         $user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
         $modifiedAt =  date('Y-m-d h:i:s A');
@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           echo '</pre>';
 
           if (!compareArrays($dbrecord, $userRecord)){
+            $modifiedTimes += 1;
            if (!insertActivityLog($distributionId, $user_id, 'distributions', 'EDIT DISTRIBUTION', 'farmers')) {
                 echo "Error inserting log entry.";
                 redirect('distributions-list.php', 500, 'Something Went Wrong');

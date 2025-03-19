@@ -366,6 +366,10 @@ document.getElementById('submitFarmsButton').addEventListener('click', function(
   const hbp = card.querySelector('.hbp').value;
   const sss = card.querySelector('.sss').value;
   const region = card.querySelector('.region').value;
+  const selected_enrollment = '';
+  if(document.getElementById('.selected_enrollment')){
+    selected_enrollment = document.getElementById('.selected_enrollment').value;
+  }
 
   // Select all input elements with the class 'parcelNum' and type 'hidden'
 const hiddenInputs = document.querySelectorAll('input[type="hidden"].parcelNum');
@@ -409,7 +413,8 @@ console.log("Largest farm number:", num_of_parcels);
           govIdType,
           sss,
           hbp,
-          region
+          region,
+          selected_enrollment
         }
       });
     }

@@ -6,7 +6,7 @@
 
     <?php include 'registration-header.php'; ?>
     <?php include 'registration-sidebar.php'; ?>
-
+    <?php include '../backend/status-messages.php'; ?>
     <main id="main" class="main">
         <div class="content">
             <div class="container" id="farmerCard">

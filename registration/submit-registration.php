@@ -1,15 +1,7 @@
 <?php
-// Your database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "baliwag_agriculture_office";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once '../backend/functions.php';
+session_start();
+$user_id = isset($_SESSION['LoggedInUser']['id']) ? $_SESSION['LoggedInUser']['id'] : 0;
 $data = json_decode($_POST['farmsData'], true);
 $farmer = $data[0]['farmer'];
 
@@ -93,12 +85,13 @@ $sql = "INSERT INTO farmers
         gov_id_type,
         gov_id_number,
         selected_enrollment,
+        created_by,
         no_of_parcels) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param(
-    'ssssssssssssssssi',
+    'ssssssssssssssssii',
     $ffrs, 
     $firstName, 
     $middleName, 
@@ -115,11 +108,19 @@ $stmt->bind_param(
     $govIdType, 
     $govIdNumber, 
     $selectedEnrollment,
+    $user_id,
     $num_of_parcels,
 );
 
 if ($stmt->execute()) {
     $lastInsertedFarmerId = $conn->insert_id;
+    addFpsCode('farmers', $lastInsertedFarmerId, $farmer['brgy']);
+
+    if (!insertActivityLog($lastInsertedFarmerId, $user_id, 'farmers', 'INSERT')) {
+        echo "Error inserting log entry.";
+        redirect('farmer-list.php', 500, 'Something Went Wrong');
+        exit;
+    }
     // Insert images into the images table
     $imageTypes = ['farmerImage', 'govIdPhotoBack', 'govIdPhotoFront'];
     $imageBlobs = [$farmerImageBlob, $govIdPhotoBackBlob, $govIdPhotoFrontBlob];
@@ -133,7 +134,16 @@ if ($stmt->execute()) {
         if ($imageBlobs[$index]) {
             $finalPath = $imagePaths[$index]. $type. ".".$imageExt[$index]; 
             $imageStmt->bind_param('isss', $lastInsertedFarmerId, $type, $finalPath, $imageBlobs[$index]);
-            $imageStmt->execute();
+            if ($imageStmt->execute()) {
+                $imageId = $imageStmt->insert_id;
+                if (!insertActivityLog($imageId, $user_id, 'images', 'INSERT', 'farmers')) {
+                    echo "Error inserting log entry.";
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
+                    exit;
+                }
+            } else {
+                echo "Error inserting image: " . $imageStmt->error . "<br>";
+            }
         }
     }
 
@@ -185,7 +195,13 @@ foreach ($data as $item) {
     
     if ($stmt->execute()) {
         $parcelIds[$parcel['parcelNum']] = $stmt->insert_id;
-        // addFpsCode('parcels', $stmt->insert_id, $farmer['brgy']);
+        addFpsCode('parcels', $stmt->insert_id, $farmer['brgy']);
+
+        if (!insertActivityLog($stmt->insert_id, $user_id, 'parcels', 'INSERT', 'farmers')) {
+            echo "Error inserting log entry.";
+            redirect('farmer-list.php', 500, 'Something Went Wrong');
+            exit;
+        }
     } else {
         echo "Error executing parcel insert query: " . $stmt->error;
         exit;
@@ -225,6 +241,12 @@ foreach ($data as $item) {
             );
             
             if ($stmt->execute()) {
+                addFpsCode('crops', $stmt->insert_id, $farmer['brgy']);
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'crops', 'INSERT', 'farmers, parcels')) {
+                        echo "Error inserting log entry.";
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
                 // addFpsCode('crops', $stmt->insert_id, $farmer['brgy']);
             }else{
                 echo "Error executing crop insert query: " . $stmt->error;
@@ -264,6 +286,12 @@ foreach ($data as $item) {
                 );
                 
                 if ($stmt->execute()) {
+                    addFpsCode('livestocks', $stmt->insert_id, $farmer['brgy']);
+                    if (!insertActivityLog($stmt->insert_id, $user_id, 'livestocks', 'INSERT', 'farmers, parcels')) {
+                        echo "Error inserting log entry.";
+                        redirect('farmer-list.php', 500, 'Something Went Wrong');
+                        exit;
+                    }
                     // addFpsCode('livestocks', $stmt->insert_id, $farmer['brgy']);
                   
                 }else{

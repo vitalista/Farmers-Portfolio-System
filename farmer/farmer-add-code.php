@@ -84,10 +84,11 @@ if (isset($_POST['farms_data'])) {
         gov_id_type,
         region,
         sss,
-        hbp
+        hbp,
+        created_by
 
         )VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?
         )";
         $stmt = $conn->prepare($sql);
         
@@ -97,7 +98,7 @@ if (isset($_POST['farms_data'])) {
             exit;
         }
         
-        $stmt->bind_param("ssssssssssiisssss", 
+        $stmt->bind_param("ssssssssssiisssssi", 
         $farmer['ffrs'], 
         $farmer['brgy'], 
         $farmer['municipality'],
@@ -114,7 +115,8 @@ if (isset($_POST['farms_data'])) {
         $farmer['govIdType'],
         $farmer['region'],
         $farmer['sss'],
-        $farmer['hbp']
+        $farmer['hbp'],
+        $user_id
     );
         
         if ($stmt->execute()) {
@@ -167,11 +169,12 @@ if (isset($_POST['farms_data'])) {
             }
         }
 
-        $modifiedTimes;
         $checkId = getById('farmers',$farmerId);
-        if($checkId['status']== 200){
-            $modifiedTimes = $checkId['data']['modified_times'] + 1;
+        if($checkId['status'] > 200){
+            redirect('farmer-list.php', 500, 'Something Went Wrong');
         }
+        $modifiedTimes = $checkId['data']['modified_times'];
+       
 
         $changeKeyName = [
             'num_of_parcels' => 'no_of_parcels', 
@@ -189,16 +192,17 @@ if (isset($_POST['farms_data'])) {
             'govIdNumber' => 'gov_id_number',
             ];
 
-        $dbrecord= getRecordsById('farmers', $farmerId, ['id', 'modified_times', 'selected_enrollment', 'is_archived', 'created_at', 'updated_at', 'fps_code']);
+        $dbrecord= getRecordsById('farmers', $farmerId, ['id', 'modified_times', 'selected_enrollment', 'is_archived', 'created_at', 'updated_at', 'fps_code', 'created_by']);
         $userRecord = removeAndCustomizeKeys($farmer, ['farmer_id'], $changeKeyName);
 
-            //  echo '<pre>';
+            // echo '<pre>';
             // print_r($dbrecord);
             // print_r($userRecord);
             // print_r(compareArrays($dbrecord, $userRecord));
             // echo '</pre>';
 
         if (!compareArrays($dbrecord, $userRecord)){
+            $modifiedTimes += 1;
             if (!insertActivityLog($farmerId, $user_id, 'farmers', 'UPDATE')) {
                 echo "Error inserting log entry.";
                 redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -225,7 +229,8 @@ if (isset($_POST['farms_data'])) {
             gov_id_type = ?,
             region = ?,
             sss = ?,
-            hbp = ?
+            hbp = ?,
+            selected_enrollment = ?
 
             WHERE id = ?";
     
@@ -238,7 +243,7 @@ if (isset($_POST['farms_data'])) {
         }
     
         // Bind the parameters
-        $stmt->bind_param("sssssssssssiiisssss", 
+        $stmt->bind_param("sssssssssssiiissssss", 
             $farmer['ffrs'], 
             $farmer['brgy'], 
             $farmer['municipality'], 
@@ -257,6 +262,7 @@ if (isset($_POST['farms_data'])) {
             $farmer['region'],
             $farmer['sss'],
             $farmer['hbp'],
+            $farmer['selected_enrollment'],
             $farmerId
         );
     
@@ -511,11 +517,12 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
 
         if (isset($parcel['parcel_id'])) {
 
-            $modifiedTimes;
+
             $checkId = getById('parcels', $parcel['parcel_id']);
-            if($checkId['status']== 200){
-                $modifiedTimes = $checkId['data']['modified_times'] + 1;
+            if($checkId['status'] > 200){
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
             }
+            $modifiedTimes = $checkId['data']['modified_times'];
 
             $changeKeyName = [
                 'parcelNum' => 'parcel_no', 
@@ -539,6 +546,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             // echo '</pre>';
 
             if (!compareArrays($dbrecord, $userRecord)){
+                $modifiedTimes += 1;
                 if (!insertActivityLog($parcel['parcel_id'], $user_id, 'parcels', 'UPDATE', 'farmers')) {
                     echo "Error inserting log entry.";
                     redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -668,11 +676,11 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
                 $cropId = $crop['crop_id']; // Assuming crop_id is provided in the item array
                 $parcelId = $parcelIds[$crop['parcelNum']] ?? null;
 
-                $modifiedTimes;
                 $checkId = getById('crops', $cropId);
-                if($checkId['status']== 200){
-                    $modifiedTimes = $checkId['data']['modified_times'] + 1;
+                if($checkId['status'] > 200){
+                    redirect('farmer-list.php', 500, 'Something Went Wrong');
                 }
+                $modifiedTimes = $checkId['data']['modified_times'];
             
                 if ($parcelId) {
 
@@ -692,6 +700,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             // echo '</pre>';
 
             if (!compareArrays($dbrecord, $userRecord)){
+                $modifiedTimes += 1;
                  if (!insertActivityLog($crop, $user_id, 'crops', 'UPDATE', 'farmers, parcels')) {
                     echo "Error inserting log entry.";
                     redirect('farmer-list.php', 500, 'Something Went Wrong');
@@ -809,12 +818,12 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             $livestock = $item['livestock'];
             $livestockId = $livestock['livestock_id']; // Assuming livestock_id is provided
             $parcelId = $parcelIds[$livestock['parcelNum']] ?? null;
-
-            $modifiedTimes;
-                $checkId = getById('livestocks', $livestockId);
-                if($checkId['status']== 200){
-                    $modifiedTimes = $checkId['data']['modified_times'] + 1;
-                }
+            
+            $checkId = getById('livestocks', $livestockId);
+            if($checkId['status'] > 200){
+                redirect('farmer-list.php', 500, 'Something Went Wrong');
+            }
+            $modifiedTimes = $checkId['data']['modified_times'];
             
             if ($parcelId) {
 
@@ -834,6 +843,7 @@ if (isset($_FILES['farmerImage']) || isset($_FILES['govIdPhotoBack']) || isset($
             //  echo '</pre>';
  
              if (!compareArrays($dbrecord, $userRecord)){
+                $modifiedTimes += 1;
                 if (!insertActivityLog($livestockId, $user_id, 'livestocks', 'UPDATE', 'farmers, parcels')) {
                     echo "Error inserting log entry.";
                     redirect('farmer-list.php', 500, 'Something Went Wrong');

@@ -23,6 +23,12 @@ if (!empty($_GET['gender'])) {
     $types .= "s"; 
 }
 
+if (!empty($_GET['selected_enrollment'])) {
+    $whereConditions[] = "selected_enrollment = ?";
+    $params[] = validate($_GET['selected_enrollment']);
+    $types .= "s"; 
+}
+
 if (!empty($_GET['deceased'])) {
     $whereConditions[] = "is_deceased = ?";
     $params[] = validate($_GET['deceased']);
@@ -112,9 +118,8 @@ $query .= " LIMIT ?";
 
 $params[] = $limit;
 $types .= "i";
-
 $stmt = $conn->prepare($query);
-
+// echo $query; 
 if (!empty($params)) {
     $stmt->bind_param($types, ...$params);
 }
@@ -254,6 +259,17 @@ $result = $stmt->get_result();
                             <input class="form-check-input" name="deceased" style="width: 20px; height: 20px;" type="radio" id="decNo" value="0">
                             <label class="form-check-label" for="decNo">No</label>
                         </div>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                        <label for="selected_enrollment" class="form-label">Status</label>
+                        <select id="selected_enrollment" name="selected_enrollment" class="form-select">
+                            <option selected disabled>-- Select --</option>
+                            <option value="NEW">NEW</option>
+                            <option value="UPDATING">UPDATING</option>
+                            <option value="OLD">OLD</option>
+                            <option value="CURRENT">CURRENT</option>
+                        </select>
                     </div>
 
                     <div class="col-md-3 mb-3">

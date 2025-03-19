@@ -11,16 +11,15 @@ if ($_SESSION['LoggedInUser']['role'] == 2) {
   include '../registration/registration-header.php';
 }
  ?>
+<!-- ======= Sidebar ======= -->
+<?php 
+if ($_SESSION['LoggedInUser']['role'] == 0 || $_SESSION['LoggedInUser']['role'] == 1) {
+include '../includes/sidebar.php';
+}
 
-  <!-- ======= Sidebar ======= -->
-  <?php 
-  if ($_SESSION['LoggedInUser']['role'] == 0 || $_SESSION['LoggedInUser']['role'] == 1) {
-    include '../includes/sidebar.php';
-  }
-
-  if ($_SESSION['LoggedInUser']['role'] == 2) {
-    include '../registration/registration-sidebar.php';
-  }
+if ($_SESSION['LoggedInUser']['role'] == 2) {
+include '../registration/registration-sidebar.php';
+}
   ?>
 
     <main id="main" class="main">
@@ -252,11 +251,4 @@ if ($_SESSION['LoggedInUser']['role'] == 2) {
         });
     </script>
 </body>
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
-<script src="add-div.js"></script>
-<script src="script.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
-
-
 </html>
