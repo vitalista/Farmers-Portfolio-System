@@ -63,6 +63,8 @@
                         
                         <?php if (!isset($_GET['archived'])): ?>
                           <td>
+                          <!-- <a href="../farmer-assets/parcels.php?fps=" data-bs-toggle="tooltip" data-bs-placement="top" title="View Parcels" class="btn btn-sm btn-primary"><i class="bi bi-puzzle-fill"></i></a> -->
+                          <a href="farmer-view.php?id=<?= $row['id']?>&farms=true" data-bs-toggle="tooltip" data-bs-placement="top" title="View Parcels" class="btn btn-sm btn-primary"><i class="bi bi-puzzle-fill"></i></a>
                             <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) { ?>
                               <a href="farmer-view.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
                             <?php } ?>

@@ -49,7 +49,7 @@
                       echo 'Error: ' . $e->getMessage();
                   }
                   ?>
-                  <?php include 'parcels/parcel-th-content.php'; ?><
+                  <?php include 'parcels/parcel-th-content.php'; ?>
                     <?php include '../farmer/farmer-th-content.php'; ?>
                     <th  class="text-start notExport">Action</th>
                   </tr>
@@ -67,6 +67,8 @@
 
 
                           <td  class="text-start">
+                          <!-- <a href="" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="View Crops"><i class="fa-brands fa-pagelines"></i></i></a>
+                          <a href="" class="btn btn-sm btn-danger" style="background-color: brown;" data-bs-toggle="tooltip" data-bs-placement="top" title="View Livestocks"><i class="fa-solid fa-cow"></i></a> -->
                           <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) {?>
                             <a href="../farmer/farmer-view.php?id=<?= $row['farmer_id']; ?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
                             <?php }?>
@@ -81,7 +83,6 @@
                                 class="btn btn-sm btn-secondary"><i class="bi bi-info-circle-fill"></i></a>
 
                             <?php } ?>
-
                           </td>
 
                         <?php else: ?>

@@ -82,7 +82,18 @@
   </main><!-- End #main -->
 
   <?php include '../includes/footer.php' ?>
-
+  <script>
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.shiftKey && event.key === 'D') {
+            event.preventDefault();
+            window.location.href = window.location.origin + '/dashboard';
+        }
+        if (event.ctrlKey && event.shiftKey && event.key === 'H') {
+            event.preventDefault();
+            window.location.href = window.location.origin;
+        }
+    });
+  </script>
 </body>
 
 </html>

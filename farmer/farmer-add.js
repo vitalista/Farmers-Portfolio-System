@@ -1,10 +1,10 @@
-document.getElementById('addFarmButton').addEventListener('click', function() {
+document.getElementById("addFarmButton").addEventListener("click", function () {
   farmCounter++;
-  const farmContainer = document.getElementById('farmContainer');
+  const farmContainer = document.getElementById("farmContainer");
 
   // Create a new farm input card
-  const newFarmCard = document.createElement('div');
-  newFarmCard.className = 'card my-2';
+  const newFarmCard = document.createElement("div");
+  newFarmCard.className = "card my-2";
   newFarmCard.innerHTML = `
   <div class="d-flex justify-content-between align-items-center">
     <!-- Title on the left -->
@@ -45,39 +45,39 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
             <h6 class="mt-2">Farm Location</h6>
             <div class="col-md-4">
                 <div class="form-floating">
-                                                            <select class="form-select validationCustom06 farmLocationBrgy" id="" required>
-                                                                <option selected disabled value="">Choose...</option>
-                                                                <option value="Bagong Nayon" <?= $parcel['parcel_brgy_address'] == 'Bagong Nayon' ? 'selected' : ''; ?>Bagong Nayon</option>
-                                                                <option value="Barangca" <?= $parcel['parcel_brgy_address'] == 'Barangca' ? 'selected' : ''; ?>Barangca</option>
-                                                                <option value="Calantipay" <?= $parcel['parcel_brgy_address'] == 'Calantipay' ? 'selected' : ''; ?>Calantipay</option>
-                                                                <option value="Catulinan" <?= $parcel['parcel_brgy_address'] == 'Catulinan' ? 'selected' : ''; ?>Catulinan</option>
-                                                                <option value="Concepcion" <?= $parcel['parcel_brgy_address'] == 'Concepcion' ? 'selected' : ''; ?>Concepcion</option>
-                                                                <option value="Hinukay" <?= $parcel['parcel_brgy_address'] == 'Hinukay' ? 'selected' : ''; ?>Hinukay</option>
-                                                                <option value="Makinabang" <?= $parcel['parcel_brgy_address'] == 'Makinabang' ? 'selected' : ''; ?>Makinabang</option>
-                                                                <option value="Matangtubig" <?= $parcel['parcel_brgy_address'] == 'Matangtubig' ? 'selected' : ''; ?>Matangtubig</option>
-                                                                <option value="Pagala" <?= $parcel['parcel_brgy_address'] == 'Pagala' ? 'selected' : ''; ?>Pagala</option>
-                                                                <option value="Paitan" <?= $parcel['parcel_brgy_address'] == 'Paitan' ? 'selected' : ''; ?>Paitan</option>
-                                                                <option value="Piel" <?= $parcel['parcel_brgy_address'] == 'Piel' ? 'selected' : ''; ?>Piel</option>
-                                                                <option value="Pinagbarilan" <?= $parcel['parcel_brgy_address'] == 'Pinagbarilan' ? 'selected' : ''; ?>Pinagbarilan</option>
-                                                                <option value="Poblacion" <?= $parcel['parcel_brgy_address'] == 'Poblacion' ? 'selected' : ''; ?>Poblacion</option>
-                                                                <option value="Sabang" <?= $parcel['parcel_brgy_address'] == 'Sabang' ? 'selected' : ''; ?>Sabang</option>
-                                                                <option value="San Jose" <?= $parcel['parcel_brgy_address'] == 'San Jose' ? 'selected' : ''; ?>San Jose</option>
-                                                                <option value="San Roque" <?= $parcel['parcel_brgy_address'] == 'San Roque' ? 'selected' : ''; ?>San Roque</option>
-                                                                <option value="Santa Barbara" <?= $parcel['parcel_brgy_address'] == 'Santa Barbara' ? 'selected' : ''; ?>Santa Barbara</option>
-                                                                <option value="Santo Cristo" <?= $parcel['parcel_brgy_address'] == 'Santo Cristo' ? 'selected' : ''; ?>Santo Cristo</option>
-                                                                <option value="Santo Niño" <?= $parcel['parcel_brgy_address'] == 'Santo Niño' ? 'selected' : ''; ?>Santo Niño</option>
-                                                                <option value="Subic" <?= $parcel['parcel_brgy_address'] == 'Subic' ? 'selected' : ''; ?>Subic</option>
-                                                                <option value="Sulivan" <?= $parcel['parcel_brgy_address'] == 'Sulivan' ? 'selected' : ''; ?>Sulivan</option>
-                                                                <option value="Tangos" <?= $parcel['parcel_brgy_address'] == 'Tangos' ? 'selected' : ''; ?>Tangos</option>
-                                                                <option value="Tarcan" <?= $parcel['parcel_brgy_address'] == 'Tarcan' ? 'selected' : ''; ?>Tarcan</option>
-                                                                <option value="Tiaong" <?= $parcel['parcel_brgy_address'] == 'Tiaong' ? 'selected' : ''; ?>Tiaong</option>
-                                                                <option value="Tibag" <?= $parcel['parcel_brgy_address'] == 'Tibag' ? 'selected' : ''; ?>Tibag</option>
-                                                                <option value="Tilapayong" <?= $parcel['parcel_brgy_address'] == 'Tilapayong' ? 'selected' : ''; ?>Tilapayong</option>
-                                                                <option value="Virgen delas Flores" <?= $parcel['parcel_brgy_address'] == 'Virgen delas Flores' ? 'selected' : ''; ?>Virgen delas Flores</option>
-                                                            </select>
-                                                            <label>Barangay<span class="text-danger fw-bold red-star"></span></label>
-                                                            <div class="invalid-feedback">Please enter.</div>
-                                                        </div>
+                  <select class="form-select validationCustom06 farmLocationBrgy" id="" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Bagong Nayon" <?= $parcel['parcel_brgy_address'] == 'Bagong Nayon' ? 'selected' : ''; ?>Bagong Nayon</option>
+                      <option value="Barangca" <?= $parcel['parcel_brgy_address'] == 'Barangca' ? 'selected' : ''; ?>Barangca</option>
+                      <option value="Calantipay" <?= $parcel['parcel_brgy_address'] == 'Calantipay' ? 'selected' : ''; ?>Calantipay</option>
+                      <option value="Catulinan" <?= $parcel['parcel_brgy_address'] == 'Catulinan' ? 'selected' : ''; ?>Catulinan</option>
+                      <option value="Concepcion" <?= $parcel['parcel_brgy_address'] == 'Concepcion' ? 'selected' : ''; ?>Concepcion</option>
+                      <option value="Hinukay" <?= $parcel['parcel_brgy_address'] == 'Hinukay' ? 'selected' : ''; ?>Hinukay</option>
+                      <option value="Makinabang" <?= $parcel['parcel_brgy_address'] == 'Makinabang' ? 'selected' : ''; ?>Makinabang</option>
+                      <option value="Matangtubig" <?= $parcel['parcel_brgy_address'] == 'Matangtubig' ? 'selected' : ''; ?>Matangtubig</option>
+                      <option value="Pagala" <?= $parcel['parcel_brgy_address'] == 'Pagala' ? 'selected' : ''; ?>Pagala</option>
+                      <option value="Paitan" <?= $parcel['parcel_brgy_address'] == 'Paitan' ? 'selected' : ''; ?>Paitan</option>
+                      <option value="Piel" <?= $parcel['parcel_brgy_address'] == 'Piel' ? 'selected' : ''; ?>Piel</option>
+                      <option value="Pinagbarilan" <?= $parcel['parcel_brgy_address'] == 'Pinagbarilan' ? 'selected' : ''; ?>Pinagbarilan</option>
+                      <option value="Poblacion" <?= $parcel['parcel_brgy_address'] == 'Poblacion' ? 'selected' : ''; ?>Poblacion</option>
+                      <option value="Sabang" <?= $parcel['parcel_brgy_address'] == 'Sabang' ? 'selected' : ''; ?>Sabang</option>
+                      <option value="San Jose" <?= $parcel['parcel_brgy_address'] == 'San Jose' ? 'selected' : ''; ?>San Jose</option>
+                      <option value="San Roque" <?= $parcel['parcel_brgy_address'] == 'San Roque' ? 'selected' : ''; ?>San Roque</option>
+                      <option value="Santa Barbara" <?= $parcel['parcel_brgy_address'] == 'Santa Barbara' ? 'selected' : ''; ?>Santa Barbara</option>
+                      <option value="Santo Cristo" <?= $parcel['parcel_brgy_address'] == 'Santo Cristo' ? 'selected' : ''; ?>Santo Cristo</option>
+                      <option value="Santo Niño" <?= $parcel['parcel_brgy_address'] == 'Santo Niño' ? 'selected' : ''; ?>Santo Niño</option>
+                      <option value="Subic" <?= $parcel['parcel_brgy_address'] == 'Subic' ? 'selected' : ''; ?>Subic</option>
+                      <option value="Sulivan" <?= $parcel['parcel_brgy_address'] == 'Sulivan' ? 'selected' : ''; ?>Sulivan</option>
+                      <option value="Tangos" <?= $parcel['parcel_brgy_address'] == 'Tangos' ? 'selected' : ''; ?>Tangos</option>
+                      <option value="Tarcan" <?= $parcel['parcel_brgy_address'] == 'Tarcan' ? 'selected' : ''; ?>Tarcan</option>
+                      <option value="Tiaong" <?= $parcel['parcel_brgy_address'] == 'Tiaong' ? 'selected' : ''; ?>Tiaong</option>
+                      <option value="Tibag" <?= $parcel['parcel_brgy_address'] == 'Tibag' ? 'selected' : ''; ?>Tibag</option>
+                      <option value="Tilapayong" <?= $parcel['parcel_brgy_address'] == 'Tilapayong' ? 'selected' : ''; ?>Tilapayong</option>
+                      <option value="Virgen delas Flores" <?= $parcel['parcel_brgy_address'] == 'Virgen delas Flores' ? 'selected' : ''; ?>Virgen delas Flores</option>
+                  </select>
+                  <label>Barangay<span class="text-danger fw-bold red-star"></span></label>
+                  <div class="invalid-feedback">Please enter.</div>
+              </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
@@ -139,23 +139,55 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
   // Append the new card to the container
   farmContainer.appendChild(newFarmCard);
 
- // entryFade(newFarmCard);
+  // entryFade(newFarmCard);
 
-  const parcelTitle = newFarmCard.querySelector('.card-title.ms-3').textContent;
-  const farmNumber = parseInt(parcelTitle.replace('Parcel #', '').trim());
+  const parcelTitle = newFarmCard.querySelector(".card-title.ms-3").textContent;
+  const farmNumber = parseInt(parcelTitle.replace("Parcel #", "").trim());
   console.log(farmNumber);
 
   // Add event listeners for adding crops and livestock
-  newFarmCard.querySelector('.addCropButton').addEventListener('click', function() {
-    const cropsContainer = newFarmCard.querySelector('#cropsContainer');
-    const cropInputDiv = document.createElement('div');
-    cropInputDiv.className = 'row dynamic-input my-2 p-2';
-    cropInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
-    cropInputDiv.innerHTML = `
+  newFarmCard
+    .querySelector(".addCropButton")
+    .addEventListener("click", function () {
+      const cropsContainer = newFarmCard.querySelector("#cropsContainer");
+      const cropInputDiv = document.createElement("div");
+      cropInputDiv.className = "row dynamic-input my-2 p-2";
+      cropInputDiv.style.boxShadow =
+        "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
+      cropInputDiv.innerHTML = `
 
         <div class="col-md-3 mb-3">
             <label class="ms-1">Crop Name<span class="text-danger fw-bold red-star"></span></label>
-            <input id="" type="text" placeholder="Type here..." class="form-control crop cropName" required>
+            <input id="" type="text" list="cropTypes" placeholder="Type here..." class="form-control crop cropName" required>
+             <datalist id="cropTypes">
+                <option value="Rice/Palay">
+                <option value="Water melon">
+                <option value="String beans - harvested green (sitao)">
+                <option value="Patola">
+                <option value="Okra">
+                <option value="Eggplant (talong)">
+                <option value="Batao">
+                <option value="Pechay">
+                <option value="Corn">
+                <option value="Chili (labuyo)">
+                <option value="Camote">
+                <option value="Mustard">
+                <option value="Mango">
+                <option value="Tomato (kamatis)">
+                <option value="Ampalaya">
+                <option value="Long Chili">
+                <option value="Mongo (Mung Bean)">
+                <option value="Common gourd (upo)">
+                <option value="Bush Sitao">
+                <option value="Winged Bean (pallang)">
+                <option value="Cucumber (pipino)">
+                <option value="Squash (kalabasa)">
+                <option value="Papaya">
+                <option value="Onion bulbs (sibuyas)">
+                <option value="Rambutan">
+                <option value="Kangkong">
+                <option value="Spinach">
+            </datalist>
         </div>
 
         <div class="col-md-2 mb-3">
@@ -181,27 +213,34 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
         </div>
         </div>
     `;
-    cropsContainer.appendChild(cropInputDiv);
-    //entryFade(cropInputDiv);
+      cropsContainer.appendChild(cropInputDiv);
+      //entryFade(cropInputDiv);
 
-    // Add event listener for the remove button
-    cropInputDiv.querySelector('.removeCropButton').addEventListener('click', function() {
-      removalFade(cropInputDiv);
-      setTimeout(() => {
-        cropsContainer.removeChild(cropInputDiv);
-      }, 250);
+      // Add event listener for the remove button
+      cropInputDiv
+        .querySelector(".removeCropButton")
+        .addEventListener("click", function () {
+          removalFade(cropInputDiv);
+          setTimeout(() => {
+            cropsContainer.removeChild(cropInputDiv);
+          }, 250);
+        });
     });
-  });
 
-  newFarmCard.querySelector('.addLivestockButton').addEventListener('click', function() {
-    const livestockContainer = newFarmCard.querySelector('#livestockContainer');
-    const livestockInputDiv = document.createElement('div');
-    livestockInputDiv.className = 'row dynamic-input mt-2 px-2 pt-3 mb-2';
-    livestockInputDiv.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
-    livestockInputDiv.innerHTML = `
+  newFarmCard
+    .querySelector(".addLivestockButton")
+    .addEventListener("click", function () {
+      const livestockContainer = newFarmCard.querySelector(
+        "#livestockContainer"
+      );
+      const livestockInputDiv = document.createElement("div");
+      livestockInputDiv.className = "row dynamic-input mt-2 px-2 pt-3 mb-2";
+      livestockInputDiv.style.boxShadow =
+        "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
+      livestockInputDiv.innerHTML = `
   <div class="col-md-6 mb-3">
       <label>Number of heads<span class="text-danger fw-bold red-star"></span></label>
-      <input type="number" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
+      <input type="number" placeholder="Type here..." class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
       <input type="hidden" class="parcelNum" value="${farmNumber}" style="width: 100%;">
       <div class="invalid-feedback">Please enter.</div>
   </div>
@@ -209,7 +248,21 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
   <div class="form-group">
     <label for="livestockType">Animal type<span class="text-danger fw-bold red-star"></span></label>
     <div class="input-group">
-      <input type="text" id="livestockType" class="form-control livestockType" placeholder="Enter animal type" required>
+      <input type="text" id="livestockType" list="livestockTypes" class="form-control livestockType" placeholder="Type here..." required>
+      <datalist id="livestockTypes">
+        <option value="Pigs or swine">       
+        <option value="Buffaloes (Carabaos)">
+        <option value="Goats">
+        <option value="Ducks">
+        <option value="Chickens">
+        <option value="Turkeys">
+        <option value="Geese">
+        <option value="Sheep">
+        <option value="Cattle">
+        <option value="Horses">
+        <option value="Rabbits and hares">
+        <option value="Quail">
+      </datalist>
       <div class="input-group-append">
         <a class="btn btn-sm btn-danger removeLivestockButton mt-1"><i class="fa-solid fa-trash-can"></i></a>
       </div>
@@ -218,52 +271,53 @@ document.getElementById('addFarmButton').addEventListener('click', function() {
 </div>
 
   `;
-    livestockContainer.appendChild(livestockInputDiv);
-    //entryFade(livestockInputDiv);
+      livestockContainer.appendChild(livestockInputDiv);
+      //entryFade(livestockInputDiv);
 
-    // Add event listener for the remove button
-    livestockInputDiv.querySelector('.removeLivestockButton').addEventListener('click', function() {
-      removalFade(livestockInputDiv);
-      setTimeout(() => {
-        livestockContainer.removeChild(livestockInputDiv);
-      }, 250);
-
+      // Add event listener for the remove button
+      livestockInputDiv
+        .querySelector(".removeLivestockButton")
+        .addEventListener("click", function () {
+          removalFade(livestockInputDiv);
+          setTimeout(() => {
+            livestockContainer.removeChild(livestockInputDiv);
+          }, 250);
+        });
     });
-  });
 
   // Add event listener to the remove farm button
-  newFarmCard.querySelector('.remove-farm').addEventListener('click', function() {
+  newFarmCard
+    .querySelector(".remove-farm")
+    .addEventListener("click", function () {
+      const cardTitles = document.querySelectorAll(".card-title.ms-3");
+      let maxFarmCounter = -1;
+      let targetFarmCard = null;
 
-    const cardTitles = document.querySelectorAll('.card-title.ms-3');
-    let maxFarmCounter = -1;
-    let targetFarmCard = null;
-  
-    cardTitles.forEach(cardTitle => {
-      const match = cardTitle.innerText.match(/Parcel #(\d+)/);
-      if (match) {
-        const farmCounter = parseInt(match[1], 10);
-        if (farmCounter > maxFarmCounter) {
-          maxFarmCounter = farmCounter;
-          targetFarmCard = cardTitle.closest('.card');
+      cardTitles.forEach((cardTitle) => {
+        const match = cardTitle.innerText.match(/Parcel #(\d+)/);
+        if (match) {
+          const farmCounter = parseInt(match[1], 10);
+          if (farmCounter > maxFarmCounter) {
+            maxFarmCounter = farmCounter;
+            targetFarmCard = cardTitle.closest(".card");
+          }
         }
+      });
+
+      // If the highest Parcel card is found, remove it
+      if (targetFarmCard) {
+        removalFade(targetFarmCard); // Apply the fade effect to the target card
+        setTimeout(() => {
+          farmCounter = farmCounter - 1;
+          farmContainer.removeChild(targetFarmCard); // Remove the parent div of the highest farmCounter
+        }, 250);
       }
+
+      // removalFade(newFarmCard);
+      // setTimeout(() => {
+      //   farmContainer.removeChild(newFarmCard);
+      // }, 250);
     });
-  
-    // If the highest Parcel card is found, remove it
-    if (targetFarmCard) {
-      removalFade(targetFarmCard); // Apply the fade effect to the target card
-      setTimeout(() => {
-        farmCounter = farmCounter - 1;
-        farmContainer.removeChild(targetFarmCard); // Remove the parent div of the highest farmCounter
-      }, 250);
-    }
-
-    // removalFade(newFarmCard);
-    // setTimeout(() => {
-    //   farmContainer.removeChild(newFarmCard);
-    // }, 250);
-
-  });
 });
 
 function emptyFields(card, idArr = [], classArr = []) {
@@ -303,310 +357,563 @@ function emptyFields(card, idArr = [], classArr = []) {
   });
 
   console.log(emptyFields);
-  if (emptyFields.length === 0) {
-    return false;
-  } else {
-    return true;
-  }
+  return emptyFields.length === 0 ? false : emptyFields;
 }
 
+document
+  .getElementById("submitFarmsButton")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    const farms = [];
+    const farmCards = document.querySelectorAll(
+      "#farmContainer .card .card-body"
+    );
+    const livestockCards = document.querySelectorAll(
+      "#livestockContainer .row"
+    );
+    const cropCards = document.querySelectorAll("#cropsContainer .row");
+    const card = document.querySelector("#farmerCard .card-body");
 
-document.getElementById('submitFarmsButton').addEventListener('click', function(e) {
+    let idArr = [];
+    let classArr = [
+      "ffrs",
+      "govIdType",
+      "govIdNumber",
+      "hbp",
+      "sss",
+      "region",
+      "brgy",
+      "municipality",
+      "province",
+      "firstName",
+      "middleName",
+      "lastName",
+      "gender",
+      "bday",
+      "ofName",
+      "olName",
+      "ownership",
+      "farmLocationBrgy",
+      "farmLocationMunicipality",
+      "farmLocationProvince",
+      "farmSize",
+      "farmType",
+      "cropName",
+      "cropArea",
+      "classification",
+      "numberOfHeads",
+      "livestockType",
+    ];
+    if (window.location.pathname.includes("farmer-add.php")) {
+      idArr = ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'];
+    }
 
-  e.preventDefault();
-  const farms = [];
-  const farmCards = document.querySelectorAll('#farmContainer .card .card-body');
-  const livestockCards = document.querySelectorAll('#livestockContainer .row');
-  const cropCards = document.querySelectorAll('#cropsContainer .row');
-  const card = document.querySelector('#farmerCard .card-body');
-  let idArr = [];
-  if (window.location.pathname.includes('farmer-add.php')) {
-    idArr = ['farmerImg', 'govIdPhotoBack', 'govIdPhotoFront'];
-  }
+    if (emptyFields(".tab-content", idArr, classArr)) {
+      let message = document.createElement("div");
+      message.className = "d-flex flex-wrap justify-content-start";
+      const existingMessages = new Set();
 
-  if (emptyFields('.tab-content', idArr, ['ffrs', 'govIdType', 'govIdNumber', 'hbp', 'sss', 'region', 'brgy', 'municipality', 'province', 'firstName', 'middleName', 'lastName', 'gender', 'bday', 'ofName', 'olName', 'ownership', 'farmLocationBrgy', 'farmLocationMunicipality', 'farmLocationProvince', 'farmSize', 'farmType', 'cropName', 'cropArea', 'classification', 'numberOfHeads', 'livestockType'])) {
-    Swal.fire({
-      title: "Empty Fields!",
-      text: "Please fill in all the required fields.",
-      icon: "warning",
-      confirmButtonText: "OK",
+      emptyFields(".tab-content", idArr, classArr).forEach((index) => {
+        if (!existingMessages.has(index)) {
+          existingMessages.add(index);
+          const pTag = document.createElement("li");
+          pTag.className = "text-danger w-100 col-md-4";
+
+          switch (index) {
+            case "farmerImg":
+              pTag.textContent = "Farmer's image";
+              break;
+            case "govIdPhotoBack":
+              pTag.textContent = "Back of the government ID";
+              break;
+            case "govIdPhotoFront":
+              pTag.textContent = "Front of the government ID";
+              break;
+
+            case "ffrs":
+              pTag.textContent = "FFRS number";
+              break;
+            case "govIdType":
+              pTag.textContent = "Government ID type";
+              break;
+            case "govIdNumber":
+              pTag.textContent = "Government ID number";
+              break;
+            case "hbp":
+              pTag.textContent = "House/BLDG/Purok";
+              break;
+            case "sss":
+              pTag.textContent = "Street/Sitio/SubDV";
+              break;
+            case "region":
+              pTag.textContent = "Region";
+              break;
+            case "brgy":
+              pTag.textContent = "Barangay";
+              break;
+            case "municipality":
+              pTag.textContent = "Municipality";
+              break;
+            case "province":
+              pTag.textContent = "Province";
+              break;
+            case "firstName":
+              pTag.textContent = "First name";
+              break;
+            case "middleName":
+              pTag.textContent = "Middle name";
+              break;
+            case "lastName":
+              pTag.textContent = "Last name";
+              break;
+            case "gender":
+              pTag.textContent = "Gender";
+              break;
+            case "bday":
+              pTag.textContent = "Birthdate";
+              break;
+            case "ofName":
+              pTag.textContent = "Owner's first name";
+              break;
+            case "olName":
+              pTag.textContent = "Owner's last name";
+              break;
+            case "ownership":
+              pTag.textContent = "Ownership type";
+              break;
+            case "farmLocationBrgy":
+              pTag.textContent = "Farm's barangay";
+              break;
+            case "farmLocationMunicipality":
+              pTag.textContent = "Farm's municipality";
+              break;
+            case "farmLocationProvince":
+              pTag.textContent = "Farm's province";
+              break;
+            case "farmSize":
+              pTag.textContent = "Farm size";
+              break;
+            case "farmType":
+              pTag.textContent = "Farm type";
+              break;
+            case "cropName":
+              pTag.textContent = "Crop name";
+              break;
+            case "cropArea":
+              pTag.textContent = "Crop area";
+              break;
+            case "classification":
+              pTag.textContent = "Classification";
+              break;
+            case "numberOfHeads":
+              pTag.textContent = "Number of heads";
+              break;
+            case "livestockType":
+              pTag.textContent = "Livestock type";
+              break;
+            default:
+              pTag.textContent = "Please fill out the required fields";
+              break;
+          }
+
+          message.appendChild(pTag);
+        }
+      });
+
+      Swal.fire({
+        title: "<strong>Empty Fields!</strong>",
+        html: message,
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+
+      document.getElementById("submitFarmsButton").disabled = false;
+      document.getElementById(
+        "submitFarmsButton"
+      ).innerHTML = `<i class="fas fa-save me-2"></i>Save`;
+
+      return;
+    }
+
+    let farmer_id = "";
+
+    if (card.querySelector(".farmer_id")) {
+      farmer_id = card.querySelector(".farmer_id").value;
+      console.log(`Farmer exists! ${farmer_id}`);
+    } else {
+      console.log("Class not exists!");
+    }
+
+    const ffrs = card.querySelector(".ffrs").value;
+    const brgy = card.querySelector(".brgy").value;
+    const municipality = card.querySelector(".municipality").value;
+    const province = card.querySelector(".province").value;
+    const firstName = card.querySelector(".firstName").value;
+    const middleName = card.querySelector(".middleName").value;
+    const lastName = card.querySelector(".lastName").value;
+    const extName = card.querySelector(".extName").value;
+    const gender = card.querySelector(".gender").value;
+    const bday = card.querySelector(".bday").value;
+    const deceased = card.querySelector(".deceased").checked ? 1 : 0;
+
+    const govIdType = card.querySelector(".govIdType").value;
+    const govIdNumber = card.querySelector(".govIdNumber").value;
+    const hbp = card.querySelector(".hbp").value;
+    const sss = card.querySelector(".sss").value;
+    const region = card.querySelector(".region").value;
+    const selected_enrollment = "";
+    if (document.getElementById(".selected_enrollment")) {
+      selected_enrollment = document.getElementById(
+        ".selected_enrollment"
+      ).value;
+    }
+
+    // Select all input elements with the class 'parcelNum' and type 'hidden'
+    const hiddenInputs = document.querySelectorAll(
+      'input[type="hidden"].parcelNum'
+    );
+
+    // Initialize a variable to store the largest number
+    let num_of_parcels = 0;
+
+    // Loop through each input element
+    hiddenInputs.forEach((input) => {
+      // Parse the value as an integer and compare with the current num_of_parcels
+      const farmNumber = parseInt(input.value, 10);
+
+      // Update num_of_parcels if the current farmNumber is larger
+      if (farmNumber > num_of_parcels) {
+        num_of_parcels = farmNumber;
+      }
     });
 
-    document.getElementById("submitFarmsButton").disabled = false;
-    document.getElementById(
-      "submitFarmsButton"
-    ).innerHTML = `<i class="fas fa-save me-2"></i>Save`;
+    // Log the largest number found
+    console.log("Largest farm number:", num_of_parcels);
+    let review = ``;
 
-    return;
-  }
+    if (card.querySelector(".farmer_id")) {
+      if (farmCards.length <= 0 || farmCards.length > 0) {
+        farms.push({
+          farmer: {
+            num_of_parcels,
+            farmer_id,
+            ffrs,
+            brgy,
+            municipality,
+            province,
+            firstName,
+            middleName,
+            lastName,
+            extName,
+            gender,
+            bday,
+            deceased,
+            govIdNumber,
+            govIdType,
+            sss,
+            hbp,
+            region,
+            selected_enrollment,
+          },
+        });
+      }
+    } else {
+      if (farmCards.length <= 0 || farmCards.length > 0) {
+        farms.push({
+          farmer: {
+            num_of_parcels,
+            ffrs,
+            brgy,
+            municipality,
+            province,
+            firstName,
+            middleName,
+            lastName,
+            extName,
+            gender,
+            bday,
+            deceased,
+            govIdNumber,
+            govIdType,
+            sss,
+            hbp,
+            region,
+          },
+        });
+      }
 
-  let farmer_id = '';
-
-  if (card.querySelector('.farmer_id')) {
-    farmer_id = card.querySelector('.farmer_id').value;
-    console.log(`Farmer exists! ${farmer_id}`);
-  }else{
-    console.log('Class not exists!');
-  }
-
-  const ffrs = card.querySelector('.ffrs').value;
-  const brgy = card.querySelector('.brgy').value;
-  const municipality = card.querySelector('.municipality').value;
-  const province = card.querySelector('.province').value;
-  const firstName = card.querySelector('.firstName').value;
-  const middleName = card.querySelector('.middleName').value;
-  const lastName = card.querySelector('.lastName').value;
-  const extName = card.querySelector('.extName').value;
-  const gender = card.querySelector('.gender').value;
-  const bday = card.querySelector('.bday').value;
-  const deceased = card.querySelector('.deceased').checked ? 1 : 0;
-
-  const govIdType = card.querySelector('.govIdType').value;
-  const govIdNumber = card.querySelector('.govIdNumber').value;
-  const hbp = card.querySelector('.hbp').value;
-  const sss = card.querySelector('.sss').value;
-  const region = card.querySelector('.region').value;
-  const selected_enrollment = '';
-  if(document.getElementById('.selected_enrollment')){
-    selected_enrollment = document.getElementById('.selected_enrollment').value;
-  }
-
-  // Select all input elements with the class 'parcelNum' and type 'hidden'
-const hiddenInputs = document.querySelectorAll('input[type="hidden"].parcelNum');
-
-// Initialize a variable to store the largest number
-let num_of_parcels = 0;
-
-// Loop through each input element
-hiddenInputs.forEach(input => {
-  // Parse the value as an integer and compare with the current num_of_parcels
-  const farmNumber = parseInt(input.value, 10);
-  
-  // Update num_of_parcels if the current farmNumber is larger
-  if (farmNumber > num_of_parcels) {
-    num_of_parcels = farmNumber;
-  }
-});
-
-// Log the largest number found
-console.log("Largest farm number:", num_of_parcels);
-
-
-  if (card.querySelector('.farmer_id')) {
-    if (farmCards.length <= 0 || farmCards.length > 0) {
-      farms.push({
-        farmer: {
-          num_of_parcels,
-          farmer_id,
-          ffrs,
-          brgy,
-          municipality,
-          province,
-          firstName,
-          middleName,
-          lastName,
-          extName,
-          gender,
-          bday,
-          deceased,
-          govIdNumber,
-          govIdType,
-          sss,
-          hbp,
-          region,
-          selected_enrollment
-        }
-      });
+      review += `
+        <label class="fw-bold">Farmer Information</label class="fw-bold">
+        <div class="row" style="text-align: left;">
+      <ul>
+        <li><strong>FFRS:</strong> <span class="text-success">${ffrs}</span></li>
+        <li><strong>Full Name:</strong> <span class="text-success">${firstName}</span>, <span class="text-success">${middleName}</span>, <span class="text-success">${lastName}</span>, <span class="text-success">${extName}</span></li>
+        <li><strong>Goverment ID Type:</strong> <span class="text-success">${govIdType}</span></li>
+        <li><strong>Goverment ID Number:</strong> <span class="text-success">${govIdNumber}</span></li>
+        <li><strong>Address:</strong> <span class="text-success">${hbp}</span>, <span class="text-success">${sss}</span>, <span class="text-success">${brgy}</span>, <span class="text-success">${municipality}</span>, <span class="text-success">${province}</span></li>
+        <li><strong>Gender:</strong> <span class="text-success">${gender}</span></li>
+        <li><strong>Birthdate:</strong> <span class="text-success">${bday}</span></li>
+      </ul>
+        </div>
+        `;
     }
-  }else{
-    if (farmCards.length <= 0 || farmCards.length > 0) {
-      farms.push({
-        farmer: {
-          num_of_parcels,
-          ffrs,
-          brgy,
-          municipality,
-          province,
-          firstName,
-          middleName,
-          lastName,
-          extName,
-          gender,
-          bday,
-          deceased,
-          govIdNumber,
-          govIdType,
-          sss,
-          hbp,
-          region
-        }
-      });
-    }
-  }
 
-  if (farmCards.length > 0) {
-    farmCards.forEach(card => {
-      const ofName = card.querySelector('.ofName').value;
-      const olName = card.querySelector('.olName').value;
-      const ownership = card.querySelector('.ownership').value;
-      const farmLocationBrgy = card.querySelector('.farmLocationBrgy').value;
-      const farmLocationMunicipality = card.querySelector('.farmLocationMunicipality').value;
-      const farmLocationProvince = card.querySelector('.farmLocationProvince').value;
-      const farmType = card.querySelector('.farmType').value;
-      const farmSize = card.querySelector('.farmSize').value;
-      const parcelNum = parseInt(card.querySelector('.parcelNum').value, 10);
+    if (farmCards.length > 0) {
+      review += `<label class="fw-bold">Farm Information</label class="fw-bold">`;
+      farmCards.forEach((card) => {
+        const ofName = card.querySelector(".ofName").value;
+        const olName = card.querySelector(".olName").value;
+        const ownership = card.querySelector(".ownership").value;
+        const farmLocationBrgy = card.querySelector(".farmLocationBrgy").value;
+        const farmLocationMunicipality = card.querySelector(
+          ".farmLocationMunicipality"
+        ).value;
+        const farmLocationProvince = card.querySelector(
+          ".farmLocationProvince"
+        ).value;
+        const farmType = card.querySelector(".farmType").value;
+        const farmSize = card.querySelector(".farmSize").value;
+        const parcelNum = parseInt(card.querySelector(".parcelNum").value, 10);
 
-      let parcel_id = '';
+        let parcel_id = "";
 
-      if (card.querySelector('.parcel_id')) {
-        parcel_id = card.querySelector('.parcel_id').value;
+        if (card.querySelector(".parcel_id")) {
+          parcel_id = card.querySelector(".parcel_id").value;
           console.log(`Farm exists! ${parcel_id}`);
-      }else{
-        console.log('Class not exists!');
-      }
+        } else {
+          console.log("Class not exists!");
+        }
 
-      if (card.querySelector('.parcel_id')) {    
-      farms.push({
-        parcel: {
-          parcel_id,
-          parcelNum,
-          ofName,
-          olName,
-          ownership,
-          farmLocationBrgy,
-          farmLocationMunicipality,
-          farmLocationProvince,
-          farmSize,
-          farmType
-        },
-      });
-
-    }else{
-      farms.push({
-        parcel: {
-          parcelNum,
-          ofName,
-          olName,
-          ownership,
-          farmLocationBrgy,
-          farmLocationMunicipality,
-          farmLocationProvince,
-          farmSize,
-          farmType
-        },
+        if (card.querySelector(".parcel_id")) {
+          farms.push({
+            parcel: {
+              parcel_id,
+              parcelNum,
+              ofName,
+              olName,
+              ownership,
+              farmLocationBrgy,
+              farmLocationMunicipality,
+              farmLocationProvince,
+              farmSize,
+              farmType,
+            },
+          });
+        } else {
+          farms.push({
+            parcel: {
+              parcelNum,
+              ofName,
+              olName,
+              ownership,
+              farmLocationBrgy,
+              farmLocationMunicipality,
+              farmLocationProvince,
+              farmSize,
+              farmType,
+            },
+          });
+            review += `
+        <div class="row" style="text-align: left;">
+          <ul>
+          <li><strong>Parcel #:</strong> <span class="text-success">${parcelNum}</span></li>
+          <li><strong>Ownership:</strong> <span class="text-success">${ownership}</span></li>
+          <li><strong>Owner's Name:</strong> <span class="text-success">${ofName} ${olName}</span></li>
+          <li><strong>Location:</strong> <span class="text-success">${farmLocationBrgy}, ${farmLocationMunicipality}, ${farmLocationProvince}</span></li>
+          <li><strong>Farm Size:</strong> <span class="text-success">${farmSize}</span> hectares</li>
+          <li><strong>Farm Type:</strong> <span class="text-success">${farmType}</span></li>
+          </ul>
+        </div>`;
+        }
       });
     }
 
-    });
-  }
+    if (cropCards.length > 0) {
+      review += `
+      <label class="fw-bold">Crop Information</label class="fw-bold">
+    `;
+      cropCards.forEach((card) => {
+        const parcelNum = card.querySelector(".parcelNum").value;
+        const hvc = card.querySelector(".hvc").checked ? 1 : 0;
+        const cropArea = card.querySelector(".cropArea").value;
+        const cropName = card.querySelector(".cropName").value;
+        const classification = parseInt(
+          card.querySelector(".classification").value
+        );
 
-  if (cropCards.length > 0) {
-    cropCards.forEach(card => {
-      const parcelNum = card.querySelector('.parcelNum').value;
-      const hvc = card.querySelector('.hvc').checked ? 1 : 0;
-      const cropArea = card.querySelector('.cropArea').value;
-      const cropName = card.querySelector('.cropName').value;
-      const classification = parseInt(card.querySelector('.classification').value);
+        let crop_id = "";
+        if (card.querySelector(".crop_id")) {
+          crop_id = card.querySelector(".crop_id").value;
+          console.log(`Crop exists! ${crop_id}`);
+        } else {
+          console.log("Class not exists!");
+        }
 
+        if (card.querySelector(".crop_id")) {
+          farms.push({
+            crop: {
+              crop_id,
+              parcelNum,
+              hvc,
+              cropArea,
+              cropName,
+              classification,
+            },
+          });
+        } else {
+          farms.push({
+            crop: {
+              parcelNum,
+              hvc,
+              cropArea,
+              cropName,
+              classification,
+            },
+          });
+            review += `
+          <div class="row" style="text-align: left;">
+            <ul>
+            <li><strong>Parcel #:</strong> <span class="text-success">${parcelNum}</span></li>
+            <li><strong>High Value Crop?:</strong> <span class="text-success">${hvc === 1 ? 'Yes': 'No'}</span></li>
+            <li><strong>Crop Area:</strong> <span class="text-success">${cropArea}</span></li>
+            <li><strong>Crop Name:</strong> <span class="text-success">${cropName}</span></li>
+            <li><strong>Classification:</strong> <span class="text-success">${classification}</span> hectares</li>
+            </ul>
+          </div>
+        `;
+        }
+      });
+    }
 
-  let crop_id = '';
-  if (card.querySelector('.crop_id')) {
-    crop_id = card.querySelector('.crop_id').value;
-    console.log(`Crop exists! ${crop_id}`);
-  }else{
-    console.log('Class not exists!');
-  }
+    if (livestockCards.length > 0) {
+      review += `
+      <label class="fw-bold">Livestock Information</label class="fw-bold">
+    `;
+      livestockCards.forEach((card) => {
+        const parcelNum = card.querySelector(".parcelNum").value;
+        const numberOfHeads = parseInt(
+          card.querySelector(".numberOfHeads").value
+        );
+        const livestockType = card.querySelector(".livestockType").value;
 
-  if (card.querySelector('.crop_id')) {
-    farms.push({
-      crop: {
-        crop_id,
-        parcelNum,
-        hvc,
-        cropArea,
-        cropName,
-        classification
+        let livestock_id = "";
+
+        if (card.querySelector(".livestock_id")) {
+          livestock_id = card.querySelector(".livestock_id").value;
+          console.log(`LS exists! ${livestock_id}`);
+        } else {
+          console.log("Class not exists!");
+        }
+
+        if (card.querySelector(".livestock_id")) {
+          farms.push({
+            livestock: {
+              livestock_id,
+              parcelNum,
+              numberOfHeads,
+              livestockType,
+            },
+          });
+        } else {
+          farms.push({
+            livestock: {
+              parcelNum,
+              numberOfHeads,
+              livestockType,
+            },
+          });
+            review += `
+            <div class="row" style="text-align: left;">
+              <ul>
+              <li><strong>Parcel #:</strong> <span class="text-success">${parcelNum}</span></li>
+              <li><strong>Number Of Heads:</strong> <span class="text-success">${numberOfHeads}</span></li>
+              <li><strong>Livestock:</strong> <span class="text-success">${livestockType}</span></li>
+              </ul>
+            </div>
+          `;
+        }
+      });
+    }
+
+    document.getElementById("farmsData").value = JSON.stringify(farms);
+    console.log(farms);
+
+    if (card.querySelector(".farmer_id")) {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "compare-record.php", true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+        // console.log("Response from compare-record.php:", xhr.responseText);
+        Swal.fire({
+          title: "Review Changes",
+          html: `<div class="row">${xhr.responseText}</div>`,
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Continue",
+        }).then((result) => {
+          if (result.isConfirmed) {
+          document.getElementById("farmForm").submit();
+          }
+        });
+        } else if (xhr.status === 404) {
+        Swal.fire({
+          title: "Error",
+          text: "The requested resource was not found (404).",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        } else if (xhr.status === 500) {
+        Swal.fire({
+          title: "Error",
+          text: "An internal server error occurred (500).",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        }
       }
-    });
-  }else{
-    farms.push({
-      crop: {
-        parcelNum,
-        hvc,
-        cropArea,
-        cropName,
-        classification
-      }
-    });
-  }
+      };
+      xhr.send(document.getElementById("farmsData").value);
+    } else {
+      Swal.fire({
+        title: "Are you sure?",
+        html: `<div class="row">${review}</div>`,
+        // icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, submit it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById("farmForm").submit();
+        }
+      });
+    }
+  });
 
-    });
-  }
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
+const tabs = document.querySelectorAll(".nav-link");
 
-  if (livestockCards.length > 0) {
-    livestockCards.forEach(card => {
-      const parcelNum = card.querySelector('.parcelNum').value;
-      const numberOfHeads = parseInt(card.querySelector('.numberOfHeads').value);
-      const livestockType = card.querySelector('.livestockType').value;
-
-  let livestock_id = '';
-
-  if (card.querySelector('.livestock_id')) {
-    livestock_id = card.querySelector('.livestock_id').value;
-    console.log(`LS exists! ${livestock_id}`);
-  }else{
-    console.log('Class not exists!');
-  }
-
-  if (card.querySelector('.livestock_id')) {
-    farms.push({
-      livestock: {
-        livestock_id,
-        parcelNum,
-        numberOfHeads,
-        livestockType
-      }
-    });
-  }else{
-    farms.push({
-      livestock: {
-        parcelNum,
-        numberOfHeads,
-        livestockType
-      }
-    });
-  }
-
-    });
-  }
-
-  document.getElementById('farmsData').value = JSON.stringify(farms);
-  console.log(farms);
-  document.getElementById('farmForm').submit();
-});
-
-
-const prevButton = document.getElementById('prevButton');
-const nextButton = document.getElementById('nextButton');
-const tabs = document.querySelectorAll('.nav-link');
-
-prevButton.addEventListener('click', () => {
-  const activeTab = document.querySelector('.nav-link.active');
+prevButton.addEventListener("click", () => {
+  const activeTab = document.querySelector(".nav-link.active");
   if (activeTab) {
     const prevTab = activeTab.parentElement.previousElementSibling;
     if (prevTab) {
-      prevTab.querySelector('.nav-link').click();
+      prevTab.querySelector(".nav-link").click();
       updateButtonStates();
     }
   }
 });
 
-nextButton.addEventListener('click', () => {
-  const activeTab = document.querySelector('.nav-link.active');
+nextButton.addEventListener("click", () => {
+  const activeTab = document.querySelector(".nav-link.active");
   if (activeTab) {
     const nextTab = activeTab.parentElement.nextElementSibling;
     if (nextTab) {
-      nextTab.querySelector('.nav-link').click();
+      nextTab.querySelector(".nav-link").click();
       updateButtonStates();
     }
   }
@@ -614,10 +921,10 @@ nextButton.addEventListener('click', () => {
 
 // Optionally, set initial states of buttons (disabled/enabled based on the active tab position)
 function updateButtonStates() {
-  const activeTab = document.querySelector('.nav-link.active');
-  const firstTab = document.querySelector('.nav-item:first-child .nav-link');
-  const lastTab = document.querySelector('.nav-item:last-child .nav-link');
-  
+  const activeTab = document.querySelector(".nav-link.active");
+  const firstTab = document.querySelector(".nav-item:first-child .nav-link");
+  const lastTab = document.querySelector(".nav-item:last-child .nav-link");
+
   // Disable prevButton if we're on the first tab
   if (activeTab === firstTab) {
     prevButton.disabled = true;
@@ -634,75 +941,85 @@ function updateButtonStates() {
 }
 
 // Initialize the button states when the page loads
-document.addEventListener('DOMContentLoaded', updateButtonStates);
+document.addEventListener("DOMContentLoaded", updateButtonStates);
 
 // Keyboard arrow navigation (left and right)
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'ArrowLeft') {
+document.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
     // Left arrow (previous)
     prevButton.click();
-  } else if (event.key === 'ArrowRight') {
+  } else if (event.key === "ArrowRight") {
     // Right arrow (next)
     nextButton.click();
   }
 });
 
+if (window.location.href.includes("farms=true")) {
+  nextButton.click();
+}
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    const activeTab = document.querySelector('.nav-link.active');
+tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const activeTab = document.querySelector(".nav-link.active");
     if (activeTab) {
-      activeTab.classList.remove('active');
+      activeTab.classList.remove("active");
     }
-    tab.classList.add('active');
+    tab.classList.add("active");
   });
 });
 
 function previewImage() {
-  const fileInput = document.getElementById('farmerImg');
-  const imgElement = document.getElementById('farmerImage');
+  const fileInput = document.getElementById("farmerImg");
+  const imgElement = document.getElementById("farmerImage");
 
   const file = fileInput.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       imgElement.src = event.target.result;
     };
     reader.readAsDataURL(file);
   }
 }
 
-
 // Function to handle image preview
 function handleImagePreview(fileInputId, previewContainerId, previewImageId) {
-    // Get the file input, preview container, and image elements by their IDs
-    const fileInput = document.getElementById(fileInputId);
-    const previewContainer = document.getElementById(previewContainerId);
-    const previewImage = document.getElementById(previewImageId);
+  // Get the file input, preview container, and image elements by their IDs
+  const fileInput = document.getElementById(fileInputId);
+  const previewContainer = document.getElementById(previewContainerId);
+  const previewImage = document.getElementById(previewImageId);
 
-    // Listen for the change event on the file input
-    fileInput.addEventListener('change', function (event) {
-        const file = event.target.files[0];  // Get the selected file
+  // Listen for the change event on the file input
+  fileInput.addEventListener("change", function (event) {
+    const file = event.target.files[0]; // Get the selected file
 
-        // Check if the file is an image
-        if (file && file.type.startsWith('image')) {
-            const reader = new FileReader();
+    // Check if the file is an image
+    if (file && file.type.startsWith("image")) {
+      const reader = new FileReader();
 
-            // When the file is successfully read
-            reader.onload = function (e) {
-                previewImage.src = e.target.result;  // Set the preview image source
-                previewContainer.style.display = 'block';  // Show the preview container
-            };
+      // When the file is successfully read
+      reader.onload = function (e) {
+        previewImage.src = e.target.result; // Set the preview image source
+        previewContainer.style.display = "block"; // Show the preview container
+      };
 
-            // Read the file as a data URL
-            reader.readAsDataURL(file);
-        } else {
-            // If the file is not an image, hide the preview container
-            previewContainer.style.display = 'none';
-        }
-    });
+      // Read the file as a data URL
+      reader.readAsDataURL(file);
+    } else {
+      // If the file is not an image, hide the preview container
+      previewContainer.style.display = "none";
+    }
+  });
 }
 
 // Initialize preview handling for both front and back ID photos
-handleImagePreview('govIdPhotoFront', 'previewContainerFront', 'previewImageFront');
-handleImagePreview('govIdPhotoBack', 'previewContainerBack', 'previewImageBack');
+handleImagePreview(
+  "govIdPhotoFront",
+  "previewContainerFront",
+  "previewImageFront"
+);
+handleImagePreview(
+  "govIdPhotoBack",
+  "previewContainerBack",
+  "previewImageBack"
+);

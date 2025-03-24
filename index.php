@@ -602,6 +602,17 @@
             });
 
         });
+
+        document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.shiftKey && event.key === 'L') {
+            event.preventDefault();
+            window.location.href = window.location.origin + '/login';
+        }
+        if (event.ctrlKey && event.shiftKey && event.key === 'D') {
+            event.preventDefault();
+            window.location.href = window.location.origin + '/dashboard';
+        }
+        });
     </script>
 </body>
 

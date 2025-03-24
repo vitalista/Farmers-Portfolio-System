@@ -88,6 +88,12 @@ if (!empty($_GET['farmType'])) {
     $types .= "s";
 }
 
+if (!empty($_GET['fps'])) {
+    $whereConditions[] = "f.fps_code = ?";
+    $params[] = validate($_GET['fps']);
+    $types .= "s";
+}
+
 
 if (!empty($_GET['farmerAdd']) && !empty($_GET['farmerAddComparison'])) {
     $column = validate($_GET['farmerAddComparison']);
@@ -292,6 +298,11 @@ $result = $stmt->get_result();
                             </select>
                             <input type="text" id="farmer" name="farmer" class="form-control" placeholder="Enter">
                         </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="fps" class="form-label">FPS code</label>
+                        <input type="text" id="fps" name="fps" class="form-control" placeholder="Type here...">
                     </div>
 
                     <div class="col-md-2 mb-3">

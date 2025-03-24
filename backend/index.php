@@ -1,10 +1,8 @@
 <?php
 session_start();
+
+require 'functions.php';
 include 'auth-check.php';
-// MySQL connection settings
-// require 'functions.php';
-require 'database.php';
-// include 'auth-check.php';
 if($_SESSION['LoggedInUser']['role'] != 1){
   header('Location: ../logout.php');
 }

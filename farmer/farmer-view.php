@@ -161,8 +161,21 @@
                                                 <div class="col-md-6">
                                                     <label for="govIdType" class="form-label text-emphasis-color fs-6 fw-bold">ID
                                                         Type:</label>
-                                                    <input type="text" value="<?= $farmer['data']['gov_id_type'] ?>" class="form-control govIdType" id="govIdType"
-                                                        placeholder="ID Type">
+                                                    <select class="form-select govIdType" id="govIdType" required>
+                                                        <option selected disabled value="">Choose...</option>
+                                                        <option value="National ID" <?= $farmer['data']['gov_id_type'] == 'National ID' ? 'selected' : ''; ?>>National ID</option>
+                                                        <option value="Passport" <?= $farmer['data']['gov_id_type'] == 'Passport' ? 'selected' : ''; ?>>Passport</option>
+                                                        <option value="Driver's License" <?= $farmer['data']['gov_id_type'] == "Driver's License" ? 'selected' : ''; ?>>Driver's License</option>
+                                                        <option value="Voter's ID" <?= $farmer['data']['gov_id_type'] == "Voter's ID" ? 'selected' : ''; ?>>Voter's ID</option>
+                                                        <option value="SC ID" <?= $farmer['data']['gov_id_type'] == 'SC ID' ? 'selected' : ''; ?>>SC ID</option>
+                                                        <option value="PWD ID" <?= $farmer['data']['gov_id_type'] == 'PWD ID' ? 'selected' : ''; ?>>PWD ID</option>
+                                                        <option value="4PS ID" <?= $farmer['data']['gov_id_type'] == '4PS ID' ? 'selected' : ''; ?>>4PS ID</option>
+                                                        <option value="Philhealth ID" <?= $farmer['data']['gov_id_type'] == 'Philhealth ID' ? 'selected' : ''; ?>>Philhealth ID</option>
+                                                        <option value="SP ID" <?= $farmer['data']['gov_id_type'] == 'SP ID' ? 'selected' : ''; ?>>SP ID</option>
+                                                        <option value="SSS/GSIS ID" <?= $farmer['data']['gov_id_type'] == 'SSS/GSIS ID' ? 'selected' : ''; ?>>SSS/GSIS ID</option>
+                                                        <option value="Comelec ID" <?= $farmer['data']['gov_id_type'] == 'Comelec ID' ? 'selected' : ''; ?>>Comelec ID</option>
+                                                        <option value="Employee ID" <?= $farmer['data']['gov_id_type'] == 'Employee ID' ? 'selected' : ''; ?>>Employee ID</option>
+                                                    </select>
                                                 </div>
 
                                                 <div class="col-md-6">
@@ -265,37 +278,36 @@
                                             <label class="form-label">House/BLDG/ Purok<input type="text" value="<?= $farmer['data']['hbp']; ?>" class="form-control hbp"></label>
                                             <label class="form-label">Street/Sitio/SubDV<input type="text" value="<?= $farmer['data']['sss']; ?>" class="form-control sss"></label>
                                             <label class="form-label">Barangay
-                                                <input list="barangayList" type="text" value="<?= $farmer['data']['farmer_brgy_address']; ?>" class="form-control brgy">
-                                                <datalist id="barangayList">
-                                                    <option value="Bagong Nayon">
-                                                    <option value="Barangca">
-                                                    <option value="Calantipay">
-                                                    <option value="Catulinan">
-                                                    <option value="Concepcion">
-                                                    <option value="Hinukay">
-                                                    <option value="Makinabang">
-                                                    <option value="Matangtubig">
-                                                    <option value="Pagala">
-                                                    <option value="Paitan">
-                                                    <option value="Piel">
-                                                    <option value="Pinagbarilan">
-                                                    <option value="Poblacion">
-                                                    <option value="Sabang">
-                                                    <option value="San Jose">
-                                                    <option value="San Roque">
-                                                    <option value="Santa Barbara">
-                                                    <option value="Santo Cristo">
-                                                    <option value="Santo Niño">
-                                                    <option value="Subic">
-                                                    <option value="Sulivan">
-                                                    <option value="Tangos">
-                                                    <option value="Tarcan">
-                                                    <option value="Tiaong">
-                                                    <option value="Tibag">
-                                                    <option value="Tilapayong">
-                                                    <option value="Virgen delas Flores">
-                                                </datalist>
-                                                </datalist>
+                                                <select class="form-select brgy" id="personalBrgy" required>
+                                                    <option selected disabled value="">Choose...</option>
+                                                    <option value="Bagong Nayon" <?= $farmer['data']['farmer_brgy_address'] == 'Bagong Nayon' ? 'selected' : ''; ?>>Bagong Nayon</option>
+                                                    <option value="Barangca" <?= $farmer['data']['farmer_brgy_address'] == 'Barangca' ? 'selected' : ''; ?>>Barangca</option>
+                                                    <option value="Calantipay" <?= $farmer['data']['farmer_brgy_address'] == 'Calantipay' ? 'selected' : ''; ?>>Calantipay</option>
+                                                    <option value="Catulinan" <?= $farmer['data']['farmer_brgy_address'] == 'Catulinan' ? 'selected' : ''; ?>>Catulinan</option>
+                                                    <option value="Concepcion" <?= $farmer['data']['farmer_brgy_address'] == 'Concepcion' ? 'selected' : ''; ?>>Concepcion</option>
+                                                    <option value="Hinukay" <?= $farmer['data']['farmer_brgy_address'] == 'Hinukay' ? 'selected' : ''; ?>>Hinukay</option>
+                                                    <option value="Makinabang" <?= $farmer['data']['farmer_brgy_address'] == 'Makinabang' ? 'selected' : ''; ?>>Makinabang</option>
+                                                    <option value="Matangtubig" <?= $farmer['data']['farmer_brgy_address'] == 'Matangtubig' ? 'selected' : ''; ?>>Matangtubig</option>
+                                                    <option value="Pagala" <?= $farmer['data']['farmer_brgy_address'] == 'Pagala' ? 'selected' : ''; ?>>Pagala</option>
+                                                    <option value="Paitan" <?= $farmer['data']['farmer_brgy_address'] == 'Paitan' ? 'selected' : ''; ?>>Paitan</option>
+                                                    <option value="Piel" <?= $farmer['data']['farmer_brgy_address'] == 'Piel' ? 'selected' : ''; ?>>Piel</option>
+                                                    <option value="Pinagbarilan" <?= $farmer['data']['farmer_brgy_address'] == 'Pinagbarilan' ? 'selected' : ''; ?>>Pinagbarilan</option>
+                                                    <option value="Poblacion" <?= $farmer['data']['farmer_brgy_address'] == 'Poblacion' ? 'selected' : ''; ?>>Poblacion</option>
+                                                    <option value="Sabang" <?= $farmer['data']['farmer_brgy_address'] == 'Sabang' ? 'selected' : ''; ?>>Sabang</option>
+                                                    <option value="San Jose" <?= $farmer['data']['farmer_brgy_address'] == 'San Jose' ? 'selected' : ''; ?>>San Jose</option>
+                                                    <option value="San Roque" <?= $farmer['data']['farmer_brgy_address'] == 'San Roque' ? 'selected' : ''; ?>>San Roque</option>
+                                                    <option value="Santa Barbara" <?= $farmer['data']['farmer_brgy_address'] == 'Santa Barbara' ? 'selected' : ''; ?>>Santa Barbara</option>
+                                                    <option value="Santo Cristo" <?= $farmer['data']['farmer_brgy_address'] == 'Santo Cristo' ? 'selected' : ''; ?>>Santo Cristo</option>
+                                                    <option value="Santo Niño" <?= $farmer['data']['farmer_brgy_address'] == 'Santo Niño' ? 'selected' : ''; ?>>Santo Niño</option>
+                                                    <option value="Subic" <?= $farmer['data']['farmer_brgy_address'] == 'Subic' ? 'selected' : ''; ?>>Subic</option>
+                                                    <option value="Sulivan" <?= $farmer['data']['farmer_brgy_address'] == 'Sulivan' ? 'selected' : ''; ?>>Sulivan</option>
+                                                    <option value="Tangos" <?= $farmer['data']['farmer_brgy_address'] == 'Tangos' ? 'selected' : ''; ?>>Tangos</option>
+                                                    <option value="Tarcan" <?= $farmer['data']['farmer_brgy_address'] == 'Tarcan' ? 'selected' : ''; ?>>Tarcan</option>
+                                                    <option value="Tiaong" <?= $farmer['data']['farmer_brgy_address'] == 'Tiaong' ? 'selected' : ''; ?>>Tiaong</option>
+                                                    <option value="Tibag" <?= $farmer['data']['farmer_brgy_address'] == 'Tibag' ? 'selected' : ''; ?>>Tibag</option>
+                                                    <option value="Tilapayong" <?= $farmer['data']['farmer_brgy_address'] == 'Tilapayong' ? 'selected' : ''; ?>>Tilapayong</option>
+                                                    <option value="Virgen delas Flores" <?= $farmer['data']['farmer_brgy_address'] == 'Virgen delas Flores' ? 'selected' : ''; ?>>Virgen delas Flores</option>
+                                                </select>
                                             </label>
                                             <label class="form-label">Municipality<input disabled type="text" value="<?= $farmer['data']['farmer_municipality_address']; ?>" class="form-control municipality"></label>
                                             <label class="form-label">Province<input disabled type="text" value="<?= $farmer['data']['farmer_province_address']; ?>" class="form-control province"></label>
@@ -558,7 +570,36 @@
 
                                                                     <div class="col-md-3 mb-3">
                                                                         <label class="ms-1">Crop Name<span class="text-danger fw-bold red-star"></span></label>
-                                                                        <input id="" type="text" value="<?= $crop['crop_name']; ?>" placeholder="Type here..." class="form-control crop cropName" required>
+                                                                        <input id="" type="text" list="cropTypes" value="<?= $crop['crop_name']; ?>" placeholder="Type here..." class="form-control crop cropName" required>
+                                                                        <datalist id="cropTypes">
+                                                                            <option value="Rice/Palay">
+                                                                            <option value="Water melon">
+                                                                            <option value="String beans - harvested green (sitao)">
+                                                                            <option value="Patola">
+                                                                            <option value="Okra">
+                                                                            <option value="Eggplant (talong)">
+                                                                            <option value="Batao">
+                                                                            <option value="Pechay">
+                                                                            <option value="Corn">
+                                                                            <option value="Chili (labuyo)">
+                                                                            <option value="Camote">
+                                                                            <option value="Mustard">
+                                                                            <option value="Mango">
+                                                                            <option value="Tomato (kamatis)">
+                                                                            <option value="Ampalaya">
+                                                                            <option value="Long Chili">
+                                                                            <option value="Mongo (Mung Bean)">
+                                                                            <option value="Common gourd (upo)">
+                                                                            <option value="Bush Sitao">
+                                                                            <option value="Winged Bean (pallang)">
+                                                                            <option value="Cucumber (pipino)">
+                                                                            <option value="Squash (kalabasa)">
+                                                                            <option value="Papaya">
+                                                                            <option value="Onion bulbs (sibuyas)">
+                                                                            <option value="Rambutan">
+                                                                            <option value="Kangkong">
+                                                                            <option value="Spinach">
+                                                                        </datalist>
                                                                     </div>
 
                                                                     <div class="col-md-3 mb-3">
@@ -615,7 +656,7 @@
 
                                                                     <div class="col-md-6 mb-3">
                                                                         <label>Number of heads<span class="text-danger fw-bold red-star"></span></label>
-                                                                        <input type="number" value="<?= $livestock['no_of_heads']; ?>" placeholder="Number of heads" class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
+                                                                        <input type="number" value="<?= $livestock['no_of_heads']; ?>" placeholder="Type here..." class="form-control no-spin-button numberOfHeads" required max="9999999999" min="0" step="1">
                                                                         <input type="hidden" class="parcelNum" value="<?= $parcel['parcel_no']; ?>" style="width: 100%;">
                                                                         <div class="invalid-feedback">Please enter.</div>
                                                                     </div>
@@ -624,7 +665,21 @@
                                                                         <div class="form-group">
                                                                             <label for="livestockType">Animal type<span class="text-danger fw-bold red-star"></span></label>
                                                                             <div class="input-group">
-                                                                                <input type="text" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Enter animal type" required>
+                                                                                <input type="text" list="livestockTypes" value="<?= $livestock['animal_name']; ?>" class="form-control livestockType" placeholder="Type here..." required>
+                                                                                <datalist id="livestockTypes">
+                                                                                    <option value="Pigs or swine">       
+                                                                                    <option value="Buffaloes (Carabaos)">
+                                                                                    <option value="Goats">
+                                                                                    <option value="Ducks">
+                                                                                    <option value="Chickens">
+                                                                                    <option value="Turkeys">
+                                                                                    <option value="Geese">
+                                                                                    <option value="Sheep">
+                                                                                    <option value="Cattle">
+                                                                                    <option value="Horses">
+                                                                                    <option value="Rabbits and hares">
+                                                                                    <option value="Quail">
+                                                                                </datalist>
                                                                                 <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
 
                                                                                     <div class="input-group-append">

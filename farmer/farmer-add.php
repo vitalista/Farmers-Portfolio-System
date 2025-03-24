@@ -124,7 +124,7 @@
                         <h6 class="fw-bold">Address</h6>
 
                         <div class="col-md-3">
-                          <label for="hbp">House/BLDG/ Purok<span class="text-danger fw-bold red-star"></span></label>
+                          <label for="hbp">House/BLDG/Purok<span class="text-danger fw-bold red-star"></span></label>
                           <input type="text" class="form-control hbp" id="hbp" placeholder="" required>
                           <div class="invalid-feedback">Please enter.</div>
                         </div>
