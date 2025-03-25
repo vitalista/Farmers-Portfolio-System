@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dbrecord = getRecordsById('programs', $programId, ['id', 'modified_times', 'is_archived', 'created_at', 'updated_at', 'fps_code']);
     $userRecord = removeAndCustomizeKeys($program, ['program_id'], $changeKeyName);
 
-    if (!empty(array_diff($dbrecord, $userRecord))) {
+    if (!empty(array_diff($dbrecord, $userRecord)) || !empty(array_diff($userRecord, $dbrecord))) {
         $difference .= "<div style='text-align: left;'>
         <div class='text-center'><label class='fw-bold'>Program Information</label></div>
         <ul>";
@@ -71,9 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $difference .= "</ul></div>";
     }
-
     foreach ($data as $item) { 
-
+        // echo '<pre>'. print_r(json_encode($item)) . '</pre>';
         if (isset($item['resources'])) {
             $resources = $item['resources'];
             $difference .= "<div style='text-align: left;' class='mt-2'>";
@@ -89,7 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $dbrecord = getRecordsById('resources', $resources['resources_id'], ['id', 'modified_times', 'program_id', 'is_archived', 'created_at', 'updated_at', 'fps_code', 'color']);
                 $userRecord = removeAndCustomizeKeys($resources, ['program_id', 'resources_id'], $changeKeyName);
 
-                if (!empty(array_diff($dbrecord, $userRecord))) {
+                // echo "<pre class='text-success'>" . print_r(json_encode($dbrecord), true) . '</pre>';
+                // echo '<pre>' . print_r(json_encode($userRecord), true) . '</pre>';
+                // echo "<div>DB Record Length: " . strlen(json_encode($dbrecord)) . "</div>";
+                // echo "<div>User Record Length: " . strlen(json_encode($userRecord)) . "</div>";
+                // echo "<div>DB Record Count: " . count($dbrecord) . "</div>";
+                // echo "<div>User Record Count: " . count($userRecord) . "</div>";
+                // echo "<div>Array Diff (DB - User): " . print_r(array_diff($dbrecord, $userRecord), true) . "</div>";
+                // echo "<div>Array Diff (User - DB): " . print_r(array_diff($userRecord, $dbrecord), true) . "</div>";
+                
+                if (!empty(array_diff($dbrecord, $userRecord)) || !empty(array_diff($userRecord, $dbrecord))) {
                     $difference .= "<div class='text-center'><span class='fw-bold'>Resources</span></div>";
                     foreach ($userRecord as $key => $value) {
                         if (array_key_exists($key, $dbrecord) && $dbrecord[$key] != $value) {

@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
             $dbrecord= getRecordsById('parcels', $parcel['parcel_id'], ['id', 'farmer_id', 'modified_times', 'is_archived', 'created_at', 'updated_at', 'fps_code']);
             $userRecord = removeAndCustomizeKeys($parcel, ['parcel_id'], $changeKeyName);
-            if(!empty(array_diff($dbrecord, $userRecord))){
+            if(!empty(array_diff($dbrecord, $userRecord)) || !empty(array_diff($userRecord, $dbrecord))){
             $difference .= "<div class='text-center'><span class='fw-bold'>Parcel #{$dbrecord['parcel_no']}</span></div>";
             foreach ($userRecord as $key => $value) {
                 
@@ -234,7 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
             $dbrecord = getRecordsById('crops', $crop['crop_id'], ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'created_at', 'updated_at', 'fps_code']);
             $userRecord = removeAndCustomizeKeys($crop, ['crop_id', 'parcelNum'], $changeKeyName);
-            if (!empty(array_diff($dbrecord, $userRecord))) {
+            if (!empty(array_diff($dbrecord, $userRecord)) || !empty(array_diff($userRecord, $dbrecord))) {
             $difference .= "<div class='text-center'><span class='fw-bold'>Crop</span></div>
             <li class='fw-bold'>Parcel #{$crop['parcelNum']}</li>
             ";
@@ -321,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $dbrecord = getRecordsById('livestocks', $livestock['livestock_id'], ['id', 'farmer_id', 'modified_times', 'is_archived', 'parcel_id', 'classification', 'created_at', 'updated_at', 'fps_code']);
             $userRecord = removeAndCustomizeKeys($livestock, ['livestock_id', 'parcelNum'], $changeKeyName);
-            if (!empty(array_diff($dbrecord, $userRecord))) {
+            if (!empty(array_diff($dbrecord, $userRecord)) || !empty(array_diff($userRecord, $dbrecord))) {
                 $difference .= "<div class='text-center'><span class='fw-bold'>Livestock</span></div>
                 <li class='fw-bold'>Parcel #{$livestock['parcelNum']}</li>
                 ";
