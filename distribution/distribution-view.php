@@ -115,7 +115,7 @@
                                                                         echo 'selected';
                                                                     }
                                                                     ?>
-                                                                    value="<?= $item['id'] ?>"><?= $item['quantity_available'] ?> -
+                                                                    value="<?= $item['id'] ?>"><?= number_format($item['quantity_available'], 2) ?> -
                                                                     <?= $item['unit_of_measure'] ?>
                                                                     <?= $item['resource_type'] ?></option>
                                                         <?php
@@ -149,10 +149,10 @@
                                                     </select>
                                                 </div>
 
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label for="validationCustom01" class="form-label">Quantity distributed</label>
                                                     <div class=" input-group">
-                                                        <input style="width: 50px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;" name="quantity_distributed" value="<?= $data['quantity_distributed']; ?>" required>
+                                                        <input type="number" step="0.01" style="width: 200px; padding: 6px 3px; text-align: center; border: 1px solid #cfb1b1; outline: 0; margin-right: 1px;" name="quantity_distributed" value="<?= $data['quantity_distributed']; ?>" required>
                                                         <p class="ms-1 mb-0"><?= $resources['unit_of_measure']; ?></p>
                                                         
                                                     </div>

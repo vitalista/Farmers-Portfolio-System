@@ -104,9 +104,11 @@ if (!isset($_SESSION['resourceItems'])) {
                                                         if (mysqli_num_rows($farmers) > 0) {
                                                             foreach ($farmers as $item) {
                                                         ?>
-                                                                <option value="<?= $item['id'] ?>"><?= $item['quantity_available'] ?> -
+                                                                <option value="<?= $item['id'] ?>"><span class="fw-bold"><?= number_format($item['quantity_available'], 2) ?></span> -
+                                                                <?= $item['resources_name'] ?>
+                                                                <?= $item['resource_type'] ?> 
                                                                     <?= $item['unit_of_measure'] ?>
-                                                                    <?= $item['resource_type'] ?></option>
+                                                                </option>
                                                         <?php
                                                             }
                                                         }
@@ -116,7 +118,7 @@ if (!isset($_SESSION['resourceItems'])) {
 
                                                 <div class="col-md-1 mb-3">
                                                     <label>Quantity</label>
-                                                    <input type="number" name="quantity" min="1" value="1" required class="form-control">
+                                                    <input type="number" step="0.01" name="quantity" value="1" required class="form-control">
                                                 </div>
 
                                                 <div class="col-md-3 mb-3 text-end mt-4">
@@ -160,9 +162,11 @@ if (!isset($_SESSION['resourceItems'])) {
                                                         if (mysqli_num_rows($farmers) > 0) {
                                                             foreach ($farmers as $item) {
                                                         ?>
-                                                                <option value="<?= $item['id'] ?>"><?= $item['quantity_available'] ?> -
+                                                                 <option value="<?= $item['id'] ?>"><span class="fw-bold"><?= number_format($item['quantity_available'], 2) ?></span> -
+                                                                <?= $item['resources_name'] ?>
+                                                                <?= $item['resource_type'] ?> 
                                                                     <?= $item['unit_of_measure'] ?>
-                                                                    <?= $item['resource_type'] ?></option>
+                                                                </option>
                                                         <?php
                                                             }
                                                         }
@@ -179,7 +183,7 @@ if (!isset($_SESSION['resourceItems'])) {
                                                 <!-- Quantity Input -->
                                                 <div class="col-md-1 mb-3">
                                                     <label>Quantity</label>
-                                                    <input type="number" name="quantity" min="1" value="1" required class="form-control">
+                                                    <input type="number" step="0.01" name="quantity" value="1" required class="form-control">
                                                 </div>
 
                                                 <!-- Submit Button -->
@@ -204,6 +208,7 @@ if (!isset($_SESSION['resourceItems'])) {
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive mb-3">
+                                    <span class="fs-6">Total Beneficiaries <strong><?= count($_SESSION['resourceItems']);?></strong></span>
                                     <table class="table table-bordered table-striped" id="example">
                                         <?php //$_SESSION['status']; 
                                         ?>

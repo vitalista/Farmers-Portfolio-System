@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $farmerId = isset($_POST['farmer_id']) ? (int) $_POST['farmer_id'] : null;
     $resourcesId = isset($_POST['resources_id']) ? (int) $_POST['resources_id'] : null;
     $programId = isset($_POST['program_id']) ? (int) $_POST['program_id'] : null;
-    $quantityDistributed = isset($_POST['quantity_distributed']) ? (int) $_POST['quantity_distributed'] : null;
+    $quantityDistributed = isset($_POST['quantity_distributed']) ? $_POST['quantity_distributed'] : null;
     $distributionDate = isset($_POST['distribution_date']) ? $_POST['distribution_date'] : null;
     $remarks = isset($_POST['remarks']) ? $_POST['remarks'] : null;
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Prepare and execute the SQL query
         $stmt = $conn->prepare($updateQuery);
-        $stmt->bind_param("iiisssii", $farmerId, $resourcesId, $programId, $quantityDistributed, $distributionDate, 
+        $stmt->bind_param("iiidsii", $farmerId, $resourcesId, $programId, $quantityDistributed, $distributionDate, 
         $remarks,
         $modifiedTimes,
         $distributionId);

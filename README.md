@@ -43,3 +43,4 @@ Notes for Backend:
 - [] resend OTP [optional]
 - [x] registration insertion [optional]
 - [x] registration insertion [optional]
+- [x] distribution bug will distribute even quantity exceeds
