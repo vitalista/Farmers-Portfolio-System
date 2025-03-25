@@ -63,7 +63,7 @@ if (!empty($_GET['totalBeneficiaries'])) {
     $types .= "i";
 }
 
-if(!empty('created') && isset($_GET['created'])) {
+if (!empty('created') && isset($_GET['created'])) {
     $created = validate($_GET['created']);
     switch ($created) {
         case 'today':
@@ -89,6 +89,19 @@ if(!empty('created') && isset($_GET['created'])) {
             break;
     }
 }
+
+if (!empty($_GET['pendingPrograms']) && $_GET['pendingPrograms'] == 1) {
+    $whereConditions[] = "CURDATE() < start_date";
+}
+
+if (!empty($_GET['expiredPrograms']) && $_GET['expiredPrograms'] == 1) {
+    $whereConditions[] = "CURDATE() > end_date";
+}
+
+if (!empty($_GET['ongoingPrograms']) && $_GET['ongoingPrograms'] == 1) {
+    $whereConditions[] = "CURDATE() >= start_date AND CURDATE() <= end_date";
+}
+
 
 if (!empty($_GET['availableBeneficiaries'])) {
     $availableBeneficiariesComp = validate($_GET['availableBeneficiariesComp']) ?? 'exact';

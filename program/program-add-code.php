@@ -334,7 +334,7 @@ if (isset($_POST['program_data'])) {
         
             // Bind parameters for the update query
             $stmt->bind_param(
-                "issiisii", 
+                "issddsii", 
                 $programId,
                 $resources['resourcesName'],
                 $resources['resourcesType'],

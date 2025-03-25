@@ -158,12 +158,12 @@
 
                                   <div class="col-md-3 mt-1">
                                     <label>Total Quantity/Amount</label>
-                                    <input type="number" value="<?= $item['total_quantity']; ?>" class="form-control resourcesNumber no-spin-button" required>
+                                    <input type="number" step="0.01" value="<?= $item['total_quantity']; ?>" class="form-control resourcesNumber no-spin-button" required>
                                   </div>
 
                                   <div class="col-md-3 mt-1">
                                     <label>Available Quantity/Amount</label>
-                                    <input type="number" value="<?= $item['quantity_available']; ?>" class="form-control resourcesAvailable no-spin-button" required>
+                                    <input type="number" step="0.01" value="<?= $item['quantity_available']; ?>" class="form-control resourcesAvailable no-spin-button" required>
                                   </div>
 
                                   <div class="col-md-3 mb-2 mt-1">

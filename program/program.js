@@ -15,7 +15,7 @@ let newFarmInput = `
 
             <div class="col-md-3 mt-1">
                 <label>Quantity/Amount</label>
-                <input type="number" class="form-control no-spin-button resourcesNumber" required>
+                <input type="number" step="0.01" class="form-control no-spin-button resourcesNumber" required>
             </div>
 
             <div class="col-md-3 mb-2 mt-1">
@@ -275,7 +275,7 @@ document.getElementById("submitButton").addEventListener("click", function (e) {
     resourcesCard.forEach((card) => {
       const resourcesName = card.querySelector(".resourcesName").value;
       const resourcesType = card.querySelector(".resourcesType").value;
-      const resourcesNumber = parseInt(
+      const resourcesNumber = parseFloat(
         card.querySelector(".resourcesNumber").value
       );
       const unitOfMeasure = card.querySelector(".unitOfMeasure").value;
@@ -285,7 +285,7 @@ document.getElementById("submitButton").addEventListener("click", function (e) {
 
       if (card.querySelector(".resources_id")) {
         resources_id = card.querySelector(".resources_id").value;
-        resourcesAvailable = parseInt(
+        resourcesAvailable = parseFloat(
           card.querySelector(".resourcesAvailable").value
         );
         console.log(
