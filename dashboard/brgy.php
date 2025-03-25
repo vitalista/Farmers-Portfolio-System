@@ -21,7 +21,7 @@
 
          <div class="container-fluid">
             <div class="row">
-               <div class="col-md-6 col-xl-3 mb-4">
+               <div class="col-md-4 mb-4">
                   <div class="card shadow border-left-success py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50">
                      <div class="card-body pb-0">
                         <div class="row g-0 align-items-center">
@@ -38,7 +38,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-md-6 col-xl-3 mb-4">
+               <div class="col-md-4 mb-4">
                   <div class="card shadow border-left-info py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150">
                      <div class="card-body pb-0">
                         <div class="row g-0 align-items-center">
@@ -62,7 +62,7 @@
 
 
 
-               <div class="col-md-6 col-xl-3 mb-4">
+               <div class="col-md-4 mb-4">
                   <div class="card shadow border-left-warning py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150">
                      <div class="card-body pb-0">
                         <div class="row g-0 align-items-center">
@@ -82,14 +82,14 @@
                         </div>
                      </div>
                      <div class="d-flex align-items-center justify-content-center">
-                        <a href="../farmer-assets/parcels.php?farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>&numberOfParcelsComp=exact&numberOfParcels=&parcelNumComp=exact&parcelNum=&parcelAreaComp=exact&parcelArea=&ownerComparison=owner_last_name&owner=&parcelComparison=parcel_brgy_address&parcelAdd=&ownershipType=&farmType=&numOfEntries=" class=" text-warning">
+                        <a href="../farmer-assets/parcels.php?columns%5B%5D=farmer_code&columns%5B%5D=parcel_no&columns%5B%5D=parcel_area&farmerComparison=last_name&farmer=&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=<?= $_GET['brgy']; ?>&numberOfParcelsComp=exact&numberOfParcels=&parcelNumComp=exact&parcelNum=&parcelAreaComp=exact&parcelArea=&ownerComparison=owner_last_name&owner=&parcelComparison=parcel_brgy_address&parcelAdd=&ownershipType=&farmType=&numOfEntries=" class=" text-warning">
                            More info<i class="bi bi-arrow-right-short"></i>
                         </a>
                      </div>
                   </div>
                </div>
 
-               <div class="col-md-6 col-xl-3 mb-4">
+               <!-- <div class="col-md-6 col-xl-3 mb-4">
                   <div class="card shadow border-left-primary py-2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150" style="border-color: red;">
                      <div class="card-body pb-0">
                         <div class="row g-0 align-items-center">
@@ -97,7 +97,7 @@
                               <div class="text-uppercase text-danger fw-bold mb-1"><span>Without Owners</span></div>
                               <div class="row g-0 align-items-center">
                                  <div class="col-auto">
-                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span><?= returnNullRows('parcels', $_GET['brgy']); ?></span></div>
+                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span>< returnNullRows('parcels', $_GET['brgy']); ?></span></div>
                                  </div>
                               </div>
                            </div>
@@ -109,7 +109,7 @@
                         </a>
                      </div>
                   </div>
-               </div>
+               </div> -->
 
             </div>
          </div>

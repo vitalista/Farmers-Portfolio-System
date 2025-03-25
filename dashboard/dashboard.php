@@ -117,7 +117,7 @@
                               </div>
                            </div>
                            <div class="d-flex align-items-center justify-content-center">
-                              <a href="../farmer-assets/parcels.php" class=" text-warning">
+                              <a href="../farmer-assets/parcels.php?columns%5B%5D=farmer_code&columns%5B%5D=parcel_no&columns%5B%5D=parcel_area" class=" text-warning">
                                  More info<i class="bi bi-arrow-right-short"></i>
                               </a>
                            </div>
@@ -137,14 +137,14 @@
                                  <div class="d-flex align-items-center mx-3">
                                     <i class="fa fa-male" style="font-size: 60px;color: rgb(54,77,249);"></i>
                                     <div class="ms-2">
-                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Male&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Male<i class="bi bi-arrow-right-short"></i></a>
+                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?gender=Male">Male<i class="bi bi-arrow-right-short"></i></a>
                                        <div><?= countRows('farmers', '', '', 'MALE'); ?></div>
                                     </div>
                                  </div>
                                  <div class="d-flex align-items-center mx-3">
                                     <i class="fa fa-female" style="font-size: 60px;color: rgb(232,23,23);"></i>
                                     <div class="ms-2">
-                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?ffrs=&farmerComparison=last_name&farmer=&gender=Female&birthday=&farmerAddComparison=farmer_brgy_address&farmerAdd=&numberOfParcelsComp=exact&numberOfParcels=&numOfEntries=">Female<i class="bi bi-arrow-right-short"></i></a>
+                                       <a class="fw-bold text-success" href="../farmer/farmer-list.php?gender=Female">Female<i class="bi bi-arrow-right-short"></i></a>
                                        <div><?= countRows('farmers', '', '', 'FEMALE'); ?></div>
                                     </div>
                                  </div>
@@ -459,7 +459,7 @@
                         </div>
                      </div>
 
-                     <div class="row">
+                     <!-- <div class="row">
                         <div class="col-md-6 col-xl-3">
                            <div class="card shadow border-left-primary py-2" style="border-color: red;">
                               <div class="card-body pb-0">
@@ -469,7 +469,7 @@
                                        <div class="row g-0 align-items-center">
                                           <div class="col-auto">
                                              <div class="text-dark fw-bold h5 mb-0 me-3"><span>
-                                                   <?= returnNullRows('parcels'); ?>
+                                                   < //returnNullRows('parcels'); ?>
                                                 </span></div>
                                           </div>
                                        </div>
@@ -482,9 +482,9 @@
                                  </a>
                               </div>
                            </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-md-6 col-xl-3">
+                        <div class="col-md-4">
                            <div class="card shadow border-left-warning py-2">
                               <div class="card-body pb-0">
                                  <div class="row g-0 align-items-center">
@@ -495,7 +495,7 @@
                                  </div>
                               </div>
                               <div class="d-flex align-items-center justify-content-center">
-                                 <a href="../program/programs-list.php" class=" text-warning">
+                                 <a href="../program/programs-list.php?pendingPrograms=1" class=" text-warning">
                                     More info<i class="bi bi-arrow-right-short"></i>
                                  </a>
                               </div>
@@ -503,7 +503,7 @@
 
                         </div>
 
-                        <div class="col-md-6 col-xl-3">
+                        <div class="col-md-4">
                            <div class="card shadow border-left-primary py-2" style="border-color: red;">
                               <div class="card-body pb-0">
                                  <div class="row g-0 align-items-center">
@@ -518,14 +518,14 @@
                                  </div>
                               </div>
                               <div class="d-flex align-items-center justify-content-center">
-                                 <a href="../program/programs-list.php" class=" text-danger">
+                                 <a href="../program/programs-list.php?expiredPrograms=1" class=" text-danger">
                                     More info<i class="bi bi-arrow-right-short"></i>
                                  </a>
                               </div>
                            </div>
                         </div>
 
-                        <div class="col-md-6 col-xl-3">
+                        <div class="col-md-4">
                            <div class="card shadow border-left-warning py-2">
                               <div class="card-body pb-0">
                                  <div class="row g-0 align-items-center">
@@ -536,7 +536,7 @@
                                  </div>
                               </div>
                               <div class="d-flex align-items-center justify-content-center">
-                                 <a href="../program/programs-list.php" class=" text-warning">
+                                 <a href="../program/programs-list.php?ongoingPrograms=1" class=" text-warning">
                                     More info<i class="bi bi-arrow-right-short"></i>
                                  </a>
                               </div>
