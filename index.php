@@ -533,7 +533,7 @@
                                     required></div>
                             <div class="mb-3"><textarea class="form-control" name="message" placeholder="Message"
                                     rows="6" required></textarea></div>
-                            <div class="d-flex justify-content-end mb-3"><button class="btn btn-primary" type="submit">Send</button></div>
+                            <div class="d-flex justify-content-end mb-3"><button class="btn btn-primary" type="submit" disabled>Send</button></div>
                         </form>
                     </div>
                 </div>

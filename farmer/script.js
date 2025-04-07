@@ -58,6 +58,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         page: "current", // Only copy the data on the current page
                     },
                 },
+                text: '<i class="bi bi-copy"></i>',
+                init: function(api, node, config) {
+                  $(node).attr({
+                    "data-bs-toggle": "tooltip", 
+                    "data-bs-placement": "top",
+                    "title": "Copy to clipboard",
+                  })
+                }
             },
 
             {
@@ -73,6 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     $.fn.dataTable.ext.buttons.csvHtml5.action(e, dt, node, config);
                 },
+                text: '<i class="bi bi-file-earmark-spreadsheet"></i>',
+                init: function(api, node, config) {
+                  $(node).attr({
+                    "data-bs-toggle": "tooltip", 
+                    "data-bs-placement": "top",
+                    "title": "Download as CSV",
+                  })
+                }
             },
             {
                 extend: "print",
@@ -95,6 +111,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     $.fn.dataTable.ext.buttons.print.action(e, dt, node, config);
                 },
+                text: '<i class="bi bi-printer"></i>',
+                init: function(api, node, config) {
+                $(node).attr({
+                    "data-bs-toggle": "tooltip", 
+                    "data-bs-placement": "top",
+                    "title": "Print this table",
+                })
+                }
             },
             {
                 extend: "excel",
@@ -109,6 +133,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, node, config);
                 },
+                text: '<i class="bi bi-file-earmark-excel"></i>',
+                init: function(api, node, config) {
+                $(node).attr({
+                    "data-bs-toggle": "tooltip", 
+                    "data-bs-placement": "top",
+                    "title": "Download as Excel",
+                })
+                }
             },
             {
                 extend: "pdf",
@@ -119,6 +151,21 @@ document.addEventListener("DOMContentLoaded", function () {
                         modifier: {
                             page: "current",
                         },
+                    };
+
+                    config.customize = function(doc) {
+                        var numberOfColumns = doc.content[1].table.body[0].length; 
+                        doc.content[1].table.widths = new Array(numberOfColumns).fill('*'); 
+                    
+                        doc.content[1].table.body.forEach(function(row, rowIndex) {
+                            row.forEach(function(cell, cellIndex) {
+                                cell.alignment = 'center';
+                                if (rowIndex === 0) { 
+                                    cell.fillColor = '#4CAF50';
+                                    cell.color = 'white';
+                                }
+                            });
+                        });
                     };
 
                     $.fn.dataTable.ext.buttons.pdfHtml5.action(e, dt, node, config);

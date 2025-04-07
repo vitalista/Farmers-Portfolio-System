@@ -159,7 +159,7 @@ document.getElementById("addFarmButton").addEventListener("click", function () {
         <div class="col-md-3 mb-3">
             <label class="ms-1">Crop Name<span class="text-danger fw-bold red-star"></span></label>
            <select id="cropName" class="form-select crop cropName" required>
-            <option value="" disabled selected>Select crop type</option>
+            <option value="" disabled selected>Choose...</option>
             <option value="Rice/Palay">Rice/Palay</option>
             <option value="Water melon">Water melon</option>
             <option value="String beans - harvested green (sitao)">String beans - harvested green (sitao)</option>
