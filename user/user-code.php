@@ -4,14 +4,14 @@ require '../backend/functions.php';
 if($_SESSION['LoggedInUser']['role'] != 1){
   header('Location: ../logout.php');
 }
-
+$pattern = '/[^a-zA-Z0-9\s]/';
 // Step 2: Handle the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     // Collect form data
     $formData = [
-        'fullname' => $_POST['fullname'],
-        'email' => $_POST['email'],
-        'password' => $_POST['password'],
+        'fullname' => validate($_POST['fullname']),
+        'email' => validate($_POST['email']),
+        'password' => validate($_POST['password']),
         'create' => isset($_POST['create']) ? 1 : 0,
         'edit' => isset($_POST['edit']) ? 1 : 0,
         'delete' => isset($_POST['delete']) ? 1 : 0,
@@ -19,6 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
         'banned' => isset($_POST['bannedSwitch']) ? 1 : 0,
         'promote' => isset($_POST['promoteSwitch']) ? 1 : 0,
     ];
+
+    if (preg_match($pattern, $formData['fullname'])) {
+        redirect('user-settings.php', 404, 'Full name should not contain special characters');
+    }
 
     if(emailExists($formData['email'])){
         redirect('user-add.php', 500, 'Email already exist');
@@ -73,10 +77,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     // Collect form data
     $formData = [
-        'id' => $_POST['id'], // Add an ID field to identify the user to update
-        'fullname' => $_POST['fullname'],
-        'email' => $_POST['email'],
-        'password' => $_POST['password'],
+        'id' => validate($_POST['id']), // Add an ID field to identify the user to update
+        'fullname' => validate( $_POST['fullname']),
+        'email' => validate($_POST['email']),
+        'password' => validate($_POST['password']),
         'create' => isset($_POST['create']) ? 1 : 0,
         'edit' => isset($_POST['edit']) ? 1 : 0,
         'delete' => isset($_POST['delete']) ? 1 : 0,
@@ -84,6 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         'banned' => isset($_POST['bannedSwitch']) ? 1 : 0,
         'promote' => isset($_POST['promoteSwitch']) ? 1 : 0,
     ];
+
+    if (preg_match($pattern, $formData['fullname'])) {
+        redirect('user-settings.php', 404, 'Full name should not contain special characters');
+    }
 
     if (!empty($formData['password']) && strlen($formData['password']) < 8) {
         redirect('user-edit.php?id='.$_POST['id'], 404, 'Password should be 8 characters or more');
@@ -138,11 +146,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['settings'])) {
     // Collect form data
     $formData = [
-        'id' => $_POST['id'], // Add an ID field to identify the user to update
-        'fullname' => $_POST['fullname'],
-        'email' => $_POST['email'],
-        'password' => $_POST['password'],
+        'id' => validate($_POST['id']), // Add an ID field to identify the user to update
+        'fullname' => validate($_POST['fullname']),
+        'email' => validate($_POST['email']),
+        'password' => validate($_POST['password']),
     ];
+
+    if (preg_match($pattern, $formData['fullname'])) {
+        redirect('user-settings.php', 404, 'Full name should not contain special characters');
+    }
 
     if (!empty($formData['password']) && strlen($formData['password']) < 8) {
         redirect('user-settings.php', 404, 'Password should be 8 characters or more');

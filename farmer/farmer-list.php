@@ -66,14 +66,14 @@
                           <!-- <a href="../farmer-assets/parcels.php?fps=" data-bs-toggle="tooltip" data-bs-placement="top" title="View Parcels" class="btn btn-sm btn-primary"><i class="bi bi-puzzle-fill"></i></a> -->
                           <a href="farmer-view.php?id=<?= $row['id']?>&farms=true" data-bs-toggle="tooltip" data-bs-placement="top" title="View Parcels" class="btn btn-sm btn-primary"><i class="bi bi-puzzle-fill"></i></a>
                             <?php if ($_SESSION['LoggedInUser']['can_edit'] == 1) { ?>
-                              <a href="farmer-view.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
+                              <a href="farmer-view.php?id=<?= $row['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="View Farmer Profile" class="btn btn-sm btn-success"><i class="bi bi-person-square"></i></a>
                             <?php } ?>
-                            <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?>
+                            <?php if ($_SESSION['LoggedInUser']['can_archive'] == 1) { ?> 
                               <a onclick="return confirm('Are you sure you want to archive it?')"
                                 href="../backend/archive.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="bi bi-archive-fill"></i></a>
                             <?php } ?>
                             <?php if ($_SESSION['LoggedInUser']['role'] == 1) { ?>
-                              <a class="btn btn-sm btn-secondary" href="../backend/activity-logs.php?id=<?= $row['id']; ?>&farmers=Farmer"><i class="bi bi-info-circle-fill"></i></a>
+                              <a class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="View Logs" href="../backend/activity-logs.php?id=<?= $row['id']; ?>&farmers=Farmer"><i class="bi bi-info-circle-fill"></i></a>
                             <?php } ?>
                           </td>
                         <?php else: ?>

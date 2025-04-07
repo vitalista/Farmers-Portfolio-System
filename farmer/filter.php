@@ -1,12 +1,17 @@
 <?php
 try {
-    $archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
+
+
+
+
+$archived = isset($_GET['archived']) && $_GET['archived'] == 1 ? '1' : '0';
 $query = "
      SELECT * FROM farmers WHERE is_archived =  ".$archived."
 ";
 $whereConditions = [];
 $params = [];
 $types = "";
+
 
 if (!empty($_GET['farmer']) && !empty($_GET['farmerComparison'])) {
     $column = validate($_GET['farmerComparison']);
@@ -148,7 +153,6 @@ $result = $stmt->get_result();
             </div>
             <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
             <form id="filterForm" class="row" method="get">
-
                     <div class="col-md-4 mb-3">
                         <label for="created" class="form-label">Created</label>
                         <select id="created" name="created" class="form-select" onchange="toggleDateInputs(this.value)">

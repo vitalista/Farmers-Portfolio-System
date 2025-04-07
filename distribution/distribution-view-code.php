@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $distributions['program_id'] = $programId;
     $distributions['quantity_distributed'] = $quantityDistributed;
     $distributions['distribution_date'] = $distributionDate;
-    $distributions['remarks'] = $remarks;
+    $distributions['remarks'] = validate($remarks);
 
     // Check if all required fields are provided
     if ($farmerId && $resourcesId && $programId && $quantityDistributed && $distributionDate) {
@@ -55,22 +55,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
           }   
 
-        $updateQuery = "UPDATE distributions SET 
-                        farmer_id = ?, 
-                        resource_id = ?, 
-                        program_id = ?, 
-                        quantity_distributed = ?, 
-                        distribution_date = ?,
-                        remarks = ?,
-                        modified_times = ?
-                        WHERE id = ?";
-
-        // Prepare and execute the SQL query
-        $stmt = $conn->prepare($updateQuery);
-        $stmt->bind_param("iiidsii", $farmerId, $resourcesId, $programId, $quantityDistributed, $distributionDate, 
-        $remarks,
-        $modifiedTimes,
-        $distributionId);
+          $updateQuery = "UPDATE distributions SET 
+          farmer_id = ?, 
+          resource_id = ?, 
+          program_id = ?, 
+          quantity_distributed = ?, 
+          distribution_date = ?,
+          remarks = ?,
+          modified_times = ?
+          WHERE id = ?";
+      
+      // Prepare the SQL statement
+      $stmt = $conn->prepare($updateQuery);
+      
+      // Check if the statement prepared successfully
+      if (!$stmt) {
+          die("Prepare failed: " . $conn->error);
+      }
+      
+      // Bind the parameters
+      $stmt->bind_param(
+          "iiidssii", // 8 parameters: i, i, i, d, s, s, i, i
+          $farmerId,
+          $resourcesId,
+          $programId,
+          $quantityDistributed,
+          $distributionDate,
+          $remarks,
+          $modifiedTimes,
+          $distributionId
+      );
 
         if (!$stmt->execute()) {
             echo "<h5>Error updating distribution. Please try again later.</h5>";

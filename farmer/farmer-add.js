@@ -158,36 +158,36 @@ document.getElementById("addFarmButton").addEventListener("click", function () {
 
         <div class="col-md-3 mb-3">
             <label class="ms-1">Crop Name<span class="text-danger fw-bold red-star"></span></label>
-            <input id="" type="text" list="cropTypes" placeholder="Type here..." class="form-control crop cropName" required>
-             <datalist id="cropTypes">
-                <option value="Rice/Palay">
-                <option value="Water melon">
-                <option value="String beans - harvested green (sitao)">
-                <option value="Patola">
-                <option value="Okra">
-                <option value="Eggplant (talong)">
-                <option value="Batao">
-                <option value="Pechay">
-                <option value="Corn">
-                <option value="Chili (labuyo)">
-                <option value="Camote">
-                <option value="Mustard">
-                <option value="Mango">
-                <option value="Tomato (kamatis)">
-                <option value="Ampalaya">
-                <option value="Long Chili">
-                <option value="Mongo (Mung Bean)">
-                <option value="Common gourd (upo)">
-                <option value="Bush Sitao">
-                <option value="Winged Bean (pallang)">
-                <option value="Cucumber (pipino)">
-                <option value="Squash (kalabasa)">
-                <option value="Papaya">
-                <option value="Onion bulbs (sibuyas)">
-                <option value="Rambutan">
-                <option value="Kangkong">
-                <option value="Spinach">
-            </datalist>
+           <select id="cropName" class="form-select crop cropName" required>
+            <option value="" disabled selected>Select crop type</option>
+            <option value="Rice/Palay">Rice/Palay</option>
+            <option value="Water melon">Water melon</option>
+            <option value="String beans - harvested green (sitao)">String beans - harvested green (sitao)</option>
+            <option value="Patola">Patola</option>
+            <option value="Okra">Okra</option>
+            <option value="Eggplant (talong)">Eggplant (talong)</option>
+            <option value="Batao">Batao</option>
+            <option value="Pechay">Pechay</option>
+            <option value="Corn">Corn</option>
+            <option value="Chili (labuyo)">Chili (labuyo)</option>
+            <option value="Camote">Camote</option>
+            <option value="Mustard">Mustard</option>
+            <option value="Mango">Mango</option>
+            <option value="Tomato (kamatis)">Tomato (kamatis)</option>
+            <option value="Ampalaya">Ampalaya</option>
+            <option value="Long Chili">Long Chili</option>
+            <option value="Mongo (Mung Bean)">Mongo (Mung Bean)</option>
+            <option value="Common gourd (upo)">Common gourd (upo)</option>
+            <option value="Bush Sitao">Bush Sitao</option>
+            <option value="Winged Bean (pallang)">Winged Bean (pallang)</option>
+            <option value="Cucumber (pipino)">Cucumber (pipino)</option>
+            <option value="Squash (kalabasa)">Squash (kalabasa)</option>
+            <option value="Papaya">Papaya</option>
+            <option value="Onion bulbs (sibuyas)">Onion bulbs (sibuyas)</option>
+            <option value="Rambutan">Rambutan</option>
+            <option value="Kangkong">Kangkong</option>
+            <option value="Spinach">Spinach</option>
+          </select>
         </div>
 
         <div class="col-md-2 mb-3">
@@ -248,21 +248,22 @@ document.getElementById("addFarmButton").addEventListener("click", function () {
   <div class="form-group">
     <label for="livestockType">Animal type<span class="text-danger fw-bold red-star"></span></label>
     <div class="input-group">
-      <input type="text" id="livestockType" list="livestockTypes" class="form-control livestockType" placeholder="Type here..." required>
-      <datalist id="livestockTypes">
-        <option value="Pigs or swine">       
-        <option value="Buffaloes (Carabaos)">
-        <option value="Goats">
-        <option value="Ducks">
-        <option value="Chickens">
-        <option value="Turkeys">
-        <option value="Geese">
-        <option value="Sheep">
-        <option value="Cattle">
-        <option value="Horses">
-        <option value="Rabbits and hares">
-        <option value="Quail">
-      </datalist>
+      <select id="livestockType" class="form-select livestockType" required>
+        <option value="" disabled selected>Choose...</option>
+        <option value="Pigs or swine">Pigs or swine</option>
+        <option value="Buffaloes (Carabaos)">Buffaloes (Carabaos)</option>
+        <option value="Goats">Goats</option>
+        <option value="Ducks">Ducks</option>
+        <option value="Chickens">Chickens</option>
+        <option value="Turkeys">Turkeys</option>
+        <option value="Geese">Geese</option>
+        <option value="Sheep">Sheep</option>
+        <option value="Cattle">Cattle</option>
+        <option value="Horses">Horses</option>
+        <option value="Rabbits and hares">Rabbits and hares</option>
+        <option value="Quail">Quail</option>
+      </select>
+
       <div class="input-group-append">
         <a class="btn btn-sm btn-danger removeLivestockButton mt-1"><i class="fa-solid fa-trash-can"></i></a>
       </div>
@@ -358,6 +359,11 @@ function emptyFields(card, idArr = [], classArr = []) {
 
   console.log(emptyFields);
   return emptyFields.length === 0 ? false : emptyFields;
+}
+
+function escapeHtml(unsafe) {
+  if (unsafe === null || unsafe === undefined) return '';
+  return String(unsafe).replace(/[<>/]/g, '');
 }
 
 document
@@ -544,28 +550,28 @@ document
       console.log("Class not exists!");
     }
 
-    const ffrs = card.querySelector(".ffrs").value;
-    const brgy = card.querySelector(".brgy").value;
-    const municipality = card.querySelector(".municipality").value;
-    const province = card.querySelector(".province").value;
-    const firstName = card.querySelector(".firstName").value;
-    const middleName = card.querySelector(".middleName").value;
-    const lastName = card.querySelector(".lastName").value;
-    const extName = card.querySelector(".extName").value;
-    const gender = card.querySelector(".gender").value;
-    const bday = card.querySelector(".bday").value;
-    const deceased = card.querySelector(".deceased").checked ? 1 : 0;
+    const ffrs = escapeHtml(card.querySelector(".ffrs").value);
+    const brgy = escapeHtml(card.querySelector(".brgy").value);
+    const municipality = escapeHtml(card.querySelector(".municipality").value);
+    const province = escapeHtml(card.querySelector(".province").value);
+    const firstName = escapeHtml(card.querySelector(".firstName").value);
+    const middleName = escapeHtml(card.querySelector(".middleName").value);
+    const lastName = escapeHtml(card.querySelector(".lastName").value);
+    const extName = escapeHtml(card.querySelector(".extName").value);
+    const gender = escapeHtml(card.querySelector(".gender").value);
+    const bday = escapeHtml(card.querySelector(".bday").value);
+    const deceased = escapeHtml(card.querySelector(".deceased").checked ? 1 : 0);
 
-    const govIdType = card.querySelector(".govIdType").value;
-    const govIdNumber = card.querySelector(".govIdNumber").value;
-    const hbp = card.querySelector(".hbp").value;
-    const sss = card.querySelector(".sss").value;
-    const region = card.querySelector(".region").value;
+    const govIdType = escapeHtml(card.querySelector(".govIdType").value);
+    const govIdNumber = escapeHtml(card.querySelector(".govIdNumber").value);
+    const hbp = escapeHtml(card.querySelector(".hbp").value);
+    const sss = escapeHtml(card.querySelector(".sss").value);
+    const region = escapeHtml(card.querySelector(".region").value);
     const selected_enrollment = "";
     if (document.getElementById(".selected_enrollment")) {
-      selected_enrollment = document.getElementById(
+      selected_enrollment = escapeHtml(document.getElementById(
         ".selected_enrollment"
-      ).value;
+      ).value);
     }
 
     // Select all input elements with the class 'parcelNum' and type 'hidden'
@@ -661,24 +667,24 @@ document
     if (farmCards.length > 0) {
       review += `<label class="fw-bold">Farm Information</label class="fw-bold">`;
       farmCards.forEach((card) => {
-        const ofName = card.querySelector(".ofName").value;
-        const olName = card.querySelector(".olName").value;
-        const ownership = card.querySelector(".ownership").value;
-        const farmLocationBrgy = card.querySelector(".farmLocationBrgy").value;
-        const farmLocationMunicipality = card.querySelector(
+        const ofName = escapeHtml(card.querySelector(".ofName").value);
+        const olName = escapeHtml(card.querySelector(".olName").value);
+        const ownership = escapeHtml(card.querySelector(".ownership").value);
+        const farmLocationBrgy = escapeHtml(card.querySelector(".farmLocationBrgy").value);
+        const farmLocationMunicipality = escapeHtml(card.querySelector(
           ".farmLocationMunicipality"
-        ).value;
-        const farmLocationProvince = card.querySelector(
+        ).value);
+        const farmLocationProvince = escapeHtml(card.querySelector(
           ".farmLocationProvince"
-        ).value;
-        const farmType = card.querySelector(".farmType").value;
-        const farmSize = card.querySelector(".farmSize").value;
-        const parcelNum = parseInt(card.querySelector(".parcelNum").value, 10);
+        ).value);
+        const farmType = escapeHtml(card.querySelector(".farmType").value);
+        const farmSize = escapeHtml(card.querySelector(".farmSize").value);
+        const parcelNum = parseInt(escapeHtml(card.querySelector(".parcelNum").value, 10));
 
         let parcel_id = "";
 
         if (card.querySelector(".parcel_id")) {
-          parcel_id = card.querySelector(".parcel_id").value;
+          parcel_id = escapeHtml(card.querySelector(".parcel_id").value);
           console.log(`Farm exists! ${parcel_id}`);
         } else {
           console.log("Class not exists!");
@@ -733,17 +739,17 @@ document
       <label class="fw-bold">Crop Information</label class="fw-bold">
     `;
       cropCards.forEach((card) => {
-        const parcelNum = card.querySelector(".parcelNum").value;
-        const hvc = card.querySelector(".hvc").checked ? 1 : 0;
-        const cropArea = card.querySelector(".cropArea").value;
-        const cropName = card.querySelector(".cropName").value;
+        const parcelNum = escapeHtml(card.querySelector(".parcelNum").value);
+        const hvc = escapeHtml(card.querySelector(".hvc").checked ? 1 : 0);
+        const cropArea = escapeHtml(card.querySelector(".cropArea").value);
+        const cropName = escapeHtml(card.querySelector(".cropName").value);
         const classification = parseInt(
-          card.querySelector(".classification").value
+          escapeHtml(card.querySelector(".classification").value)
         );
 
         let crop_id = "";
         if (card.querySelector(".crop_id")) {
-          crop_id = card.querySelector(".crop_id").value;
+          crop_id = escapeHtml(card.querySelector(".crop_id").value);
           console.log(`Crop exists! ${crop_id}`);
         } else {
           console.log("Class not exists!");
@@ -790,16 +796,16 @@ document
       <label class="fw-bold">Livestock Information</label class="fw-bold">
     `;
       livestockCards.forEach((card) => {
-        const parcelNum = card.querySelector(".parcelNum").value;
+        const parcelNum = escapeHtml(card.querySelector(".parcelNum").value);
         const numberOfHeads = parseInt(
-          card.querySelector(".numberOfHeads").value
+          escapeHtml(card.querySelector(".numberOfHeads").value)
         );
-        const livestockType = card.querySelector(".livestockType").value;
+        const livestockType = escapeHtml(card.querySelector(".livestockType").value);
 
         let livestock_id = "";
 
         if (card.querySelector(".livestock_id")) {
-          livestock_id = card.querySelector(".livestock_id").value;
+          livestock_id = escapeHtml(card.querySelector(".livestock_id").value);
           console.log(`LS exists! ${livestock_id}`);
         } else {
           console.log("Class not exists!");

@@ -9,13 +9,14 @@ if($_SESSION['LoggedInUser']['role'] != 1){
 
 if (isset($_POST['submit'])) {
     $table = $_POST['table'];
-    // Handle the file upload
+    try {
+        
+        // Handle the file upload
     if ($_FILES['csv_file']['error'] == 0) {
         $csvFile = $_FILES['csv_file']['tmp_name'];
 
         // Open the CSV file
         if (($handle = fopen($csvFile, 'r')) !== false) {
-            // Read the first row (header row) for column names
             $columns = fgetcsv($handle);
             // print_r($columns);
             // Build the SQL INSERT statement dynamically based on the columns
@@ -49,6 +50,10 @@ if (isset($_POST['submit'])) {
         }
     } else {
         echo "Error uploading file.";
+    }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+        echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
     }
 }
 

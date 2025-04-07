@@ -95,6 +95,11 @@ function emptyFields(card, idArr = [], classArr = []) {
   return emptyFields.length === 0 ? false : emptyFields;
 }
 
+function escapeHtml(unsafe) {
+  return unsafe.replace(/[<>/]/g, '');
+}
+
+
 document.getElementById("submitButton").addEventListener("click", function (e) {
   const classArr = [
     "nameOfProgram",
@@ -199,23 +204,23 @@ document.getElementById("submitButton").addEventListener("click", function (e) {
   let program_id = "";
   let beneficiaries = "";
   if (card.querySelector(".program_id")) {
-    beneficiaries = parseInt(card.querySelector(".beneficiaries").value);
-    program_id = card.querySelector(".program_id").value;
+    beneficiaries = parseInt(escapeHtml(card.querySelector(".beneficiaries").value));
+    program_id = escapeHtml(card.querySelector(".program_id").value);
     console.log(`Program exists! ${program_id}`);
   } else {
     console.log("Class not exists!");
   }
 
-  const description = card.querySelector(".description").value;
+  const description = escapeHtml(card.querySelector(".description").value);
   const totalBeneficiaries = parseInt(
-    card.querySelector(".totalBeneficiaries").value
-  );
-  const endDate = card.querySelector(".endDate").value;
-  const startDate = card.querySelector(".startDate").value;
-  const programType = card.querySelector(".programType").value;
-  const sourcingAgency = card.querySelector(".sourcingAgency").value;
-  const nameOfProgram = card.querySelector(".nameOfProgram").value;
-  const programColor = card.querySelector(".programColor").value;
+    escapeHtml(card.querySelector(".totalBeneficiaries").value
+  ));
+  const endDate = escapeHtml(card.querySelector(".endDate").value);
+  const startDate = escapeHtml(card.querySelector(".startDate").value);
+  const programType = escapeHtml(card.querySelector(".programType").value);
+  const sourcingAgency = escapeHtml(card.querySelector(".sourcingAgency").value);
+  const nameOfProgram = escapeHtml(card.querySelector(".nameOfProgram").value);
+  const programColor = escapeHtml(card.querySelector(".programColor").value);
 
   let review = ``;
 
@@ -273,20 +278,20 @@ document.getElementById("submitButton").addEventListener("click", function (e) {
   if (resourcesCard.length > 0) {
     review += `<label class="fw-bold">Resources</label class="fw-bold">`;
     resourcesCard.forEach((card) => {
-      const resourcesName = card.querySelector(".resourcesName").value;
-      const resourcesType = card.querySelector(".resourcesType").value;
+      const resourcesName = escapeHtml(card.querySelector(".resourcesName").value);
+      const resourcesType = escapeHtml(card.querySelector(".resourcesType").value);
       const resourcesNumber = parseFloat(
-        card.querySelector(".resourcesNumber").value
+        escapeHtml(card.querySelector(".resourcesNumber").value)
       );
-      const unitOfMeasure = card.querySelector(".unitOfMeasure").value;
+      const unitOfMeasure = escapeHtml(card.querySelector(".unitOfMeasure").value);
 
       let resources_id = "";
       let resourcesAvailable = "";
 
       if (card.querySelector(".resources_id")) {
-        resources_id = card.querySelector(".resources_id").value;
+        resources_id = escapeHtml(card.querySelector(".resources_id").value);
         resourcesAvailable = parseFloat(
-          card.querySelector(".resourcesAvailable").value
+          escapeHtml(card.querySelector(".resourcesAvailable").value)
         );
         console.log(
           `resources_id exists! ${resources_id} ${resourcesAvailable}`
