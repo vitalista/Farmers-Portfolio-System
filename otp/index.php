@@ -31,8 +31,8 @@ include '../includes/head.php';
     </header><!-- End Header -->
 
     <main class="login-bg">
-    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 col-15 d-flex flex-column align-items-center justify-content-center">
                 <style>
@@ -40,26 +40,28 @@ include '../includes/head.php';
                 </style>    
                 <div class="card text-center">
 
-                    <input type="hidden" id="email" name="email" value="<?= $_SESSION['LoggedInUser']['email'];?>">
-
-                    <input type="hidden" value="<?= isset($_SESSION['otpTime']) ? date("Y-m-d H:i:s", $_SESSION['otpTime']) : ''; ?>">
-                    <input type="hidden" value="<?= isset($_SESSION['otp']) ? $_SESSION['otp'] : ''; ?>">
-                    <input type="hidden" value="<?= isset($_SESSION['otp_attempts']) ? $_SESSION['otp_attempts'] : ''; ?>">
-
                     <?php include '../backend/status-messages.php';?>
                     
-                        <div class="card-body p-4 auth-card" data-aos="zoom-in" data-aos-duration="500">
+                        <div class=" card-body p-4 auth-card" data-aos="zoom-in" data-aos-duration="500">
                             <h5 class="card-title">Account Verification</h5>
-                            <p class="card-text">Enter the 6-digit verification code that was sent to your email account. 3 attempts for 1 minute.</p>
-                            <form id="otp-form" method="POST" class="" action="verify.php">
+                            <p class="card-text">Enter the 6-digit verification code that was sent to your email account. 3 attempts for 5 minutes.</p>
+                            <form id="otp-form" method="POST" class="" action="verify.php" autocomplete="off">
                                 <div class="d-flex justify-content-center mb-4">
                                     <?php for ($i = 1; $i <= 6; $i++): ?>
-                                        <input name="<?= $i ?>" type="text" class="form-control mx-1 text-center" style="height: 3rem; font-size: 1.5rem;" maxlength="1" pattern="\d*" required>
+                                        <input name="<?= $i ?>" type="number" class="form-control mx-1 text-center no-spin-button" style="height: 3rem; font-size: 1.5rem;" maxlength="1" pattern="\d*" required>
                                     <?php endfor; ?>
                                 </div>
                                 <button type="submit" name="verify" class="btn btn-success w-100">Verify</button>
                             </form>
-                            <pre class="d-none">
+                            <p id="timer" class="fs-4 mt-1 fw-bold text-success">30</p>
+                             <div class=" mt-3 d-flex d-none" id="resendDiv">
+                            <p class="text-success me-2">Want to resend OTP?</p>
+                            <form method="POST" action="sendOTP.php">
+                                <input type="hidden" id="email" name="email" value="<?= $_SESSION['LoggedInUser']['email'];?>">
+                                <button type="submit" class="text-success fw-bold text-decoration-underline bg-transparent border-0" name="resend" id="resend">Click Here.</button>
+                            </form>
+                             </div>
+                               <pre class="d-none">
                                 <?php print_r($_SESSION['LoggedInUser'])?>
                             </pre>
                             <!-- <div class="mt-3">
@@ -79,7 +81,7 @@ include '../includes/head.php';
             console.log(`Time: ${seconds} second(s)`);
             seconds++;
 
-            if (seconds >= 60) {
+            if (seconds >= 300) {
                 clearInterval(interval); 
                 console.log("Time Out!");
             }

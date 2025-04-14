@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["verify"])) {
 
     $time_diff = $current_time - $_SESSION['otpTime'];
 
-    if ($time_diff > 60) {
+    if ($time_diff > 300) {
         unsetSessions();
         redirect('../login/index.php', 404, 'Your OTP has expired. Please relogin.');
     }

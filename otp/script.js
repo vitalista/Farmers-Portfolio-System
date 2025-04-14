@@ -15,6 +15,22 @@ function sendOTP(email) {
 }
 sendOTP(document.getElementById("email").value);
 
+let timeLeft = 30; // Set countdown time in seconds
+    const timerElement = document.getElementById("timer");
+    const countdownDiv = document.getElementById("resendDiv");
+
+const countdownInterval = setInterval(function() {
+    if (timeLeft > 0) {
+        timerElement.textContent = timeLeft;
+        timeLeft--;
+    } else {
+        clearInterval(countdownInterval);
+        timerElement.style.display = "none";
+        countdownDiv.classList.remove('d-none');
+    }
+}, 1000);
+
+
 // document.getElementById("resend").addEventListener("click", function() {
 //   sendOTP(document.getElementById("email").value);
 // });
@@ -22,7 +38,7 @@ sendOTP(document.getElementById("email").value);
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("otp-form");
-  const inputs = [...form.querySelectorAll("input[type=text]")];
+  const inputs = [...form.querySelectorAll("input[type=number]")];
   const submit = form.querySelector("button[type=submit]");
 
   const handleKeyDown = (e) => {

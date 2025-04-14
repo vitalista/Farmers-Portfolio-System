@@ -1,5 +1,6 @@
 <?php
-require 'database.php';
+require_once 'database.php';
+
 session_set_cookie_params([
     'lifetime' => 3600,  
     'path' => '/',
@@ -27,14 +28,6 @@ if (isset($_SESSION["LAST_ACTIVITY"])) {
 $_SESSION["LAST_ACTIVITY"] = time();
 }
 
-$_SESSION['LoggedIn'] = true;
-$_SESSION['LoggedInUser']['role'] = 1;
-$_SESSION['LoggedInUser']['can_edit'] = 1;
-$_SESSION['LoggedInUser']['can_create'] = 1;
-$_SESSION['LoggedInUser']['can_archive'] = 1;
-$_SESSION['LoggedInUser']['can_export'] = 1;
-$_SESSION['LoggedInUser']['id'] = 3;
-$_SESSION['LoggedInUser']['full_name'] = "DEV";
 
 function setLastAct() {
     $id = (int)$_SESSION['LoggedInUser']['id'];
@@ -860,7 +853,3 @@ function emailExists($email) {
     }
     $stmt->close();
 }
-
-
-
-?>
