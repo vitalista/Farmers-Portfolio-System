@@ -1,46 +1,32 @@
-Remove the dollar sign "$" to include module.
-If ERROR change || check database name
-[Baliwag Agriculture](https://baliwagargiculture.shop/)
-Notes for Backend:
+The project – [Visit Here](https://agribaliwag.site/)
 
-- [x] Use php to hide action buttons at each list page
-- [x] Edit log fetch id in url OR using js to get value then submit in current page
-- [x] Counter for each parcels added at farmers-add.php
-- [x] Empty array to hide dbuttons
+**Usage Tip:**  
+- **Remove** the dollar sign (`$`) to **include** the module  
+- **Add** the dollar sign (`$`) to **remove** the module
+
+# OTP and Contact Us Setup Guide
+
+To enable the **OTP** and **Contact Us** features, follow the steps below:
+
+## 📁 Setup Instructions
+
+1. **Configure Environment Variables**
+
+   - Create a `.env` file in the root directory (if it doesn't exist).
+   - Add the necessary environment variables for mail configuration (e.g., SMTP host, email, password, etc.).
+
+2. **Install PHPMailer**
+
+   - Unzip the PHPMailer vendor folder (if it's not already unzipped).
+   - Copy the entire PHPMailer folder into the `otp/` directory.
+
+## ⚠️ Important Note
+The database schema file (`schema.sql`) is **not included** in this project. 
 
       TO Do's:
 
-- [x] FARM TYPE should be in crops db table
-- [x] change VIEW and ADD in farmers ownership type and farm type to datalist not select tag
-- [x] diff action column for lists like distribution-list.php
-- [x] FIlter LIKE contains string only find exact word not per letter exist
-- [x] archive and modified log name
-- [x] GENERATE dashboard content adn brgy
-- [x] restored
-- [x] restrictions options in every lists
-- [x] unused btns and make it sm
-- [x] update image
-- [x] fps code in every table
-- [x] remove act log and archived and restored
-- [x] inconsistent aos animations
-
-- [x] reports
-- [] filter updating/new
 - [] contact us not ajax
 - [] modified_times bug
-- [] fps insertion should'nt be update 
-- [] change fps auto generate alogrithm
 - [] announcement pagination
-- [] current pw and (do wanna change pw?)
-- [] brgy dtbtns
-- [x] hide FFRS code field when new is selected
-- [x] confirm password
-- [x] Important Fields
-- [x] individual farmer export
-
-- [x] session last act bug [optional]
+- [] current pw and (do u wanna change pw?)
 - [] updating click change archived the old record [optional]
-- [] resend OTP [optional]
-- [x] registration insertion [optional]
-- [x] registration insertion [optional]
-- [x] distribution bug will distribute even quantity exceeds
